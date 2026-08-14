@@ -8,6 +8,11 @@ import 'widgets/secondary_button.dart';
 import 'widgets/stat_card.dart';
 import 'widgets/child_card.dart';
 import 'widgets/bottom_navigation.dart';
+import 'features/children/children_screen.dart';
+import 'features/screen_time/screen_time_screen.dart';
+import 'features/content_control/content_control_screen.dart';
+import 'features/activities/activities_screen.dart';
+import 'features/games/games_screen.dart';
 
 void main() {
   runApp(const ParentAssistantApp());
@@ -631,10 +636,19 @@ class _DashboardDemoScreenState
         ),
         bottomNavigationBar: AppBottomNavigation(
           currentIndex: currentIndex,
-          onTap: (index) {
+            onTap: (index) {
             setState(() {
               currentIndex = index;
             });
+
+            if (index == 1) {
+              Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (_) => const ChildrenScreen(),
+                ),
+              );
+            }
           },
         ),
       ),
