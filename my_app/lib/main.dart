@@ -8,11 +8,11 @@ import 'widgets/secondary_button.dart';
 import 'widgets/stat_card.dart';
 import 'widgets/child_card.dart';
 import 'widgets/bottom_navigation.dart';
+
 import 'features/children/children_screen.dart';
-import 'features/screen_time/screen_time_screen.dart';
-import 'features/content_control/content_control_screen.dart';
 import 'features/activities/activities_screen.dart';
-import 'features/games/games_screen.dart';
+import 'features/development/development_screen.dart';
+import 'features/profile/profile_screen.dart';
 
 void main() {
   runApp(const ParentAssistantApp());
@@ -54,7 +54,6 @@ class WelcomeScreen extends StatelessWidget {
               children: [
                 const SizedBox(height: 45),
 
-                // Logo
                 Container(
                   width: 170,
                   height: 170,
@@ -123,7 +122,6 @@ class WelcomeScreen extends StatelessWidget {
 
                 const SizedBox(height: 100),
 
-                // White content section
                 Container(
                   width: double.infinity,
                   padding: const EdgeInsets.fromLTRB(
@@ -172,7 +170,8 @@ class WelcomeScreen extends StatelessWidget {
                           Navigator.push(
                             context,
                             MaterialPageRoute(
-                              builder: (_) => const RegisterDemoScreen(),
+                              builder: (_) =>
+                                  const RegisterDemoScreen(),
                             ),
                           );
                         },
@@ -187,7 +186,8 @@ class WelcomeScreen extends StatelessWidget {
                           Navigator.push(
                             context,
                             MaterialPageRoute(
-                              builder: (_) => const LoginDemoScreen(),
+                              builder: (_) =>
+                                  const LoginDemoScreen(),
                             ),
                           );
                         },
@@ -203,7 +203,9 @@ class WelcomeScreen extends StatelessWidget {
                             ),
                           ),
                           Padding(
-                            padding: EdgeInsets.symmetric(horizontal: 15),
+                            padding: EdgeInsets.symmetric(
+                              horizontal: 15,
+                            ),
                             child: Text(
                               'أو',
                               style: TextStyle(
@@ -301,7 +303,8 @@ class LoginDemoScreen extends StatelessWidget {
                   Navigator.pushReplacement(
                     context,
                     MaterialPageRoute(
-                      builder: (_) => const DashboardDemoScreen(),
+                      builder: (_) =>
+                          const DashboardDemoScreen(),
                     ),
                   );
                 },
@@ -375,7 +378,8 @@ class RegisterDemoScreen extends StatelessWidget {
                   Navigator.pushReplacement(
                     context,
                     MaterialPageRoute(
-                      builder: (_) => const DashboardDemoScreen(),
+                      builder: (_) =>
+                          const DashboardDemoScreen(),
                     ),
                   );
                 },
@@ -421,235 +425,264 @@ class _DashboardDemoScreenState
       textDirection: TextDirection.rtl,
       child: Scaffold(
         backgroundColor: const Color(0xFFF7F8FC),
-        body: SafeArea(
-          child: SingleChildScrollView(
-            padding: const EdgeInsets.all(20),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                const SizedBox(height: 10),
 
-                const Text(
-                  'مرحبًا بك 👋',
-                  style: TextStyle(
-                    color: Color(0xFF8A94AA),
-                    fontSize: 15,
-                  ),
-                ),
+        body: _buildCurrentPage(),
 
-                const SizedBox(height: 5),
-
-                const Text(
-                  'كيف حال عائلتك اليوم؟',
-                  style: TextStyle(
-                    color: Color(0xFF2E3B63),
-                    fontSize: 26,
-                    fontWeight: FontWeight.bold,
-                  ),
-                ),
-
-                const SizedBox(height: 25),
-
-                ChildCard(
-                  child: child,
-                  onTap: () {},
-                ),
-
-                const SizedBox(height: 25),
-
-                const Text(
-                  'ملخص اليوم',
-                  style: TextStyle(
-                    color: Color(0xFF2E3B63),
-                    fontSize: 20,
-                    fontWeight: FontWeight.bold,
-                  ),
-                ),
-
-                const SizedBox(height: 14),
-
-                Row(
-                  children: [
-                    Expanded(
-                      child: StatCard(
-                        title: 'وقت الشاشة',
-                        value: '2س 15د',
-                        subtitle: 'من 3 ساعات',
-                        icon: Icons.smartphone_rounded,
-                        iconColor: const Color(0xFFFF624E),
-                      ),
-                    ),
-                    const SizedBox(width: 12),
-                    Expanded(
-                      child: StatCard(
-                        title: 'التعلم',
-                        value: '1س 20د',
-                        subtitle: 'هذا اليوم',
-                        icon: Icons.menu_book_rounded,
-                        iconColor: const Color(0xFF62D9D4),
-                      ),
-                    ),
-                  ],
-                ),
-
-                const SizedBox(height: 12),
-
-                Row(
-                  children: [
-                    Expanded(
-                      child: StatCard(
-                        title: 'النوم',
-                        value: '8س 10د',
-                        subtitle: 'الليلة الماضية',
-                        icon: Icons.bedtime_rounded,
-                        iconColor: const Color(0xFF7C89B8),
-                      ),
-                    ),
-                    const SizedBox(width: 12),
-                    Expanded(
-                      child: StatCard(
-                        title: 'النقاط',
-                        value: '250',
-                        subtitle: 'نقطة',
-                        icon: Icons.star_rounded,
-                        iconColor: const Color(0xFFFFB84D),
-                      ),
-                    ),
-                  ],
-                ),
-
-                const SizedBox(height: 28),
-
-                Container(
-                  width: double.infinity,
-                  padding: const EdgeInsets.all(20),
-                  decoration: BoxDecoration(
-                    color: const Color(0xFF2E3B63),
-                    borderRadius: BorderRadius.circular(25),
-                  ),
-                  child: Row(
-                    children: [
-                      Container(
-                        width: 55,
-                        height: 55,
-                        decoration: BoxDecoration(
-                          color: const Color(0xFF62D9D4),
-                          borderRadius: BorderRadius.circular(18),
-                        ),
-                        child: const Icon(
-                          Icons.auto_awesome_rounded,
-                          color: Color(0xFF2E3B63),
-                          size: 30,
-                        ),
-                      ),
-
-                      const SizedBox(width: 15),
-
-                      const Expanded(
-                        child: Column(
-                          crossAxisAlignment:
-                              CrossAxisAlignment.start,
-                          children: [
-                            Text(
-                              'مساعد التربية الذكي',
-                              style: TextStyle(
-                                color: Colors.white,
-                                fontSize: 17,
-                                fontWeight: FontWeight.bold,
-                              ),
-                            ),
-                            SizedBox(height: 5),
-                            Text(
-                              'اسألني أي شيء عن تربية طفلك',
-                              style: TextStyle(
-                                color: Color(0xFFD8DDEC),
-                                fontSize: 12,
-                              ),
-                            ),
-                          ],
-                        ),
-                      ),
-
-                      const Icon(
-                        Icons.arrow_back_ios_new_rounded,
-                        color: Colors.white,
-                        size: 18,
-                      ),
-                    ],
-                  ),
-                ),
-
-                const SizedBox(height: 25),
-
-                const Text(
-                  'نشاط اليوم 🎯',
-                  style: TextStyle(
-                    color: Color(0xFF2E3B63),
-                    fontSize: 20,
-                    fontWeight: FontWeight.bold,
-                  ),
-                ),
-
-                const SizedBox(height: 12),
-
-                Container(
-                  width: double.infinity,
-                  padding: const EdgeInsets.all(20),
-                  decoration: BoxDecoration(
-                    color: Colors.white,
-                    borderRadius: BorderRadius.circular(24),
-                  ),
-                  child: const Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Text(
-                        '🎨 اصنع قصة مصورة',
-                        style: TextStyle(
-                          color: Color(0xFF2E3B63),
-                          fontSize: 18,
-                          fontWeight: FontWeight.bold,
-                        ),
-                      ),
-                      SizedBox(height: 8),
-                      Text(
-                        'نشاط إبداعي مناسب لعمر 8 سنوات',
-                        style: TextStyle(
-                          color: Color(0xFF8A94AA),
-                        ),
-                      ),
-                      SizedBox(height: 12),
-                      Text(
-                        '⏱ 30 دقيقة   •   ✏️ قلم وألوان',
-                        style: TextStyle(
-                          color: Color(0xFF62AFAF),
-                          fontSize: 13,
-                        ),
-                      ),
-                    ],
-                  ),
-                ),
-
-                const SizedBox(height: 25),
-              ],
-            ),
-          ),
-        ),
         bottomNavigationBar: AppBottomNavigation(
           currentIndex: currentIndex,
-            onTap: (index) {
+          onTap: (index) {
             setState(() {
               currentIndex = index;
             });
-
-            if (index == 1) {
-              Navigator.push(
-                context,
-                MaterialPageRoute(
-                  builder: (_) => const ChildrenScreen(),
-                ),
-              );
-            }
           },
+        ),
+      ),
+    );
+  }
+
+  Widget _buildCurrentPage() {
+    switch (currentIndex) {
+      case 0:
+        return _buildDashboard();
+
+      case 1:
+        return const ChildrenScreen();
+
+      case 2:
+        return const ActivitiesScreen();
+
+      case 3:
+        return const DevelopmentScreen();
+
+      case 4:
+        return const ProfileScreen();
+
+      default:
+        return _buildDashboard();
+    }
+  }
+
+  Widget _buildDashboard() {
+    return SafeArea(
+      child: SingleChildScrollView(
+        padding: const EdgeInsets.all(20),
+        child: Column(
+          crossAxisAlignment:
+              CrossAxisAlignment.start,
+          children: [
+            const SizedBox(height: 10),
+
+            const Text(
+              'مرحبًا بك 👋',
+              style: TextStyle(
+                color: Color(0xFF8A94AA),
+                fontSize: 15,
+              ),
+            ),
+
+            const SizedBox(height: 5),
+
+            const Text(
+              'كيف حال عائلتك اليوم؟',
+              style: TextStyle(
+                color: Color(0xFF2E3B63),
+                fontSize: 26,
+                fontWeight: FontWeight.bold,
+              ),
+            ),
+
+            const SizedBox(height: 25),
+
+            ChildCard(
+              child: child,
+              onTap: () {},
+            ),
+
+            const SizedBox(height: 25),
+
+            const Text(
+              'ملخص اليوم',
+              style: TextStyle(
+                color: Color(0xFF2E3B63),
+                fontSize: 20,
+                fontWeight: FontWeight.bold,
+              ),
+            ),
+
+            const SizedBox(height: 14),
+
+            Row(
+              children: [
+                Expanded(
+                  child: StatCard(
+                    title: 'وقت الشاشة',
+                    value: '2س 15د',
+                    subtitle: 'من 3 ساعات',
+                    icon: Icons.smartphone_rounded,
+                    iconColor:
+                        const Color(0xFFFF624E),
+                  ),
+                ),
+                const SizedBox(width: 12),
+                Expanded(
+                  child: StatCard(
+                    title: 'التعلم',
+                    value: '1س 20د',
+                    subtitle: 'هذا اليوم',
+                    icon: Icons.menu_book_rounded,
+                    iconColor:
+                        const Color(0xFF62D9D4),
+                  ),
+                ),
+              ],
+            ),
+
+            const SizedBox(height: 12),
+
+            Row(
+              children: [
+                Expanded(
+                  child: StatCard(
+                    title: 'النوم',
+                    value: '8س 10د',
+                    subtitle: 'الليلة الماضية',
+                    icon: Icons.bedtime_rounded,
+                    iconColor:
+                        const Color(0xFF7C89B8),
+                  ),
+                ),
+                const SizedBox(width: 12),
+                Expanded(
+                  child: StatCard(
+                    title: 'النقاط',
+                    value: '250',
+                    subtitle: 'نقطة',
+                    icon: Icons.star_rounded,
+                    iconColor:
+                        const Color(0xFFFFB84D),
+                  ),
+                ),
+              ],
+            ),
+
+            const SizedBox(height: 28),
+
+            Container(
+              width: double.infinity,
+              padding: const EdgeInsets.all(20),
+              decoration: BoxDecoration(
+                color: const Color(0xFF2E3B63),
+                borderRadius:
+                    BorderRadius.circular(25),
+              ),
+              child: Row(
+                children: [
+                  Container(
+                    width: 55,
+                    height: 55,
+                    decoration: BoxDecoration(
+                      color: const Color(0xFF62D9D4),
+                      borderRadius:
+                          BorderRadius.circular(18),
+                    ),
+                    child: const Icon(
+                      Icons.auto_awesome_rounded,
+                      color: Color(0xFF2E3B63),
+                      size: 30,
+                    ),
+                  ),
+
+                  const SizedBox(width: 15),
+
+                  const Expanded(
+                    child: Column(
+                      crossAxisAlignment:
+                          CrossAxisAlignment.start,
+                      children: [
+                        Text(
+                          'مساعد التربية الذكي',
+                          style: TextStyle(
+                            color: Colors.white,
+                            fontSize: 17,
+                            fontWeight:
+                                FontWeight.bold,
+                          ),
+                        ),
+                        SizedBox(height: 5),
+                        Text(
+                          'اسألني أي شيء عن تربية طفلك',
+                          style: TextStyle(
+                            color: Color(0xFFD8DDEC),
+                            fontSize: 12,
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+
+                  const Icon(
+                    Icons.arrow_back_ios_new_rounded,
+                    color: Colors.white,
+                    size: 18,
+                  ),
+                ],
+              ),
+            ),
+
+            const SizedBox(height: 25),
+
+            const Text(
+              'نشاط اليوم 🎯',
+              style: TextStyle(
+                color: Color(0xFF2E3B63),
+                fontSize: 20,
+                fontWeight: FontWeight.bold,
+              ),
+            ),
+
+            const SizedBox(height: 12),
+
+            Container(
+              width: double.infinity,
+              padding: const EdgeInsets.all(20),
+              decoration: BoxDecoration(
+                color: Colors.white,
+                borderRadius:
+                    BorderRadius.circular(24),
+              ),
+              child: const Column(
+                crossAxisAlignment:
+                    CrossAxisAlignment.start,
+                children: [
+                  Text(
+                    '🎨 اصنع قصة مصورة',
+                    style: TextStyle(
+                      color: Color(0xFF2E3B63),
+                      fontSize: 18,
+                      fontWeight: FontWeight.bold,
+                    ),
+                  ),
+                  SizedBox(height: 8),
+                  Text(
+                    'نشاط إبداعي مناسب لعمر 8 سنوات',
+                    style: TextStyle(
+                      color: Color(0xFF8A94AA),
+                    ),
+                  ),
+                  SizedBox(height: 12),
+                  Text(
+                    '⏱ 30 دقيقة   •   ✏️ قلم وألوان',
+                    style: TextStyle(
+                      color: Color(0xFF62AFAF),
+                      fontSize: 13,
+                    ),
+                  ),
+                ],
+              ),
+            ),
+
+            const SizedBox(height: 25),
+          ],
         ),
       ),
     );
