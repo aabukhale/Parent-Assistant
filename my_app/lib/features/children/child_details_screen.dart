@@ -56,7 +56,7 @@ class ChildDetailsScreen extends StatelessWidget {
                         shape: BoxShape.circle,
                       ),
                       child: const Icon(
-                        Icons.child_care_rounded,
+                        Icons.face_rounded,
                         size: 55,
                         color: Color(0xFFFF624E),
                       ),

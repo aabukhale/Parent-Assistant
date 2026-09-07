@@ -49,8 +49,8 @@ class AppBottomNavigation extends StatelessWidget {
             label: 'الرئيسية',
           ),
           NavigationDestination(
-            icon: Icon(Icons.child_care_outlined),
-            selectedIcon: Icon(Icons.child_care_rounded),
+            icon: Icon(Icons.face_rounded),
+            selectedIcon: Icon(Icons.face_rounded),
             label: 'أطفالي',
           ),
           NavigationDestination(

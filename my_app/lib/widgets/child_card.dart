@@ -46,7 +46,7 @@ class ChildCard extends StatelessWidget {
                       ),
                     )
                   : const Icon(
-                      Icons.child_care_rounded,
+                      Icons.face_rounded,
                       size: 34,
                       color: Color(0xFFFF624E),
                     ),
