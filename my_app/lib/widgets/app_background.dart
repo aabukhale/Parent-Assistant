@@ -18,10 +18,7 @@ class AppBackground extends StatelessWidget {
       decoration: BoxDecoration(
         gradient: darkHeader
             ? const LinearGradient(
-                colors: [
-                  Color(0xFF2E3B63),
-                  Color(0xFF3E4C7A),
-                ],
+                colors: [Color(0xFF2E3B63), Color(0xFF3E4C7A)],
                 begin: Alignment.topCenter,
                 end: Alignment.bottomCenter,
               )

@@ -22,10 +22,7 @@ class SecondaryButton extends StatelessWidget {
         style: OutlinedButton.styleFrom(
           foregroundColor: const Color(0xFF2E3B63),
           backgroundColor: Colors.white,
-          side: const BorderSide(
-            color: Color(0xFFDDE1EA),
-            width: 2,
-          ),
+          side: const BorderSide(color: Color(0xFFDDE1EA), width: 2),
           shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(28),
           ),
@@ -33,16 +30,10 @@ class SecondaryButton extends StatelessWidget {
         child: Row(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            if (icon != null) ...[
-              Icon(icon),
-              const SizedBox(width: 8),
-            ],
+            if (icon != null) ...[Icon(icon), const SizedBox(width: 8)],
             Text(
               text,
-              style: const TextStyle(
-                fontSize: 17,
-                fontWeight: FontWeight.bold,
-              ),
+              style: const TextStyle(fontSize: 17, fontWeight: FontWeight.bold),
             ),
           ],
         ),

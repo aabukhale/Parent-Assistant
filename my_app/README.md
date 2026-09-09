@@ -1,17 +1,40 @@
-# my_app
+# Mamily — Parent Assistant (Flutter)
 
-A new Flutter project.
+Flutter client for the Mamily Laravel `/api/v1` backend (`../mamily`, read-only
+reference). Feature-first architecture, `flutter_riverpod` for state, `dio` for
+HTTP, `flutter_secure_storage` for the Sanctum token.
 
-## Getting Started
+## Run against a local backend
 
-This project is a starting point for a Flutter application.
+```bash
+flutter pub get
+flutter gen-l10n
 
-A few resources to get you started if this is your first Flutter project:
+# 1. Start the backend (in ../mamily) — SQLite by default; do NOT migrate:fresh a real DB
+#    php artisan serve        →  http://127.0.0.1:8000
 
-- [Learn Flutter](https://docs.flutter.dev/get-started/learn-flutter)
-- [Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Flutter learning resources](https://docs.flutter.dev/reference/learning-resources)
+# 2. Run the app pointed at it (compile-time only — no address is baked in)
+flutter run --dart-define=API_BASE_URL=http://127.0.0.1:8000/api/v1     # iOS sim / desktop
+flutter run --dart-define=API_BASE_URL=http://10.0.2.2:8000/api/v1      # Android emulator
+```
 
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+A trailing slash is tolerated. The base URL is never committed. See
+[`docs/flutter-integration.md`](docs/flutter-integration.md) §2 for device / tunnel variants.
+
+## Verify
+
+```bash
+flutter analyze
+flutter test
+flutter test --coverage
+dart format --output=none --set-exit-if-changed lib $(find test -name '*.dart')
+```
+
+## Docs
+
+- [`docs/flutter-integration.md`](docs/flutter-integration.md) — phase-by-phase
+  API integration status, endpoint→screen map, provider scopes, mock-removal
+  inventory, backend-contract mismatches, and the real-data coverage matrix (§14).
+- [`docs/child-mode-security.md`](docs/child-mode-security.md) — why there is no
+  secure Child Mode yet, what is connected as parent-managed on-behalf-of-child,
+  and the remaining backend + native work.
