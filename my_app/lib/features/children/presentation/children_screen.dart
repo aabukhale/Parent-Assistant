@@ -329,7 +329,7 @@ class _EmptyState extends StatelessWidget {
         children: [
           const SizedBox(height: 120),
           const Icon(
-            Icons.child_care_rounded,
+            Icons.face_rounded,
             size: 64,
             color: AppColors.textMuted,
           ),
