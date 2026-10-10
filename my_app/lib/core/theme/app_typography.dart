@@ -18,15 +18,11 @@ class AppTypography {
 
   static const String fontFamily = 'Rubik';
 
-  /// The font existing screens still render in.
+  /// Fallback when a style is built outside the theme (tests, platform UI).
   ///
-  /// Rubik ships as a *variable* font whose default weight is Light (300), and
-  /// Flutter does not map a plain `FontWeight.bold` onto the weight axis. Text
-  /// that does not set the axis explicitly — which is all existing screen code
-  /// — would therefore render light. So Rubik is only applied where a style
-  /// comes from [textTheme] (via `context.type`), which always sets the axis.
-  /// It becomes the app-wide default (`AppTheme` `rubikEverywhere`) once static
-  /// weights are bundled or every screen has migrated.
+  /// Rubik is bundled as static Regular/Medium/SemiBold/Bold/ExtraBold
+  /// instances, so a plain `FontWeight` always renders at its true weight and
+  /// Rubik is the app-wide default.
   static const String legacyFontFamily = 'Arial';
 
   /// Smallest size any style may use.
@@ -41,9 +37,6 @@ class AppTypography {
     fontSize: size,
     height: lineHeight / size,
     fontWeight: _weight(weight),
-    // Rubik is a variable font: drive the weight axis explicitly so 500/600
-    // render as real weights rather than the nearest named one.
-    fontVariations: [FontVariation('wght', weight.toDouble())],
     letterSpacing: 0,
   );
 
@@ -51,7 +44,8 @@ class AppTypography {
     <= 400 => FontWeight.w400,
     <= 500 => FontWeight.w500,
     <= 600 => FontWeight.w600,
-    _ => FontWeight.w700,
+    <= 700 => FontWeight.w700,
+    _ => FontWeight.w800,
   };
 
   /// The full Material 3 text theme, coloured with [ink].

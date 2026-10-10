@@ -1,8 +1,6 @@
 {
   "@@locale": "he",
-
-  "appTitle": "עוזר להורים",
-
+  "appTitle": "Mamily",
   "commonRetry": "נסה שוב",
   "commonCancel": "ביטול",
   "commonSave": "שמירה",
@@ -12,7 +10,6 @@
   "commonEmpty": "אין עדיין נתונים להצגה",
   "commonComingSoonTitle": "התכונה הזו עדיין לא זמינה",
   "commonComingSoonBody": "אנחנו עובדים על הוספת התכונה בקרוב.",
-
   "errorNetwork": "לא ניתן להתחבר לשרת. בדוק את החיבור ונסה שוב.",
   "errorTimeout": "הבקשה ארכה יותר מדי זמן. נסה שוב.",
   "errorServer": "אירעה שגיאת שרת בלתי צפויה. נסה מאוחר יותר.",
@@ -24,14 +21,12 @@
   "errorValidation": "בדוק את השדות המסומנים.",
   "errorUnavailable": "השירות אינו זמין כרגע.",
   "errorUnknown": "משהו השתבש. נסה שוב.",
-
   "authWelcomeTitle": "ברוכים הבאים",
   "authWelcomeSubtitle": "העוזר החכם שלך למסע ההורות ולארגון חיי הילדים",
   "authCreateAccount": "יצירת חשבון חדש",
   "authHaveAccount": "כבר יש לי חשבון",
   "authOr": "או",
   "authBiometricUnavailable": "כניסה מהירה בטביעת אצבע עדיין לא זמינה",
-
   "authLoginTitle": "טוב לראותך שוב 👋",
   "authRegisterTitle": "נתחיל את המסע 👨‍👩‍👧",
   "authFieldName": "שם פרטי",
@@ -48,12 +43,10 @@
   "authRegisterAction": "יצירת חשבון",
   "authLogout": "התנתקות",
   "authLogoutConfirm": "להתנתק מהחשבון?",
-
   "validationRequired": "שדה חובה",
   "validationEmail": "הזן כתובת דוא\"ל תקינה",
   "validationPasswordShort": "הסיסמה קצרה מדי (לפחות 8 תווים)",
   "validationPasswordMismatch": "הסיסמאות אינן תואמות",
-
   "profileTitle": "החשבון שלי",
   "profileEditTitle": "עריכת פרופיל",
   "profileRoleOwner": "בעלי המשפחה",
@@ -65,18 +58,22 @@
   "languageArabic": "ערבית",
   "languageHebrew": "עברית",
   "languageEnglish": "אנגלית",
-
   "childrenTitle": "הילדים שלי",
   "childrenSubtitle": "עקוב וסייע להתפתחות הילדים ❤️",
   "childrenCountLabel": "{count, plural, =0{אין ילדים} one{ילד אחד} two{שני ילדים} other{{count} ילדים}}",
-  "@childrenCountLabel": { "placeholders": { "count": { "type": "int" } } },
+  "@childrenCountLabel": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
   "childrenAdd": "הוספת ילד",
   "childrenEmpty": "עדיין לא נוספו ילדים",
   "childrenLoadMore": "טען עוד",
   "childrenFilterActive": "פעילים",
   "childrenFilterArchived": "בארכיון",
   "childrenFilterAll": "הכול",
-
   "childAddTitle": "הוספת ילד",
   "childEditTitle": "עריכת פרטי ילד",
   "childFieldName": "שם הילד",
@@ -90,22 +87,39 @@
   "childFieldInterests": "תחומי עניין",
   "childFieldAvatarColor": "צבע הכרטיס",
   "childAgeYears": "{age, plural, =0{פחות משנה} one{שנה} two{שנתיים} other{{age} שנים}}",
-  "@childAgeYears": { "placeholders": { "age": { "type": "int" } } },
+  "@childAgeYears": {
+    "placeholders": {
+      "age": {
+        "type": "int"
+      }
+    }
+  },
   "childSave": "שמירה",
   "childCreated": "הילד נוסף",
   "childUpdated": "פרטי הילד עודכנו",
   "childDeleteAction": "מחיקה",
   "childDeleteConfirmTitle": "למחוק את הילד?",
   "childDeleteConfirmBody": "הפרופיל של {name} יועבר לארכיון וניתן לשחזר אותו מאוחר יותר.",
-  "@childDeleteConfirmBody": { "placeholders": { "name": { "type": "String" } } },
+  "@childDeleteConfirmBody": {
+    "placeholders": {
+      "name": {
+        "type": "String"
+      }
+    }
+  },
   "childDeleted": "הילד נמחק",
   "childDetailsInterestsEmpty": "לא נבחרו תחומי עניין",
   "childValidationBirthDateRequired": "בחר את תאריך הלידה של הילד",
   "childValidationInterests": "לא ניתן לטעון את רשימת תחומי העניין",
-
   "lgTitle": "יעדי למידה",
   "lgSubtitle": "יעדי הלמידה של {name}",
-  "@lgSubtitle": { "placeholders": { "name": { "type": "String" } } },
+  "@lgSubtitle": {
+    "placeholders": {
+      "name": {
+        "type": "String"
+      }
+    }
+  },
   "lgEmpty": "אין עדיין יעדי למידה",
   "lgAddGoal": "יעד חדש",
   "lgNewTitle": "יעד למידה חדש",
@@ -139,7 +153,13 @@
   "lgArchive": "העברה לארכיון",
   "lgArchiveConfirmTitle": "להעביר את היעד לארכיון?",
   "lgArchiveConfirmBody": "‏«{title}» לא יופיע עוד בין היעדים הפעילים.",
-  "@lgArchiveConfirmBody": { "placeholders": { "title": { "type": "String" } } },
+  "@lgArchiveConfirmBody": {
+    "placeholders": {
+      "title": {
+        "type": "String"
+      }
+    }
+  },
   "lgArchived": "היעד הועבר לארכיון",
   "lgStanding": "מצב נוכחי",
   "lgCurrent": "ערך נוכחי",
@@ -147,11 +167,29 @@
   "lgDone": "הושלם",
   "lgNotDone": "לא הושלם",
   "lgStartedOn": "התחלה: {date}",
-  "@lgStartedOn": { "placeholders": { "date": { "type": "String" } } },
+  "@lgStartedOn": {
+    "placeholders": {
+      "date": {
+        "type": "String"
+      }
+    }
+  },
   "lgTargetOn": "יעד: {date}",
-  "@lgTargetOn": { "placeholders": { "date": { "type": "String" } } },
+  "@lgTargetOn": {
+    "placeholders": {
+      "date": {
+        "type": "String"
+      }
+    }
+  },
   "lgAchievedOn": "הושג בתאריך {date}",
-  "@lgAchievedOn": { "placeholders": { "date": { "type": "String" } } },
+  "@lgAchievedOn": {
+    "placeholders": {
+      "date": {
+        "type": "String"
+      }
+    }
+  },
   "lgHistoryTitle": "היסטוריית התקדמות",
   "lgHistoryEmpty": "עדיין לא נרשמה התקדמות",
   "lgRecord": "רישום התקדמות",
@@ -163,9 +201,7 @@
   "lgProgressRecorded": "ההתקדמות נרשמה",
   "lgValidationTarget": "הזן ערך יעד",
   "lgValidationPercentRange": "האחוז חייב להיות בין 0 ל-100",
-
   "permLoadFailed": "לא ניתן לטעון את ההרשאות שלך. חלק מהפעולות מוסתרות עד לניסיון חוזר.",
-
   "sleepTitle": "שינה",
   "sleepAverage": "שינה ממוצעת",
   "sleepPeriodWeekly": "שבועי",
@@ -182,11 +218,32 @@
   "sleepFieldWake": "התעורר/ה",
   "sleepNextDay": "יום למחרת",
   "sleepDurationHm": "{hours}ש׳ {minutes}ד׳",
-  "@sleepDurationHm": {"placeholders": {"hours": {"type": "int"}, "minutes": {"type": "int"}}},
+  "@sleepDurationHm": {
+    "placeholders": {
+      "hours": {
+        "type": "int"
+      },
+      "minutes": {
+        "type": "int"
+      }
+    }
+  },
   "sleepDurationH": "{hours}ש׳",
-  "@sleepDurationH": {"placeholders": {"hours": {"type": "int"}}},
+  "@sleepDurationH": {
+    "placeholders": {
+      "hours": {
+        "type": "int"
+      }
+    }
+  },
   "sleepDurationM": "{minutes}ד׳",
-  "@sleepDurationM": {"placeholders": {"minutes": {"type": "int"}}},
+  "@sleepDurationM": {
+    "placeholders": {
+      "minutes": {
+        "type": "int"
+      }
+    }
+  },
   "sleepSourceManual": "ידני",
   "sleepSourceDevice": "ממכשיר",
   "sleepSave": "שמירה",
@@ -199,7 +256,6 @@
   "sleepValidationRange": "זמן ההירדמות חייב להיות לפני זמן ההתעוררות",
   "sleepOverlap": "התקופה חופפת לרשומת שינה אחרת של הילד. התאם את הזמנים ונסה שוב.",
   "sleepLoadMore": "הצג עוד",
-
   "tasksTitle": "משימות ונקודות",
   "tasksPointsBalance": "יתרת נקודות",
   "tasksPointsUnit": "נקודות",
@@ -236,13 +292,37 @@
   "recurrenceSummaryDaily": "יומי",
   "recurrenceSummaryOneTime": "חד-פעמי",
   "recurrenceSummaryOneTimeBy": "חד-פעמי, עד {date}",
-  "@recurrenceSummaryOneTimeBy": {"placeholders": {"date": {"type": "String"}}},
+  "@recurrenceSummaryOneTimeBy": {
+    "placeholders": {
+      "date": {
+        "type": "String"
+      }
+    }
+  },
   "recurrenceSummaryWeekly": "שבועי: {days}",
-  "@recurrenceSummaryWeekly": {"placeholders": {"days": {"type": "String"}}},
+  "@recurrenceSummaryWeekly": {
+    "placeholders": {
+      "days": {
+        "type": "String"
+      }
+    }
+  },
   "recurrenceSummaryCustomDates": "{count} תאריכים",
-  "@recurrenceSummaryCustomDates": {"placeholders": {"count": {"type": "int"}}},
+  "@recurrenceSummaryCustomDates": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
   "recurrenceSummaryCustomInterval": "כל {days} ימים",
-  "@recurrenceSummaryCustomInterval": {"placeholders": {"days": {"type": "int"}}},
+  "@recurrenceSummaryCustomInterval": {
+    "placeholders": {
+      "days": {
+        "type": "int"
+      }
+    }
+  },
   "taskStatusActive": "פעילה",
   "taskStatusArchived": "בארכיון",
   "taskFilterAll": "הכול",
@@ -252,7 +332,13 @@
   "taskArchiveAction": "העברה לארכיון",
   "taskArchiveConfirmTitle": "להעביר את המשימה לארכיון?",
   "taskArchiveConfirmBody": "‏«{title}» לא תופיע עוד בין המשימות הפעילות.",
-  "@taskArchiveConfirmBody": {"placeholders": {"title": {"type": "String"}}},
+  "@taskArchiveConfirmBody": {
+    "placeholders": {
+      "title": {
+        "type": "String"
+      }
+    }
+  },
   "taskArchived": "המשימה הועברה לארכיון",
   "taskDetailPointsLabel": "נקודות בסיום",
   "completionRequest": "רישום ביצוע",
@@ -274,9 +360,21 @@
   "completionReversed": "הנקודות בוטלו",
   "completionReviewNote": "הערה (רשות)",
   "completionPointsAwarded": "+{points} נקודות",
-  "@completionPointsAwarded": {"placeholders": {"points": {"type": "int"}}},
+  "@completionPointsAwarded": {
+    "placeholders": {
+      "points": {
+        "type": "int"
+      }
+    }
+  },
   "completionOccurrence": "ביצוע לתאריך {date}",
-  "@completionOccurrence": {"placeholders": {"date": {"type": "String"}}},
+  "@completionOccurrence": {
+    "placeholders": {
+      "date": {
+        "type": "String"
+      }
+    }
+  },
   "completionConflict": "הסטטוס של הביצוע כבר השתנה. הנתונים רועננו.",
   "completionInvalidOccurrence": "התאריך אינו מופע מתוזמן של המשימה.",
   "txnTypeTaskAward": "תגמול משימה",
@@ -290,7 +388,6 @@
   "recurrenceWeeklyNeedsDay": "בחר לפחות יום אחד",
   "recurrenceCustomNeedsConfig": "הוסף תאריכים או הגדר מרווח חזרה",
   "rewardsStorePhase6b": "חנות הפרסים (בקרוב)",
-
   "rewardsStoreTitle": "חנות הפרסים",
   "rewardsTabCatalog": "קטלוג",
   "rewardsTabHistory": "מימושים",
@@ -317,15 +414,36 @@
   "rewardTypeLocked": "לא ניתן לשנות את סוג הפרס לאחר היצירה",
   "rewardInactiveBadge": "לא פעיל",
   "rewardCost": "{cost} נקודות",
-  "@rewardCost": {"placeholders": {"cost": {"type": "int"}}},
+  "@rewardCost": {
+    "placeholders": {
+      "cost": {
+        "type": "int"
+      }
+    }
+  },
   "rewardAffordCan": "ניתן לממש כעת",
   "rewardAffordNeed": "חסרות {points} נקודות",
-  "@rewardAffordNeed": {"placeholders": {"points": {"type": "int"}}},
+  "@rewardAffordNeed": {
+    "placeholders": {
+      "points": {
+        "type": "int"
+      }
+    }
+  },
   "rewardRequest": "מימוש",
   "rewardRequestTitle": "מימוש הפרס",
   "rewardOnBehalfNote": "אתה מבקש זאת בשם הילד (מצב ילד מאובטח אינו זמין עדיין).",
   "rewardRequestConfirm": "‏«{title}» תמורת {cost} נקודות",
-  "@rewardRequestConfirm": {"placeholders": {"title": {"type": "String"}, "cost": {"type": "int"}}},
+  "@rewardRequestConfirm": {
+    "placeholders": {
+      "title": {
+        "type": "String"
+      },
+      "cost": {
+        "type": "int"
+      }
+    }
+  },
   "rewardRequested": "בקשת המימוש נשלחה",
   "rewardSave": "שמירה",
   "rewardCreated": "הפרס נוצר",
@@ -333,7 +451,13 @@
   "rewardDeleteAction": "מחיקה",
   "rewardDeleteConfirmTitle": "למחוק את הפרס?",
   "rewardDeleteConfirmBody": "‏«{title}» לא תופיע עוד בקטלוג.",
-  "@rewardDeleteConfirmBody": {"placeholders": {"title": {"type": "String"}}},
+  "@rewardDeleteConfirmBody": {
+    "placeholders": {
+      "title": {
+        "type": "String"
+      }
+    }
+  },
   "rewardDeleted": "הפרס נמחק",
   "rewardGlobalReadOnly": "תבניות Mamily הן לקריאה בלבד",
   "redemptionStatusPending": "ממתין לבדיקה",
@@ -351,38 +475,98 @@
   "redemptionConflict": "הסטטוס של הבקשה כבר השתנה. הנתונים רועננו.",
   "redemptionRewardUnavailable": "הפרס אינו זמין כרגע.",
   "redemptionCostLabel": "{cost} נקודות",
-  "@redemptionCostLabel": {"placeholders": {"cost": {"type": "int"}}},
+  "@redemptionCostLabel": {
+    "placeholders": {
+      "cost": {
+        "type": "int"
+      }
+    }
+  },
   "screenTimeGranted": "+{minutes} דק׳ זמן מסך (מדיניות שרת)",
-  "@screenTimeGranted": {"placeholders": {"minutes": {"type": "int"}}},
+  "@screenTimeGranted": {
+    "placeholders": {
+      "minutes": {
+        "type": "int"
+      }
+    }
+  },
   "screenTimeExpires": "תוקף עד {date}",
-  "@screenTimeExpires": {"placeholders": {"date": {"type": "String"}}},
+  "@screenTimeExpires": {
+    "placeholders": {
+      "date": {
+        "type": "String"
+      }
+    }
+  },
   "screenTimeRevoked": "הענקת זמן המסך בוטלה",
   "screenTimePolicyNote": "נתוני מדיניות שרת בלבד — לא שונתה הגבלת מכשיר.",
   "rewardValidationCost": "הזן עלות בין 1 ל-100000",
   "rewardValidationMinutes": "הזן דקות בין 1 ל-600",
-
   "commonDurationM": "{minutes} ד׳",
-  "@commonDurationM": { "placeholders": { "minutes": { "type": "int" } } },
+  "@commonDurationM": {
+    "placeholders": {
+      "minutes": {
+        "type": "int"
+      }
+    }
+  },
   "commonDurationH": "{hours} ש׳",
-  "@commonDurationH": { "placeholders": { "hours": { "type": "int" } } },
+  "@commonDurationH": {
+    "placeholders": {
+      "hours": {
+        "type": "int"
+      }
+    }
+  },
   "commonDurationHm": "{hours} ש׳ {minutes} ד׳",
-  "@commonDurationHm": { "placeholders": { "hours": { "type": "int" }, "minutes": { "type": "int" } } },
-
+  "@commonDurationHm": {
+    "placeholders": {
+      "hours": {
+        "type": "int"
+      },
+      "minutes": {
+        "type": "int"
+      }
+    }
+  },
   "homeGreeting": "שלום {name} 👋",
-  "@homeGreeting": { "placeholders": { "name": { "type": "String" } } },
+  "@homeGreeting": {
+    "placeholders": {
+      "name": {
+        "type": "String"
+      }
+    }
+  },
   "homeNoChildren": "הוסיפו ילד כדי לראות כאן את לוח המחוונים שלו",
   "homeChildrenCount": "{count, plural, =0{אין ילדים} one{ילד אחד} two{שני ילדים} many{{count} ילדים} other{{count} ילדים}}",
-  "@homeChildrenCount": { "placeholders": { "count": { "type": "int" } } },
-
+  "@homeChildrenCount": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
   "dashUnavailableShort": "לא זמין",
   "dashSectionNoData": "אין נתונים לתקופה זו",
   "dashTodayTitle": "היום",
   "dashPoints": "נקודות",
   "dashScreenTimeToday": "זמן מסך היום",
   "dashScreenTimeOfLimit": "מתוך {limit}",
-  "@dashScreenTimeOfLimit": { "placeholders": { "limit": { "type": "String" } } },
+  "@dashScreenTimeOfLimit": {
+    "placeholders": {
+      "limit": {
+        "type": "String"
+      }
+    }
+  },
   "dashScreenTimeUsedOfLimit": "זמן מסך (מגבלה {limit})",
-  "@dashScreenTimeUsedOfLimit": { "placeholders": { "limit": { "type": "String" } } },
+  "@dashScreenTimeUsedOfLimit": {
+    "placeholders": {
+      "limit": {
+        "type": "String"
+      }
+    }
+  },
   "dashScreenTimeNoLimit": "לא הוגדרה מגבלה",
   "dashLastSleep": "שינה אחרונה",
   "dashNone": "עדיין אין",
@@ -390,18 +574,38 @@
   "dashPendingApprovals": "ממתין לאישור",
   "dashGoals": "יעדי למידה",
   "dashGoalsValue": "{active} פעילים · {achieved} הושגו",
-  "@dashGoalsValue": { "placeholders": { "active": { "type": "int" }, "achieved": { "type": "int" } } },
+  "@dashGoalsValue": {
+    "placeholders": {
+      "active": {
+        "type": "int"
+      },
+      "achieved": {
+        "type": "int"
+      }
+    }
+  },
   "dashOpenReport": "פתיחת דוח התפתחות",
   "dashReportsRestricted": "דוחות התפתחות אינם זמינים עם ההרשאות הנוכחיות שלך.",
-
   "dashReportTitle": "דוח התפתחות",
   "dashReportFor": "מציג את {name}",
-  "@dashReportFor": { "placeholders": { "name": { "type": "String" } } },
+  "@dashReportFor": {
+    "placeholders": {
+      "name": {
+        "type": "String"
+      }
+    }
+  },
   "dashNoChildSelected": "בחרו ילד כדי לראות את דוח ההתפתחות שלו",
   "dashPeriodWeekly": "שבועי",
   "dashPeriodMonthly": "חודשי",
   "dashReportTimezone": "השעות מוצגות לפי {timezone}",
-  "@dashReportTimezone": { "placeholders": { "timezone": { "type": "String" } } },
+  "@dashReportTimezone": {
+    "placeholders": {
+      "timezone": {
+        "type": "String"
+      }
+    }
+  },
   "dashReportNoData": "אין מספיק פעילות בתקופה זו כדי להפיק דוח עדיין.",
   "dashSectionScreenTime": "זמן מסך",
   "dashScreenTimeTotal": "סה״כ",
@@ -424,7 +628,6 @@
   "dashSectionPoints": "נקודות",
   "dashPointsNet": "שינוי נטו",
   "dashPointsTransactions": "תנועות",
-
   "activitiesTitle": "פעילויות",
   "activitiesCatalogTitle": "קטלוג פעילויות",
   "activitiesCatalogEmpty": "אין עדיין פעילויות זמינות",
@@ -434,13 +637,40 @@
   "activitySourceAi": "בינה מלאכותית",
   "activitySourceFamily": "משפחה",
   "activityDurationMin": "{minutes} דק׳",
-  "@activityDurationMin": { "placeholders": { "minutes": { "type": "int" } } },
+  "@activityDurationMin": {
+    "placeholders": {
+      "minutes": {
+        "type": "int"
+      }
+    }
+  },
   "activityAgeRange": "גילאי {min}–{max}",
-  "@activityAgeRange": { "placeholders": { "min": { "type": "int" }, "max": { "type": "int" } } },
+  "@activityAgeRange": {
+    "placeholders": {
+      "min": {
+        "type": "int"
+      },
+      "max": {
+        "type": "int"
+      }
+    }
+  },
   "activityAgeMin": "מגיל {min}",
-  "@activityAgeMin": { "placeholders": { "min": { "type": "int" } } },
+  "@activityAgeMin": {
+    "placeholders": {
+      "min": {
+        "type": "int"
+      }
+    }
+  },
   "activityAgeMax": "עד גיל {max}",
-  "@activityAgeMax": { "placeholders": { "max": { "type": "int" } } },
+  "@activityAgeMax": {
+    "placeholders": {
+      "max": {
+        "type": "int"
+      }
+    }
+  },
   "activityMaterials": "חומרים",
   "activitySteps": "שלבים",
   "activityAssignAction": "שיוך לילד",
@@ -452,7 +682,13 @@
   "activityFieldPointsHelp": "כל ערך מעל 0 גורם להשלמה לדרוש את אישורך.",
   "activityFieldDueDate": "תאריך יעד (רשות)",
   "activityDueOn": "יעד {date}",
-  "@activityDueOn": { "placeholders": { "date": { "type": "String" } } },
+  "@activityDueOn": {
+    "placeholders": {
+      "date": {
+        "type": "String"
+      }
+    }
+  },
   "activityPointsInvalid": "הזן ערך בין 0 ל-100000",
   "activityAssignOnBehalfNote": "אתם משייכים ומשלימים בשם הילד — מצב ילד מאובטח עדיין לא זמין.",
   "activityGenerateTitle": "יצירת פעילות",
@@ -461,7 +697,13 @@
   "activityGenerateCheckAgain": "בדיקה חוזרת",
   "activityGenerateEmpty": "הספק לא החזיר פעילויות.",
   "activityGenerateNowAvailable": "{count, plural, one{נוצרה פעילות אחת — טענו מחדש את הקטלוג} two{נוצרו שתי פעילויות — טענו מחדש את הקטלוג} many{נוצרו {count} פעילויות — טענו מחדש את הקטלוג} other{נוצרו {count} פעילויות — טענו מחדש את הקטלוג}}",
-  "@activityGenerateNowAvailable": { "placeholders": { "count": { "type": "int" } } },
+  "@activityGenerateNowAvailable": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
   "activityGenerateStill503": "עדיין לא זמין — בשרת אין ספק בינה מלאכותית.",
   "activitiesAssignedTitle": "פעילויות משויכות",
   "activitiesAssignedEmpty": "עדיין לא שויכו פעילויות לילד זה",
@@ -469,15 +711,26 @@
   "activityStatusCompleted": "הושלם",
   "activityStatusCancelled": "בוטל",
   "activityRewardPoints": "{points} נקודות באישור",
-  "@activityRewardPoints": { "placeholders": { "points": { "type": "int" } } },
+  "@activityRewardPoints": {
+    "placeholders": {
+      "points": {
+        "type": "int"
+      }
+    }
+  },
   "activityNoPoints": "ללא נקודות",
   "activityAwarded": "{points} הוענקו",
-  "@activityAwarded": { "placeholders": { "points": { "type": "int" } } },
+  "@activityAwarded": {
+    "placeholders": {
+      "points": {
+        "type": "int"
+      }
+    }
+  },
   "activityMarkDone": "סימון כבוצע",
   "activityCompletionRequested": "ההשלמה נרשמה",
   "activityConflict": "לא ניתן היה לבצע — מצב הפעילות השתנה. רועננה.",
   "activityOnBehalfNote": "בניהול ההורה בשם הילד.",
-
   "libraryTitle": "ספריית ההורים",
   "libraryEmpty": "אין כאן עדיין מאמרים",
   "libraryLoadMore": "הצג עוד",
@@ -486,7 +739,6 @@
   "libraryAuthorStaff": "צוות Mamily",
   "libraryAuthorSpecialist": "מומחה",
   "libraryNoBody": "למאמר זה אין עדיין תוכן.",
-
   "contentTitle": "בקרת תוכן",
   "contentRulesTitle": "כללים",
   "contentRulesEmpty": "אין עדיין כללים — מסנן הגיל למעלה הוא הבקרה היחידה בתוקף.",
@@ -496,7 +748,13 @@
   "contentAgeFilter": "מסנן התאמה לגיל",
   "contentAgeFilterSub": "הסתרת תוכן מחוץ לטווח הגיל של הילד",
   "contentAgeFilterSubAge": "סינון לגיל תוכן {age}",
-  "@contentAgeFilterSubAge": { "placeholders": { "age": { "type": "int" } } },
+  "@contentAgeFilterSubAge": {
+    "placeholders": {
+      "age": {
+        "type": "int"
+      }
+    }
+  },
   "contentRuleCategory": "קטגוריה",
   "contentRuleItem": "פריט תוכן",
   "contentRuleExternalChannel": "ערוץ חיצוני",
@@ -515,27 +773,62 @@
   "contentRuleBlockItem": "חסימת פריט זה",
   "contentRuleAllowItem": "התרת פריט זה",
   "contentRuleBlockCategory": "חסימת הקטגוריה «{name}»",
-  "@contentRuleBlockCategory": { "placeholders": { "name": { "type": "String" } } },
+  "@contentRuleBlockCategory": {
+    "placeholders": {
+      "name": {
+        "type": "String"
+      }
+    }
+  },
   "contentRuleAllowCategory": "התרת הקטגוריה «{name}»",
-  "@contentRuleAllowCategory": { "placeholders": { "name": { "type": "String" } } },
-
+  "@contentRuleAllowCategory": {
+    "placeholders": {
+      "name": {
+        "type": "String"
+      }
+    }
+  },
   "stTitle": "זמן מסך",
   "stEnforcementNote": "מסך זה מציג ומגדיר מדיניות שרת. נתוני השימוש מגיעים מהשרת. האפליקציה עצמה אינה אוכפת זמן מסך במכשיר — לכך נדרשת תמיכה מקומית שטרם נבנתה.",
   "stUsedToday": "נוצל היום",
   "stOfLimit": "מתוך {limit}",
-  "@stOfLimit": { "placeholders": { "limit": { "type": "String" } } },
+  "@stOfLimit": {
+    "placeholders": {
+      "limit": {
+        "type": "String"
+      }
+    }
+  },
   "stNoLimit": "לא הוגדרה מגבלה",
   "stBonus": "כולל {bonus} בונוס",
-  "@stBonus": { "placeholders": { "bonus": { "type": "String" } } },
+  "@stBonus": {
+    "placeholders": {
+      "bonus": {
+        "type": "String"
+      }
+    }
+  },
   "stNoUsageData": "עדיין לא דווח שימוש עבור ילד זה.",
   "stPerApp": "לפי אפליקציה",
   "stDailyRule": "כלל יומי",
   "stNoRule": "לא הוגדר כלל",
   "stRuleDisabled": "הכלל מושבת (ללא מגבלה)",
   "stDailyLimitValue": "מגבלה יומית {limit}",
-  "@stDailyLimitValue": { "placeholders": { "limit": { "type": "String" } } },
+  "@stDailyLimitValue": {
+    "placeholders": {
+      "limit": {
+        "type": "String"
+      }
+    }
+  },
   "stWeekdayOverrides": "{count, plural, one{עקיפה ליום אחד} two{שתי עקיפות} many{{count} עקיפות} other{{count} עקיפות}}",
-  "@stWeekdayOverrides": { "placeholders": { "count": { "type": "int" } } },
+  "@stWeekdayOverrides": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
   "stEditRules": "עריכת כללים",
   "stExtraTime": "זמן נוסף",
   "stExtraHowMuch": "כמה זמן נוסף?",
@@ -548,7 +841,13 @@
   "stExtraRevoked": "הזמן הנוסף בוטל",
   "stExtraRevokedLabel": "בוטל",
   "stExtraGrantedLabel": "הוענקו {minutes}",
-  "@stExtraGrantedLabel": { "placeholders": { "minutes": { "type": "String" } } },
+  "@stExtraGrantedLabel": {
+    "placeholders": {
+      "minutes": {
+        "type": "String"
+      }
+    }
+  },
   "stExtraFromReward": "ממימוש פרס",
   "stExtraFromParent": "הוענק על ידי הורה",
   "stExtraRevokeAction": "ביטול",
@@ -559,7 +858,13 @@
   "stWeekdayOverridesTitle": "עקיפות לפי יום",
   "stWeekdayOverridesHint": "הפעל יום כדי להקצות לו מגבלה משלו; אחרת הוא משתמש בברירת המחדל.",
   "stMinutesValue": "{minutes} דק׳",
-  "@stMinutesValue": { "placeholders": { "minutes": { "type": "int" } } },
+  "@stMinutesValue": {
+    "placeholders": {
+      "minutes": {
+        "type": "int"
+      }
+    }
+  },
   "stRulesSaved": "כללי זמן המסך נשמרו",
   "stRulesInvalid": "בדוק את ערכי המגבלה (0–1440 דק׳).",
   "stUsesDefault": "משתמש במגבלת ברירת המחדל",
@@ -580,7 +885,13 @@
   "devicesReactivated": "המכשיר הופעל מחדש",
   "devicesRemoveTitle": "להסיר את המכשיר?",
   "devicesRemoveBody": "«{name}» יוסר. ניתן לרשום אותו שוב מאוחר יותר.",
-  "@devicesRemoveBody": { "placeholders": { "name": { "type": "String" } } },
+  "@devicesRemoveBody": {
+    "placeholders": {
+      "name": {
+        "type": "String"
+      }
+    }
+  },
   "devicesRemoveAction": "הסרה",
   "devicesRemoved": "המכשיר הוסר",
   "devicesModeChildDedicated": "מכשיר של הילד",
@@ -589,7 +900,6 @@
   "devicesRevoke": "ביטול",
   "devicesReactivate": "הפעלה מחדש",
   "devicesFieldName": "שם המכשיר",
-
   "gamesTitle": "משחקים",
   "gamesEmpty": "אין עדיין משחקים זמינים",
   "gamesPreviewNote": "תצוגה מקדימה להורים של קטלוג המשחקים. עדיין לא ניתן לשחק במשחקים בתוך האפליקציה — אין מנוע משחק.",
@@ -606,16 +916,20 @@
   "gamesAttempts": "ניסיונות",
   "gamesPlayTime": "זמן משחק",
   "gamesMinutes": "{minutes} דק׳",
-  "@gamesMinutes": { "placeholders": { "minutes": { "type": "int" } } },
+  "@gamesMinutes": {
+    "placeholders": {
+      "minutes": {
+        "type": "int"
+      }
+    }
+  },
   "gamesLastPlayed": "שוחק לאחרונה",
-
   "aiCoachTitle": "מאמן הורות",
   "aiCoachUnavailableTitle": "מאמן ההורות ה-AI עדיין לא זמין",
   "aiCoachUnavailableBody": "אין שירות ייעוץ מחובר. כשיושק, השאלות והתשובות שלך יעברו דרך השרת — שום דבר לא נענה מקומית.",
   "nutritionTitle": "תזונה",
   "nutritionUnavailableTitle": "מעקב תזונה עדיין לא זמין",
   "nutritionUnavailableBody": "אין שירות תזונה, יומן ארוחות או ניתוח תמונות מחובר. פרטי ארוחות או אלרגיות שיוזנו כאן לא יישמרו בשום מקום, ולכן אין אפשרות הזנה.",
-
   "navHome": "בית",
   "navChildren": "ילדים",
   "navActivities": "פעילויות",
@@ -623,5 +937,340 @@
   "navProfile": "חשבון",
   "familySelectTitle": "בחירת משפחה",
   "noFamilyTitle": "אין משפחה המשויכת לחשבונך",
-  "noFamilyBody": "בקש מבעל המשפחה להוסיף אותך מחדש, או התנתק."
+  "noFamilyBody": "בקש מבעל המשפחה להוסיף אותך מחדש, או התנתק.",
+  "roleEntryTitle": "ברוכים הבאים ל-Mamily",
+  "roleEntrySubtitle": "אפליקציה אחת לכל המשפחה. מי כאן?",
+  "roleParent": "אני הורה",
+  "roleParentHint": "לתכנן, לאשר ולעודד את המשפחה",
+  "roleChild": "אני ילד/ה",
+  "roleChildHint": "היום שלי, השגרה והפרסים שלי",
+  "roleResumeChild": "חזרה למצב ילד/ה",
+  "roleChoiceNote": "החשבון שלך קובע מה אפשר לעשות — הבחירה רק מובילה לכניסה המתאימה.",
+  "pairTitle": "הצטרפות למשפחה",
+  "pairSubtitle": "בקשו מהורה את הקוד שמופיע בטלפון שלו, או סרקו את קוד ה-QR.",
+  "pairCodeLabel": "קוד צימוד",
+  "pairCodeHint": "ABCD-EFGH",
+  "pairButton": "הצטרפות",
+  "pairScan": "סריקת קוד QR",
+  "pairInvalid": "הקוד לא עובד. אולי פג תוקפו — בקשו קוד חדש.",
+  "pairTooMany": "יותר מדי ניסיונות. חכו דקה ונסו שוב.",
+  "pairCameraDenied": "הגישה למצלמה כבויה ולכן אי אפשר לסרוק. הקלידו את הקוד, או אפשרו מצלמה בהגדרות.",
+  "pairScanInstruction": "כוונו את המצלמה לקוד ה-QR בטלפון של ההורה",
+  "kidTabMyDay": "היום שלי",
+  "kidTabRewards": "פרסים",
+  "kidTabTogether": "ביחד",
+  "kidTabMe": "אני",
+  "kidGreetingMorning": "בוקר טוב, {name}!",
+  "@kidGreetingMorning": {
+    "placeholders": {
+      "name": {
+        "type": "String"
+      }
+    }
+  },
+  "kidGreetingAfternoon": "צהריים טובים, {name}!",
+  "@kidGreetingAfternoon": {
+    "placeholders": {
+      "name": {
+        "type": "String"
+      }
+    }
+  },
+  "kidGreetingEvening": "ערב טוב, {name}!",
+  "@kidGreetingEvening": {
+    "placeholders": {
+      "name": {
+        "type": "String"
+      }
+    }
+  },
+  "kidPoints": "{count, plural, =0{0 נקודות} =1{נקודה אחת} other{{count} נקודות}}",
+  "@kidPoints": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "kidNextStep": "הצעד הבא שלך",
+  "kidStartRoutine": "להתחיל",
+  "kidContinueRoutine": "להמשיך",
+  "kidIDidIt": "עשיתי!",
+  "kidTryAgain": "לנסות שוב",
+  "kidTodayPlan": "היום",
+  "kidNothingToday": "אין תוכניות להיום. תיהנו מהזמן החופשי!",
+  "kidAllDone": "סיימת הכול היום. מדהים!",
+  "kidStateTodo": "לביצוע",
+  "kidStatePending": "מחכה להורה",
+  "kidStateApproved": "בוצע!",
+  "kidStateRejected": "עוד ניסיון",
+  "kidStateInProgress": "בתהליך",
+  "kidStateUpcoming": "בקרוב",
+  "kidStatePast": "מוקדם יותר",
+  "kidTaskSentTitle": "נשלח!",
+  "kidTaskSent": "הורה יבדוק בקרוב. הנקודות יגיעו אחרי האישור.",
+  "kidConfirmDoneTitle": "סיימת את „{task}”?",
+  "@kidConfirmDoneTitle": {
+    "placeholders": {
+      "task": {
+        "type": "String"
+      }
+    }
+  },
+  "kidConfirmDoneBody": "נבקש מהורה לבדוק.",
+  "kidYesDone": "כן, עשיתי!",
+  "kidNotYet": "עוד לא",
+  "kidParentNote": "הערה מההורה: {note}",
+  "@kidParentNote": {
+    "placeholders": {
+      "note": {
+        "type": "String"
+      }
+    }
+  },
+  "kidPointsValue": "+{count}",
+  "@kidPointsValue": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "kidRoutineStepsLeft": "{count, plural, =0{כל הצעדים הושלמו} =1{נשאר צעד אחד} other{נשארו {count} צעדים}}",
+  "@kidRoutineStepsLeft": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "kidRoutineCheer1": "התחלה מעולה!",
+  "kidRoutineCheer2": "את/ה בתנופה!",
+  "kidRoutineCheer3": "כמעט שם!",
+  "kidRoutineDone": "השגרה הושלמה!",
+  "kidRoutineBonusPending": "נקודות הבונוס מחכות לאישור הורה.",
+  "kidRoutineNotToday": "השגרה הזו לא היום.",
+  "kidRoutineFinishedToday": "כבר סיימת את זה היום.",
+  "kidUndoStep": "ביטול",
+  "kidSavingFor": "חוסך/ת בשביל",
+  "kidPointsToGo": "{count, plural, =0{אפשר לבקש עכשיו!} =1{עוד נקודה אחת} other{עוד {count} נקודות}}",
+  "@kidPointsToGo": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "kidChooseGoal": "לחסוך לזה",
+  "kidGoalChosen": "המטרה שלי",
+  "kidAskForReward": "לבקש",
+  "kidRequested": "התבקש",
+  "kidRewardAskTitle": "לבקש את „{reward}”?",
+  "@kidRewardAskTitle": {
+    "placeholders": {
+      "reward": {
+        "type": "String"
+      }
+    }
+  },
+  "kidRewardAskBody": "{count, plural, =1{זה עולה נקודה אחת.} other{זה עולה {count} נקודות.}} הנקודות יורדות רק אם הורה מאשר.",
+  "@kidRewardAskBody": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "kidRewardAsked": "הבקשה נשלחה להורה!",
+  "kidMyBalance": "הנקודות שלי",
+  "kidPointsHistory": "היסטוריית נקודות",
+  "kidNoRewards": "עדיין אין פרסים. הציעו פרס שהמשפחה תוכל להוסיף!",
+  "kidMyIdeas": "הרעיונות שלי לפרסים",
+  "kidSuggestReward": "להציע פרס",
+  "kidSuggestTitle": "מה היית רוצה?",
+  "kidSuggestField": "הרעיון שלי",
+  "kidSuggestNote": "למה זה מיוחד (לא חובה)",
+  "kidSuggestSend": "לשלוח רעיון",
+  "kidSuggestSent": "הרעיון נשלח! הורה יחליט.",
+  "kidWithdraw": "לבטל",
+  "kidChallenges": "אתגרים משפחתיים",
+  "kidNoChallenges": "אין כרגע אתגר משפחתי.",
+  "kidTogetherProgress": "{done} מתוך {total} ביחד",
+  "@kidTogetherProgress": {
+    "placeholders": {
+      "done": {
+        "type": "int"
+      },
+      "total": {
+        "type": "int"
+      }
+    }
+  },
+  "kidMyPart": "החלק שלי: {count}",
+  "@kidMyPart": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "kidAddProgress": "להוסיף התקדמות",
+  "kidAddProgressAmount": "כמה עשית?",
+  "kidChallengeAchieved": "עשיתם את זה ביחד!",
+  "kidChallengeCountsAuto": "נספר אוטומטית כשמשימות או שגרות מושלמות.",
+  "kidMessages": "הודעות מהמשפחה",
+  "kidNoMessages": "עדיין אין הודעות.",
+  "kidReplyFrom": "{name} הגיב/ה",
+  "@kidReplyFrom": {
+    "placeholders": {
+      "name": {
+        "type": "String"
+      }
+    }
+  },
+  "kidHowFeel": "איך את/ה מרגיש/ה?",
+  "kidFeelNote": "רוצה לספר עוד? (לא חובה)",
+  "kidFeelShare": "לשתף",
+  "kidFeelThanks": "תודה ששיתפת. המשפחה תראה.",
+  "kidFeelPrivacy": "רק המשפחה שלך רואה את זה.",
+  "moodGreat": "מצוין",
+  "moodHappy": "שמח/ה",
+  "moodOkay": "בסדר",
+  "moodTired": "עייף/ה",
+  "moodSad": "עצוב/ה",
+  "moodWorried": "מודאג/ת",
+  "moodAngry": "כועס/ת",
+  "kidMyRequests": "הבקשות שלי",
+  "kidWaiting": "ממתין",
+  "kidAnswered": "נענה",
+  "kidNoRequests": "עדיין לא ביקשת כלום.",
+  "explainTaskPending": "הורה יבדוק את המשימה בקרוב.",
+  "explainTaskApproved": "אושר — הנקודות שלך!",
+  "explainTaskRejected": "עוד לא — אפשר לנסות שוב.",
+  "explainTaskReversed": "הורה ביטל את זה, ולכן הנקודות הוחזרו.",
+  "explainRewardPending": "ההורה יחליט בקרוב. עדיין לא ירדו נקודות.",
+  "explainRewardApproved": "כן! תיהנו מהפרס.",
+  "explainRewardRejected": "לא הפעם — הנקודות שלך שמורות.",
+  "explainRewardCancelled": "הפרס בוטל והנקודות חזרו.",
+  "explainWishPending": "הרעיון שלך מחכה להורה.",
+  "explainWishApproved": "הרעיון שלך הפך לפרס!",
+  "explainWishDeclined": "לא נוסף הפעם.",
+  "explainWishWithdrawn": "ביטלת את הרעיון.",
+  "explainScreenPending": "מחכה לתשובת הורה.",
+  "explainScreenApproved": "זמן נוסף אושר להיום.",
+  "explainScreenDeclined": "לא היום.",
+  "explainScreenCancelled": "ביטלת את הבקשה.",
+  "explainRoutinePending": "נקודות הבונוס מחכות לאישור הורה.",
+  "explainRoutineApproved": "הבונוס אושר — שגרה מעולה!",
+  "explainRoutineRejected": "אין בונוס הפעם.",
+  "kidMoreTime": "לבקש עוד זמן מסך",
+  "kidMoreTimeHow": "כמה עוד?",
+  "kidMoreTimeWhy": "למה? (לא חובה)",
+  "kidMoreTimeSend": "לשלוח בקשה",
+  "kidMoreTimeWaiting": "ביקשת {count} דקות — מחכה לתשובה.",
+  "@kidMoreTimeWaiting": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "kidMinutes": "{count} דק׳",
+  "@kidMinutes": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "kidScreenTodayLimit": "המגבלה היום: {count} דק׳",
+  "@kidScreenTodayLimit": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "kidScreenNoLimit": "אין מגבלת זמן מסך להיום.",
+  "kidScreenNotMeasured": "האפליקציה לא מודדת ולא נועלת זמן מסך — היא רק שולחת את הבקשה.",
+  "kidMyActivities": "הפעילויות שלי",
+  "kidMyGoals": "המטרות שלי",
+  "kidNotifications": "התראות",
+  "kidGrownUps": "למבוגרים",
+  "kidGrownUpsBody": "הורה יכול להתחבר כאן עם החשבון שלו. מצב הילד/ה יישאר מוכן להמשך.",
+  "kidParentSignIn": "כניסת הורה",
+  "kidSignOutDevice": "יציאה מהמכשיר",
+  "kidSignOutConfirm": "כדי לחזור תצטרכו קוד חדש מהורה.",
+  "kidActivityDone": "סיימתי",
+  "celebrateGreat": "יש!",
+  "lastUpdated": "עודכן {time}",
+  "@lastUpdated": {
+    "placeholders": {
+      "time": {
+        "type": "String"
+      }
+    }
+  },
+  "offlineShowingSaved": "אין חיבור — מוצג מה שנשמר {time}.",
+  "@offlineShowingSaved": {
+    "placeholders": {
+      "time": {
+        "type": "String"
+      }
+    }
+  },
+  "justNow": "עכשיו",
+  "minutesAgo": "{count, plural, =1{לפני דקה} other{לפני {count} דקות}}",
+  "@minutesAgo": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "hoursAgo": "{count, plural, =1{לפני שעה} =2{לפני שעתיים} other{לפני {count} שעות}}",
+  "@hoursAgo": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "daysAgo": "{count, plural, =1{אתמול} =2{לפני יומיים} other{לפני {count} ימים}}",
+  "@daysAgo": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "commonConfirm": "אישור",
+  "commonUndo": "ביטול",
+  "commonSend": "שליחה",
+  "commonSeeAll": "הצג הכול",
+  "commonDone": "סיום",
+  "commonOptional": "לא חובה",
+  "commonBack": "חזרה",
+  "commonContinue": "המשך",
+  "commonSignOut": "יציאה",
+  "commonNew": "חדש",
+  "notifInboxTitle": "התראות",
+  "notifMarkAllRead": "סימון הכול כנקרא",
+  "notifEmptyTitle": "אין חדש",
+  "notifEmptyBody": "עדכונים על משימות, פרסים ותוכניות משפחתיות יופיעו כאן.",
+  "notifUnread": "לא נקרא",
+  "authForgotPassword": "שכחת סיסמה?",
+  "resetTitle": "איפוס סיסמה",
+  "resetIntro": "הזינו את כתובת האימייל של החשבון. נשלח קוד בן 6 ספרות.",
+  "resetSendCode": "שליחת קוד",
+  "resetCodeSent": "אם קיים חשבון עם האימייל הזה, הקוד בדרך. תוקפו 30 דקות.",
+  "resetCodeLabel": "קוד בן 6 ספרות",
+  "resetNewPassword": "סיסמה חדשה",
+  "resetSave": "שמירת סיסמה חדשה",
+  "resetDone": "הסיסמה עודכנה. התחברו עם הסיסמה החדשה — מכשירים אחרים נותקו.",
+  "resetInvalidCode": "הקוד שגוי או שפג תוקפו.",
+  "parentEntryTitle": "ברוך הבא, הורה",
+  "parentEntrySubtitle": "התחברו כדי לתכנן את היום, לאשר בקשות ולעודד את הילדים.",
+  "authPasswordShow": "הצגת סיסמה",
+  "authPasswordHide": "הסתרת סיסמה"
 }

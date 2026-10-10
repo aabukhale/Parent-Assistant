@@ -25,6 +25,8 @@ class SecureTokenStorage {
   static const _localeKey = 'mamily.ui.locale';
   static const _activeFamilyKey = 'mamily.family.active';
   static const _installIdKey = 'mamily.device.install_id';
+  static const _sessionKindKey = 'mamily.session.kind';
+  static const _childSlotKey = 'mamily.child.parked_token';
 
   Future<String?> readToken() => _storage.read(key: _tokenKey);
 
@@ -67,10 +69,38 @@ class SecureTokenStorage {
     return generated;
   }
 
-  /// Wipe the auth token and family selection. Called on logout and on a hard
-  /// 401. The UI locale preference **and** the install id are intentionally kept.
+  /// Which kind of session the stored token belongs to (`parent` / `child`).
+  ///
+  /// This only decides which endpoint restores the session (`/auth/me` vs
+  /// `/child/me`). It grants nothing: the server checks the token itself, and
+  /// a token presented on the wrong side is refused (403) and wiped.
+  Future<String?> readSessionKind() => _storage.read(key: _sessionKindKey);
+
+  Future<void> writeSessionKind(String kind) =>
+      _storage.write(key: _sessionKindKey, value: kind);
+
+  /// A child session "parked" while a grown-up signs in on a shared device.
+  /// It stays a child-scoped token; restoring it needs no parent credentials
+  /// because it can never do more than the child could already do.
+  Future<String?> readParkedChildToken() => _storage.read(key: _childSlotKey);
+
+  Future<void> writeParkedChildToken(String token) =>
+      _storage.write(key: _childSlotKey, value: token);
+
+  Future<void> deleteParkedChildToken() => _storage.delete(key: _childSlotKey);
+
+  /// Wipe the auth token, session kind and family selection. Called on logout
+  /// and on a hard 401. The UI locale preference, the install id and a parked
+  /// child session are intentionally kept (see [clearEverything]).
   Future<void> clearSession() async {
     await _storage.delete(key: _tokenKey);
+    await _storage.delete(key: _sessionKindKey);
     await _storage.delete(key: _activeFamilyKey);
+  }
+
+  /// Full sign-out of this install: also forgets a parked child session.
+  Future<void> clearEverything() async {
+    await clearSession();
+    await deleteParkedChildToken();
   }
 }

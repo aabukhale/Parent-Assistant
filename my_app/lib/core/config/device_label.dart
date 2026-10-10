@@ -12,5 +12,15 @@ String currentDeviceLabel() {
     TargetPlatform.linux => 'Linux',
     TargetPlatform.fuchsia => 'Fuchsia',
   };
-  return 'Parent Assistant ($platform)';
+  return 'Mamily ($platform)';
+}
+
+/// Label for a paired child install (shown to parents in "Devices").
+String childDeviceLabel() {
+  final platform = switch (defaultTargetPlatform) {
+    TargetPlatform.android => 'Android',
+    TargetPlatform.iOS => 'iPhone/iPad',
+    _ => 'Device',
+  };
+  return 'Mamily ($platform)';
 }

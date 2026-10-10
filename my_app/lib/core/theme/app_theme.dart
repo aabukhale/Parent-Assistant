@@ -17,21 +17,37 @@ class AppTheme {
   ///
   /// Dark tokens exist ([MamilyColors.dark]) but no dark [ThemeData] is exposed
   /// or wired into `MaterialApp` yet.
-  static final ThemeData light = _build(MamilyColors.light);
+  static final ThemeData light = _build(
+    MamilyColors.light,
+    rubikEverywhere: true,
+  );
+
+  /// The child experience: same system, sunnier surfaces, rounder shapes and
+  /// larger touch targets.
+  static final ThemeData kid = _build(
+    MamilyColors.kid,
+    rubikEverywhere: true,
+    kid: true,
+  );
 
   /// Builds a theme from arbitrary tokens so tests can verify the prepared dark
   /// tokens go through the same pipeline. Not part of the app.
   @visibleForTesting
   static ThemeData buildFor(
     MamilyColors colors, {
-    bool rubikEverywhere = false,
-  }) => _build(colors, rubikEverywhere: rubikEverywhere);
+    bool rubikEverywhere = true,
+    bool kid = false,
+  }) => _build(colors, rubikEverywhere: rubikEverywhere, kid: kid);
 
   /// [rubikEverywhere] also makes Rubik the default for plain `Text` in
   /// existing screens. Off until it is safe — see
   /// [AppTypography.legacyFontFamily]. Components always use Rubik through
   /// `context.type`, whatever this is.
-  static ThemeData _build(MamilyColors c, {bool rubikEverywhere = false}) {
+  static ThemeData _build(
+    MamilyColors c, {
+    bool rubikEverywhere = true,
+    bool kid = false,
+  }) {
     final textTheme = AppTypography.textTheme(ink: c.ink);
     final scheme = _scheme(c);
 
@@ -46,7 +62,10 @@ class AppTheme {
       horizontal: AppSpacing.xxl,
       vertical: AppSpacing.md,
     );
-    const buttonMinimum = Size(64, AppSizes.minTouchTarget);
+    final buttonMinimum = Size(
+      64,
+      kid ? AppSizes.minTouchTargetKid : AppSizes.minTouchTarget,
+    );
     final labelLarge = textTheme.labelLarge;
 
     return ThemeData(
@@ -84,7 +103,7 @@ class AppTheme {
         margin: EdgeInsets.zero,
         clipBehavior: Clip.antiAlias,
         shape: RoundedRectangleBorder(
-          borderRadius: AppRadii.mediumAll,
+          borderRadius: kid ? AppRadii.largeAll : AppRadii.mediumAll,
           side: BorderSide(color: c.border, width: AppSizes.borderWidth),
         ),
       ),
@@ -218,7 +237,11 @@ class AppTheme {
         linearTrackColor: c.surfaceStrong,
         circularTrackColor: c.surfaceStrong,
       ),
-      extensions: [c, MamilyTypography(textTheme)],
+      extensions: [
+        c,
+        MamilyTypography(textTheme),
+        MamilyMode(isKid: kid),
+      ],
     );
   }
 
@@ -279,4 +302,24 @@ class AppTheme {
         }
         return null;
       });
+}
+
+/// Which experience a subtree belongs to. Components read `context.isKid` to
+/// pick rounder shapes and larger targets without separate widget sets.
+@immutable
+class MamilyMode extends ThemeExtension<MamilyMode> {
+  const MamilyMode({required this.isKid});
+
+  final bool isKid;
+
+  @override
+  MamilyMode copyWith({bool? isKid}) => MamilyMode(isKid: isKid ?? this.isKid);
+
+  @override
+  MamilyMode lerp(ThemeExtension<MamilyMode>? other, double t) =>
+      t < 0.5 || other is! MamilyMode ? this : other;
+}
+
+extension MamilyModeContext on BuildContext {
+  bool get isKid => Theme.of(this).extension<MamilyMode>()?.isKid ?? false;
 }

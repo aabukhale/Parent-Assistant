@@ -18,6 +18,7 @@ class DeviceRegisterInput {
     this.childId,
     this.appVersion,
     this.osVersion,
+    this.pushToken,
   });
 
   final String name;
@@ -28,6 +29,9 @@ class DeviceRegisterInput {
   final String? appVersion;
   final String? osVersion;
 
+  /// FCM registration token (sent write-only; the backend stores it encrypted).
+  final String? pushToken;
+
   Map<String, dynamic> toJson() => {
     'name': name,
     'platform': platform.wire,
@@ -36,6 +40,7 @@ class DeviceRegisterInput {
     if (childId != null) 'child_id': childId,
     if (appVersion != null) 'app_version': appVersion,
     if (osVersion != null) 'os_version': osVersion,
+    if (pushToken != null) 'push_token': pushToken,
   };
 }
 

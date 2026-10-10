@@ -1,8 +1,6 @@
 {
   "@@locale": "en",
-
-  "appTitle": "Parent Assistant",
-
+  "appTitle": "Mamily",
   "commonRetry": "Retry",
   "commonCancel": "Cancel",
   "commonSave": "Save",
@@ -12,7 +10,6 @@
   "commonEmpty": "Nothing to show yet",
   "commonComingSoonTitle": "This feature isn't available yet",
   "commonComingSoonBody": "We're working on bringing this to the app soon.",
-
   "errorNetwork": "Couldn't reach the server. Check your connection and try again.",
   "errorTimeout": "The request took too long. Please try again.",
   "errorServer": "An unexpected server error occurred. Try again later.",
@@ -24,14 +21,12 @@
   "errorValidation": "Please check the highlighted fields.",
   "errorUnavailable": "This service is currently unavailable.",
   "errorUnknown": "Something went wrong. Please try again.",
-
   "authWelcomeTitle": "Welcome",
   "authWelcomeSubtitle": "Your smart companion for parenting and organising your children's lives",
   "authCreateAccount": "Create a new account",
   "authHaveAccount": "I already have an account",
   "authOr": "or",
   "authBiometricUnavailable": "Fast biometric sign-in isn't available yet",
-
   "authLoginTitle": "Welcome back 👋",
   "authRegisterTitle": "Let's begin our journey 👨‍👩‍👧",
   "authFieldName": "First name",
@@ -48,12 +43,10 @@
   "authRegisterAction": "Create account",
   "authLogout": "Sign out",
   "authLogoutConfirm": "Sign out of your account?",
-
   "validationRequired": "This field is required",
   "validationEmail": "Enter a valid email address",
   "validationPasswordShort": "Password is too short (at least 8 characters)",
   "validationPasswordMismatch": "Passwords don't match",
-
   "profileTitle": "My account",
   "profileEditTitle": "Edit profile",
   "profileRoleOwner": "Family owner",
@@ -65,18 +58,22 @@
   "languageArabic": "Arabic",
   "languageHebrew": "Hebrew",
   "languageEnglish": "English",
-
   "childrenTitle": "My children",
   "childrenSubtitle": "Follow and support your children's development ❤️",
   "childrenCountLabel": "{count, plural, =0{No children} =1{1 child} other{{count} children}}",
-  "@childrenCountLabel": { "placeholders": { "count": { "type": "int" } } },
+  "@childrenCountLabel": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
   "childrenAdd": "Add a child",
   "childrenEmpty": "No children added yet",
   "childrenLoadMore": "Load more",
   "childrenFilterActive": "Active",
   "childrenFilterArchived": "Archived",
   "childrenFilterAll": "All",
-
   "childAddTitle": "Add a child",
   "childEditTitle": "Edit child",
   "childFieldName": "Child's name",
@@ -90,22 +87,39 @@
   "childFieldInterests": "Interests",
   "childFieldAvatarColor": "Card colour",
   "childAgeYears": "{age, plural, =0{Under 1 year} =1{1 year} other{{age} years}}",
-  "@childAgeYears": { "placeholders": { "age": { "type": "int" } } },
+  "@childAgeYears": {
+    "placeholders": {
+      "age": {
+        "type": "int"
+      }
+    }
+  },
   "childSave": "Save",
   "childCreated": "Child added",
   "childUpdated": "Child updated",
   "childDeleteAction": "Delete",
   "childDeleteConfirmTitle": "Delete child?",
   "childDeleteConfirmBody": "{name}'s profile will be archived and can be restored later.",
-  "@childDeleteConfirmBody": { "placeholders": { "name": { "type": "String" } } },
+  "@childDeleteConfirmBody": {
+    "placeholders": {
+      "name": {
+        "type": "String"
+      }
+    }
+  },
   "childDeleted": "Child deleted",
   "childDetailsInterestsEmpty": "No interests selected",
   "childValidationBirthDateRequired": "Choose the child's date of birth",
   "childValidationInterests": "Couldn't load the interests list",
-
   "lgTitle": "Learning goals",
   "lgSubtitle": "{name}'s learning goals",
-  "@lgSubtitle": { "placeholders": { "name": { "type": "String" } } },
+  "@lgSubtitle": {
+    "placeholders": {
+      "name": {
+        "type": "String"
+      }
+    }
+  },
   "lgEmpty": "No learning goals yet",
   "lgAddGoal": "New goal",
   "lgNewTitle": "New learning goal",
@@ -139,7 +153,13 @@
   "lgArchive": "Archive",
   "lgArchiveConfirmTitle": "Archive this goal?",
   "lgArchiveConfirmBody": "“{title}” will no longer appear among active goals.",
-  "@lgArchiveConfirmBody": { "placeholders": { "title": { "type": "String" } } },
+  "@lgArchiveConfirmBody": {
+    "placeholders": {
+      "title": {
+        "type": "String"
+      }
+    }
+  },
   "lgArchived": "Goal archived",
   "lgStanding": "Current standing",
   "lgCurrent": "Current value",
@@ -147,11 +167,29 @@
   "lgDone": "Done",
   "lgNotDone": "Not done",
   "lgStartedOn": "Started: {date}",
-  "@lgStartedOn": { "placeholders": { "date": { "type": "String" } } },
+  "@lgStartedOn": {
+    "placeholders": {
+      "date": {
+        "type": "String"
+      }
+    }
+  },
   "lgTargetOn": "Target: {date}",
-  "@lgTargetOn": { "placeholders": { "date": { "type": "String" } } },
+  "@lgTargetOn": {
+    "placeholders": {
+      "date": {
+        "type": "String"
+      }
+    }
+  },
   "lgAchievedOn": "Achieved on {date}",
-  "@lgAchievedOn": { "placeholders": { "date": { "type": "String" } } },
+  "@lgAchievedOn": {
+    "placeholders": {
+      "date": {
+        "type": "String"
+      }
+    }
+  },
   "lgHistoryTitle": "Progress history",
   "lgHistoryEmpty": "No progress recorded yet",
   "lgRecord": "Record progress",
@@ -163,9 +201,7 @@
   "lgProgressRecorded": "Progress recorded",
   "lgValidationTarget": "Enter a target value",
   "lgValidationPercentRange": "The percentage must be between 0 and 100",
-
   "permLoadFailed": "Couldn't load your permissions. Some actions are hidden until you retry.",
-
   "sleepTitle": "Sleep",
   "sleepAverage": "Average sleep",
   "sleepPeriodWeekly": "Weekly",
@@ -182,11 +218,32 @@
   "sleepFieldWake": "Woke up",
   "sleepNextDay": "Next day",
   "sleepDurationHm": "{hours}h {minutes}m",
-  "@sleepDurationHm": {"placeholders": {"hours": {"type": "int"}, "minutes": {"type": "int"}}},
+  "@sleepDurationHm": {
+    "placeholders": {
+      "hours": {
+        "type": "int"
+      },
+      "minutes": {
+        "type": "int"
+      }
+    }
+  },
   "sleepDurationH": "{hours}h",
-  "@sleepDurationH": {"placeholders": {"hours": {"type": "int"}}},
+  "@sleepDurationH": {
+    "placeholders": {
+      "hours": {
+        "type": "int"
+      }
+    }
+  },
   "sleepDurationM": "{minutes}m",
-  "@sleepDurationM": {"placeholders": {"minutes": {"type": "int"}}},
+  "@sleepDurationM": {
+    "placeholders": {
+      "minutes": {
+        "type": "int"
+      }
+    }
+  },
   "sleepSourceManual": "Manual",
   "sleepSourceDevice": "From a device",
   "sleepSave": "Save",
@@ -199,7 +256,6 @@
   "sleepValidationRange": "Bedtime must be before wake-up time",
   "sleepOverlap": "This period overlaps another sleep record for this child. Adjust the times and try again.",
   "sleepLoadMore": "Show more",
-
   "tasksTitle": "Tasks & points",
   "tasksPointsBalance": "Points balance",
   "tasksPointsUnit": "points",
@@ -236,13 +292,37 @@
   "recurrenceSummaryDaily": "Daily",
   "recurrenceSummaryOneTime": "One-time",
   "recurrenceSummaryOneTimeBy": "One-time, by {date}",
-  "@recurrenceSummaryOneTimeBy": {"placeholders": {"date": {"type": "String"}}},
+  "@recurrenceSummaryOneTimeBy": {
+    "placeholders": {
+      "date": {
+        "type": "String"
+      }
+    }
+  },
   "recurrenceSummaryWeekly": "Weekly: {days}",
-  "@recurrenceSummaryWeekly": {"placeholders": {"days": {"type": "String"}}},
+  "@recurrenceSummaryWeekly": {
+    "placeholders": {
+      "days": {
+        "type": "String"
+      }
+    }
+  },
   "recurrenceSummaryCustomDates": "{count} set dates",
-  "@recurrenceSummaryCustomDates": {"placeholders": {"count": {"type": "int"}}},
+  "@recurrenceSummaryCustomDates": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
   "recurrenceSummaryCustomInterval": "Every {days} days",
-  "@recurrenceSummaryCustomInterval": {"placeholders": {"days": {"type": "int"}}},
+  "@recurrenceSummaryCustomInterval": {
+    "placeholders": {
+      "days": {
+        "type": "int"
+      }
+    }
+  },
   "taskStatusActive": "Active",
   "taskStatusArchived": "Archived",
   "taskFilterAll": "All",
@@ -252,7 +332,13 @@
   "taskArchiveAction": "Archive",
   "taskArchiveConfirmTitle": "Archive this task?",
   "taskArchiveConfirmBody": "“{title}” will no longer appear among active tasks.",
-  "@taskArchiveConfirmBody": {"placeholders": {"title": {"type": "String"}}},
+  "@taskArchiveConfirmBody": {
+    "placeholders": {
+      "title": {
+        "type": "String"
+      }
+    }
+  },
   "taskArchived": "Task archived",
   "taskDetailPointsLabel": "Points on completion",
   "completionRequest": "Log a completion",
@@ -274,9 +360,21 @@
   "completionReversed": "Points reversed",
   "completionReviewNote": "Note (optional)",
   "completionPointsAwarded": "+{points} points",
-  "@completionPointsAwarded": {"placeholders": {"points": {"type": "int"}}},
+  "@completionPointsAwarded": {
+    "placeholders": {
+      "points": {
+        "type": "int"
+      }
+    }
+  },
   "completionOccurrence": "Completion for {date}",
-  "@completionOccurrence": {"placeholders": {"date": {"type": "String"}}},
+  "@completionOccurrence": {
+    "placeholders": {
+      "date": {
+        "type": "String"
+      }
+    }
+  },
   "completionConflict": "This completion's status has already changed. Data was refreshed.",
   "completionInvalidOccurrence": "That date isn't a scheduled occurrence for this task.",
   "txnTypeTaskAward": "Task reward",
@@ -290,7 +388,6 @@
   "recurrenceWeeklyNeedsDay": "Choose at least one weekday",
   "recurrenceCustomNeedsConfig": "Add specific dates, or set a repeat interval",
   "rewardsStorePhase6b": "Rewards store (coming soon)",
-
   "rewardsStoreTitle": "Rewards store",
   "rewardsTabCatalog": "Catalog",
   "rewardsTabHistory": "Redemptions",
@@ -317,15 +414,36 @@
   "rewardTypeLocked": "The reward type can't be changed after creation",
   "rewardInactiveBadge": "Inactive",
   "rewardCost": "{cost} points",
-  "@rewardCost": {"placeholders": {"cost": {"type": "int"}}},
+  "@rewardCost": {
+    "placeholders": {
+      "cost": {
+        "type": "int"
+      }
+    }
+  },
   "rewardAffordCan": "Affordable now",
   "rewardAffordNeed": "Needs {points} more points",
-  "@rewardAffordNeed": {"placeholders": {"points": {"type": "int"}}},
+  "@rewardAffordNeed": {
+    "placeholders": {
+      "points": {
+        "type": "int"
+      }
+    }
+  },
   "rewardRequest": "Redeem",
   "rewardRequestTitle": "Redeem this reward",
   "rewardOnBehalfNote": "You're requesting this on the child's behalf (secure Child Mode isn't available yet).",
   "rewardRequestConfirm": "“{title}” for {cost} points",
-  "@rewardRequestConfirm": {"placeholders": {"title": {"type": "String"}, "cost": {"type": "int"}}},
+  "@rewardRequestConfirm": {
+    "placeholders": {
+      "title": {
+        "type": "String"
+      },
+      "cost": {
+        "type": "int"
+      }
+    }
+  },
   "rewardRequested": "Redemption requested",
   "rewardSave": "Save",
   "rewardCreated": "Reward created",
@@ -333,7 +451,13 @@
   "rewardDeleteAction": "Delete",
   "rewardDeleteConfirmTitle": "Delete this reward?",
   "rewardDeleteConfirmBody": "“{title}” will no longer appear in the catalog.",
-  "@rewardDeleteConfirmBody": {"placeholders": {"title": {"type": "String"}}},
+  "@rewardDeleteConfirmBody": {
+    "placeholders": {
+      "title": {
+        "type": "String"
+      }
+    }
+  },
   "rewardDeleted": "Reward deleted",
   "rewardGlobalReadOnly": "Mamily templates are read-only",
   "redemptionStatusPending": "Awaiting review",
@@ -351,38 +475,98 @@
   "redemptionConflict": "This redemption's status has already changed. Data was refreshed.",
   "redemptionRewardUnavailable": "This reward isn't available right now.",
   "redemptionCostLabel": "{cost} points",
-  "@redemptionCostLabel": {"placeholders": {"cost": {"type": "int"}}},
+  "@redemptionCostLabel": {
+    "placeholders": {
+      "cost": {
+        "type": "int"
+      }
+    }
+  },
   "screenTimeGranted": "+{minutes} min screen time (server policy)",
-  "@screenTimeGranted": {"placeholders": {"minutes": {"type": "int"}}},
+  "@screenTimeGranted": {
+    "placeholders": {
+      "minutes": {
+        "type": "int"
+      }
+    }
+  },
   "screenTimeExpires": "Expires {date}",
-  "@screenTimeExpires": {"placeholders": {"date": {"type": "String"}}},
+  "@screenTimeExpires": {
+    "placeholders": {
+      "date": {
+        "type": "String"
+      }
+    }
+  },
   "screenTimeRevoked": "Screen-time grant revoked",
   "screenTimePolicyNote": "Backend policy data only — no device restriction was changed.",
   "rewardValidationCost": "Enter a cost between 1 and 100000",
   "rewardValidationMinutes": "Enter a minutes value between 1 and 600",
-
   "commonDurationM": "{minutes}m",
-  "@commonDurationM": { "placeholders": { "minutes": { "type": "int" } } },
+  "@commonDurationM": {
+    "placeholders": {
+      "minutes": {
+        "type": "int"
+      }
+    }
+  },
   "commonDurationH": "{hours}h",
-  "@commonDurationH": { "placeholders": { "hours": { "type": "int" } } },
+  "@commonDurationH": {
+    "placeholders": {
+      "hours": {
+        "type": "int"
+      }
+    }
+  },
   "commonDurationHm": "{hours}h {minutes}m",
-  "@commonDurationHm": { "placeholders": { "hours": { "type": "int" }, "minutes": { "type": "int" } } },
-
+  "@commonDurationHm": {
+    "placeholders": {
+      "hours": {
+        "type": "int"
+      },
+      "minutes": {
+        "type": "int"
+      }
+    }
+  },
   "homeGreeting": "Hi {name} 👋",
-  "@homeGreeting": { "placeholders": { "name": { "type": "String" } } },
+  "@homeGreeting": {
+    "placeholders": {
+      "name": {
+        "type": "String"
+      }
+    }
+  },
   "homeNoChildren": "Add a child to see their dashboard here",
   "homeChildrenCount": "{count, plural, =0{No children} =1{1 child} other{{count} children}}",
-  "@homeChildrenCount": { "placeholders": { "count": { "type": "int" } } },
-
+  "@homeChildrenCount": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
   "dashUnavailableShort": "Not available",
   "dashSectionNoData": "No data for this period",
   "dashTodayTitle": "Today",
   "dashPoints": "Points",
   "dashScreenTimeToday": "Screen time today",
   "dashScreenTimeOfLimit": "of {limit}",
-  "@dashScreenTimeOfLimit": { "placeholders": { "limit": { "type": "String" } } },
+  "@dashScreenTimeOfLimit": {
+    "placeholders": {
+      "limit": {
+        "type": "String"
+      }
+    }
+  },
   "dashScreenTimeUsedOfLimit": "Screen time (limit {limit})",
-  "@dashScreenTimeUsedOfLimit": { "placeholders": { "limit": { "type": "String" } } },
+  "@dashScreenTimeUsedOfLimit": {
+    "placeholders": {
+      "limit": {
+        "type": "String"
+      }
+    }
+  },
   "dashScreenTimeNoLimit": "No limit set",
   "dashLastSleep": "Last sleep",
   "dashNone": "None yet",
@@ -390,18 +574,38 @@
   "dashPendingApprovals": "Pending approvals",
   "dashGoals": "Learning goals",
   "dashGoalsValue": "{active} active · {achieved} achieved",
-  "@dashGoalsValue": { "placeholders": { "active": { "type": "int" }, "achieved": { "type": "int" } } },
+  "@dashGoalsValue": {
+    "placeholders": {
+      "active": {
+        "type": "int"
+      },
+      "achieved": {
+        "type": "int"
+      }
+    }
+  },
   "dashOpenReport": "Open development report",
   "dashReportsRestricted": "Development reports aren't available with your current permissions.",
-
   "dashReportTitle": "Development report",
   "dashReportFor": "Showing {name}",
-  "@dashReportFor": { "placeholders": { "name": { "type": "String" } } },
+  "@dashReportFor": {
+    "placeholders": {
+      "name": {
+        "type": "String"
+      }
+    }
+  },
   "dashNoChildSelected": "Choose a child to see their development report",
   "dashPeriodWeekly": "Weekly",
   "dashPeriodMonthly": "Monthly",
   "dashReportTimezone": "Times shown in {timezone}",
-  "@dashReportTimezone": { "placeholders": { "timezone": { "type": "String" } } },
+  "@dashReportTimezone": {
+    "placeholders": {
+      "timezone": {
+        "type": "String"
+      }
+    }
+  },
   "dashReportNoData": "There isn't enough activity in this period to report on yet.",
   "dashSectionScreenTime": "Screen time",
   "dashScreenTimeTotal": "Total",
@@ -424,7 +628,6 @@
   "dashSectionPoints": "Points",
   "dashPointsNet": "Net change",
   "dashPointsTransactions": "Transactions",
-
   "activitiesTitle": "Activities",
   "activitiesCatalogTitle": "Activity catalog",
   "activitiesCatalogEmpty": "No activities available yet",
@@ -434,13 +637,40 @@
   "activitySourceAi": "AI",
   "activitySourceFamily": "Family",
   "activityDurationMin": "{minutes} min",
-  "@activityDurationMin": { "placeholders": { "minutes": { "type": "int" } } },
+  "@activityDurationMin": {
+    "placeholders": {
+      "minutes": {
+        "type": "int"
+      }
+    }
+  },
   "activityAgeRange": "Ages {min}–{max}",
-  "@activityAgeRange": { "placeholders": { "min": { "type": "int" }, "max": { "type": "int" } } },
+  "@activityAgeRange": {
+    "placeholders": {
+      "min": {
+        "type": "int"
+      },
+      "max": {
+        "type": "int"
+      }
+    }
+  },
   "activityAgeMin": "Ages {min}+",
-  "@activityAgeMin": { "placeholders": { "min": { "type": "int" } } },
+  "@activityAgeMin": {
+    "placeholders": {
+      "min": {
+        "type": "int"
+      }
+    }
+  },
   "activityAgeMax": "Up to age {max}",
-  "@activityAgeMax": { "placeholders": { "max": { "type": "int" } } },
+  "@activityAgeMax": {
+    "placeholders": {
+      "max": {
+        "type": "int"
+      }
+    }
+  },
   "activityMaterials": "Materials",
   "activitySteps": "Steps",
   "activityAssignAction": "Assign to child",
@@ -452,7 +682,13 @@
   "activityFieldPointsHelp": "Any value above 0 makes the completion need your approval.",
   "activityFieldDueDate": "Due date (optional)",
   "activityDueOn": "Due {date}",
-  "@activityDueOn": { "placeholders": { "date": { "type": "String" } } },
+  "@activityDueOn": {
+    "placeholders": {
+      "date": {
+        "type": "String"
+      }
+    }
+  },
   "activityPointsInvalid": "Enter a value between 0 and 100000",
   "activityAssignOnBehalfNote": "You're assigning and completing on the child's behalf — secure Child Mode isn't available yet.",
   "activityGenerateTitle": "Generate activity",
@@ -461,7 +697,13 @@
   "activityGenerateCheckAgain": "Check again",
   "activityGenerateEmpty": "The provider returned no activities.",
   "activityGenerateNowAvailable": "{count, plural, =1{1 activity was generated — reload the catalog} other{{count} activities were generated — reload the catalog}}",
-  "@activityGenerateNowAvailable": { "placeholders": { "count": { "type": "int" } } },
+  "@activityGenerateNowAvailable": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
   "activityGenerateStill503": "Still unavailable — the backend has no AI provider configured.",
   "activitiesAssignedTitle": "Assigned activities",
   "activitiesAssignedEmpty": "No activities assigned to this child yet",
@@ -469,15 +711,26 @@
   "activityStatusCompleted": "Completed",
   "activityStatusCancelled": "Cancelled",
   "activityRewardPoints": "{points} points on approval",
-  "@activityRewardPoints": { "placeholders": { "points": { "type": "int" } } },
+  "@activityRewardPoints": {
+    "placeholders": {
+      "points": {
+        "type": "int"
+      }
+    }
+  },
   "activityNoPoints": "No points",
   "activityAwarded": "{points} awarded",
-  "@activityAwarded": { "placeholders": { "points": { "type": "int" } } },
+  "@activityAwarded": {
+    "placeholders": {
+      "points": {
+        "type": "int"
+      }
+    }
+  },
   "activityMarkDone": "Mark done",
   "activityCompletionRequested": "Completion recorded",
   "activityConflict": "That couldn't be done — the activity state changed. Refreshed.",
   "activityOnBehalfNote": "Parent-managed on the child's behalf.",
-
   "libraryTitle": "Parent library",
   "libraryEmpty": "No articles here yet",
   "libraryLoadMore": "Show more",
@@ -486,7 +739,6 @@
   "libraryAuthorStaff": "Mamily team",
   "libraryAuthorSpecialist": "Specialist",
   "libraryNoBody": "This article has no content yet.",
-
   "contentTitle": "Content controls",
   "contentRulesTitle": "Rules",
   "contentRulesEmpty": "No rules yet — the age filter above is the only control in effect.",
@@ -496,7 +748,13 @@
   "contentAgeFilter": "Age-appropriate filter",
   "contentAgeFilterSub": "Hide content outside the child's age range",
   "contentAgeFilterSubAge": "Filtering to content age {age}",
-  "@contentAgeFilterSubAge": { "placeholders": { "age": { "type": "int" } } },
+  "@contentAgeFilterSubAge": {
+    "placeholders": {
+      "age": {
+        "type": "int"
+      }
+    }
+  },
   "contentRuleCategory": "Category",
   "contentRuleItem": "Content item",
   "contentRuleExternalChannel": "External channel",
@@ -515,27 +773,62 @@
   "contentRuleBlockItem": "Block this item",
   "contentRuleAllowItem": "Allow this item",
   "contentRuleBlockCategory": "Block the “{name}” category",
-  "@contentRuleBlockCategory": { "placeholders": { "name": { "type": "String" } } },
+  "@contentRuleBlockCategory": {
+    "placeholders": {
+      "name": {
+        "type": "String"
+      }
+    }
+  },
   "contentRuleAllowCategory": "Allow the “{name}” category",
-  "@contentRuleAllowCategory": { "placeholders": { "name": { "type": "String" } } },
-
+  "@contentRuleAllowCategory": {
+    "placeholders": {
+      "name": {
+        "type": "String"
+      }
+    }
+  },
   "stTitle": "Screen time",
   "stEnforcementNote": "This screen shows and configures backend policy. Usage figures come from the server. The app itself does not and cannot enforce screen time on the device — that needs native support not built yet.",
   "stUsedToday": "Used today",
   "stOfLimit": "of {limit}",
-  "@stOfLimit": { "placeholders": { "limit": { "type": "String" } } },
+  "@stOfLimit": {
+    "placeholders": {
+      "limit": {
+        "type": "String"
+      }
+    }
+  },
   "stNoLimit": "No limit configured",
   "stBonus": "includes {bonus} bonus",
-  "@stBonus": { "placeholders": { "bonus": { "type": "String" } } },
+  "@stBonus": {
+    "placeholders": {
+      "bonus": {
+        "type": "String"
+      }
+    }
+  },
   "stNoUsageData": "No usage has been reported for this child yet.",
   "stPerApp": "By app",
   "stDailyRule": "Daily rule",
   "stNoRule": "No rule set",
   "stRuleDisabled": "Rule disabled (no limit)",
   "stDailyLimitValue": "Daily limit {limit}",
-  "@stDailyLimitValue": { "placeholders": { "limit": { "type": "String" } } },
+  "@stDailyLimitValue": {
+    "placeholders": {
+      "limit": {
+        "type": "String"
+      }
+    }
+  },
   "stWeekdayOverrides": "{count, plural, =1{1 weekday override} other{{count} weekday overrides}}",
-  "@stWeekdayOverrides": { "placeholders": { "count": { "type": "int" } } },
+  "@stWeekdayOverrides": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
   "stEditRules": "Edit rules",
   "stExtraTime": "Extra time",
   "stExtraHowMuch": "How much extra time?",
@@ -548,7 +841,13 @@
   "stExtraRevoked": "Extra time revoked",
   "stExtraRevokedLabel": "Revoked",
   "stExtraGrantedLabel": "{minutes} granted",
-  "@stExtraGrantedLabel": { "placeholders": { "minutes": { "type": "String" } } },
+  "@stExtraGrantedLabel": {
+    "placeholders": {
+      "minutes": {
+        "type": "String"
+      }
+    }
+  },
   "stExtraFromReward": "From a reward redemption",
   "stExtraFromParent": "Granted by a parent",
   "stExtraRevokeAction": "Revoke",
@@ -559,7 +858,13 @@
   "stWeekdayOverridesTitle": "Per-weekday overrides",
   "stWeekdayOverridesHint": "Turn a day on to give it its own limit; otherwise it uses the default.",
   "stMinutesValue": "{minutes} min",
-  "@stMinutesValue": { "placeholders": { "minutes": { "type": "int" } } },
+  "@stMinutesValue": {
+    "placeholders": {
+      "minutes": {
+        "type": "int"
+      }
+    }
+  },
   "stRulesSaved": "Screen-time rules saved",
   "stRulesInvalid": "Check the limit values (0–1440 min).",
   "stUsesDefault": "Uses the default limit",
@@ -580,7 +885,13 @@
   "devicesReactivated": "Device reactivated",
   "devicesRemoveTitle": "Remove device?",
   "devicesRemoveBody": "“{name}” will be removed. It can be registered again later.",
-  "@devicesRemoveBody": { "placeholders": { "name": { "type": "String" } } },
+  "@devicesRemoveBody": {
+    "placeholders": {
+      "name": {
+        "type": "String"
+      }
+    }
+  },
   "devicesRemoveAction": "Remove",
   "devicesRemoved": "Device removed",
   "devicesModeChildDedicated": "Child's device",
@@ -589,7 +900,6 @@
   "devicesRevoke": "Revoke",
   "devicesReactivate": "Reactivate",
   "devicesFieldName": "Device name",
-
   "gamesTitle": "Games",
   "gamesEmpty": "No games available yet",
   "gamesPreviewNote": "A parent preview of the game catalog. Games can't be played inside this app yet — there is no game engine.",
@@ -606,16 +916,20 @@
   "gamesAttempts": "Attempts",
   "gamesPlayTime": "Play time",
   "gamesMinutes": "{minutes} min",
-  "@gamesMinutes": { "placeholders": { "minutes": { "type": "int" } } },
+  "@gamesMinutes": {
+    "placeholders": {
+      "minutes": {
+        "type": "int"
+      }
+    }
+  },
   "gamesLastPlayed": "Last played",
-
   "aiCoachTitle": "Parenting coach",
   "aiCoachUnavailableTitle": "The AI parenting coach isn't available yet",
   "aiCoachUnavailableBody": "There is no coaching service connected. When one ships, your questions and its answers will go through the backend — nothing is answered locally.",
   "nutritionTitle": "Nutrition",
   "nutritionUnavailableTitle": "Nutrition tracking isn't available yet",
   "nutritionUnavailableBody": "There is no nutrition, meal-log or photo-analysis service connected. Meal or allergy details entered here would not be saved anywhere, so no input is offered.",
-
   "navHome": "Home",
   "navChildren": "Children",
   "navActivities": "Activities",
@@ -623,5 +937,340 @@
   "navProfile": "Account",
   "familySelectTitle": "Choose a family",
   "noFamilyTitle": "No family is linked to your account",
-  "noFamilyBody": "Ask the family owner to add you back, or sign out."
+  "noFamilyBody": "Ask the family owner to add you back, or sign out.",
+  "roleEntryTitle": "Welcome to Mamily",
+  "roleEntrySubtitle": "One app for the whole family. Who's here?",
+  "roleParent": "I'm a parent",
+  "roleParentHint": "Plan, approve and cheer on your family",
+  "roleChild": "I'm a child",
+  "roleChildHint": "See my day, my routines and my rewards",
+  "roleResumeChild": "Back to child mode",
+  "roleChoiceNote": "Your account decides what you can do — this just picks the right way in.",
+  "pairTitle": "Join your family",
+  "pairSubtitle": "Ask a parent for the code on their phone, or scan their QR code.",
+  "pairCodeLabel": "Pairing code",
+  "pairCodeHint": "ABCD-EFGH",
+  "pairButton": "Join",
+  "pairScan": "Scan QR code",
+  "pairInvalid": "That code doesn't work. It may have expired — ask for a new one.",
+  "pairTooMany": "Too many tries. Wait a minute and try again.",
+  "pairCameraDenied": "Camera access is off, so scanning can't start. Type the code instead, or allow the camera in Settings.",
+  "pairScanInstruction": "Point the camera at the QR code on the parent's phone",
+  "kidTabMyDay": "My day",
+  "kidTabRewards": "Rewards",
+  "kidTabTogether": "Together",
+  "kidTabMe": "Me",
+  "kidGreetingMorning": "Good morning, {name}!",
+  "@kidGreetingMorning": {
+    "placeholders": {
+      "name": {
+        "type": "String"
+      }
+    }
+  },
+  "kidGreetingAfternoon": "Good afternoon, {name}!",
+  "@kidGreetingAfternoon": {
+    "placeholders": {
+      "name": {
+        "type": "String"
+      }
+    }
+  },
+  "kidGreetingEvening": "Good evening, {name}!",
+  "@kidGreetingEvening": {
+    "placeholders": {
+      "name": {
+        "type": "String"
+      }
+    }
+  },
+  "kidPoints": "{count, plural, =0{0 points} =1{1 point} other{{count} points}}",
+  "@kidPoints": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "kidNextStep": "Your next step",
+  "kidStartRoutine": "Start",
+  "kidContinueRoutine": "Keep going",
+  "kidIDidIt": "I did it!",
+  "kidTryAgain": "Try again",
+  "kidTodayPlan": "Today",
+  "kidNothingToday": "Nothing planned today. Enjoy your free time!",
+  "kidAllDone": "You finished everything today. Amazing!",
+  "kidStateTodo": "To do",
+  "kidStatePending": "Waiting for a parent",
+  "kidStateApproved": "Done!",
+  "kidStateRejected": "Have another go",
+  "kidStateInProgress": "In progress",
+  "kidStateUpcoming": "Coming up",
+  "kidStatePast": "Earlier",
+  "kidTaskSentTitle": "Sent!",
+  "kidTaskSent": "A parent will check it soon. Points arrive when it's approved.",
+  "kidConfirmDoneTitle": "Did you finish “{task}”?",
+  "@kidConfirmDoneTitle": {
+    "placeholders": {
+      "task": {
+        "type": "String"
+      }
+    }
+  },
+  "kidConfirmDoneBody": "We'll ask a parent to check it.",
+  "kidYesDone": "Yes, I did!",
+  "kidNotYet": "Not yet",
+  "kidParentNote": "Note from your parent: {note}",
+  "@kidParentNote": {
+    "placeholders": {
+      "note": {
+        "type": "String"
+      }
+    }
+  },
+  "kidPointsValue": "+{count}",
+  "@kidPointsValue": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "kidRoutineStepsLeft": "{count, plural, =0{All steps done} =1{1 step to go} other{{count} steps to go}}",
+  "@kidRoutineStepsLeft": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "kidRoutineCheer1": "Great start!",
+  "kidRoutineCheer2": "You're on a roll!",
+  "kidRoutineCheer3": "Almost there!",
+  "kidRoutineDone": "Routine complete!",
+  "kidRoutineBonusPending": "Your bonus points are waiting for a parent's OK.",
+  "kidRoutineNotToday": "This routine isn't on today.",
+  "kidRoutineFinishedToday": "You already finished this today.",
+  "kidUndoStep": "Undo",
+  "kidSavingFor": "Saving for",
+  "kidPointsToGo": "{count, plural, =0{You can ask for it now!} =1{1 more point} other{{count} more points}}",
+  "@kidPointsToGo": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "kidChooseGoal": "Save for this",
+  "kidGoalChosen": "My goal",
+  "kidAskForReward": "Ask for it",
+  "kidRequested": "Requested",
+  "kidRewardAskTitle": "Ask for “{reward}”?",
+  "@kidRewardAskTitle": {
+    "placeholders": {
+      "reward": {
+        "type": "String"
+      }
+    }
+  },
+  "kidRewardAskBody": "{count, plural, =1{It costs 1 point.} other{It costs {count} points.}} Points are only used if a parent says yes.",
+  "@kidRewardAskBody": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "kidRewardAsked": "Request sent to your parent!",
+  "kidMyBalance": "My points",
+  "kidPointsHistory": "Points history",
+  "kidNoRewards": "No rewards yet. Suggest one your family might add!",
+  "kidMyIdeas": "My reward ideas",
+  "kidSuggestReward": "Suggest a reward",
+  "kidSuggestTitle": "What would you love?",
+  "kidSuggestField": "My idea",
+  "kidSuggestNote": "Why it would be special (optional)",
+  "kidSuggestSend": "Send idea",
+  "kidSuggestSent": "Idea sent! A parent will decide.",
+  "kidWithdraw": "Take back",
+  "kidChallenges": "Family challenges",
+  "kidNoChallenges": "No family challenge right now.",
+  "kidTogetherProgress": "{done} of {total} together",
+  "@kidTogetherProgress": {
+    "placeholders": {
+      "done": {
+        "type": "int"
+      },
+      "total": {
+        "type": "int"
+      }
+    }
+  },
+  "kidMyPart": "My part: {count}",
+  "@kidMyPart": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "kidAddProgress": "Add progress",
+  "kidAddProgressAmount": "How much did you do?",
+  "kidChallengeAchieved": "You did it together!",
+  "kidChallengeCountsAuto": "Counts automatically when tasks or routines are done.",
+  "kidMessages": "Messages from family",
+  "kidNoMessages": "No messages yet.",
+  "kidReplyFrom": "{name} replied",
+  "@kidReplyFrom": {
+    "placeholders": {
+      "name": {
+        "type": "String"
+      }
+    }
+  },
+  "kidHowFeel": "How are you feeling?",
+  "kidFeelNote": "Want to tell more? (optional)",
+  "kidFeelShare": "Share",
+  "kidFeelThanks": "Thanks for sharing. Your family will see it.",
+  "kidFeelPrivacy": "Only your family sees this.",
+  "moodGreat": "Great",
+  "moodHappy": "Happy",
+  "moodOkay": "Okay",
+  "moodTired": "Tired",
+  "moodSad": "Sad",
+  "moodWorried": "Worried",
+  "moodAngry": "Angry",
+  "kidMyRequests": "My requests",
+  "kidWaiting": "Waiting",
+  "kidAnswered": "Answered",
+  "kidNoRequests": "You haven't asked for anything yet.",
+  "explainTaskPending": "A parent will check this task soon.",
+  "explainTaskApproved": "Approved — the points are yours!",
+  "explainTaskRejected": "Not quite yet — you can try again.",
+  "explainTaskReversed": "A parent undid this one, so its points were taken back.",
+  "explainRewardPending": "Your parent will decide soon. No points used yet.",
+  "explainRewardApproved": "Yes! Enjoy your reward.",
+  "explainRewardRejected": "Not this time — your points are safe.",
+  "explainRewardCancelled": "This reward was cancelled and the points came back.",
+  "explainWishPending": "Your idea is waiting for a parent.",
+  "explainWishApproved": "Your idea is now a reward!",
+  "explainWishDeclined": "Not added this time.",
+  "explainWishWithdrawn": "You took this idea back.",
+  "explainScreenPending": "Waiting for a parent to answer.",
+  "explainScreenApproved": "Extra time approved for today.",
+  "explainScreenDeclined": "Not today.",
+  "explainScreenCancelled": "You cancelled this request.",
+  "explainRoutinePending": "Bonus points are waiting for a parent's OK.",
+  "explainRoutineApproved": "Bonus approved — great routine!",
+  "explainRoutineRejected": "No bonus this time.",
+  "kidMoreTime": "Ask for more screen time",
+  "kidMoreTimeHow": "How much more?",
+  "kidMoreTimeWhy": "Why? (optional)",
+  "kidMoreTimeSend": "Send request",
+  "kidMoreTimeWaiting": "You asked for {count} minutes — waiting for an answer.",
+  "@kidMoreTimeWaiting": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "kidMinutes": "{count} min",
+  "@kidMinutes": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "kidScreenTodayLimit": "Today's limit: {count} min",
+  "@kidScreenTodayLimit": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "kidScreenNoLimit": "No screen-time limit set for today.",
+  "kidScreenNotMeasured": "This app doesn't measure or lock your screen time — it just sends the request.",
+  "kidMyActivities": "My activities",
+  "kidMyGoals": "My goals",
+  "kidNotifications": "Notifications",
+  "kidGrownUps": "Grown-ups",
+  "kidGrownUpsBody": "A parent can sign in here with their own account. Your child mode stays ready for later.",
+  "kidParentSignIn": "Parent sign-in",
+  "kidSignOutDevice": "Sign out of this device",
+  "kidSignOutConfirm": "You'll need a new code from a parent to come back.",
+  "kidActivityDone": "Done it",
+  "celebrateGreat": "Woohoo!",
+  "lastUpdated": "Updated {time}",
+  "@lastUpdated": {
+    "placeholders": {
+      "time": {
+        "type": "String"
+      }
+    }
+  },
+  "offlineShowingSaved": "You're offline — showing what we saved {time}.",
+  "@offlineShowingSaved": {
+    "placeholders": {
+      "time": {
+        "type": "String"
+      }
+    }
+  },
+  "justNow": "just now",
+  "minutesAgo": "{count, plural, =1{1 min ago} other{{count} min ago}}",
+  "@minutesAgo": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "hoursAgo": "{count, plural, =1{1 hour ago} other{{count} hours ago}}",
+  "@hoursAgo": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "daysAgo": "{count, plural, =1{yesterday} other{{count} days ago}}",
+  "@daysAgo": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "commonConfirm": "Confirm",
+  "commonUndo": "Undo",
+  "commonSend": "Send",
+  "commonSeeAll": "See all",
+  "commonDone": "Done",
+  "commonOptional": "Optional",
+  "commonBack": "Back",
+  "commonContinue": "Continue",
+  "commonSignOut": "Sign out",
+  "commonNew": "New",
+  "notifInboxTitle": "Notifications",
+  "notifMarkAllRead": "Mark all read",
+  "notifEmptyTitle": "You're all caught up",
+  "notifEmptyBody": "Updates about tasks, rewards and family plans will appear here.",
+  "notifUnread": "Unread",
+  "authForgotPassword": "Forgot password?",
+  "resetTitle": "Reset your password",
+  "resetIntro": "Enter your account email. We'll send a 6-digit code.",
+  "resetSendCode": "Send code",
+  "resetCodeSent": "If an account exists for that email, a code is on its way. It expires in 30 minutes.",
+  "resetCodeLabel": "6-digit code",
+  "resetNewPassword": "New password",
+  "resetSave": "Save new password",
+  "resetDone": "Password updated. Sign in with your new password — other devices were signed out.",
+  "resetInvalidCode": "That code is wrong or has expired.",
+  "parentEntryTitle": "Welcome, parent",
+  "parentEntrySubtitle": "Sign in to plan the day, approve requests and cheer your children on.",
+  "authPasswordShow": "Show password",
+  "authPasswordHide": "Hide password"
 }

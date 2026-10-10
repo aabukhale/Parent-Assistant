@@ -43,16 +43,19 @@ void main() {
       'labelSmall': type.labelSmall,
     };
 
-    test('every style is Rubik, ink-coloured and drives the weight axis', () {
+    test('every style is Rubik, ink-coloured and has a bundled weight', () {
+      final bundled = {
+        FontWeight.w400,
+        FontWeight.w500,
+        FontWeight.w600,
+        FontWeight.w700,
+        FontWeight.w800,
+      };
       for (final e in styles.entries) {
         final s = e.value!;
         expect(s.fontFamily, 'Rubik', reason: e.key);
         expect(s.color, MamilyColors.light.ink, reason: e.key);
-        expect(
-          s.fontVariations?.any((v) => v.axis == 'wght'),
-          isTrue,
-          reason: '${e.key} must set the wght axis',
-        );
+        expect(bundled, contains(s.fontWeight), reason: e.key);
       }
     });
 
@@ -90,23 +93,26 @@ void main() {
       expect(type.bodySmall?.fontSize, 12);
     });
 
-    // Rubik is a variable font that defaults to Light and ignores a plain
-    // FontWeight.bold, so it must not become the default for existing screens
-    // until static weights exist or the screens migrate.
-    test('existing screens keep their font; Rubik is opt-in per style', () {
-      expect(theme.textTheme.bodyMedium?.fontFamily, isNot('Rubik'));
+    // Rubik now ships as static weight instances, so it is safe as the
+    // app-wide default: a plain FontWeight renders at its true weight.
+    test('Rubik is the default for every text style', () {
+      expect(theme.textTheme.bodyMedium?.fontFamily, 'Rubik');
+      expect(theme.textTheme.titleLarge?.fontFamily, 'Rubik');
+      expect(AppTheme.kid.textTheme.bodyMedium?.fontFamily, 'Rubik');
+    });
+
+    test('opting out falls back to the platform-safe family', () {
+      final legacy = AppTheme.buildFor(
+        MamilyColors.light,
+        rubikEverywhere: false,
+      );
       expect(
-        theme.textTheme.bodyMedium?.fontFamily,
-        AppTypography.legacyFontFamily,
+        legacy.textTheme.bodyMedium?.fontFamily,
+        isNot(AppTypography.fontFamily),
       );
     });
 
-    test('the app-wide switch makes Rubik the default when it is safe', () {
-      final all = AppTheme.buildFor(MamilyColors.light, rubikEverywhere: true);
-      expect(all.textTheme.bodyMedium?.fontFamily, 'Rubik');
-    });
-
-    test('themed Material buttons use Rubik with the weight axis set', () {
+    test('themed Material buttons use Rubik at a real weight', () {
       for (final style in [
         theme.filledButtonTheme.style!,
         theme.outlinedButtonTheme.style!,
@@ -114,8 +120,19 @@ void main() {
       ]) {
         final text = style.textStyle!.resolve({})!;
         expect(text.fontFamily, 'Rubik');
-        expect(text.fontVariations, isNotEmpty);
+        expect(text.fontWeight, FontWeight.w600);
+        expect(text.fontVariations, isNull);
       }
+    });
+
+    test('the kid theme uses larger touch targets', () {
+      final style = AppTheme.kid.filledButtonTheme.style!;
+      expect(
+        style.minimumSize!.resolve({})!.height,
+        AppSizes.minTouchTargetKid,
+      );
+      expect(AppTheme.kid.extension<MamilyMode>()!.isKid, isTrue);
+      expect(AppTheme.light.extension<MamilyMode>()!.isKid, isFalse);
     });
   });
 
@@ -249,12 +266,22 @@ void main() {
     test('Rubik is registered in pubspec and shipped with its licence', () {
       final pubspec = File('pubspec.yaml').readAsStringSync();
       expect(pubspec, contains('family: Rubik'));
-      expect(pubspec, contains('assets/fonts/Rubik-Variable.ttf'));
       expect(pubspec, contains('assets/fonts/OFL.txt'));
 
-      final font = File('assets/fonts/Rubik-Variable.ttf');
-      expect(font.existsSync(), isTrue);
-      expect(font.lengthSync(), greaterThan(100 * 1024));
+      // Static instances for every weight the type scale uses.
+      for (final (file, weight) in [
+        ('Regular', 400),
+        ('Medium', 500),
+        ('SemiBold', 600),
+        ('Bold', 700),
+        ('ExtraBold', 800),
+      ]) {
+        expect(pubspec, contains('assets/fonts/Rubik-$file.ttf'));
+        expect(pubspec, contains('weight: $weight'));
+        final font = File('assets/fonts/Rubik-$file.ttf');
+        expect(font.existsSync(), isTrue, reason: file);
+        expect(font.lengthSync(), greaterThan(100 * 1024), reason: file);
+      }
       final licence = File('assets/fonts/OFL.txt').readAsStringSync();
       expect(licence, contains('SIL Open Font License'));
     });

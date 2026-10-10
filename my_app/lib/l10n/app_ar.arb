@@ -1,8 +1,6 @@
 {
   "@@locale": "ar",
-
-  "appTitle": "مساعد الوالدين",
-
+  "appTitle": "Mamily",
   "commonRetry": "إعادة المحاولة",
   "commonCancel": "إلغاء",
   "commonSave": "حفظ",
@@ -12,7 +10,6 @@
   "commonEmpty": "لا توجد بيانات لعرضها",
   "commonComingSoonTitle": "هذه الميزة غير متاحة بعد",
   "commonComingSoonBody": "نعمل على إتاحة هذه الميزة قريبًا.",
-
   "errorNetwork": "تعذّر الاتصال بالخادم. تحقّق من اتصالك بالإنترنت وحاول مجددًا.",
   "errorTimeout": "استغرق الطلب وقتًا طويلًا. حاول مجددًا.",
   "errorServer": "حدث خطأ غير متوقع في الخادم. حاول لاحقًا.",
@@ -24,14 +21,12 @@
   "errorValidation": "تحقّق من الحقول المدخلة.",
   "errorUnavailable": "هذه الخدمة غير متاحة حاليًا.",
   "errorUnknown": "حدث خطأ ما. حاول مجددًا.",
-
   "authWelcomeTitle": "أهلًا بكم",
   "authWelcomeSubtitle": "مساعدك الذكي في رحلة التربية وتنظيم حياة أطفالك",
   "authCreateAccount": "إنشاء حساب جديد",
   "authHaveAccount": "لدي حساب بالفعل",
   "authOr": "أو",
   "authBiometricUnavailable": "الدخول السريع بالبصمة غير متاح بعد",
-
   "authLoginTitle": "مرحبًا بعودتك 👋",
   "authRegisterTitle": "لنبدأ رحلتنا 👨‍👩‍👧",
   "authFieldName": "الاسم",
@@ -48,12 +43,10 @@
   "authRegisterAction": "إنشاء الحساب",
   "authLogout": "تسجيل الخروج",
   "authLogoutConfirm": "هل تريد تسجيل الخروج؟",
-
   "validationRequired": "هذا الحقل مطلوب",
   "validationEmail": "أدخل بريدًا إلكترونيًا صحيحًا",
   "validationPasswordShort": "كلمة المرور قصيرة جدًا (8 أحرف على الأقل)",
   "validationPasswordMismatch": "كلمتا المرور غير متطابقتين",
-
   "profileTitle": "حسابي",
   "profileEditTitle": "تعديل الملف الشخصي",
   "profileRoleOwner": "مالك العائلة",
@@ -65,18 +58,22 @@
   "languageArabic": "العربية",
   "languageHebrew": "العبرية",
   "languageEnglish": "الإنجليزية",
-
   "childrenTitle": "أطفالي",
   "childrenSubtitle": "تابع واهتم بتطور أطفالك ❤️",
   "childrenCountLabel": "{count, plural, =0{لا يوجد أطفال} =1{طفل واحد} =2{طفلان} few{{count} أطفال} many{{count} طفلًا} other{{count} طفل}}",
-  "@childrenCountLabel": { "placeholders": { "count": { "type": "int" } } },
+  "@childrenCountLabel": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
   "childrenAdd": "إضافة طفل",
   "childrenEmpty": "لم تتم إضافة أي طفل بعد",
   "childrenLoadMore": "تحميل المزيد",
   "childrenFilterActive": "النشطون",
   "childrenFilterArchived": "المؤرشفون",
   "childrenFilterAll": "الكل",
-
   "childAddTitle": "إضافة طفل",
   "childEditTitle": "تعديل بيانات الطفل",
   "childFieldName": "اسم الطفل",
@@ -90,22 +87,39 @@
   "childFieldInterests": "الاهتمامات",
   "childFieldAvatarColor": "لون البطاقة",
   "childAgeYears": "{age, plural, =0{أقل من سنة} =1{سنة واحدة} =2{سنتان} few{{age} سنوات} many{{age} سنة} other{{age} سنة}}",
-  "@childAgeYears": { "placeholders": { "age": { "type": "int" } } },
+  "@childAgeYears": {
+    "placeholders": {
+      "age": {
+        "type": "int"
+      }
+    }
+  },
   "childSave": "حفظ",
   "childCreated": "تمت إضافة الطفل",
   "childUpdated": "تم تحديث بيانات الطفل",
   "childDeleteAction": "حذف",
   "childDeleteConfirmTitle": "حذف الطفل؟",
   "childDeleteConfirmBody": "سيتم أرشفة ملف {name} ويمكن استعادته لاحقًا.",
-  "@childDeleteConfirmBody": { "placeholders": { "name": { "type": "String" } } },
+  "@childDeleteConfirmBody": {
+    "placeholders": {
+      "name": {
+        "type": "String"
+      }
+    }
+  },
   "childDeleted": "تم حذف الطفل",
   "childDetailsInterestsEmpty": "لا توجد اهتمامات محددة",
   "childValidationBirthDateRequired": "اختر تاريخ ميلاد الطفل",
   "childValidationInterests": "تعذّر تحميل قائمة الاهتمامات",
-
   "lgTitle": "أهداف التعلم",
   "lgSubtitle": "أهداف تعلم {name}",
-  "@lgSubtitle": { "placeholders": { "name": { "type": "String" } } },
+  "@lgSubtitle": {
+    "placeholders": {
+      "name": {
+        "type": "String"
+      }
+    }
+  },
   "lgEmpty": "لا توجد أهداف تعلم بعد",
   "lgAddGoal": "هدف جديد",
   "lgNewTitle": "هدف تعلم جديد",
@@ -139,7 +153,13 @@
   "lgArchive": "أرشفة",
   "lgArchiveConfirmTitle": "أرشفة الهدف؟",
   "lgArchiveConfirmBody": "لن يظهر «{title}» ضمن الأهداف النشطة.",
-  "@lgArchiveConfirmBody": { "placeholders": { "title": { "type": "String" } } },
+  "@lgArchiveConfirmBody": {
+    "placeholders": {
+      "title": {
+        "type": "String"
+      }
+    }
+  },
   "lgArchived": "تمت أرشفة الهدف",
   "lgStanding": "الوضع الحالي",
   "lgCurrent": "القيمة الحالية",
@@ -147,11 +167,29 @@
   "lgDone": "منجز",
   "lgNotDone": "غير منجز",
   "lgStartedOn": "البداية: {date}",
-  "@lgStartedOn": { "placeholders": { "date": { "type": "String" } } },
+  "@lgStartedOn": {
+    "placeholders": {
+      "date": {
+        "type": "String"
+      }
+    }
+  },
   "lgTargetOn": "المستهدف: {date}",
-  "@lgTargetOn": { "placeholders": { "date": { "type": "String" } } },
+  "@lgTargetOn": {
+    "placeholders": {
+      "date": {
+        "type": "String"
+      }
+    }
+  },
   "lgAchievedOn": "تحقّق في {date}",
-  "@lgAchievedOn": { "placeholders": { "date": { "type": "String" } } },
+  "@lgAchievedOn": {
+    "placeholders": {
+      "date": {
+        "type": "String"
+      }
+    }
+  },
   "lgHistoryTitle": "سجل التقدم",
   "lgHistoryEmpty": "لا توجد سجلات تقدم بعد",
   "lgRecord": "تسجيل تقدم",
@@ -163,9 +201,7 @@
   "lgProgressRecorded": "تم تسجيل التقدم",
   "lgValidationTarget": "أدخل قيمة مستهدفة",
   "lgValidationPercentRange": "يجب أن تكون النسبة بين 0 و100",
-
   "permLoadFailed": "تعذّر تحميل صلاحياتك. بعض الإجراءات مخفية حتى إعادة المحاولة.",
-
   "sleepTitle": "النوم",
   "sleepAverage": "متوسط النوم",
   "sleepPeriodWeekly": "أسبوعي",
@@ -182,11 +218,32 @@
   "sleepFieldWake": "وقت الاستيقاظ",
   "sleepNextDay": "اليوم التالي",
   "sleepDurationHm": "{hours}س {minutes}د",
-  "@sleepDurationHm": {"placeholders": {"hours": {"type": "int"}, "minutes": {"type": "int"}}},
+  "@sleepDurationHm": {
+    "placeholders": {
+      "hours": {
+        "type": "int"
+      },
+      "minutes": {
+        "type": "int"
+      }
+    }
+  },
   "sleepDurationH": "{hours}س",
-  "@sleepDurationH": {"placeholders": {"hours": {"type": "int"}}},
+  "@sleepDurationH": {
+    "placeholders": {
+      "hours": {
+        "type": "int"
+      }
+    }
+  },
   "sleepDurationM": "{minutes}د",
-  "@sleepDurationM": {"placeholders": {"minutes": {"type": "int"}}},
+  "@sleepDurationM": {
+    "placeholders": {
+      "minutes": {
+        "type": "int"
+      }
+    }
+  },
   "sleepSourceManual": "يدوي",
   "sleepSourceDevice": "من جهاز",
   "sleepSave": "حفظ",
@@ -199,7 +256,6 @@
   "sleepValidationRange": "يجب أن يكون وقت النوم قبل وقت الاستيقاظ",
   "sleepOverlap": "تتداخل هذه الفترة مع سجل نوم آخر لهذا الطفل. عدّل الأوقات وحاول مجددًا.",
   "sleepLoadMore": "عرض المزيد",
-
   "tasksTitle": "المهام والنقاط",
   "tasksPointsBalance": "رصيد النقاط",
   "tasksPointsUnit": "نقطة",
@@ -236,13 +292,37 @@
   "recurrenceSummaryDaily": "يوميًا",
   "recurrenceSummaryOneTime": "مرة واحدة",
   "recurrenceSummaryOneTimeBy": "مرة واحدة قبل {date}",
-  "@recurrenceSummaryOneTimeBy": {"placeholders": {"date": {"type": "String"}}},
+  "@recurrenceSummaryOneTimeBy": {
+    "placeholders": {
+      "date": {
+        "type": "String"
+      }
+    }
+  },
   "recurrenceSummaryWeekly": "أسبوعيًا: {days}",
-  "@recurrenceSummaryWeekly": {"placeholders": {"days": {"type": "String"}}},
+  "@recurrenceSummaryWeekly": {
+    "placeholders": {
+      "days": {
+        "type": "String"
+      }
+    }
+  },
   "recurrenceSummaryCustomDates": "{count} تواريخ محددة",
-  "@recurrenceSummaryCustomDates": {"placeholders": {"count": {"type": "int"}}},
+  "@recurrenceSummaryCustomDates": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
   "recurrenceSummaryCustomInterval": "كل {days} يوم",
-  "@recurrenceSummaryCustomInterval": {"placeholders": {"days": {"type": "int"}}},
+  "@recurrenceSummaryCustomInterval": {
+    "placeholders": {
+      "days": {
+        "type": "int"
+      }
+    }
+  },
   "taskStatusActive": "نشطة",
   "taskStatusArchived": "مؤرشفة",
   "taskFilterAll": "الكل",
@@ -252,7 +332,13 @@
   "taskArchiveAction": "أرشفة",
   "taskArchiveConfirmTitle": "أرشفة المهمة؟",
   "taskArchiveConfirmBody": "لن تظهر «{title}» ضمن المهام النشطة.",
-  "@taskArchiveConfirmBody": {"placeholders": {"title": {"type": "String"}}},
+  "@taskArchiveConfirmBody": {
+    "placeholders": {
+      "title": {
+        "type": "String"
+      }
+    }
+  },
   "taskArchived": "تمت أرشفة المهمة",
   "taskDetailPointsLabel": "النقاط عند الإنجاز",
   "completionRequest": "تسجيل إنجاز",
@@ -274,9 +360,21 @@
   "completionReversed": "تم عكس النقاط",
   "completionReviewNote": "ملاحظة (اختياري)",
   "completionPointsAwarded": "+{points} نقطة",
-  "@completionPointsAwarded": {"placeholders": {"points": {"type": "int"}}},
+  "@completionPointsAwarded": {
+    "placeholders": {
+      "points": {
+        "type": "int"
+      }
+    }
+  },
   "completionOccurrence": "إنجاز بتاريخ {date}",
-  "@completionOccurrence": {"placeholders": {"date": {"type": "String"}}},
+  "@completionOccurrence": {
+    "placeholders": {
+      "date": {
+        "type": "String"
+      }
+    }
+  },
   "completionConflict": "تم تحديث حالة هذا الإنجاز بالفعل. تم تحديث البيانات.",
   "completionInvalidOccurrence": "هذا التاريخ ليس ضمن جدول تكرار المهمة.",
   "txnTypeTaskAward": "مكافأة مهمة",
@@ -290,7 +388,6 @@
   "recurrenceWeeklyNeedsDay": "اختر يومًا واحدًا على الأقل",
   "recurrenceCustomNeedsConfig": "أضف تواريخ محددة أو حدّد التكرار كل عدد أيام",
   "rewardsStorePhase6b": "متجر المكافآت (قريبًا)",
-
   "rewardsStoreTitle": "متجر المكافآت",
   "rewardsTabCatalog": "الكتالوج",
   "rewardsTabHistory": "طلبات الاستبدال",
@@ -317,15 +414,36 @@
   "rewardTypeLocked": "لا يمكن تغيير نوع المكافأة بعد الإنشاء",
   "rewardInactiveBadge": "معطّلة",
   "rewardCost": "{cost} نقطة",
-  "@rewardCost": {"placeholders": {"cost": {"type": "int"}}},
+  "@rewardCost": {
+    "placeholders": {
+      "cost": {
+        "type": "int"
+      }
+    }
+  },
   "rewardAffordCan": "متاحة الآن",
   "rewardAffordNeed": "تحتاج {points} نقطة إضافية",
-  "@rewardAffordNeed": {"placeholders": {"points": {"type": "int"}}},
+  "@rewardAffordNeed": {
+    "placeholders": {
+      "points": {
+        "type": "int"
+      }
+    }
+  },
   "rewardRequest": "طلب استبدال",
   "rewardRequestTitle": "طلب استبدال المكافأة",
   "rewardOnBehalfNote": "أنت تطلب هذا نيابةً عن الطفل (وضع الطفل الآمن غير متاح بعد).",
   "rewardRequestConfirm": "«{title}» مقابل {cost} نقطة",
-  "@rewardRequestConfirm": {"placeholders": {"title": {"type": "String"}, "cost": {"type": "int"}}},
+  "@rewardRequestConfirm": {
+    "placeholders": {
+      "title": {
+        "type": "String"
+      },
+      "cost": {
+        "type": "int"
+      }
+    }
+  },
   "rewardRequested": "تم إرسال طلب الاستبدال",
   "rewardSave": "حفظ",
   "rewardCreated": "تم إنشاء المكافأة",
@@ -333,7 +451,13 @@
   "rewardDeleteAction": "حذف",
   "rewardDeleteConfirmTitle": "حذف المكافأة؟",
   "rewardDeleteConfirmBody": "لن تظهر «{title}» في الكتالوج بعد الآن.",
-  "@rewardDeleteConfirmBody": {"placeholders": {"title": {"type": "String"}}},
+  "@rewardDeleteConfirmBody": {
+    "placeholders": {
+      "title": {
+        "type": "String"
+      }
+    }
+  },
   "rewardDeleted": "تم حذف المكافأة",
   "rewardGlobalReadOnly": "قوالب مامي للقراءة فقط",
   "redemptionStatusPending": "بانتظار المراجعة",
@@ -351,38 +475,98 @@
   "redemptionConflict": "تم تحديث حالة هذا الطلب بالفعل. تم تحديث البيانات.",
   "redemptionRewardUnavailable": "هذه المكافأة غير متاحة حاليًا.",
   "redemptionCostLabel": "{cost} نقطة",
-  "@redemptionCostLabel": {"placeholders": {"cost": {"type": "int"}}},
+  "@redemptionCostLabel": {
+    "placeholders": {
+      "cost": {
+        "type": "int"
+      }
+    }
+  },
   "screenTimeGranted": "+{minutes} دقيقة وقت شاشة (سياسة الخادم)",
-  "@screenTimeGranted": {"placeholders": {"minutes": {"type": "int"}}},
+  "@screenTimeGranted": {
+    "placeholders": {
+      "minutes": {
+        "type": "int"
+      }
+    }
+  },
   "screenTimeExpires": "تنتهي في {date}",
-  "@screenTimeExpires": {"placeholders": {"date": {"type": "String"}}},
+  "@screenTimeExpires": {
+    "placeholders": {
+      "date": {
+        "type": "String"
+      }
+    }
+  },
   "screenTimeRevoked": "أُلغيت إضافة وقت الشاشة",
   "screenTimePolicyNote": "هذه بيانات سياسة من الخادم فقط — لا تغيّر قيود الجهاز.",
   "rewardValidationCost": "أدخل تكلفة بين 1 و100000",
   "rewardValidationMinutes": "أدخل عدد دقائق بين 1 و600",
-
   "commonDurationM": "{minutes} د",
-  "@commonDurationM": { "placeholders": { "minutes": { "type": "int" } } },
+  "@commonDurationM": {
+    "placeholders": {
+      "minutes": {
+        "type": "int"
+      }
+    }
+  },
   "commonDurationH": "{hours} س",
-  "@commonDurationH": { "placeholders": { "hours": { "type": "int" } } },
+  "@commonDurationH": {
+    "placeholders": {
+      "hours": {
+        "type": "int"
+      }
+    }
+  },
   "commonDurationHm": "{hours} س {minutes} د",
-  "@commonDurationHm": { "placeholders": { "hours": { "type": "int" }, "minutes": { "type": "int" } } },
-
+  "@commonDurationHm": {
+    "placeholders": {
+      "hours": {
+        "type": "int"
+      },
+      "minutes": {
+        "type": "int"
+      }
+    }
+  },
   "homeGreeting": "مرحبًا {name} 👋",
-  "@homeGreeting": { "placeholders": { "name": { "type": "String" } } },
+  "@homeGreeting": {
+    "placeholders": {
+      "name": {
+        "type": "String"
+      }
+    }
+  },
   "homeNoChildren": "أضِف طفلًا لتظهر لوحة معلوماته هنا",
   "homeChildrenCount": "{count, plural, =0{لا يوجد أطفال} =1{طفل واحد} =2{طفلان} few{{count} أطفال} many{{count} طفلًا} other{{count} طفل}}",
-  "@homeChildrenCount": { "placeholders": { "count": { "type": "int" } } },
-
+  "@homeChildrenCount": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
   "dashUnavailableShort": "غير متاح",
   "dashSectionNoData": "لا توجد بيانات لهذه الفترة",
   "dashTodayTitle": "اليوم",
   "dashPoints": "النقاط",
   "dashScreenTimeToday": "وقت الشاشة اليوم",
   "dashScreenTimeOfLimit": "من {limit}",
-  "@dashScreenTimeOfLimit": { "placeholders": { "limit": { "type": "String" } } },
+  "@dashScreenTimeOfLimit": {
+    "placeholders": {
+      "limit": {
+        "type": "String"
+      }
+    }
+  },
   "dashScreenTimeUsedOfLimit": "وقت الشاشة (الحد {limit})",
-  "@dashScreenTimeUsedOfLimit": { "placeholders": { "limit": { "type": "String" } } },
+  "@dashScreenTimeUsedOfLimit": {
+    "placeholders": {
+      "limit": {
+        "type": "String"
+      }
+    }
+  },
   "dashScreenTimeNoLimit": "لا يوجد حد محدد",
   "dashLastSleep": "آخر نوم",
   "dashNone": "لا شيء بعد",
@@ -390,18 +574,38 @@
   "dashPendingApprovals": "بانتظار الموافقة",
   "dashGoals": "أهداف التعلم",
   "dashGoalsValue": "{active} نشط · {achieved} مُنجَز",
-  "@dashGoalsValue": { "placeholders": { "active": { "type": "int" }, "achieved": { "type": "int" } } },
+  "@dashGoalsValue": {
+    "placeholders": {
+      "active": {
+        "type": "int"
+      },
+      "achieved": {
+        "type": "int"
+      }
+    }
+  },
   "dashOpenReport": "فتح تقرير التطور",
   "dashReportsRestricted": "تقارير التطور غير متاحة بصلاحياتك الحالية.",
-
   "dashReportTitle": "تقرير التطور",
   "dashReportFor": "عرض {name}",
-  "@dashReportFor": { "placeholders": { "name": { "type": "String" } } },
+  "@dashReportFor": {
+    "placeholders": {
+      "name": {
+        "type": "String"
+      }
+    }
+  },
   "dashNoChildSelected": "اختر طفلًا لعرض تقرير تطوّره",
   "dashPeriodWeekly": "أسبوعي",
   "dashPeriodMonthly": "شهري",
   "dashReportTimezone": "الأوقات معروضة بتوقيت {timezone}",
-  "@dashReportTimezone": { "placeholders": { "timezone": { "type": "String" } } },
+  "@dashReportTimezone": {
+    "placeholders": {
+      "timezone": {
+        "type": "String"
+      }
+    }
+  },
   "dashReportNoData": "لا يوجد نشاط كافٍ في هذه الفترة لإعداد تقرير بعد.",
   "dashSectionScreenTime": "وقت الشاشة",
   "dashScreenTimeTotal": "الإجمالي",
@@ -424,7 +628,6 @@
   "dashSectionPoints": "النقاط",
   "dashPointsNet": "صافي التغيّر",
   "dashPointsTransactions": "الحركات",
-
   "activitiesTitle": "الأنشطة",
   "activitiesCatalogTitle": "كتالوج الأنشطة",
   "activitiesCatalogEmpty": "لا توجد أنشطة متاحة بعد",
@@ -434,13 +637,40 @@
   "activitySourceAi": "ذكاء اصطناعي",
   "activitySourceFamily": "العائلة",
   "activityDurationMin": "{minutes} دقيقة",
-  "@activityDurationMin": { "placeholders": { "minutes": { "type": "int" } } },
+  "@activityDurationMin": {
+    "placeholders": {
+      "minutes": {
+        "type": "int"
+      }
+    }
+  },
   "activityAgeRange": "الأعمار {min}–{max}",
-  "@activityAgeRange": { "placeholders": { "min": { "type": "int" }, "max": { "type": "int" } } },
+  "@activityAgeRange": {
+    "placeholders": {
+      "min": {
+        "type": "int"
+      },
+      "max": {
+        "type": "int"
+      }
+    }
+  },
   "activityAgeMin": "من عمر {min}",
-  "@activityAgeMin": { "placeholders": { "min": { "type": "int" } } },
+  "@activityAgeMin": {
+    "placeholders": {
+      "min": {
+        "type": "int"
+      }
+    }
+  },
   "activityAgeMax": "حتى عمر {max}",
-  "@activityAgeMax": { "placeholders": { "max": { "type": "int" } } },
+  "@activityAgeMax": {
+    "placeholders": {
+      "max": {
+        "type": "int"
+      }
+    }
+  },
   "activityMaterials": "المواد",
   "activitySteps": "الخطوات",
   "activityAssignAction": "إسناد إلى الطفل",
@@ -452,7 +682,13 @@
   "activityFieldPointsHelp": "أي قيمة أكبر من 0 تجعل الإنجاز يحتاج موافقتك.",
   "activityFieldDueDate": "تاريخ الاستحقاق (اختياري)",
   "activityDueOn": "الاستحقاق {date}",
-  "@activityDueOn": { "placeholders": { "date": { "type": "String" } } },
+  "@activityDueOn": {
+    "placeholders": {
+      "date": {
+        "type": "String"
+      }
+    }
+  },
   "activityPointsInvalid": "أدخل قيمة بين 0 و100000",
   "activityAssignOnBehalfNote": "أنت تُسند وتُكمل نيابةً عن الطفل — وضع الطفل الآمن غير متاح بعد.",
   "activityGenerateTitle": "توليد نشاط",
@@ -461,7 +697,13 @@
   "activityGenerateCheckAgain": "تحقق مرة أخرى",
   "activityGenerateEmpty": "لم يُرجِع المزوّد أي أنشطة.",
   "activityGenerateNowAvailable": "{count, plural, =1{تم توليد نشاط واحد — أعد تحميل الكتالوج} =2{تم توليد نشاطين — أعد تحميل الكتالوج} few{تم توليد {count} أنشطة — أعد تحميل الكتالوج} many{تم توليد {count} نشاطًا — أعد تحميل الكتالوج} other{تم توليد {count} نشاط — أعد تحميل الكتالوج}}",
-  "@activityGenerateNowAvailable": { "placeholders": { "count": { "type": "int" } } },
+  "@activityGenerateNowAvailable": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
   "activityGenerateStill503": "لا يزال غير متاح — لا يوجد مزوّد ذكاء اصطناعي في الخادم.",
   "activitiesAssignedTitle": "الأنشطة المُسندة",
   "activitiesAssignedEmpty": "لم يُسند أي نشاط لهذا الطفل بعد",
@@ -469,15 +711,26 @@
   "activityStatusCompleted": "مكتمل",
   "activityStatusCancelled": "ملغى",
   "activityRewardPoints": "{points} نقطة عند الموافقة",
-  "@activityRewardPoints": { "placeholders": { "points": { "type": "int" } } },
+  "@activityRewardPoints": {
+    "placeholders": {
+      "points": {
+        "type": "int"
+      }
+    }
+  },
   "activityNoPoints": "بدون نقاط",
   "activityAwarded": "مُنحت {points}",
-  "@activityAwarded": { "placeholders": { "points": { "type": "int" } } },
+  "@activityAwarded": {
+    "placeholders": {
+      "points": {
+        "type": "int"
+      }
+    }
+  },
   "activityMarkDone": "تحديد كمنجَز",
   "activityCompletionRequested": "تم تسجيل الإنجاز",
   "activityConflict": "تعذّر التنفيذ — تغيّرت حالة النشاط. تم التحديث.",
   "activityOnBehalfNote": "بإدارة الوالد نيابةً عن الطفل.",
-
   "libraryTitle": "مكتبة الأهل",
   "libraryEmpty": "لا توجد مقالات هنا بعد",
   "libraryLoadMore": "عرض المزيد",
@@ -486,7 +739,6 @@
   "libraryAuthorStaff": "فريق مامِلي",
   "libraryAuthorSpecialist": "أخصائي",
   "libraryNoBody": "لا يوجد محتوى لهذه المقالة بعد.",
-
   "contentTitle": "التحكم بالمحتوى",
   "contentRulesTitle": "القواعد",
   "contentRulesEmpty": "لا توجد قواعد بعد — فلتر العمر أعلاه هو الضابط الوحيد الفعّال.",
@@ -496,7 +748,13 @@
   "contentAgeFilter": "فلتر ملاءمة العمر",
   "contentAgeFilterSub": "إخفاء المحتوى خارج نطاق عمر الطفل",
   "contentAgeFilterSubAge": "التصفية حسب عمر المحتوى {age}",
-  "@contentAgeFilterSubAge": { "placeholders": { "age": { "type": "int" } } },
+  "@contentAgeFilterSubAge": {
+    "placeholders": {
+      "age": {
+        "type": "int"
+      }
+    }
+  },
   "contentRuleCategory": "فئة",
   "contentRuleItem": "عنصر محتوى",
   "contentRuleExternalChannel": "قناة خارجية",
@@ -515,27 +773,62 @@
   "contentRuleBlockItem": "حجب هذا العنصر",
   "contentRuleAllowItem": "السماح بهذا العنصر",
   "contentRuleBlockCategory": "حجب فئة «{name}»",
-  "@contentRuleBlockCategory": { "placeholders": { "name": { "type": "String" } } },
+  "@contentRuleBlockCategory": {
+    "placeholders": {
+      "name": {
+        "type": "String"
+      }
+    }
+  },
   "contentRuleAllowCategory": "السماح بفئة «{name}»",
-  "@contentRuleAllowCategory": { "placeholders": { "name": { "type": "String" } } },
-
+  "@contentRuleAllowCategory": {
+    "placeholders": {
+      "name": {
+        "type": "String"
+      }
+    }
+  },
   "stTitle": "وقت الشاشة",
   "stEnforcementNote": "تعرض هذه الشاشة سياسة الخادم وتضبطها. أرقام الاستخدام من الخادم. التطبيق نفسه لا ينفّذ وقت الشاشة على الجهاز — يتطلب ذلك دعمًا أصليًا غير مُنشأ بعد.",
   "stUsedToday": "المستخدَم اليوم",
   "stOfLimit": "من {limit}",
-  "@stOfLimit": { "placeholders": { "limit": { "type": "String" } } },
+  "@stOfLimit": {
+    "placeholders": {
+      "limit": {
+        "type": "String"
+      }
+    }
+  },
   "stNoLimit": "لا يوجد حد مُعد",
   "stBonus": "يشمل {bonus} إضافية",
-  "@stBonus": { "placeholders": { "bonus": { "type": "String" } } },
+  "@stBonus": {
+    "placeholders": {
+      "bonus": {
+        "type": "String"
+      }
+    }
+  },
   "stNoUsageData": "لم يُبلَّغ عن أي استخدام لهذا الطفل بعد.",
   "stPerApp": "حسب التطبيق",
   "stDailyRule": "القاعدة اليومية",
   "stNoRule": "لا توجد قاعدة",
   "stRuleDisabled": "القاعدة معطّلة (بلا حد)",
   "stDailyLimitValue": "الحد اليومي {limit}",
-  "@stDailyLimitValue": { "placeholders": { "limit": { "type": "String" } } },
+  "@stDailyLimitValue": {
+    "placeholders": {
+      "limit": {
+        "type": "String"
+      }
+    }
+  },
   "stWeekdayOverrides": "{count, plural, =1{تجاوز ليوم واحد} =2{تجاوزان} few{{count} تجاوزات} many{{count} تجاوزًا} other{{count} تجاوز}}",
-  "@stWeekdayOverrides": { "placeholders": { "count": { "type": "int" } } },
+  "@stWeekdayOverrides": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
   "stEditRules": "تعديل القواعد",
   "stExtraTime": "وقت إضافي",
   "stExtraHowMuch": "كم من الوقت الإضافي؟",
@@ -548,7 +841,13 @@
   "stExtraRevoked": "تم إلغاء الوقت الإضافي",
   "stExtraRevokedLabel": "أُلغي",
   "stExtraGrantedLabel": "مُنحت {minutes}",
-  "@stExtraGrantedLabel": { "placeholders": { "minutes": { "type": "String" } } },
+  "@stExtraGrantedLabel": {
+    "placeholders": {
+      "minutes": {
+        "type": "String"
+      }
+    }
+  },
   "stExtraFromReward": "من استبدال مكافأة",
   "stExtraFromParent": "بمنح من الوالد",
   "stExtraRevokeAction": "إلغاء",
@@ -559,7 +858,13 @@
   "stWeekdayOverridesTitle": "تجاوزات لكل يوم",
   "stWeekdayOverridesHint": "فعّل يومًا لإعطائه حدًا خاصًا؛ وإلا فسيستخدم الافتراضي.",
   "stMinutesValue": "{minutes} دقيقة",
-  "@stMinutesValue": { "placeholders": { "minutes": { "type": "int" } } },
+  "@stMinutesValue": {
+    "placeholders": {
+      "minutes": {
+        "type": "int"
+      }
+    }
+  },
   "stRulesSaved": "تم حفظ قواعد وقت الشاشة",
   "stRulesInvalid": "تحقّق من قيم الحد (0–1440 دقيقة).",
   "stUsesDefault": "يستخدم الحد الافتراضي",
@@ -580,7 +885,13 @@
   "devicesReactivated": "تمت إعادة تفعيل الجهاز",
   "devicesRemoveTitle": "إزالة الجهاز؟",
   "devicesRemoveBody": "سيُزال «{name}». يمكن تسجيله مجددًا لاحقًا.",
-  "@devicesRemoveBody": { "placeholders": { "name": { "type": "String" } } },
+  "@devicesRemoveBody": {
+    "placeholders": {
+      "name": {
+        "type": "String"
+      }
+    }
+  },
   "devicesRemoveAction": "إزالة",
   "devicesRemoved": "تمت إزالة الجهاز",
   "devicesModeChildDedicated": "جهاز الطفل",
@@ -589,7 +900,6 @@
   "devicesRevoke": "إبطال",
   "devicesReactivate": "إعادة تفعيل",
   "devicesFieldName": "اسم الجهاز",
-
   "gamesTitle": "الألعاب",
   "gamesEmpty": "لا توجد ألعاب متاحة بعد",
   "gamesPreviewNote": "معاينة أبوية لكتالوج الألعاب. لا يمكن لعب الألعاب داخل التطبيق بعد — لا يوجد محرك ألعاب.",
@@ -606,16 +916,20 @@
   "gamesAttempts": "المحاولات",
   "gamesPlayTime": "وقت اللعب",
   "gamesMinutes": "{minutes} دقيقة",
-  "@gamesMinutes": { "placeholders": { "minutes": { "type": "int" } } },
+  "@gamesMinutes": {
+    "placeholders": {
+      "minutes": {
+        "type": "int"
+      }
+    }
+  },
   "gamesLastPlayed": "آخر لعب",
-
   "aiCoachTitle": "مساعد التربية",
   "aiCoachUnavailableTitle": "مساعد التربية بالذكاء الاصطناعي غير متاح بعد",
   "aiCoachUnavailableBody": "لا توجد خدمة إرشاد متصلة. عند توفّرها، ستمر أسئلتك وإجاباتها عبر الخادم — لا يُجاب على أي شيء محليًا.",
   "nutritionTitle": "التغذية",
   "nutritionUnavailableTitle": "تتبّع التغذية غير متاح بعد",
   "nutritionUnavailableBody": "لا توجد خدمة تغذية أو سجل وجبات أو تحليل صور متصلة. لن تُحفظ تفاصيل الوجبات أو الحساسية المُدخلة هنا في أي مكان، لذا لا يُتاح الإدخال.",
-
   "navHome": "الرئيسية",
   "navChildren": "أطفالي",
   "navActivities": "الأنشطة",
@@ -623,5 +937,340 @@
   "navProfile": "حسابي",
   "familySelectTitle": "اختر العائلة",
   "noFamilyTitle": "لا توجد عائلة مرتبطة بحسابك",
-  "noFamilyBody": "تواصل مع مالك العائلة لإعادة إضافتك، أو سجّل الخروج."
+  "noFamilyBody": "تواصل مع مالك العائلة لإعادة إضافتك، أو سجّل الخروج.",
+  "roleEntryTitle": "أهلًا بك في Mamily",
+  "roleEntrySubtitle": "تطبيق واحد للعائلة كلها. من هنا؟",
+  "roleParent": "أنا ولي أمر",
+  "roleParentHint": "خطّط ووافق وشجّع عائلتك",
+  "roleChild": "أنا طفل",
+  "roleChildHint": "يومي وروتيني ومكافآتي",
+  "roleResumeChild": "العودة لوضع الطفل",
+  "roleChoiceNote": "حسابك هو ما يحدد ما يمكنك فعله — هذا الاختيار فقط يأخذك للطريق الصحيح.",
+  "pairTitle": "انضم إلى عائلتك",
+  "pairSubtitle": "اطلب من أحد والديك الرمز الظاهر على هاتفه، أو امسح رمز QR.",
+  "pairCodeLabel": "رمز الربط",
+  "pairCodeHint": "ABCD-EFGH",
+  "pairButton": "انضمام",
+  "pairScan": "مسح رمز QR",
+  "pairInvalid": "هذا الرمز لا يعمل. ربما انتهت صلاحيته — اطلب رمزًا جديدًا.",
+  "pairTooMany": "محاولات كثيرة. انتظر دقيقة وحاول مرة أخرى.",
+  "pairCameraDenied": "الوصول للكاميرا متوقف، لذا لا يمكن المسح. اكتب الرمز بدلًا من ذلك أو اسمح بالكاميرا من الإعدادات.",
+  "pairScanInstruction": "وجّه الكاميرا نحو رمز QR على هاتف ولي الأمر",
+  "kidTabMyDay": "يومي",
+  "kidTabRewards": "المكافآت",
+  "kidTabTogether": "معًا",
+  "kidTabMe": "أنا",
+  "kidGreetingMorning": "صباح الخير يا {name}!",
+  "@kidGreetingMorning": {
+    "placeholders": {
+      "name": {
+        "type": "String"
+      }
+    }
+  },
+  "kidGreetingAfternoon": "مساء النور يا {name}!",
+  "@kidGreetingAfternoon": {
+    "placeholders": {
+      "name": {
+        "type": "String"
+      }
+    }
+  },
+  "kidGreetingEvening": "مساء الخير يا {name}!",
+  "@kidGreetingEvening": {
+    "placeholders": {
+      "name": {
+        "type": "String"
+      }
+    }
+  },
+  "kidPoints": "{count, plural, =0{0 نقطة} =1{نقطة واحدة} =2{نقطتان} few{{count} نقاط} many{{count} نقطة} other{{count} نقطة}}",
+  "@kidPoints": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "kidNextStep": "خطوتك التالية",
+  "kidStartRoutine": "ابدأ",
+  "kidContinueRoutine": "تابع",
+  "kidIDidIt": "أنجزتها!",
+  "kidTryAgain": "حاول مجددًا",
+  "kidTodayPlan": "اليوم",
+  "kidNothingToday": "لا شيء مخطط اليوم. استمتع بوقتك!",
+  "kidAllDone": "أنهيت كل شيء اليوم. رائع!",
+  "kidStateTodo": "للقيام",
+  "kidStatePending": "بانتظار ولي الأمر",
+  "kidStateApproved": "تم!",
+  "kidStateRejected": "جرّب مرة أخرى",
+  "kidStateInProgress": "قيد التنفيذ",
+  "kidStateUpcoming": "قادم",
+  "kidStatePast": "سابقًا",
+  "kidTaskSentTitle": "أُرسلت!",
+  "kidTaskSent": "سيتحقق منها أحد والديك قريبًا. تصل النقاط بعد الموافقة.",
+  "kidConfirmDoneTitle": "هل أنهيت «{task}»؟",
+  "@kidConfirmDoneTitle": {
+    "placeholders": {
+      "task": {
+        "type": "String"
+      }
+    }
+  },
+  "kidConfirmDoneBody": "سنطلب من أحد والديك التحقق منها.",
+  "kidYesDone": "نعم، أنجزتها!",
+  "kidNotYet": "ليس بعد",
+  "kidParentNote": "ملاحظة من ولي أمرك: {note}",
+  "@kidParentNote": {
+    "placeholders": {
+      "note": {
+        "type": "String"
+      }
+    }
+  },
+  "kidPointsValue": "+{count}",
+  "@kidPointsValue": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "kidRoutineStepsLeft": "{count, plural, =0{أنهيت كل الخطوات} =1{بقيت خطوة واحدة} =2{بقيت خطوتان} few{بقيت {count} خطوات} many{بقيت {count} خطوة} other{بقيت {count} خطوة}}",
+  "@kidRoutineStepsLeft": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "kidRoutineCheer1": "بداية رائعة!",
+  "kidRoutineCheer2": "أنت تتقدم بسرعة!",
+  "kidRoutineCheer3": "اقتربت!",
+  "kidRoutineDone": "اكتمل الروتين!",
+  "kidRoutineBonusPending": "نقاط المكافأة بانتظار موافقة ولي الأمر.",
+  "kidRoutineNotToday": "هذا الروتين ليس اليوم.",
+  "kidRoutineFinishedToday": "أنهيت هذا اليوم بالفعل.",
+  "kidUndoStep": "تراجع",
+  "kidSavingFor": "أجمع من أجل",
+  "kidPointsToGo": "{count, plural, =0{يمكنك طلبها الآن!} =1{تبقّت نقطة واحدة} =2{تبقّت نقطتان} few{تبقّت {count} نقاط} many{تبقّت {count} نقطة} other{تبقّت {count} نقطة}}",
+  "@kidPointsToGo": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "kidChooseGoal": "أجمع لهذه",
+  "kidGoalChosen": "هدفي",
+  "kidAskForReward": "اطلبها",
+  "kidRequested": "تم الطلب",
+  "kidRewardAskTitle": "هل تطلب «{reward}»؟",
+  "@kidRewardAskTitle": {
+    "placeholders": {
+      "reward": {
+        "type": "String"
+      }
+    }
+  },
+  "kidRewardAskBody": "{count, plural, =1{تكلف نقطة واحدة.} =2{تكلف نقطتين.} few{تكلف {count} نقاط.} many{تكلف {count} نقطة.} other{تكلف {count} نقطة.}} لا تُخصم النقاط إلا إذا وافق ولي الأمر.",
+  "@kidRewardAskBody": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "kidRewardAsked": "أُرسل الطلب إلى ولي أمرك!",
+  "kidMyBalance": "نقاطي",
+  "kidPointsHistory": "سجل النقاط",
+  "kidNoRewards": "لا توجد مكافآت بعد. اقترح واحدة قد تضيفها عائلتك!",
+  "kidMyIdeas": "أفكاري للمكافآت",
+  "kidSuggestReward": "اقترح مكافأة",
+  "kidSuggestTitle": "ماذا تحب أن تحصل عليه؟",
+  "kidSuggestField": "فكرتي",
+  "kidSuggestNote": "لماذا ستكون مميزة (اختياري)",
+  "kidSuggestSend": "أرسل الفكرة",
+  "kidSuggestSent": "أُرسلت الفكرة! سيقرر ولي الأمر.",
+  "kidWithdraw": "سحب",
+  "kidChallenges": "تحديات العائلة",
+  "kidNoChallenges": "لا يوجد تحدٍّ عائلي الآن.",
+  "kidTogetherProgress": "{done} من {total} معًا",
+  "@kidTogetherProgress": {
+    "placeholders": {
+      "done": {
+        "type": "int"
+      },
+      "total": {
+        "type": "int"
+      }
+    }
+  },
+  "kidMyPart": "مساهمتي: {count}",
+  "@kidMyPart": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "kidAddProgress": "أضف تقدمًا",
+  "kidAddProgressAmount": "كم أنجزت؟",
+  "kidChallengeAchieved": "أنجزتموه معًا!",
+  "kidChallengeCountsAuto": "يُحتسب تلقائيًا عند إنجاز المهام أو الروتين.",
+  "kidMessages": "رسائل من العائلة",
+  "kidNoMessages": "لا توجد رسائل بعد.",
+  "kidReplyFrom": "ردّ {name}",
+  "@kidReplyFrom": {
+    "placeholders": {
+      "name": {
+        "type": "String"
+      }
+    }
+  },
+  "kidHowFeel": "كيف تشعر؟",
+  "kidFeelNote": "تريد أن تقول المزيد؟ (اختياري)",
+  "kidFeelShare": "شارك",
+  "kidFeelThanks": "شكرًا لمشاركتك. ستراها عائلتك.",
+  "kidFeelPrivacy": "عائلتك فقط ترى هذا.",
+  "moodGreat": "رائع",
+  "moodHappy": "سعيد",
+  "moodOkay": "لا بأس",
+  "moodTired": "متعب",
+  "moodSad": "حزين",
+  "moodWorried": "قلق",
+  "moodAngry": "غاضب",
+  "kidMyRequests": "طلباتي",
+  "kidWaiting": "بالانتظار",
+  "kidAnswered": "تم الرد",
+  "kidNoRequests": "لم تطلب شيئًا بعد.",
+  "explainTaskPending": "سيتحقق ولي الأمر من هذه المهمة قريبًا.",
+  "explainTaskApproved": "تمت الموافقة — النقاط لك!",
+  "explainTaskRejected": "ليس بعد — يمكنك المحاولة مجددًا.",
+  "explainTaskReversed": "ألغى ولي الأمر هذه، لذا استُرجعت نقاطها.",
+  "explainRewardPending": "سيقرر ولي أمرك قريبًا. لم تُستخدم أي نقاط بعد.",
+  "explainRewardApproved": "نعم! استمتع بمكافأتك.",
+  "explainRewardRejected": "ليس هذه المرة — نقاطك محفوظة.",
+  "explainRewardCancelled": "أُلغيت هذه المكافأة وعادت النقاط.",
+  "explainWishPending": "فكرتك بانتظار ولي الأمر.",
+  "explainWishApproved": "أصبحت فكرتك مكافأة!",
+  "explainWishDeclined": "لم تُضف هذه المرة.",
+  "explainWishWithdrawn": "سحبت هذه الفكرة.",
+  "explainScreenPending": "بانتظار رد ولي الأمر.",
+  "explainScreenApproved": "تمت الموافقة على وقت إضافي لليوم.",
+  "explainScreenDeclined": "ليس اليوم.",
+  "explainScreenCancelled": "ألغيت هذا الطلب.",
+  "explainRoutinePending": "نقاط المكافأة بانتظار موافقة ولي الأمر.",
+  "explainRoutineApproved": "تمت الموافقة على المكافأة — روتين رائع!",
+  "explainRoutineRejected": "لا مكافأة هذه المرة.",
+  "kidMoreTime": "اطلب وقت شاشة إضافي",
+  "kidMoreTimeHow": "كم دقيقة إضافية؟",
+  "kidMoreTimeWhy": "لماذا؟ (اختياري)",
+  "kidMoreTimeSend": "أرسل الطلب",
+  "kidMoreTimeWaiting": "طلبت {count} دقيقة — بانتظار الرد.",
+  "@kidMoreTimeWaiting": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "kidMinutes": "{count} د",
+  "@kidMinutes": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "kidScreenTodayLimit": "حد اليوم: {count} دقيقة",
+  "@kidScreenTodayLimit": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "kidScreenNoLimit": "لا يوجد حد لوقت الشاشة اليوم.",
+  "kidScreenNotMeasured": "هذا التطبيق لا يقيس وقت الشاشة ولا يقفله — يرسل الطلب فقط.",
+  "kidMyActivities": "أنشطتي",
+  "kidMyGoals": "أهدافي",
+  "kidNotifications": "الإشعارات",
+  "kidGrownUps": "للكبار",
+  "kidGrownUpsBody": "يمكن لولي الأمر تسجيل الدخول هنا بحسابه. يبقى وضع الطفل جاهزًا لوقت لاحق.",
+  "kidParentSignIn": "دخول ولي الأمر",
+  "kidSignOutDevice": "تسجيل الخروج من هذا الجهاز",
+  "kidSignOutConfirm": "ستحتاج رمزًا جديدًا من ولي الأمر للعودة.",
+  "kidActivityDone": "أنجزته",
+  "celebrateGreat": "رائع!",
+  "lastUpdated": "آخر تحديث {time}",
+  "@lastUpdated": {
+    "placeholders": {
+      "time": {
+        "type": "String"
+      }
+    }
+  },
+  "offlineShowingSaved": "أنت غير متصل — نعرض ما حُفظ {time}.",
+  "@offlineShowingSaved": {
+    "placeholders": {
+      "time": {
+        "type": "String"
+      }
+    }
+  },
+  "justNow": "الآن",
+  "minutesAgo": "{count, plural, =1{قبل دقيقة} =2{قبل دقيقتين} few{قبل {count} دقائق} many{قبل {count} دقيقة} other{قبل {count} دقيقة}}",
+  "@minutesAgo": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "hoursAgo": "{count, plural, =1{قبل ساعة} =2{قبل ساعتين} few{قبل {count} ساعات} many{قبل {count} ساعة} other{قبل {count} ساعة}}",
+  "@hoursAgo": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "daysAgo": "{count, plural, =1{أمس} =2{قبل يومين} few{قبل {count} أيام} many{قبل {count} يومًا} other{قبل {count} يوم}}",
+  "@daysAgo": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "commonConfirm": "تأكيد",
+  "commonUndo": "تراجع",
+  "commonSend": "إرسال",
+  "commonSeeAll": "عرض الكل",
+  "commonDone": "تم",
+  "commonOptional": "اختياري",
+  "commonBack": "رجوع",
+  "commonContinue": "متابعة",
+  "commonSignOut": "تسجيل الخروج",
+  "commonNew": "جديد",
+  "notifInboxTitle": "الإشعارات",
+  "notifMarkAllRead": "تعليم الكل كمقروء",
+  "notifEmptyTitle": "لا جديد",
+  "notifEmptyBody": "ستظهر هنا التحديثات عن المهام والمكافآت وخطط العائلة.",
+  "notifUnread": "غير مقروء",
+  "authForgotPassword": "نسيت كلمة المرور؟",
+  "resetTitle": "إعادة تعيين كلمة المرور",
+  "resetIntro": "أدخل بريد حسابك الإلكتروني. سنرسل رمزًا من 6 أرقام.",
+  "resetSendCode": "أرسل الرمز",
+  "resetCodeSent": "إذا كان هناك حساب بهذا البريد، فالرمز في الطريق. تنتهي صلاحيته خلال 30 دقيقة.",
+  "resetCodeLabel": "الرمز المكوّن من 6 أرقام",
+  "resetNewPassword": "كلمة مرور جديدة",
+  "resetSave": "حفظ كلمة المرور الجديدة",
+  "resetDone": "تم تحديث كلمة المرور. سجّل الدخول بكلمة المرور الجديدة — تم تسجيل الخروج من الأجهزة الأخرى.",
+  "resetInvalidCode": "الرمز خاطئ أو منتهي الصلاحية.",
+  "parentEntryTitle": "أهلًا بك يا ولي الأمر",
+  "parentEntrySubtitle": "سجّل الدخول لتخطيط اليوم والموافقة على الطلبات وتشجيع أطفالك.",
+  "authPasswordShow": "إظهار كلمة المرور",
+  "authPasswordHide": "إخفاء كلمة المرور"
 }

@@ -1,13 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
+import '../../../core/design_system.dart';
+
 import '../../../core/config/device_label.dart';
 import '../../../core/errors/api_exception.dart';
 import '../../../core/localization/l10n.dart';
 import '../../../core/localization/locale_controller.dart';
-import '../../../core/theme/app_colors.dart';
 import '../../../widgets/app_text_field.dart';
-import '../../../widgets/primary_button.dart';
 import '../application/auth_controller.dart';
 import '../data/auth_requests.dart';
 import 'auth_form_widgets.dart';
@@ -85,26 +85,17 @@ class _RegisterScreenState extends ConsumerState<RegisterScreen> {
   @override
   Widget build(BuildContext context) {
     final l = context.l10n;
-    return Scaffold(
-      appBar: AppBar(title: Text(l.authRegisterAction)),
-      body: SafeArea(
-        child: SingleChildScrollView(
-          padding: const EdgeInsets.all(24),
+    String? required(String? v) =>
+        (v == null || v.trim().isEmpty) ? l.validationRequired : null;
+    return AuthPage(
+      title: l.authRegisterTitle,
+      children: [
+        AutofillGroup(
           child: Form(
             key: _formKey,
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.stretch,
               children: [
-                const SizedBox(height: 12),
-                Text(
-                  l.authRegisterTitle,
-                  style: const TextStyle(
-                    fontSize: 28,
-                    fontWeight: FontWeight.bold,
-                    color: AppColors.navy,
-                  ),
-                ),
-                const SizedBox(height: 28),
                 if (_formError != null)
                   AuthFormErrorBanner(message: _formError!),
                 AppTextField(
@@ -112,78 +103,81 @@ class _RegisterScreenState extends ConsumerState<RegisterScreen> {
                   hint: l.authFieldNameHint,
                   controller: _firstName,
                   prefixIcon: Icons.person_outline_rounded,
-                  validator: _required,
+                  textInputAction: TextInputAction.next,
+                  autofillHints: const [AutofillHints.givenName],
+                  validator: required,
                 ),
                 AuthFieldError(messages: _fieldErrors['first_name']),
-                const SizedBox(height: 16),
+                const SizedBox(height: AppSpacing.lg),
                 AppTextField(
                   label: l.authFieldFamilyName,
                   hint: l.authFieldFamilyNameHint,
                   controller: _familyName,
                   prefixIcon: Icons.family_restroom_rounded,
-                  validator: _required,
+                  textInputAction: TextInputAction.next,
+                  validator: required,
                 ),
                 AuthFieldError(messages: _fieldErrors['family_name']),
-                const SizedBox(height: 16),
+                const SizedBox(height: AppSpacing.lg),
                 AppTextField(
                   label: l.authFieldEmail,
                   hint: l.authFieldEmailHint,
                   controller: _email,
                   prefixIcon: Icons.email_outlined,
                   keyboardType: TextInputType.emailAddress,
+                  textInputAction: TextInputAction.next,
+                  autofillHints: const [AutofillHints.email],
                   validator: (v) {
-                    if (v == null || v.trim().isEmpty) {
-                      return l.validationRequired;
-                    }
-                    final ok = RegExp(
-                      r'^[^@\s]+@[^@\s]+\.[^@\s]+$',
-                    ).hasMatch(v.trim());
-                    return ok ? null : l.validationEmail;
+                    final value = v?.trim() ?? '';
+                    if (value.isEmpty) return l.validationRequired;
+                    if (!RegExp(r'^[^@\s]+@[^@\s]+\.[^@\s]+$').hasMatch(value))
+                      return l.validationEmail;
+                    return null;
                   },
                 ),
                 AuthFieldError(messages: _fieldErrors['email']),
-                const SizedBox(height: 16),
-                AppTextField(
+                const SizedBox(height: AppSpacing.lg),
+                PasswordField(
                   label: l.authFieldPassword,
                   hint: l.authFieldPasswordHint,
                   controller: _password,
-                  prefixIcon: Icons.lock_outline_rounded,
-                  obscureText: true,
+                  textInputAction: TextInputAction.next,
+                  autofillHints: const [AutofillHints.newPassword],
                   validator: (v) {
                     if (v == null || v.isEmpty) return l.validationRequired;
-                    return v.length < 8 ? l.validationPasswordShort : null;
+                    if (v.length < 8) return l.validationPasswordShort;
+                    return null;
                   },
                 ),
                 AuthFieldError(messages: _fieldErrors['password']),
-                const SizedBox(height: 16),
-                AppTextField(
+                const SizedBox(height: AppSpacing.lg),
+                PasswordField(
                   label: l.authFieldPasswordConfirm,
                   controller: _passwordConfirm,
-                  prefixIcon: Icons.lock_outline_rounded,
-                  obscureText: true,
+                  textInputAction: TextInputAction.done,
+                  autofillHints: const [AutofillHints.newPassword],
+                  onSubmitted: (_) => _submitting ? null : _submit(),
                   validator: (v) =>
-                      v == _password.text ? null : l.validationPasswordMismatch,
+                      v != _password.text ? l.validationPasswordMismatch : null,
                 ),
-                const SizedBox(height: 28),
-                PrimaryButton(
-                  text: l.authRegisterAction,
+                const SizedBox(height: AppSpacing.xxl),
+                FilledButton(
                   onPressed: _submitting ? null : _submit,
+                  child: _submitting
+                      ? const SizedBox.square(
+                          dimension: 22,
+                          child: CircularProgressIndicator(
+                            strokeWidth: 2.5,
+                            color: Colors.white,
+                          ),
+                        )
+                      : Text(l.authRegisterAction),
                 ),
-                if (_submitting)
-                  const Padding(
-                    padding: EdgeInsets.only(top: 16),
-                    child: Center(
-                      child: CircularProgressIndicator(color: AppColors.coral),
-                    ),
-                  ),
               ],
             ),
           ),
         ),
-      ),
+      ],
     );
   }
-
-  String? _required(String? v) =>
-      (v == null || v.trim().isEmpty) ? context.l10n.validationRequired : null;
 }

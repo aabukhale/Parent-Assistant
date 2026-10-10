@@ -328,11 +328,7 @@ class _EmptyState extends StatelessWidget {
       child: ListView(
         children: [
           const SizedBox(height: 120),
-          const Icon(
-            Icons.face_rounded,
-            size: 64,
-            color: AppColors.textMuted,
-          ),
+          const Icon(Icons.face_rounded, size: 64, color: AppColors.textMuted),
           const SizedBox(height: 14),
           Text(
             l.childrenEmpty,

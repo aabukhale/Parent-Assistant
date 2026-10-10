@@ -7,13 +7,19 @@ class FakeSecureTokenStorage implements SecureTokenStorage {
     String? token,
     String? locale,
     String? activeFamilyId,
+    String? sessionKind,
+    String? parkedChildToken,
   }) : _token = token,
        _locale = locale,
-       _activeFamilyId = activeFamilyId;
+       _activeFamilyId = activeFamilyId,
+       _sessionKind = sessionKind,
+       _parkedChild = parkedChildToken;
 
   String? _token;
   String? _locale;
   String? _activeFamilyId;
+  String? _sessionKind;
+  String? _parkedChild;
 
   @override
   Future<String?> readToken() async => _token;
@@ -50,8 +56,31 @@ class FakeSecureTokenStorage implements SecureTokenStorage {
       _installId ??= 'install_test_fixed';
 
   @override
+  Future<String?> readSessionKind() async => _sessionKind;
+
+  @override
+  Future<void> writeSessionKind(String kind) async => _sessionKind = kind;
+
+  @override
+  Future<String?> readParkedChildToken() async => _parkedChild;
+
+  @override
+  Future<void> writeParkedChildToken(String token) async =>
+      _parkedChild = token;
+
+  @override
+  Future<void> deleteParkedChildToken() async => _parkedChild = null;
+
+  @override
   Future<void> clearSession() async {
     _token = null;
+    _sessionKind = null;
     _activeFamilyId = null;
+  }
+
+  @override
+  Future<void> clearEverything() async {
+    await clearSession();
+    _parkedChild = null;
   }
 }

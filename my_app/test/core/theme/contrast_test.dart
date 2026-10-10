@@ -46,6 +46,7 @@ void main() {
 
   for (final entry in {
     'light': MamilyColors.light,
+    'kid': MamilyColors.kid,
     'dark': MamilyColors.dark,
   }.entries) {
     final name = entry.key;

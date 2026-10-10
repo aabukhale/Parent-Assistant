@@ -59,6 +59,24 @@ class MamilyPalette {
   /// Brand coral, decorative. Dark ink on it is only 3.7:1 — never put text on
   /// it.
   static const decorCoral = Color(0xFFFF624E);
+
+  // Child-experience illustration hues (decorative only; never text).
+  static const sunshine = Color(0xFFFFC83D);
+  static const sky = Color(0xFF6CC8F5);
+  static const mint = Color(0xFF5ED6A9);
+  static const grape = Color(0xFFB39BFF);
+  static const peach = Color(0xFFFFB38A);
+  static const bubblegum = Color(0xFFFF9EC4);
+
+  /// Soft backgrounds for avatar discs, in a stable order.
+  static const avatarFills = [
+    Color(0xFFFFE7A3),
+    Color(0xFFCDEEFF),
+    Color(0xFFCFF5E6),
+    Color(0xFFE6DDFF),
+    Color(0xFFFFDCC8),
+    Color(0xFFFFD9E8),
+  ];
 }
 
 /// Mamily's colour tokens, exposed as a [ThemeExtension] so widgets read
@@ -166,24 +184,84 @@ class MamilyColors extends ThemeExtension<MamilyColors> {
   /// The shipped light mode.
   static const light = MamilyColors(
     brightness: Brightness.light,
-    background: Color(0xFFF7F8FC),
+    background: Color(0xFFFAF7F3),
     surface: Color(0xFFFFFFFF),
-    surfaceMuted: Color(0xFFEFF1F8),
-    surfaceStrong: Color(0xFFE6E9F3),
-    border: Color(0xFFE0E3EB),
-    borderStrong: Color(0xFF77819B),
+    surfaceMuted: Color(0xFFF4EFE9),
+    surfaceStrong: Color(0xFFEAE3DA),
+    border: Color(0xFFECE4DA),
+    borderStrong: Color(0xFF7D766E),
     ink: MamilyPalette.navy800,
-    ink2: Color(0xFF55607A),
-    ink3: Color(0xFF626C87),
+    ink2: Color(0xFF4F5872),
+    ink3: Color(0xFF5C6580),
     action: Color(0xFFD43A26),
     onAction: Color(0xFFFFFFFF),
     actionPressed: Color(0xFFB3311F),
     actionText: Color(0xFFB3311F),
     focus: Color(0xFF0F766E),
     neutral: ToneColors(
-      foreground: Color(0xFF55607A),
-      background: Color(0xFFEFF1F8),
-      border: Color(0xFFE0E3EB),
+      foreground: Color(0xFF4F5872),
+      background: Color(0xFFF4EFE9),
+      border: Color(0xFFE6DDD2),
+    ),
+    brand: ToneColors(
+      foreground: Color(0xFFB3311F),
+      background: Color(0xFFFFF1EE),
+      border: Color(0xFFF7CFC7),
+    ),
+    accent: ToneColors(
+      foreground: Color(0xFF0F766E),
+      background: Color(0xFFE6F7F5),
+      border: Color(0xFFB7E4DF),
+    ),
+    success: ToneColors(
+      foreground: Color(0xFF166534),
+      background: Color(0xFFE8F6EE),
+      border: Color(0xFFBFE3CE),
+    ),
+    warning: ToneColors(
+      foreground: Color(0xFF8A5300),
+      background: Color(0xFFFFF4DC),
+      border: Color(0xFFF1D9A0),
+    ),
+    danger: ToneColors(
+      foreground: Color(0xFFB42318),
+      background: Color(0xFFFEF3F2),
+      border: Color(0xFFF6C6C1),
+    ),
+    info: ToneColors(
+      foreground: Color(0xFF4A5892),
+      background: Color(0xFFEEF0FA),
+      border: Color(0xFFCBD2EE),
+    ),
+    sleep: ToneColors(
+      foreground: Color(0xFF5B4BA0),
+      background: Color(0xFFF0EDFB),
+      border: Color(0xFFD6CFF0),
+    ),
+  );
+
+  /// Prepared dark tokens. Not wired into the app yet — see [light].
+  /// The child experience: sunnier surfaces, same accessible ink and tones.
+  static const kid = MamilyColors(
+    brightness: Brightness.light,
+    background: Color(0xFFFFF7E9),
+    surface: Color(0xFFFFFFFF),
+    surfaceMuted: Color(0xFFFFF0D4),
+    surfaceStrong: Color(0xFFFCE3B8),
+    border: Color(0xFFF6E2BF),
+    borderStrong: Color(0xFF7A6C55),
+    ink: MamilyPalette.navy800,
+    ink2: Color(0xFF4F5872),
+    ink3: Color(0xFF575F79),
+    action: Color(0xFFD43A26),
+    onAction: Color(0xFFFFFFFF),
+    actionPressed: Color(0xFFB3311F),
+    actionText: Color(0xFFB3311F),
+    focus: Color(0xFF0F766E),
+    neutral: ToneColors(
+      foreground: Color(0xFF4F5872),
+      background: Color(0xFFFFF0D4),
+      border: Color(0xFFF6E2BF),
     ),
     brand: ToneColors(
       foreground: Color(0xFFB3311F),

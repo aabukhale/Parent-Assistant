@@ -37,6 +37,9 @@ class AppRadii {
   /// Hero cards, sheets, dialogs.
   static const double large = 24;
 
+  /// Child-experience hero cards.
+  static const double xl = 28;
+
   /// Buttons and pills.
   static const double pill = 999;
 
@@ -45,6 +48,7 @@ class AppRadii {
     Radius.circular(medium),
   );
   static const BorderRadius largeAll = BorderRadius.all(Radius.circular(large));
+  static const BorderRadius xlAll = BorderRadius.all(Radius.circular(xl));
   static const BorderRadius pillAll = BorderRadius.all(Radius.circular(pill));
 }
 
@@ -55,7 +59,7 @@ class AppSizes {
   /// Minimum interactive target (Material / WCAG 2.5.5 guidance).
   static const double minTouchTarget = 48;
 
-  /// Minimum interactive target for the parent-launched Kid View.
+  /// Minimum interactive target in the child experience.
   static const double minTouchTargetKid = 56;
 
   /// Reading-column cap on tablets and landscape; phones are unaffected.
@@ -80,6 +84,9 @@ class AppMotion {
 
   static const Duration fast = Duration(milliseconds: 150);
   static const Duration normal = Duration(milliseconds: 200);
+
+  /// Celebrations (task done, routine finished): quick, never blocking.
+  static const Duration celebrate = Duration(milliseconds: 900);
   static const Curve curve = Curves.easeOut;
 
   /// [duration], or [Duration.zero] when the user asked to reduce motion.

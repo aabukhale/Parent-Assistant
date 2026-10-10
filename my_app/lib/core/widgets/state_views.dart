@@ -3,10 +3,9 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import '../errors/api_exception.dart';
 import '../localization/l10n.dart';
-
-const _navy = Color(0xFF2E3B63);
-const _coral = Color(0xFFFF624E);
-const _muted = Color(0xFF8A94AA);
+import '../theme/app_typography.dart';
+import '../theme/design_tokens.dart';
+import '../theme/mamily_colors.dart';
 
 /// Full-area loading indicator.
 class LoadingView extends StatelessWidget {
@@ -15,48 +14,97 @@ class LoadingView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final c = context.mamily;
     return Center(
-      child: Column(
-        mainAxisSize: MainAxisSize.min,
-        children: [
-          const CircularProgressIndicator(color: _coral),
-          const SizedBox(height: 14),
-          Text(
-            message ?? context.l10n.commonLoading,
-            style: const TextStyle(color: _muted),
-          ),
-        ],
+      child: Semantics(
+        liveRegion: true,
+        label: message ?? context.l10n.commonLoading,
+        child: Column(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            SizedBox.square(
+              dimension: 36,
+              child: CircularProgressIndicator(
+                strokeWidth: 3.5,
+                color: c.action,
+              ),
+            ),
+            const SizedBox(height: AppSpacing.md),
+            ExcludeSemantics(
+              child: Text(
+                message ?? context.l10n.commonLoading,
+                style: context.type.bodyMedium?.copyWith(color: c.ink2),
+              ),
+            ),
+          ],
+        ),
       ),
     );
   }
 }
 
-/// Empty state (success, but no rows).
+/// Empty state (success, but no rows). Friendly and specific — say what
+/// will appear here and, when possible, what to do next via [action].
 class EmptyView extends StatelessWidget {
-  const EmptyView({super.key, this.message, this.icon, this.onRefresh});
+  const EmptyView({
+    super.key,
+    this.message,
+    this.icon,
+    this.onRefresh,
+    this.title,
+    this.emoji,
+    this.action,
+  });
   final String? message;
   final IconData? icon;
   final Future<void> Function()? onRefresh;
+  final String? title;
+  final String? emoji;
+  final Widget? action;
 
   @override
   Widget build(BuildContext context) {
+    final c = context.mamily;
     final content = Center(
       child: Padding(
-        padding: const EdgeInsets.all(32),
+        padding: const EdgeInsets.all(AppSpacing.xxxl),
         child: Column(
           mainAxisSize: MainAxisSize.min,
           children: [
-            Icon(
-              icon ?? Icons.inbox_rounded,
-              size: 56,
-              color: _muted.withValues(alpha: 0.6),
-            ),
-            const SizedBox(height: 14),
+            if (emoji != null)
+              Text(emoji!, style: const TextStyle(fontSize: 48))
+            else
+              Container(
+                width: 72,
+                height: 72,
+                decoration: BoxDecoration(
+                  color: c.surfaceMuted,
+                  shape: BoxShape.circle,
+                ),
+                child: Icon(
+                  icon ?? Icons.inbox_rounded,
+                  size: 34,
+                  color: c.ink2,
+                ),
+              ),
+            const SizedBox(height: AppSpacing.lg),
+            if (title != null) ...[
+              Text(
+                title!,
+                textAlign: TextAlign.center,
+                style: context.type.titleMedium,
+              ),
+              const SizedBox(height: AppSpacing.xs),
+            ],
             Text(
               message ?? context.l10n.commonEmpty,
               textAlign: TextAlign.center,
-              style: const TextStyle(color: _muted, fontSize: 15),
+              style: context.type.bodyMedium?.copyWith(color: c.ink2),
             ),
+            if (action != null) ...[
+              const SizedBox(height: AppSpacing.lg),
+              action!,
+            ],
           ],
         ),
       ),
@@ -79,6 +127,7 @@ class ErrorRetryView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final l = context.l10n;
+    final c = context.mamily;
     final message = error is ApiException
         ? (error as ApiException).localizedMessage(l)
         : l.errorUnknown;
@@ -95,33 +144,37 @@ class ErrorRetryView extends StatelessWidget {
 
     return Center(
       child: Padding(
-        padding: const EdgeInsets.all(28),
-        child: Column(
-          mainAxisSize: MainAxisSize.min,
-          children: [
-            Icon(icon, size: 54, color: _coral),
-            const SizedBox(height: 14),
-            Text(
-              message,
-              textAlign: TextAlign.center,
-              style: const TextStyle(color: _navy, fontSize: 15, height: 1.5),
-            ),
-            if (onRetry != null) ...[
-              const SizedBox(height: 18),
-              OutlinedButton.icon(
-                onPressed: onRetry,
-                icon: const Icon(Icons.refresh_rounded),
-                label: Text(l.commonRetry),
-                style: OutlinedButton.styleFrom(
-                  foregroundColor: _coral,
-                  side: const BorderSide(color: _coral),
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(20),
-                  ),
+        padding: const EdgeInsets.all(AppSpacing.xxl),
+        child: Semantics(
+          liveRegion: true,
+          child: Column(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              Container(
+                width: 72,
+                height: 72,
+                decoration: BoxDecoration(
+                  color: c.brand.background,
+                  shape: BoxShape.circle,
                 ),
+                child: Icon(icon, size: 34, color: c.brand.foreground),
               ),
+              const SizedBox(height: AppSpacing.lg),
+              Text(
+                message,
+                textAlign: TextAlign.center,
+                style: context.type.bodyLarge?.copyWith(color: c.ink),
+              ),
+              if (onRetry != null) ...[
+                const SizedBox(height: AppSpacing.lg),
+                OutlinedButton.icon(
+                  onPressed: onRetry,
+                  icon: const Icon(Icons.refresh_rounded),
+                  label: Text(l.commonRetry),
+                ),
+              ],
             ],
-          ],
+          ),
         ),
       ),
     );
@@ -129,7 +182,7 @@ class ErrorRetryView extends StatelessWidget {
 }
 
 /// Honest "not available yet" surface for backend-deferred features
-/// (AI coach, nutrition analysis, biometric login).
+/// (AI coach, AI activity generation, biometric login).
 class ComingSoonView extends StatelessWidget {
   const ComingSoonView({super.key, this.title, this.body, this.icon});
   final String? title;
@@ -139,32 +192,37 @@ class ComingSoonView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final l = context.l10n;
+    final c = context.mamily;
     return Center(
       child: Padding(
-        padding: const EdgeInsets.all(32),
+        padding: const EdgeInsets.all(AppSpacing.xxxl),
         child: Column(
           mainAxisSize: MainAxisSize.min,
           children: [
-            Icon(
-              icon ?? Icons.hourglass_empty_rounded,
-              size: 60,
-              color: _muted,
+            Container(
+              width: 80,
+              height: 80,
+              decoration: BoxDecoration(
+                color: c.info.background,
+                shape: BoxShape.circle,
+              ),
+              child: Icon(
+                icon ?? Icons.hourglass_empty_rounded,
+                size: 38,
+                color: c.info.foreground,
+              ),
             ),
-            const SizedBox(height: 16),
+            const SizedBox(height: AppSpacing.lg),
             Text(
               title ?? l.commonComingSoonTitle,
               textAlign: TextAlign.center,
-              style: const TextStyle(
-                color: _navy,
-                fontSize: 18,
-                fontWeight: FontWeight.bold,
-              ),
+              style: context.type.titleMedium,
             ),
-            const SizedBox(height: 10),
+            const SizedBox(height: AppSpacing.sm),
             Text(
               body ?? l.commonComingSoonBody,
               textAlign: TextAlign.center,
-              style: const TextStyle(color: _muted, fontSize: 14, height: 1.5),
+              style: context.type.bodyMedium?.copyWith(color: c.ink2),
             ),
           ],
         ),

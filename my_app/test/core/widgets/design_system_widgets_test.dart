@@ -31,9 +31,7 @@ Widget _page(Widget child) =>
 
 void main() {
   group('Existing screens', () {
-    testWidgets('plain Text keeps the legacy font under the new theme', (
-      tester,
-    ) async {
+    testWidgets('plain Text renders in Rubik under the theme', (tester) async {
       await tester.pumpWidget(_app(_page(const Text('legacy'))));
       final style = tester
           .widget<RichText>(
@@ -44,7 +42,7 @@ void main() {
           )
           .text
           .style;
-      expect(style?.fontFamily, AppTypography.legacyFontFamily);
+      expect(style?.fontFamily, AppTypography.fontFamily);
     });
 
     testWidgets('design-system components render in Rubik', (tester) async {
@@ -61,7 +59,7 @@ void main() {
           .text
           .style;
       expect(style?.fontFamily, 'Rubik');
-      expect(style?.fontVariations, isNotEmpty);
+      expect(style?.fontWeight, isNotNull);
     });
   });
 
