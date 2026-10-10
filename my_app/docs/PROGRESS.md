@@ -49,3 +49,18 @@ Feature preservation matrix: `docs/feature-matrix.md`.
 ## Blockers / external setup
 
 - No `google-services.json` / `GoogleService-Info.plist` / APNs key on this machine.
+
+## Checkpoint (2026-10-11, usage limit reached)
+
+Done: foundation, role entry + pairing + recovery, full child experience, parent redesign (Today/Inbox/Child hub/Children/Discover/Account), challenges, planner, recap, routines builder, meals, check-ins & praise, devices & pairing, notification + surface settings, push service (Dart), widget/overlay sync (Dart), Live Activity bridge (Dart). `flutter analyze` clean, `flutter test` 457 passed (at 6888e87).
+
+Switched iOS to CocoaPods (SwiftPM could not resolve firebase-ios-sdk 12.19.0); Podfile platform 15.0.
+
+BLOCKER: disk full (~2.5 GB free). iOS simulator build not yet completed. Free space before building (e.g. old Runner-* DerivedData — not deleted by me since they may belong to other projects).
+Simulator panel access was not granted, so screenshots must use `xcrun simctl io booted screenshot`.
+
+Next, in order:
+1. Free disk; `flutter build ios --simulator --debug --dart-define=API_BASE_URL=http://127.0.0.1:8000/api/v1`; run with `php artisan serve` + `php artisan mamily:demo-seed --fresh`; screenshot & fix layout (phone/tablet, ar/en, large text).
+2. Native: Android manifest (POST_NOTIFICATIONS, SYSTEM_ALERT_WINDOW, foreground service), Kotlin overlay service on channel `mamily/overlay`, FamilyPulseWidgetProvider; conditional google-services plugin. iOS: WidgetKit extension `FamilyPulseWidget` + App Group `group.com.mamily.app`, ActivityKit on channel `mamily/live_activity`, push entitlements.
+3. Restyle remaining legacy feature screens (tasks, rewards store, goals, sleep, screen time, content, devices, activities, library, games, reports, forms).
+4. New Flutter tests (kid repo/screens, inbox actions, pairing flow, deep-link authorization), integration test, APK + iOS builds, final report.

@@ -68,6 +68,10 @@ dev_dependencies:
 
 # The following section is specific to Flutter packages.
 flutter:
+  # iOS/macOS plugins are integrated with CocoaPods (Podfile.lock is the
+  # source of truth); SwiftPM resolution of firebase-ios-sdk was unreliable.
+  config:
+    enable-swift-package-manager: false
 
   # The following line ensures that the Material Icons font is
   # included with your application, so that you can use the icons in
