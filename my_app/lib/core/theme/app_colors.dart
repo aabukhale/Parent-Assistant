@@ -1,7 +1,12 @@
 import 'package:flutter/material.dart';
 
-/// Anwar's existing palette, extracted from the original screens. Colors are UI
+/// Mamily's current palette, extracted from the original screens. Colors are UI
 /// constants (permitted static data) — no business meaning.
+///
+/// Legacy: existing screens still read these. Several fail WCAG AA as text
+/// (e.g. [textMuted] 3.0:1, [coral] 2.95:1). New and redesigned screens use the
+/// accessible tokens on `MamilyColors` (`context.mamily`) instead, and screens
+/// migrate off this class one step at a time.
 class AppColors {
   const AppColors._();
 
