@@ -3,7 +3,6 @@ import 'dart:async';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/foundation.dart';
-import 'package:flutter/material.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
@@ -114,8 +113,9 @@ class PushService {
         onDidReceiveNotificationResponse: (r) => _openRoute(r.payload),
       );
       final launch = await _local.getNotificationAppLaunchDetails();
-      if (launch?.didNotificationLaunchApp ?? false)
+      if (launch?.didNotificationLaunchApp ?? false) {
         _stashRoute(launch!.notificationResponse?.payload);
+      }
 
       final android = _local
           .resolvePlatformSpecificImplementation<
@@ -153,8 +153,9 @@ class PushService {
 
   /// Bind this install's FCM token to whoever is signed in now.
   Future<void> registerCurrentSession() async {
-    if (!_firebaseReady || availability.value != PushAvailability.granted)
+    if (!_firebaseReady || availability.value != PushAvailability.granted) {
       return;
+    }
     try {
       final token = await FirebaseMessaging.instance.getToken();
       if (token != null) await _sendTokenToBackend(token);

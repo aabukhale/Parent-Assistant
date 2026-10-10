@@ -84,8 +84,9 @@ class _KidShellState extends ConsumerState<KidShell> {
         try {
           final json = await read(kidRepositoryProvider).task(s[2]);
           final ctx = nav.context;
-          if (ctx.mounted)
+          if (ctx.mounted) {
             await showKidTaskSheet(ctx, KidTaskSummary.fromJson(json));
+          }
         } catch (_) {
           // Not this child's task (404) or offline — stay on My Day.
         }

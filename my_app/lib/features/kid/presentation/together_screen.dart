@@ -79,8 +79,9 @@ class TogetherScreen extends ConsumerWidget {
         .where((m) => m.hasReply)
         .toList();
     if (messages.isLoading && praise.isEmpty) return const [LoadingView()];
-    if (praise.isEmpty && replies.isEmpty)
+    if (praise.isEmpty && replies.isEmpty) {
       return [EmptyView(emoji: '💌', message: l.kidNoMessages)];
+    }
 
     final items = <(DateTime, Widget)>[
       for (final e in praise)

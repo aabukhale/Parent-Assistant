@@ -93,8 +93,9 @@ class _NotificationTile extends ConsumerWidget {
     return AppCard(
       color: n.isRead ? null : c.info.background,
       onTap: () async {
-        if (!n.isRead)
+        if (!n.isRead) {
           await ref.read(inboxControllerProvider.notifier).markRead(n.id);
+        }
         final route = n.route;
         if (route != null && context.mounted) await DeepLinks.open(ref, route);
       },

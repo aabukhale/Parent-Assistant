@@ -86,8 +86,9 @@ class KidMeScreen extends ConsumerWidget {
                 error: (e, _) => [ErrorRetryView(error: e, onRetry: refresh)],
                 data: (fresh) {
                   final r = fresh.value;
-                  if (r.pending.isEmpty && r.decided.isEmpty)
+                  if (r.pending.isEmpty && r.decided.isEmpty) {
                     return [EmptyView(emoji: '📮', message: l.kidNoRequests)];
+                  }
                   return [
                     for (final item in r.pending.take(5))
                       _RequestTile(item: item),
@@ -163,10 +164,11 @@ class KidMeScreen extends ConsumerWidget {
                           confirmLabel: l.commonSignOut,
                           destructive: true,
                         );
-                        if (ok)
+                        if (ok) {
                           await ref
                               .read(authControllerProvider.notifier)
                               .logout();
+                        }
                       },
                       child: Text(l.kidSignOutDevice),
                     ),
@@ -547,12 +549,13 @@ class _ActivityDoneButtonState extends ConsumerState<_ActivityDoneButton> {
                 await ref
                     .read(kidActionsProvider)
                     .completeActivity(widget.assignment['id'] as String);
-                if (context.mounted)
+                if (context.mounted) {
                   Celebration.show(
                     context,
                     message: l.celebrateGreat,
                     emoji: '🌟',
                   );
+                }
               } catch (e) {
                 if (context.mounted) showKidError(context, e);
               } finally {

@@ -219,8 +219,9 @@ class _RewardCardState extends ConsumerState<_RewardCard> {
     setState(() => _busy = true);
     try {
       await ref.read(kidActionsProvider).requestReward(r.id);
-      if (mounted)
+      if (mounted) {
         Celebration.show(context, message: l.kidRewardAsked, emoji: '🎁');
+      }
     } catch (e) {
       if (mounted) showKidError(context, e);
     } finally {
@@ -492,8 +493,9 @@ class KidPointsHistoryScreen extends ConsumerWidget {
                   separatorBuilder: (_, _) =>
                       const SizedBox(height: AppSpacing.sm),
                   itemBuilder: (context, i) {
-                    if (i == 0)
+                    if (i == 0) {
                       return _BalanceHero(balance: fresh.value.balance);
+                    }
                     final e = fresh.value.entries[i - 1];
                     final earn = e.amount >= 0;
                     return KidCard(
