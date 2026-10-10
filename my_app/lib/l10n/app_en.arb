@@ -1272,5 +1272,565 @@
   "parentEntryTitle": "Welcome, parent",
   "parentEntrySubtitle": "Sign in to plan the day, approve requests and cheer your children on.",
   "authPasswordShow": "Show password",
-  "authPasswordHide": "Hide password"
+  "authPasswordHide": "Hide password",
+  "tabToday": "Today",
+  "tabChildren": "Children",
+  "tabDiscover": "Discover",
+  "tabAccount": "Account",
+  "todayGreetingMorning": "Good morning, {name}",
+  "@todayGreetingMorning": {
+    "placeholders": {
+      "name": {
+        "type": "String"
+      }
+    }
+  },
+  "todayGreetingAfternoon": "Good afternoon, {name}",
+  "@todayGreetingAfternoon": {
+    "placeholders": {
+      "name": {
+        "type": "String"
+      }
+    }
+  },
+  "todayGreetingEvening": "Good evening, {name}",
+  "@todayGreetingEvening": {
+    "placeholders": {
+      "name": {
+        "type": "String"
+      }
+    }
+  },
+  "todayNeedsYou": "Needs you",
+  "todayNeedsYouCount": "{count, plural, =0{Nothing waiting} =1{1 thing is waiting for you} other{{count} things are waiting for you}}",
+  "@todayNeedsYouCount": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "todayAllClear": "All clear — nothing needs you right now.",
+  "todayFamilyPulse": "Family pulse",
+  "todayPlan": "Today's plan",
+  "todayNoPlan": "Nothing scheduled today.",
+  "todayNoChildren": "Add your first child to start planning the day together.",
+  "todayAddChild": "Add a child",
+  "todayQuickActions": "Quick actions",
+  "quickAddTask": "Add task",
+  "quickSendPraise": "Send praise",
+  "quickNewEvent": "Plan event",
+  "quickNewChallenge": "New challenge",
+  "quickPairDevice": "Pair device",
+  "pulseTasks": "{done}/{total} tasks",
+  "@pulseTasks": {
+    "placeholders": {
+      "done": {
+        "type": "int"
+      },
+      "total": {
+        "type": "int"
+      }
+    }
+  },
+  "pulseNoTasksToday": "No tasks today",
+  "pulseToReview": "{count, plural, =1{1 to review} other{{count} to review}}",
+  "@pulseToReview": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "pulseRoutineNow": "{title} in progress",
+  "@pulseRoutineNow": {
+    "placeholders": {
+      "title": {
+        "type": "String"
+      }
+    }
+  },
+  "pulseRoutineNext": "Next: {title} at {time}",
+  "@pulseRoutineNext": {
+    "placeholders": {
+      "title": {
+        "type": "String"
+      },
+      "time": {
+        "type": "String"
+      }
+    }
+  },
+  "pulseRoutineNextNoTime": "Next: {title}",
+  "@pulseRoutineNextNoTime": {
+    "placeholders": {
+      "title": {
+        "type": "String"
+      }
+    }
+  },
+  "pulseCheckin": "Feeling {mood} · {when}",
+  "@pulseCheckin": {
+    "placeholders": {
+      "mood": {
+        "type": "String"
+      },
+      "when": {
+        "type": "String"
+      }
+    }
+  },
+  "pulseNoCheckin": "No check-in yet",
+  "pulseDeviceFresh": "App opened {when}",
+  "@pulseDeviceFresh": {
+    "placeholders": {
+      "when": {
+        "type": "String"
+      }
+    }
+  },
+  "pulseDeviceStale": "Last contact {when}",
+  "@pulseDeviceStale": {
+    "placeholders": {
+      "when": {
+        "type": "String"
+      }
+    }
+  },
+  "pulseDeviceOffline": "No contact since {when}",
+  "@pulseDeviceOffline": {
+    "placeholders": {
+      "when": {
+        "type": "String"
+      }
+    }
+  },
+  "pulseDeviceUnknown": "No paired device",
+  "pulseDeviceExplain": "Last contact means the child's app talked to Mamily. It doesn't show what the device is being used for.",
+  "pulseScreenNotReported": "Screen time not measured",
+  "pulseScreenMeasured": "{used} of {limit} min (reported)",
+  "@pulseScreenMeasured": {
+    "placeholders": {
+      "used": {
+        "type": "int"
+      },
+      "limit": {
+        "type": "int"
+      }
+    }
+  },
+  "pulseScreenMeasuredNoLimit": "{used} min used (reported)",
+  "@pulseScreenMeasuredNoLimit": {
+    "placeholders": {
+      "used": {
+        "type": "int"
+      }
+    }
+  },
+  "pulseUpdated": "Updated {when}",
+  "@pulseUpdated": {
+    "placeholders": {
+      "when": {
+        "type": "String"
+      }
+    }
+  },
+  "inboxTitle": "Requests & approvals",
+  "inboxEmpty": "Nothing waiting. When your children finish tasks or ask for something, it shows up here.",
+  "inboxAll": "All",
+  "inboxApprove": "Approve",
+  "inboxDecline": "Not now",
+  "inboxReply": "Reply",
+  "inboxNoteOptional": "Add a note for your child (optional)",
+  "inboxDeclineTitle": "Not this time?",
+  "inboxDeclineBody": "A kind note helps your child understand what to do next.",
+  "inboxApproved": "Approved",
+  "inboxDeclined": "Sent back with your note",
+  "inboxUndone": "Undone",
+  "inboxNoPermission": "You don't have permission to answer this one.",
+  "inboxKindTask": "Task done",
+  "inboxKindActivity": "Activity done",
+  "inboxKindReward": "Reward request",
+  "inboxKindWish": "Reward idea",
+  "inboxKindScreenTime": "More screen time",
+  "inboxKindRoutine": "Routine bonus",
+  "inboxKindCheckin": "Check-in",
+  "inboxByChild": "Sent by {name}",
+  "@inboxByChild": {
+    "placeholders": {
+      "name": {
+        "type": "String"
+      }
+    }
+  },
+  "inboxLoggedByParent": "Logged by a parent",
+  "inboxPointsCost": "Costs {count} points",
+  "@inboxPointsCost": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "inboxPointsEarn": "Earns {count} points",
+  "@inboxPointsEarn": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "inboxMinutesAsked": "Asked for {count} minutes",
+  "@inboxMinutesAsked": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "inboxGrantMinutes": "Grant how many minutes?",
+  "inboxGrantNote": "This saves an allowance for today. Mamily can't lock or measure the device.",
+  "inboxWishTitle": "Turn into a reward",
+  "inboxWishPoints": "Points needed",
+  "inboxWishName": "Reward name",
+  "inboxWishAdd": "Add reward",
+  "inboxReplyTitle": "Reply to {name}",
+  "@inboxReplyTitle": {
+    "placeholders": {
+      "name": {
+        "type": "String"
+      }
+    }
+  },
+  "inboxReplyHint": "A few kind words…",
+  "inboxReplySent": "Reply sent",
+  "inboxCheckinNote": "This is a message from your child, not a measurement.",
+  "stickerHug": "Hug",
+  "stickerHeart": "Love",
+  "stickerHighFive": "High five",
+  "stickerProud": "Proud of you",
+  "stickerThinking": "Thinking of you",
+  "stickerTalk": "Let's talk",
+  "praiseTitle": "Send praise to {name}",
+  "@praiseTitle": {
+    "placeholders": {
+      "name": {
+        "type": "String"
+      }
+    }
+  },
+  "praiseMessage": "Your message",
+  "praiseBadge": "Add a badge",
+  "praiseFor": "For",
+  "praiseForNothing": "Just because",
+  "praiseSent": "Praise sent!",
+  "praiseSuggestion1": "So proud of you!",
+  "praiseSuggestion2": "Great teamwork today!",
+  "praiseSuggestion3": "You kept going — amazing!",
+  "hubSummary": "Overview",
+  "hubTasks": "Tasks & points",
+  "hubRoutines": "Routines",
+  "hubRewards": "Rewards",
+  "hubGoals": "Learning goals",
+  "hubActivities": "Activities",
+  "hubSleep": "Sleep",
+  "hubMeals": "Meals",
+  "hubScreenTime": "Screen time",
+  "hubContent": "Content controls",
+  "hubCheckins": "Check-ins & praise",
+  "hubDevices": "Devices & pairing",
+  "hubReport": "Growth report",
+  "hubEditChild": "Edit profile",
+  "hubSections": "Everything for {name}",
+  "@hubSections": {
+    "placeholders": {
+      "name": {
+        "type": "String"
+      }
+    }
+  },
+  "discoverTitle": "Discover",
+  "discoverSubtitle": "Ideas, plans and things to do together",
+  "discoverActivities": "Activities",
+  "discoverActivitiesBody": "Ideas matched to your children",
+  "discoverLibrary": "Parent library",
+  "discoverLibraryBody": "Short reads from specialists",
+  "discoverGames": "Games",
+  "discoverGamesBody": "Preview learning games",
+  "discoverChallenges": "Family challenges",
+  "discoverChallengesBody": "Shared goals you reach together",
+  "discoverPlanner": "Family planner",
+  "discoverPlannerBody": "Routines, deadlines and plans",
+  "discoverRecap": "Weekly recap",
+  "discoverRecapBody": "What your family did this week",
+  "discoverCoach": "Parenting coach",
+  "discoverCoachBody": "Coming later",
+  "accountTitle": "Account",
+  "accountProfile": "Profile",
+  "accountLanguage": "Language",
+  "accountNotifications": "Notifications",
+  "accountSurfaces": "Widgets & floating card",
+  "accountFamily": "Family members",
+  "accountThisDevice": "This device",
+  "accountSwitchFamily": "Switch family",
+  "accountHandBack": "Hand back to {name}",
+  "@accountHandBack": {
+    "placeholders": {
+      "name": {
+        "type": "String"
+      }
+    }
+  },
+  "accountHandBackGeneric": "Return to child mode",
+  "accountHandBackBody": "Signs you out and gives this device back to your child.",
+  "accountInbox": "Notification inbox",
+  "notifPrefsTitle": "Notifications",
+  "notifPermissionTitle": "Get a heads-up when something needs you",
+  "notifPermissionBody": "Mamily notifies you when a task is done, a reward is requested, or a plan is coming up. Lock-screen text stays general unless you choose otherwise.",
+  "notifAllow": "Allow notifications",
+  "notifDenied": "Notifications are turned off for Mamily. You can still see everything in the in-app inbox, or turn them on in your phone's Settings.",
+  "notifNotConfigured": "Push notifications aren't set up in this build yet. Your in-app inbox still works.",
+  "notifEnabled": "Notifications are on for this device.",
+  "notifCategories": "What to notify me about",
+  "notifQuietHours": "Quiet hours",
+  "notifQuietHoursBody": "Pushes wait until quiet hours end. They still arrive in your inbox.",
+  "notifQuietFrom": "From",
+  "notifQuietTo": "To",
+  "notifQuietOff": "Off",
+  "notifChildQuiet": "Children's quiet hours",
+  "notifLockDetails": "Show details on the lock screen",
+  "notifLockDetailsBody": "Off: “Something is waiting for your review.” On: names and task titles.",
+  "notifCatTasks": "Tasks",
+  "notifCatApprovals": "Requests & approvals",
+  "notifCatRewards": "Rewards",
+  "notifCatRoutines": "Routines",
+  "notifCatChallenges": "Family challenges",
+  "notifCatEncouragement": "Encouragement",
+  "notifCatCheckins": "Check-ins",
+  "notifCatScreenTime": "Screen time",
+  "notifCatPlanner": "Family planner",
+  "notifCatDevices": "Devices",
+  "notifSaved": "Saved",
+  "surfacesTitle": "Widgets & floating card",
+  "surfacesIntro": "See your family's status without opening Mamily. These surfaces can be seen by anyone near your phone, so they show very little by default.",
+  "surfacesShowNames": "Children's names",
+  "surfacesShowTasks": "Task counts",
+  "surfacesShowApprovals": "Waiting approvals",
+  "surfacesShowMood": "Latest mood",
+  "surfacesShowPoints": "Points",
+  "surfacesShowRoutine": "Routine progress",
+  "surfacesWidgetHow": "Add the “Family Pulse” widget from your home screen's widget gallery.",
+  "surfacesUpdatesHonest": "Widgets refresh when you open Mamily and when the system allows — they show how old their data is and never claim to be live.",
+  "overlayTitle": "Floating Family Pulse (Android)",
+  "overlayBody": "A small card you can drag around, expand, and tap to open Mamily. Android needs the “Display over other apps” permission for this.",
+  "overlayGrant": "Open permission settings",
+  "overlayStart": "Show floating card",
+  "overlayStop": "Hide floating card",
+  "overlayDenied": "Permission not granted. Use the home-screen widget or notifications instead.",
+  "overlayIosNote": "On iPhone, use the home-screen widget. iOS doesn't allow cards floating over other apps; routines in progress can appear as a Live Activity.",
+  "pairTitleParent": "Pair {name}'s device",
+  "@pairTitleParent": {
+    "placeholders": {
+      "name": {
+        "type": "String"
+      }
+    }
+  },
+  "pairHowTo": "On your child's device, open Mamily, tap “I'm a child”, then scan this code or type it.",
+  "pairExpiresIn": "Expires in {minutes} min · works once",
+  "@pairExpiresIn": {
+    "placeholders": {
+      "minutes": {
+        "type": "int"
+      }
+    }
+  },
+  "pairExpired": "This code expired.",
+  "pairNewCode": "New code",
+  "pairRevoke": "Cancel code",
+  "pairCreate": "Pair a device",
+  "pairModeDedicated": "Child's own device",
+  "pairModeShared": "Shared family device",
+  "pairedDevices": "Paired devices",
+  "pairedNone": "No device is paired yet.",
+  "pairedActive": "Signed in",
+  "pairedInactive": "Signed out",
+  "pairUnpair": "Unpair",
+  "pairUnpairConfirm": "Unpair {device}?",
+  "@pairUnpairConfirm": {
+    "placeholders": {
+      "device": {
+        "type": "String"
+      }
+    }
+  },
+  "pairUnpairBody": "The child is signed out on that device right away.",
+  "pairUnpaired": "Device unpaired",
+  "routinesTitle": "Routines",
+  "routinesEmpty": "Routines turn busy moments into calm, step-by-step habits. Start from a template.",
+  "routinesNew": "New routine",
+  "routineEdit": "Edit routine",
+  "routineName": "Name",
+  "routineKindMorning": "Morning",
+  "routineKindAfterSchool": "After school",
+  "routineKindBedtime": "Bedtime",
+  "routineKindCustom": "Other",
+  "routineStartTime": "Starts at",
+  "routineDays": "Days",
+  "routineSteps": "Steps",
+  "routineAddStep": "Add step",
+  "routineStepHint": "e.g. Brush teeth",
+  "routineBonus": "Bonus points (needs your OK)",
+  "routineReminder": "Remind at start time",
+  "routinePaused": "Paused",
+  "routineActive": "Active",
+  "routineFromTemplate": "Start from a template",
+  "routineSaved": "Routine saved",
+  "routineDelete": "Delete routine",
+  "routineDeleteBody": "Past runs stay in the history.",
+  "routineTodayProgress": "Today: {done}/{total}",
+  "@routineTodayProgress": {
+    "placeholders": {
+      "done": {
+        "type": "int"
+      },
+      "total": {
+        "type": "int"
+      }
+    }
+  },
+  "routineNotToday": "Not scheduled today",
+  "routineHistory": "History",
+  "routineStepsRequired": "Add at least one step.",
+  "weekdayShort1": "Mon",
+  "weekdayShort2": "Tue",
+  "weekdayShort3": "Wed",
+  "weekdayShort4": "Thu",
+  "weekdayShort5": "Fri",
+  "weekdayShort6": "Sat",
+  "weekdayShort7": "Sun",
+  "challengesTitle": "Family challenges",
+  "challengesEmpty": "Set a shared goal — like reading 300 minutes together this week — and celebrate when the family gets there.",
+  "challengeNew": "New challenge",
+  "challengeName": "Challenge name",
+  "challengeMetric": "What counts",
+  "challengeMetricTasks": "Approved tasks",
+  "challengeMetricRoutines": "Finished routines",
+  "challengeMetricManual": "Logged amount (e.g. minutes)",
+  "challengeTarget": "Goal",
+  "challengeUnit": "Unit (optional)",
+  "challengeEnds": "Ends on",
+  "challengeReward": "Reward points for each child",
+  "challengeWho": "Who's in",
+  "challengeStart": "Start challenge",
+  "challengeAward": "Give the reward",
+  "challengeCancel": "Cancel challenge",
+  "challengeLog": "Log progress",
+  "challengeStatusActive": "In progress",
+  "challengeStatusAchieved": "Goal reached!",
+  "challengeStatusRewarded": "Rewarded",
+  "challengeStatusEnded": "Ended",
+  "challengeStatusCancelled": "Cancelled",
+  "challengeNoRanking": "Everyone adds to one shared total — no scoreboards.",
+  "challengeDaysLeft": "{count, plural, =0{Ends today} =1{1 day left} other{{count} days left}}",
+  "@challengeDaysLeft": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "plannerTitle": "Family planner",
+  "plannerEmptyDay": "Nothing planned.",
+  "plannerNewEvent": "New event",
+  "plannerEventTitle": "What's happening?",
+  "plannerDate": "Date",
+  "plannerTime": "Time",
+  "plannerAllDay": "All day",
+  "plannerLocation": "Where (optional)",
+  "plannerRepeatWeekly": "Repeat every week",
+  "plannerRemind": "Reminder",
+  "plannerRemindNone": "No reminder",
+  "plannerRemindMinutes": "{count} min before",
+  "@plannerRemindMinutes": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "plannerForWho": "For",
+  "plannerEveryone": "Whole family",
+  "plannerSaved": "Added to the planner",
+  "plannerDeleteEvent": "Delete event",
+  "plannerTypeRoutine": "Routine",
+  "plannerTypeDeadline": "Task due",
+  "plannerTypeEvent": "Event",
+  "plannerThisWeek": "This week",
+  "plannerNextWeek": "Next week",
+  "recapTitle": "Weekly recap",
+  "recapRange": "{from} – {to}",
+  "@recapRange": {
+    "placeholders": {
+      "from": {
+        "type": "String"
+      },
+      "to": {
+        "type": "String"
+      }
+    }
+  },
+  "recapPrevious": "Previous week",
+  "recapNext": "Next week",
+  "recapHighlights": "Highlights",
+  "recapTasks": "Tasks done",
+  "recapRoutines": "Routines",
+  "recapPointsEarned": "Points earned",
+  "recapPointsSpent": "Points spent",
+  "recapRewards": "Rewards",
+  "recapCheckins": "Check-ins",
+  "recapGoals": "Goal updates",
+  "recapHonest": "Built only from what was recorded in Mamily this week.",
+  "mealsTitle": "Meals",
+  "mealsEmpty": "A simple meal diary — what was eaten and how much. No photos, no analysis.",
+  "mealsAdd": "Log a meal",
+  "mealBreakfast": "Breakfast",
+  "mealLunch": "Lunch",
+  "mealDinner": "Dinner",
+  "mealSnack": "Snack",
+  "mealWhat": "What was eaten",
+  "mealAppetite": "How much",
+  "appetiteAll": "All of it",
+  "appetiteMost": "Most",
+  "appetiteSome": "Some",
+  "appetiteLittle": "A little",
+  "appetiteNone": "None",
+  "mealWhen": "When",
+  "mealSaved": "Meal logged",
+  "mealDeleted": "Meal removed",
+  "checkinsTitle": "Check-ins & praise",
+  "checkinsEmpty": "When {name} shares how they feel, it shows up here.",
+  "@checkinsEmpty": {
+    "placeholders": {
+      "name": {
+        "type": "String"
+      }
+    }
+  },
+  "praiseHistory": "Praise sent",
+  "praiseNew": "Send praise",
+  "previewAsChild": "Preview {name}'s day",
+  "@previewAsChild": {
+    "placeholders": {
+      "name": {
+        "type": "String"
+      }
+    }
+  },
+  "previewNotice": "Parent preview — read-only. Actions are disabled.",
+  "plannerRemindHour": "1 hour before",
+  "plannerRemindDay": "1 day before",
+  "plannerRemindAtStart": "At start time",
+  "discoverDashboard": "Family dashboard",
+  "discoverDashboardBody": "Points, sleep and goals at a glance"
 }

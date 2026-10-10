@@ -43,6 +43,7 @@ class Child {
     required this.status,
     this.gender,
     this.avatarColor,
+    this.avatarKey,
     this.preferredLanguage,
     this.contentAgeOverride,
     this.interests = const [],
@@ -56,6 +57,9 @@ class Child {
   final ChildStatus status;
   final ChildGender? gender;
   final String? avatarColor;
+
+  /// Illustrated identity the child picked (see `ChildAvatars`).
+  final String? avatarKey;
   final String? preferredLanguage;
   final int? contentAgeOverride;
   final List<Interest> interests;
@@ -74,6 +78,7 @@ class Child {
       status: ChildStatus.fromString(json['status'] as String?),
       gender: ChildGender.fromString(json['gender'] as String?),
       avatarColor: json['avatar_color'] as String?,
+      avatarKey: json['avatar_key'] as String?,
       preferredLanguage: json['preferred_language'] as String?,
       contentAgeOverride: (json['content_age_override'] as num?)?.toInt(),
       interests: rawInterests

@@ -14,6 +14,7 @@ class ChildInput {
     required this.birthDate,
     this.gender,
     this.avatarColor,
+    this.avatarKey,
     this.interestIds = const [],
   });
 
@@ -21,6 +22,7 @@ class ChildInput {
   final DateTime birthDate;
   final ChildGender? gender;
   final String? avatarColor;
+  final String? avatarKey;
   final List<String> interestIds;
 
   static String formatDate(DateTime d) {
@@ -36,6 +38,7 @@ class ChildInput {
     if (gender != null) 'gender': gender!.wire,
     if (avatarColor != null && avatarColor!.isNotEmpty)
       'avatar_color': avatarColor,
+    if (avatarKey != null) 'avatar_key': avatarKey,
     'interest_ids': interestIds,
   };
 
@@ -44,6 +47,7 @@ class ChildInput {
     birthDate: child.birthDate,
     gender: child.gender,
     avatarColor: child.avatarColor,
+    avatarKey: child.avatarKey,
     interestIds: child.interestIds,
   );
 }

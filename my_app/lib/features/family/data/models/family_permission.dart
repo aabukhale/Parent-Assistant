@@ -22,7 +22,11 @@ enum FamilyPermission {
   manageLearningGoals('manage_learning_goals'),
   manageActivities('manage_activities'),
   manageDevices('manage_devices'),
-  viewReports('view_reports');
+  viewReports('view_reports'),
+  manageRoutines('manage_routines'),
+  manageChallenges('manage_challenges'),
+  managePlanner('manage_planner'),
+  manageMeals('manage_meals');
 
   const FamilyPermission(this.wire);
 

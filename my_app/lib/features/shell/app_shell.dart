@@ -1,26 +1,31 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-import '../../widgets/bottom_navigation.dart';
-import '../activities/presentation/activities_screen.dart';
+import '../../app/deep_links.dart';
+import '../../core/localization/l10n.dart';
+import '../../core/providers.dart';
+import '../account/account_screen.dart';
 import '../children/presentation/children_screen.dart';
-import '../dashboard/presentation/development_report_screen.dart';
-import '../dashboard/presentation/home_screen.dart';
-import '../profile/profile_screen.dart';
+import '../discover/discover_screen.dart';
+import '../family_hub/application/hub_providers.dart';
+import '../family_hub/presentation/challenges_screen.dart';
+import '../family_hub/presentation/child_hub_screen.dart';
+import '../family_hub/presentation/child_sections.dart';
+import '../family_hub/presentation/planner_screen.dart';
+import '../family_hub/presentation/recap_screen.dart';
+import '../family_hub/presentation/requests_inbox_screen.dart';
+import '../family_hub/presentation/today_screen.dart';
+import '../notifications/application/notifications_controller.dart';
+import '../notifications/presentation/inbox_screen.dart';
+import '../notifications/push/push_service.dart';
+import '../surfaces/surface_sync.dart';
+import '../tasks/presentation/task_detail_screen.dart';
 
-/// Authenticated app shell: the 5-tab bottom navigation from the original
-/// design. Tabs are swapped, state is kept alive per tab.
+/// Parent experience: Today · Children · Discover · Account.
 ///
-/// All five tabs are backend-connected (see docs/flutter-integration.md §14):
-///  0 Home        — mother dashboard (`/families/{family}/dashboard`)
-///  1 Children    — list / add / details / edit / delete + selected-child context
-///  2 Activities  — catalog (`/activities`) + assign / completion workflow
-///  3 Development  — weekly/monthly report for the selected child
-///  4 Profile     — session, edit profile, language, logout
-///
-/// Deep screens reached from child-details cover learning goals, sleep, tasks &
-/// points, rewards, screen time, devices, content controls, library, and games.
-/// AI coach and nutrition have no backend and show an honest unavailable state.
+/// Data refreshes when the app returns to the foreground; there is no
+/// background polling. The out-of-app widget/overlay is refreshed at the same
+/// moments.
 class AppShell extends ConsumerStatefulWidget {
   const AppShell({super.key});
 
@@ -29,23 +34,131 @@ class AppShell extends ConsumerStatefulWidget {
 }
 
 class _AppShellState extends ConsumerState<AppShell> {
-  int _index = 0;
+  late final AppLifecycleListener _lifecycle;
 
-  static const _tabs = <Widget>[
-    HomeScreen(),
-    ChildrenScreen(),
-    ActivitiesScreen(),
-    DevelopmentReportScreen(),
-    ProfileScreen(),
-  ];
+  @override
+  void initState() {
+    super.initState();
+    DeepLinks.parentOpener = _openParentRoute;
+    _lifecycle = AppLifecycleListener(onResume: _refreshAll);
+    WidgetsBinding.instance.addPostFrameCallback((_) async {
+      await DeepLinks.consumePending(ref);
+      await ref.read(pushServiceProvider).registerCurrentSession();
+      await ref.read(surfaceSyncProvider).refresh();
+    });
+  }
+
+  @override
+  void dispose() {
+    _lifecycle.dispose();
+    if (DeepLinks.parentOpener == _openParentRoute) {
+      DeepLinks.parentOpener = null;
+    }
+    super.dispose();
+  }
+
+  void _refreshAll() {
+    ref
+      ..invalidate(pulseProvider)
+      ..invalidate(familyInboxProvider)
+      ..invalidate(challengesProvider)
+      ..invalidate(unreadCountProvider);
+    ref.read(dashboardRefreshSignalProvider.notifier).state++;
+    ref.read(surfaceSyncProvider).refresh();
+  }
+
+  Future<void> _openParentRoute(
+    NavigatorState nav,
+    Reader read,
+    Uri uri,
+  ) async {
+    final s = uri.pathSegments;
+    if (s.length < 2) return;
+    Future<void> push(Widget w) =>
+        nav.push(MaterialPageRoute<void>(builder: (_) => w));
+    switch (s[1]) {
+      case 'inbox':
+        read(parentTabProvider.notifier).state = 0;
+        await push(const RequestsInboxScreen());
+      case 'notifications':
+        await push(const NotificationInboxScreen());
+      case 'planner':
+        await push(const PlannerScreen());
+      case 'recap':
+        await push(const RecapScreen());
+      case 'challenges' when s.length >= 3:
+        await push(ChallengeDetailScreen(challengeId: s[2]));
+      case 'challenges':
+        await push(const ChallengesScreen());
+      case 'children' when s.length >= 3:
+        final childId = s[2];
+        read(parentTabProvider.notifier).state = 1;
+        await push(ChildHubScreen(childId: childId));
+        if (s.length >= 4) {
+          switch (s[3]) {
+            case 'checkins':
+              await push(ChildCheckinsScreen(childId: childId, childName: ''));
+            case 'routines':
+              await push(ChildRoutinesScreen(childId: childId, childName: ''));
+            case 'tasks' when s.length >= 5:
+              await push(TaskDetailScreen(taskId: s[4]));
+          }
+        }
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
+    final l = context.l10n;
+    final index = ref.watch(parentTabProvider);
+    final waiting =
+        ref.watch(familyInboxProvider(null)).valueOrNull?.value.items.length ??
+        0;
+
     return Scaffold(
-      body: IndexedStack(index: _index, children: _tabs),
-      bottomNavigationBar: AppBottomNavigation(
-        currentIndex: _index,
-        onTap: (i) => setState(() => _index = i),
+      body: IndexedStack(
+        index: index,
+        children: const [
+          TodayScreen(),
+          ChildrenScreen(),
+          DiscoverScreen(),
+          AccountScreen(),
+        ],
+      ),
+      bottomNavigationBar: NavigationBar(
+        selectedIndex: index,
+        onDestinationSelected: (i) =>
+            ref.read(parentTabProvider.notifier).state = i,
+        destinations: [
+          NavigationDestination(
+            icon: Badge(
+              isLabelVisible: waiting > 0,
+              label: Text('$waiting'),
+              child: const Icon(Icons.wb_sunny_outlined),
+            ),
+            selectedIcon: Badge(
+              isLabelVisible: waiting > 0,
+              label: Text('$waiting'),
+              child: const Icon(Icons.wb_sunny_rounded),
+            ),
+            label: l.tabToday,
+          ),
+          NavigationDestination(
+            icon: const Icon(Icons.family_restroom_outlined),
+            selectedIcon: const Icon(Icons.family_restroom_rounded),
+            label: l.tabChildren,
+          ),
+          NavigationDestination(
+            icon: const Icon(Icons.explore_outlined),
+            selectedIcon: const Icon(Icons.explore_rounded),
+            label: l.tabDiscover,
+          ),
+          NavigationDestination(
+            icon: const Icon(Icons.person_outline_rounded),
+            selectedIcon: const Icon(Icons.person_rounded),
+            label: l.tabAccount,
+          ),
+        ],
       ),
     );
   }

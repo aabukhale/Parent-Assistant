@@ -1272,5 +1272,565 @@
   "parentEntryTitle": "ברוך הבא, הורה",
   "parentEntrySubtitle": "התחברו כדי לתכנן את היום, לאשר בקשות ולעודד את הילדים.",
   "authPasswordShow": "הצגת סיסמה",
-  "authPasswordHide": "הסתרת סיסמה"
+  "authPasswordHide": "הסתרת סיסמה",
+  "tabToday": "היום",
+  "tabChildren": "ילדים",
+  "tabDiscover": "גלו",
+  "tabAccount": "חשבון",
+  "todayGreetingMorning": "בוקר טוב, {name}",
+  "@todayGreetingMorning": {
+    "placeholders": {
+      "name": {
+        "type": "String"
+      }
+    }
+  },
+  "todayGreetingAfternoon": "צהריים טובים, {name}",
+  "@todayGreetingAfternoon": {
+    "placeholders": {
+      "name": {
+        "type": "String"
+      }
+    }
+  },
+  "todayGreetingEvening": "ערב טוב, {name}",
+  "@todayGreetingEvening": {
+    "placeholders": {
+      "name": {
+        "type": "String"
+      }
+    }
+  },
+  "todayNeedsYou": "ממתין לך",
+  "todayNeedsYouCount": "{count, plural, =0{אין דבר שממתין} =1{דבר אחד ממתין לך} other{{count} דברים ממתינים לך}}",
+  "@todayNeedsYouCount": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "todayAllClear": "הכול בסדר — אין כרגע משהו שממתין לך.",
+  "todayFamilyPulse": "הדופק המשפחתי",
+  "todayPlan": "התוכנית להיום",
+  "todayNoPlan": "אין דבר מתוכנן להיום.",
+  "todayNoChildren": "הוסיפו את הילד/ה הראשון/ה כדי להתחיל לתכנן יחד.",
+  "todayAddChild": "הוספת ילד/ה",
+  "todayQuickActions": "פעולות מהירות",
+  "quickAddTask": "הוספת משימה",
+  "quickSendPraise": "שליחת עידוד",
+  "quickNewEvent": "תכנון אירוע",
+  "quickNewChallenge": "אתגר חדש",
+  "quickPairDevice": "צימוד מכשיר",
+  "pulseTasks": "{done}/{total} משימות",
+  "@pulseTasks": {
+    "placeholders": {
+      "done": {
+        "type": "int"
+      },
+      "total": {
+        "type": "int"
+      }
+    }
+  },
+  "pulseNoTasksToday": "אין משימות היום",
+  "pulseToReview": "{count, plural, =1{אחד לאישור} other{{count} לאישור}}",
+  "@pulseToReview": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "pulseRoutineNow": "{title} בתהליך",
+  "@pulseRoutineNow": {
+    "placeholders": {
+      "title": {
+        "type": "String"
+      }
+    }
+  },
+  "pulseRoutineNext": "הבא: {title} ב־{time}",
+  "@pulseRoutineNext": {
+    "placeholders": {
+      "title": {
+        "type": "String"
+      },
+      "time": {
+        "type": "String"
+      }
+    }
+  },
+  "pulseRoutineNextNoTime": "הבא: {title}",
+  "@pulseRoutineNextNoTime": {
+    "placeholders": {
+      "title": {
+        "type": "String"
+      }
+    }
+  },
+  "pulseCheckin": "מרגיש/ה {mood} · {when}",
+  "@pulseCheckin": {
+    "placeholders": {
+      "mood": {
+        "type": "String"
+      },
+      "when": {
+        "type": "String"
+      }
+    }
+  },
+  "pulseNoCheckin": "עדיין אין שיתוף",
+  "pulseDeviceFresh": "האפליקציה נפתחה {when}",
+  "@pulseDeviceFresh": {
+    "placeholders": {
+      "when": {
+        "type": "String"
+      }
+    }
+  },
+  "pulseDeviceStale": "קשר אחרון {when}",
+  "@pulseDeviceStale": {
+    "placeholders": {
+      "when": {
+        "type": "String"
+      }
+    }
+  },
+  "pulseDeviceOffline": "אין קשר מאז {when}",
+  "@pulseDeviceOffline": {
+    "placeholders": {
+      "when": {
+        "type": "String"
+      }
+    }
+  },
+  "pulseDeviceUnknown": "אין מכשיר מצומד",
+  "pulseDeviceExplain": "קשר אחרון אומר שהאפליקציה של הילד/ה דיברה עם Mamily. זה לא מראה במה משתמשים במכשיר.",
+  "pulseScreenNotReported": "זמן מסך לא נמדד",
+  "pulseScreenMeasured": "{used} מתוך {limit} דק׳ (דווח)",
+  "@pulseScreenMeasured": {
+    "placeholders": {
+      "used": {
+        "type": "int"
+      },
+      "limit": {
+        "type": "int"
+      }
+    }
+  },
+  "pulseScreenMeasuredNoLimit": "{used} דק׳ בשימוש (דווח)",
+  "@pulseScreenMeasuredNoLimit": {
+    "placeholders": {
+      "used": {
+        "type": "int"
+      }
+    }
+  },
+  "pulseUpdated": "עודכן {when}",
+  "@pulseUpdated": {
+    "placeholders": {
+      "when": {
+        "type": "String"
+      }
+    }
+  },
+  "inboxTitle": "בקשות ואישורים",
+  "inboxEmpty": "אין דבר שממתין. כשהילדים מסיימים משימות או מבקשים משהו, זה יופיע כאן.",
+  "inboxAll": "הכול",
+  "inboxApprove": "אישור",
+  "inboxDecline": "לא עכשיו",
+  "inboxReply": "תגובה",
+  "inboxNoteOptional": "הוסיפו הערה לילד/ה (לא חובה)",
+  "inboxDeclineTitle": "לא הפעם?",
+  "inboxDeclineBody": "הערה עדינה עוזרת לילד/ה להבין מה לעשות הלאה.",
+  "inboxApproved": "אושר",
+  "inboxDeclined": "הוחזר עם ההערה שלך",
+  "inboxUndone": "בוטל",
+  "inboxNoPermission": "אין לך הרשאה לענות על זה.",
+  "inboxKindTask": "משימה בוצעה",
+  "inboxKindActivity": "פעילות בוצעה",
+  "inboxKindReward": "בקשה לפרס",
+  "inboxKindWish": "רעיון לפרס",
+  "inboxKindScreenTime": "עוד זמן מסך",
+  "inboxKindRoutine": "בונוס שגרה",
+  "inboxKindCheckin": "שיתוף",
+  "inboxByChild": "נשלח על ידי {name}",
+  "@inboxByChild": {
+    "placeholders": {
+      "name": {
+        "type": "String"
+      }
+    }
+  },
+  "inboxLoggedByParent": "נרשם על ידי הורה",
+  "inboxPointsCost": "עולה {count} נקודות",
+  "@inboxPointsCost": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "inboxPointsEarn": "מעניק {count} נקודות",
+  "@inboxPointsEarn": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "inboxMinutesAsked": "ביקש/ה {count} דקות",
+  "@inboxMinutesAsked": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "inboxGrantMinutes": "כמה דקות לתת?",
+  "inboxGrantNote": "זה שומר הקצבה להיום. Mamily לא יכולה לנעול או למדוד את המכשיר.",
+  "inboxWishTitle": "להפוך לפרס",
+  "inboxWishPoints": "נקודות נדרשות",
+  "inboxWishName": "שם הפרס",
+  "inboxWishAdd": "הוספת פרס",
+  "inboxReplyTitle": "תגובה ל{name}",
+  "@inboxReplyTitle": {
+    "placeholders": {
+      "name": {
+        "type": "String"
+      }
+    }
+  },
+  "inboxReplyHint": "כמה מילים טובות…",
+  "inboxReplySent": "התגובה נשלחה",
+  "inboxCheckinNote": "זו הודעה מהילד/ה, לא מדידה.",
+  "stickerHug": "חיבוק",
+  "stickerHeart": "אהבה",
+  "stickerHighFive": "כיף",
+  "stickerProud": "גאה בך",
+  "stickerThinking": "חושב/ת עליך",
+  "stickerTalk": "בוא/י נדבר",
+  "praiseTitle": "שליחת עידוד ל{name}",
+  "@praiseTitle": {
+    "placeholders": {
+      "name": {
+        "type": "String"
+      }
+    }
+  },
+  "praiseMessage": "ההודעה שלך",
+  "praiseBadge": "הוספת תג",
+  "praiseFor": "על",
+  "praiseForNothing": "סתם כך",
+  "praiseSent": "העידוד נשלח!",
+  "praiseSuggestion1": "כל כך גאה בך!",
+  "praiseSuggestion2": "עבודת צוות מעולה היום!",
+  "praiseSuggestion3": "התמדת — מדהים!",
+  "hubSummary": "סקירה",
+  "hubTasks": "משימות ונקודות",
+  "hubRoutines": "שגרות",
+  "hubRewards": "פרסים",
+  "hubGoals": "יעדי למידה",
+  "hubActivities": "פעילויות",
+  "hubSleep": "שינה",
+  "hubMeals": "ארוחות",
+  "hubScreenTime": "זמן מסך",
+  "hubContent": "בקרת תוכן",
+  "hubCheckins": "שיתופים ועידוד",
+  "hubDevices": "מכשירים וצימוד",
+  "hubReport": "דוח התפתחות",
+  "hubEditChild": "עריכת פרופיל",
+  "hubSections": "הכול עבור {name}",
+  "@hubSections": {
+    "placeholders": {
+      "name": {
+        "type": "String"
+      }
+    }
+  },
+  "discoverTitle": "גלו",
+  "discoverSubtitle": "רעיונות, תוכניות ודברים לעשות ביחד",
+  "discoverActivities": "פעילויות",
+  "discoverActivitiesBody": "רעיונות שמתאימים לילדים שלכם",
+  "discoverLibrary": "ספריית הורים",
+  "discoverLibraryBody": "קריאה קצרה ממומחים",
+  "discoverGames": "משחקים",
+  "discoverGamesBody": "תצוגה מקדימה של משחקי למידה",
+  "discoverChallenges": "אתגרים משפחתיים",
+  "discoverChallengesBody": "מטרות משותפות שמגיעים אליהן ביחד",
+  "discoverPlanner": "היומן המשפחתי",
+  "discoverPlannerBody": "שגרות, מועדים ותוכניות",
+  "discoverRecap": "סיכום שבועי",
+  "discoverRecapBody": "מה המשפחה עשתה השבוע",
+  "discoverCoach": "מאמן הורות",
+  "discoverCoachBody": "בהמשך",
+  "accountTitle": "חשבון",
+  "accountProfile": "פרופיל",
+  "accountLanguage": "שפה",
+  "accountNotifications": "התראות",
+  "accountSurfaces": "ווידג׳טים וכרטיס צף",
+  "accountFamily": "בני המשפחה",
+  "accountThisDevice": "המכשיר הזה",
+  "accountSwitchFamily": "החלפת משפחה",
+  "accountHandBack": "החזרה ל{name}",
+  "@accountHandBack": {
+    "placeholders": {
+      "name": {
+        "type": "String"
+      }
+    }
+  },
+  "accountHandBackGeneric": "חזרה למצב ילד/ה",
+  "accountHandBackBody": "מנתק אותך ומחזיר את המכשיר לילד/ה.",
+  "accountInbox": "תיבת התראות",
+  "notifPrefsTitle": "התראות",
+  "notifPermissionTitle": "קבלו התראה כשמשהו צריך אתכם",
+  "notifPermissionBody": "Mamily תודיע כשמשימה הושלמה, כשמבקשים פרס או כשמתקרב אירוע. הטקסט במסך הנעילה נשאר כללי אלא אם תבחרו אחרת.",
+  "notifAllow": "לאפשר התראות",
+  "notifDenied": "ההתראות כבויות עבור Mamily. עדיין אפשר לראות הכול בתיבת ההתראות באפליקציה, או להפעיל אותן בהגדרות הטלפון.",
+  "notifNotConfigured": "התראות פוש עדיין לא מוגדרות בגרסה זו. תיבת ההתראות באפליקציה עובדת.",
+  "notifEnabled": "ההתראות פעילות במכשיר הזה.",
+  "notifCategories": "על מה להודיע לי",
+  "notifQuietHours": "שעות שקט",
+  "notifQuietHoursBody": "התראות ימתינו לסוף שעות השקט. הן עדיין יגיעו לתיבה.",
+  "notifQuietFrom": "מ־",
+  "notifQuietTo": "עד",
+  "notifQuietOff": "כבוי",
+  "notifChildQuiet": "שעות שקט לילדים",
+  "notifLockDetails": "הצגת פרטים במסך הנעילה",
+  "notifLockDetailsBody": "כבוי: „משהו ממתין לאישורך”. פעיל: שמות וכותרות משימות.",
+  "notifCatTasks": "משימות",
+  "notifCatApprovals": "בקשות ואישורים",
+  "notifCatRewards": "פרסים",
+  "notifCatRoutines": "שגרות",
+  "notifCatChallenges": "אתגרים משפחתיים",
+  "notifCatEncouragement": "עידוד",
+  "notifCatCheckins": "שיתופים",
+  "notifCatScreenTime": "זמן מסך",
+  "notifCatPlanner": "יומן משפחתי",
+  "notifCatDevices": "מכשירים",
+  "notifSaved": "נשמר",
+  "surfacesTitle": "ווידג׳טים וכרטיס צף",
+  "surfacesIntro": "ראו את מצב המשפחה בלי לפתוח את Mamily. כל מי שליד הטלפון יכול לראות אותם, ולכן כברירת מחדל הם מציגים מעט מאוד.",
+  "surfacesShowNames": "שמות הילדים",
+  "surfacesShowTasks": "מספר משימות",
+  "surfacesShowApprovals": "אישורים ממתינים",
+  "surfacesShowMood": "מצב רוח אחרון",
+  "surfacesShowPoints": "נקודות",
+  "surfacesShowRoutine": "התקדמות שגרה",
+  "surfacesWidgetHow": "הוסיפו את הווידג׳ט „הדופק המשפחתי” מגלריית הווידג׳טים במסך הבית.",
+  "surfacesUpdatesHonest": "הווידג׳טים מתעדכנים כשפותחים את Mamily וכשהמערכת מאפשרת — הם מציגים את גיל הנתונים ולא טוענים שהם חיים.",
+  "overlayTitle": "דופק משפחתי צף (אנדרואיד)",
+  "overlayBody": "כרטיס קטן שאפשר לגרור, להרחיב וללחוץ כדי לפתוח את Mamily. אנדרואיד דורש לשם כך את ההרשאה „הצגה מעל אפליקציות אחרות”.",
+  "overlayGrant": "פתיחת הגדרות הרשאה",
+  "overlayStart": "הצגת הכרטיס הצף",
+  "overlayStop": "הסתרת הכרטיס הצף",
+  "overlayDenied": "ההרשאה לא ניתנה. השתמשו בווידג׳ט במסך הבית או בהתראות.",
+  "overlayIosNote": "באייפון השתמשו בווידג׳ט במסך הבית. iOS לא מאפשרת כרטיסים צפים מעל אפליקציות; שגרה בתהליך יכולה להופיע כפעילות חיה.",
+  "pairTitleParent": "צימוד המכשיר של {name}",
+  "@pairTitleParent": {
+    "placeholders": {
+      "name": {
+        "type": "String"
+      }
+    }
+  },
+  "pairHowTo": "במכשיר של הילד/ה, פתחו את Mamily, לחצו „אני ילד/ה” וסרקו או הקלידו את הקוד.",
+  "pairExpiresIn": "יפוג בעוד {minutes} דק׳ · פעם אחת בלבד",
+  "@pairExpiresIn": {
+    "placeholders": {
+      "minutes": {
+        "type": "int"
+      }
+    }
+  },
+  "pairExpired": "תוקף הקוד פג.",
+  "pairNewCode": "קוד חדש",
+  "pairRevoke": "ביטול הקוד",
+  "pairCreate": "צימוד מכשיר",
+  "pairModeDedicated": "מכשיר של הילד/ה",
+  "pairModeShared": "מכשיר משפחתי משותף",
+  "pairedDevices": "מכשירים מצומדים",
+  "pairedNone": "עדיין אין מכשיר מצומד.",
+  "pairedActive": "מחובר",
+  "pairedInactive": "מנותק",
+  "pairUnpair": "ביטול צימוד",
+  "pairUnpairConfirm": "לבטל את הצימוד של {device}?",
+  "@pairUnpairConfirm": {
+    "placeholders": {
+      "device": {
+        "type": "String"
+      }
+    }
+  },
+  "pairUnpairBody": "הילד/ה ינותק/תנותק מהמכשיר מיד.",
+  "pairUnpaired": "הצימוד בוטל",
+  "routinesTitle": "שגרות",
+  "routinesEmpty": "שגרות הופכות רגעים עמוסים להרגלים רגועים צעד אחר צעד. התחילו מתבנית.",
+  "routinesNew": "שגרה חדשה",
+  "routineEdit": "עריכת שגרה",
+  "routineName": "שם",
+  "routineKindMorning": "בוקר",
+  "routineKindAfterSchool": "אחרי בית הספר",
+  "routineKindBedtime": "לפני השינה",
+  "routineKindCustom": "אחר",
+  "routineStartTime": "מתחילה ב־",
+  "routineDays": "ימים",
+  "routineSteps": "צעדים",
+  "routineAddStep": "הוספת צעד",
+  "routineStepHint": "למשל: לצחצח שיניים",
+  "routineBonus": "נקודות בונוס (דורש אישורך)",
+  "routineReminder": "תזכורת בזמן ההתחלה",
+  "routinePaused": "מושהה",
+  "routineActive": "פעיל",
+  "routineFromTemplate": "להתחיל מתבנית",
+  "routineSaved": "השגרה נשמרה",
+  "routineDelete": "מחיקת שגרה",
+  "routineDeleteBody": "ההיסטוריה נשמרת.",
+  "routineTodayProgress": "היום: {done}/{total}",
+  "@routineTodayProgress": {
+    "placeholders": {
+      "done": {
+        "type": "int"
+      },
+      "total": {
+        "type": "int"
+      }
+    }
+  },
+  "routineNotToday": "לא מתוכנן היום",
+  "routineHistory": "היסטוריה",
+  "routineStepsRequired": "הוסיפו לפחות צעד אחד.",
+  "weekdayShort1": "ב׳",
+  "weekdayShort2": "ג׳",
+  "weekdayShort3": "ד׳",
+  "weekdayShort4": "ה׳",
+  "weekdayShort5": "ו׳",
+  "weekdayShort6": "ש׳",
+  "weekdayShort7": "א׳",
+  "challengesTitle": "אתגרים משפחתיים",
+  "challengesEmpty": "הציבו מטרה משותפת — כמו לקרוא 300 דקות יחד השבוע — וחגגו כשהמשפחה מגיעה אליה.",
+  "challengeNew": "אתגר חדש",
+  "challengeName": "שם האתגר",
+  "challengeMetric": "מה נספר",
+  "challengeMetricTasks": "משימות שאושרו",
+  "challengeMetricRoutines": "שגרות שהושלמו",
+  "challengeMetricManual": "כמות שנרשמה (למשל דקות)",
+  "challengeTarget": "יעד",
+  "challengeUnit": "יחידה (לא חובה)",
+  "challengeEnds": "מסתיים ב־",
+  "challengeReward": "נקודות פרס לכל ילד/ה",
+  "challengeWho": "מי משתתף",
+  "challengeStart": "התחלת האתגר",
+  "challengeAward": "לתת את הפרס",
+  "challengeCancel": "ביטול האתגר",
+  "challengeLog": "רישום התקדמות",
+  "challengeStatusActive": "בתהליך",
+  "challengeStatusAchieved": "היעד הושג!",
+  "challengeStatusRewarded": "התגמול ניתן",
+  "challengeStatusEnded": "הסתיים",
+  "challengeStatusCancelled": "בוטל",
+  "challengeNoRanking": "כולם תורמים לסכום משותף אחד — בלי טבלאות דירוג.",
+  "challengeDaysLeft": "{count, plural, =0{מסתיים היום} =1{נשאר יום אחד} =2{נשארו יומיים} other{נשארו {count} ימים}}",
+  "@challengeDaysLeft": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "plannerTitle": "היומן המשפחתי",
+  "plannerEmptyDay": "אין תוכניות.",
+  "plannerNewEvent": "אירוע חדש",
+  "plannerEventTitle": "מה קורה?",
+  "plannerDate": "תאריך",
+  "plannerTime": "שעה",
+  "plannerAllDay": "כל היום",
+  "plannerLocation": "איפה (לא חובה)",
+  "plannerRepeatWeekly": "חזרה כל שבוע",
+  "plannerRemind": "תזכורת",
+  "plannerRemindNone": "בלי תזכורת",
+  "plannerRemindMinutes": "{count} דק׳ לפני",
+  "@plannerRemindMinutes": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "plannerForWho": "בשביל",
+  "plannerEveryone": "כל המשפחה",
+  "plannerSaved": "נוסף ליומן",
+  "plannerDeleteEvent": "מחיקת אירוע",
+  "plannerTypeRoutine": "שגרה",
+  "plannerTypeDeadline": "מועד משימה",
+  "plannerTypeEvent": "אירוע",
+  "plannerThisWeek": "השבוע",
+  "plannerNextWeek": "שבוע הבא",
+  "recapTitle": "סיכום שבועי",
+  "recapRange": "{from} – {to}",
+  "@recapRange": {
+    "placeholders": {
+      "from": {
+        "type": "String"
+      },
+      "to": {
+        "type": "String"
+      }
+    }
+  },
+  "recapPrevious": "השבוע הקודם",
+  "recapNext": "השבוע הבא",
+  "recapHighlights": "רגעים בולטים",
+  "recapTasks": "משימות שבוצעו",
+  "recapRoutines": "שגרות",
+  "recapPointsEarned": "נקודות שנצברו",
+  "recapPointsSpent": "נקודות שנוצלו",
+  "recapRewards": "פרסים",
+  "recapCheckins": "שיתופים",
+  "recapGoals": "עדכוני יעדים",
+  "recapHonest": "נבנה רק ממה שנרשם ב-Mamily השבוע.",
+  "mealsTitle": "ארוחות",
+  "mealsEmpty": "יומן ארוחות פשוט — מה נאכל וכמה. בלי תמונות ובלי ניתוח.",
+  "mealsAdd": "רישום ארוחה",
+  "mealBreakfast": "ארוחת בוקר",
+  "mealLunch": "ארוחת צהריים",
+  "mealDinner": "ארוחת ערב",
+  "mealSnack": "חטיף",
+  "mealWhat": "מה נאכל",
+  "mealAppetite": "כמה",
+  "appetiteAll": "הכול",
+  "appetiteMost": "רובה",
+  "appetiteSome": "חלק",
+  "appetiteLittle": "מעט",
+  "appetiteNone": "כלום",
+  "mealWhen": "מתי",
+  "mealSaved": "הארוחה נרשמה",
+  "mealDeleted": "הארוחה נמחקה",
+  "checkinsTitle": "שיתופים ועידוד",
+  "checkinsEmpty": "כש{name} ישתף/תשתף איך הוא/היא מרגיש/ה, זה יופיע כאן.",
+  "@checkinsEmpty": {
+    "placeholders": {
+      "name": {
+        "type": "String"
+      }
+    }
+  },
+  "praiseHistory": "עידוד שנשלח",
+  "praiseNew": "שליחת עידוד",
+  "previewAsChild": "תצוגה מקדימה של היום של {name}",
+  "@previewAsChild": {
+    "placeholders": {
+      "name": {
+        "type": "String"
+      }
+    }
+  },
+  "previewNotice": "תצוגת הורה — לקריאה בלבד. הפעולות מושבתות.",
+  "plannerRemindHour": "שעה לפני",
+  "plannerRemindDay": "יום לפני",
+  "plannerRemindAtStart": "בזמן ההתחלה",
+  "discoverDashboard": "לוח המשפחה",
+  "discoverDashboardBody": "נקודות, שינה ויעדים במבט אחד"
 }
