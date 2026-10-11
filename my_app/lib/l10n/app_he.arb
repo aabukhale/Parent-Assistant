@@ -1052,7 +1052,7 @@
   "kidRoutineDone": "השגרה הושלמה!",
   "kidRoutineBonusPending": "נקודות הבונוס מחכות לאישור הורה.",
   "kidRoutineNotToday": "השגרה הזו לא היום.",
-  "kidRoutineFinishedToday": "כבר סיימת את זה היום.",
+  "kidRoutineFinishedToday": "סיימת להיום. כל הכבוד!",
   "kidUndoStep": "ביטול",
   "kidSavingFor": "חוסך/ת בשביל",
   "kidPointsToGo": "{count, plural, =0{אפשר לבקש עכשיו!} =1{עוד נקודה אחת} other{עוד {count} נקודות}}",
@@ -1130,6 +1130,7 @@
       }
     }
   },
+  "kidNoActivities": "אין כרגע פעילויות מהמשפחה.",
   "kidHowFeel": "איך את/ה מרגיש/ה?",
   "kidFeelNote": "רוצה לספר עוד? (לא חובה)",
   "kidFeelShare": "לשתף",

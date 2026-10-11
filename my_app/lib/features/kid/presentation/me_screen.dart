@@ -472,7 +472,18 @@ class _RecentMoods extends ConsumerWidget {
                   ),
               ],
             ),
-          if (recent.isNotEmpty) const SizedBox(height: AppSpacing.md),
+          if (recent.isNotEmpty) ...[
+            const SizedBox(height: AppSpacing.sm),
+            Text(
+              [
+                moodLabel(l, recent.first.mood),
+                if (recent.first.createdAt != null)
+                  relativeTime(context, recent.first.createdAt!),
+              ].join(' · '),
+              style: context.type.bodySmall?.copyWith(color: c.ink2),
+            ),
+            const SizedBox(height: AppSpacing.md),
+          ],
           FilledButton.tonalIcon(
             onPressed: () => showMoodSheet(context),
             icon: const Icon(Icons.emoji_emotions_rounded),
@@ -501,7 +512,24 @@ class _ActivitiesList extends ConsumerWidget {
         final open = fresh.value
             .where((a) => a['status'] == 'assigned')
             .toList();
-        if (open.isEmpty) return EmptyView(emoji: '🧪', message: l.commonEmpty);
+        if (open.isEmpty) {
+          return KidCard(
+            child: Row(
+              children: [
+                const Text('🌱', style: TextStyle(fontSize: 28)),
+                const SizedBox(width: AppSpacing.md),
+                Expanded(
+                  child: Text(
+                    l.kidNoActivities,
+                    style: context.type.bodyMedium?.copyWith(
+                      color: context.mamily.ink2,
+                    ),
+                  ),
+                ),
+              ],
+            ),
+          );
+        }
         return Column(
           children: [
             for (final a in open)

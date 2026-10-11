@@ -1052,7 +1052,7 @@
   "kidRoutineDone": "اكتمل الروتين!",
   "kidRoutineBonusPending": "نقاط المكافأة بانتظار موافقة ولي الأمر.",
   "kidRoutineNotToday": "هذا الروتين ليس اليوم.",
-  "kidRoutineFinishedToday": "أنهيت هذا اليوم بالفعل.",
+  "kidRoutineFinishedToday": "انتهيت منه لليوم. أحسنت!",
   "kidUndoStep": "تراجع",
   "kidSavingFor": "أجمع من أجل",
   "kidPointsToGo": "{count, plural, =0{يمكنك طلبها الآن!} =1{تبقّت نقطة واحدة} =2{تبقّت نقطتان} few{تبقّت {count} نقاط} many{تبقّت {count} نقطة} other{تبقّت {count} نقطة}}",
@@ -1130,6 +1130,7 @@
       }
     }
   },
+  "kidNoActivities": "لا توجد أنشطة من عائلتك الآن.",
   "kidHowFeel": "كيف تشعر؟",
   "kidFeelNote": "تريد أن تقول المزيد؟ (اختياري)",
   "kidFeelShare": "شارك",

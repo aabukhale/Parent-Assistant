@@ -1053,7 +1053,7 @@
   "kidRoutineDone": "Routine complete!",
   "kidRoutineBonusPending": "Your bonus points are waiting for a parent's OK.",
   "kidRoutineNotToday": "This routine isn't on today.",
-  "kidRoutineFinishedToday": "You already finished this today.",
+  "kidRoutineFinishedToday": "All done for today. Well done!",
   "kidUndoStep": "Undo",
   "kidSavingFor": "Saving for",
   "kidPointsToGo": "{count, plural, =0{You can ask for it now!} =1{1 more point} other{{count} more points}}",
@@ -1131,6 +1131,7 @@
       }
     }
   },
+  "kidNoActivities": "No activities from your family right now.",
   "kidHowFeel": "How are you feeling?",
   "kidFeelNote": "Want to tell more? (optional)",
   "kidFeelShare": "Share",
