@@ -4,9 +4,9 @@
     <string name="pulse_widget_description">מה מחכה לך ואיך עובר היום, במבט אחד.</string>
     <string name="pulse_all_caught_up">אין דברים שמחכים לך</string>
     <plurals name="pulse_waiting">
-        <item quantity="one">דבר אחד מחכה לך</item>
-        <item quantity="two">%d דברים מחכים לך</item>
-        <item quantity="other">%d דברים מחכים לך</item>
+        <item quantity="one">בקשה אחת מחכה לך</item>
+        <item quantity="two">%d בקשות מחכות לך</item>
+        <item quantity="other">%d בקשות מחכות לך</item>
     </plurals>
     <string name="pulse_child_fallback">ילד/ה %d</string>
     <string name="pulse_routine">שגרה %d%%</string>

@@ -1,0 +1,11 @@
+"pulse.title" = "הדופק המשפחתי";
+"pulse.description" = "מה מחכה לך ואיך עובר היום, במבט אחד.";
+"pulse.allCaughtUp" = "אין דברים שמחכים לך";
+"pulse.child %lld" = "ילד/ה %lld";
+"pulse.tasks" = "משימות";
+"pulse.noContact" = "אין קשר לאחרונה";
+"pulse.updated" = "עודכן לפני";
+"pulse.stale" = "לא עודכן לאחרונה. פתחו את Mamily לרענון.";
+"pulse.signedOut" = "התחברו ל-Mamily כדי לראות את המשפחה.";
+"routine.steps %lld %lld" = "%1$lld מתוך %2$lld צעדים";
+"routine.done" = "כל הכבוד, סיימת!";

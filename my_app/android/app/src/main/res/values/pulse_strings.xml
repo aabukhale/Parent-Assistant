@@ -4,8 +4,8 @@
     <string name="pulse_widget_description">What is waiting for you and how today is going, at a glance.</string>
     <string name="pulse_all_caught_up">All caught up</string>
     <plurals name="pulse_waiting">
-        <item quantity="one">%d thing is waiting for you</item>
-        <item quantity="other">%d things are waiting for you</item>
+        <item quantity="one">%d request is waiting for you</item>
+        <item quantity="other">%d requests are waiting for you</item>
     </plurals>
     <string name="pulse_child_fallback">Child %d</string>
     <string name="pulse_routine">routine %d%%</string>

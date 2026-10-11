@@ -1,0 +1,11 @@
+"pulse.title" = "Family Pulse";
+"pulse.description" = "What is waiting for you and how today is going, at a glance.";
+"pulse.allCaughtUp" = "All caught up";
+"pulse.child %lld" = "Child %lld";
+"pulse.tasks" = "tasks";
+"pulse.noContact" = "no recent contact";
+"pulse.updated" = "Updated";
+"pulse.stale" = "Not updated recently. Open Mamily to refresh.";
+"pulse.signedOut" = "Sign in to Mamily to see your family.";
+"routine.steps %lld %lld" = "%1$lld of %2$lld steps";
+"routine.done" = "All done!";

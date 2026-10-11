@@ -1,0 +1,6 @@
+// Build settings for the FamilyPulseWidget extension: Flutter's version
+// numbers only (not the Pods settings Runner gets from Debug/Release.xcconfig).
+#include? "Generated.xcconfig"
+
+// Matches Runner: Xcode 27 simulator builds are arm64 only.
+EXCLUDED_ARCHS[sdk=iphonesimulator*] = x86_64

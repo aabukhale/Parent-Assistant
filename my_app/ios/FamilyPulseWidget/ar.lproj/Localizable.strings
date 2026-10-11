@@ -1,0 +1,11 @@
+"pulse.title" = "نبض العائلة";
+"pulse.description" = "ما ينتظرك وكيف يسير اليوم، بلمحة سريعة.";
+"pulse.allCaughtUp" = "لا شيء بانتظارك";
+"pulse.child %lld" = "الطفل %lld";
+"pulse.tasks" = "مهام";
+"pulse.noContact" = "لا تواصل مؤخرًا";
+"pulse.updated" = "تم التحديث منذ";
+"pulse.stale" = "لم يُحدَّث مؤخرًا. افتح Mamily للتحديث.";
+"pulse.signedOut" = "سجّل الدخول إلى Mamily لترى عائلتك.";
+"routine.steps %lld %lld" = "%1$lld من %2$lld خطوات";
+"routine.done" = "أحسنت! انتهيت";

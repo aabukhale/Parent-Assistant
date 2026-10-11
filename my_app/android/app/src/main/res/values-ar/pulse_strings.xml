@@ -4,12 +4,12 @@
     <string name="pulse_widget_description">ما ينتظرك وكيف يسير اليوم، بلمحة سريعة.</string>
     <string name="pulse_all_caught_up">لا شيء بانتظارك</string>
     <plurals name="pulse_waiting">
-        <item quantity="zero">لا شيء بانتظارك</item>
-        <item quantity="one">أمر واحد بانتظارك</item>
-        <item quantity="two">أمران بانتظارك</item>
-        <item quantity="few">%d أمور بانتظارك</item>
-        <item quantity="many">%d أمرًا بانتظارك</item>
-        <item quantity="other">%d أمر بانتظارك</item>
+        <item quantity="zero">لا طلبات بانتظارك</item>
+        <item quantity="one">طلب واحد بانتظارك</item>
+        <item quantity="two">طلبان بانتظارك</item>
+        <item quantity="few">%d طلبات بانتظارك</item>
+        <item quantity="many">%d طلبًا بانتظارك</item>
+        <item quantity="other">%d طلب بانتظارك</item>
     </plurals>
     <string name="pulse_child_fallback">الطفل %d</string>
     <string name="pulse_routine">الروتين %d%%</string>

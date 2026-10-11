@@ -27,6 +27,8 @@
 			</array>
 		</dict>
 	</array>
+	<key>NSSupportsLiveActivities</key>
+	<true/>
 	<key>NSCameraUsageDescription</key>
 	<string>Mamily uses the camera only to scan the pairing QR code a parent shows you.</string>
 	<key>CFBundlePackageType</key>
