@@ -142,6 +142,9 @@ class ProgressBar extends StatelessWidget {
                 builder: (context, v, _) => FractionallySizedBox(
                   alignment: AlignmentDirectional.centerStart,
                   widthFactor: v,
+                  // Without it the Stack's loose height collapses the
+                  // child-less fill to 0px and only the track shows.
+                  heightFactor: 1,
                   child: DecoratedBox(
                     decoration: BoxDecoration(
                       color: color ?? c.accent.foreground,

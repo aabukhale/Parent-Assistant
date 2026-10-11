@@ -246,6 +246,17 @@ class _RequestTile extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Text(title, style: context.type.titleSmall),
+                  // When, and what it earned, so repeated tasks (brushing
+                  // teeth every day) can be told apart.
+                  if (item.updatedAt != null)
+                    Text(
+                      [
+                        if (item.status == 'approved' && (item.points ?? 0) > 0)
+                          l.kidPoints(item.points!),
+                        relativeTime(context, item.updatedAt!),
+                      ].join(' · '),
+                      style: context.type.bodySmall?.copyWith(color: c.ink2),
+                    ),
                   const SizedBox(height: AppSpacing.xs),
                   StatusPill(label: explainRequest(l, item), tone: tone),
                   if ((item.note ?? '').isNotEmpty)

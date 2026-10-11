@@ -514,4 +514,30 @@ void main() {
       handle.dispose();
     });
   });
+
+  testWidgets('ProgressBar draws its fill at full bar height', (tester) async {
+    await tester.pumpWidget(
+      _app(
+        _page(
+          const SizedBox(
+            width: 200,
+            child: ProgressBar(value: 0.5, color: Color(0xFF00AA00)),
+          ),
+        ),
+      ),
+    );
+    await tester.pumpAndSettle();
+
+    final fill = find.descendant(
+      of: find.byType(ProgressBar),
+      matching: find.byWidgetPredicate(
+        (w) =>
+            w is DecoratedBox &&
+            (w.decoration as BoxDecoration?)?.color == const Color(0xFF00AA00),
+      ),
+    );
+    final size = tester.getSize(fill);
+    expect(size.height, 10);
+    expect(size.width, 100);
+  });
 }

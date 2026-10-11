@@ -116,24 +116,37 @@ class _Header extends StatelessWidget {
       'evening' => l.kidGreetingEvening(name),
       _ => l.kidGreetingMorning(name),
     };
+    final avatar = ChildAvatar(
+      name: name,
+      avatarKey: avatarKey,
+      colorHex: avatarColor,
+      seed: seed,
+      size: 60,
+    );
+    final title = Semantics(
+      header: true,
+      child: Text(greeting, style: context.type.headlineSmall),
+    );
+    final points = PointsPill(points: day.pointsBalance, large: true);
+
+    // With large text the greeting gets its own full-width line.
+    if (MediaQuery.textScalerOf(context).scale(1) > 1.3) {
+      return Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Row(children: [avatar, const Spacer(), points]),
+          const SizedBox(height: AppSpacing.md),
+          title,
+        ],
+      );
+    }
     return Row(
       children: [
-        ChildAvatar(
-          name: name,
-          avatarKey: avatarKey,
-          colorHex: avatarColor,
-          seed: seed,
-          size: 60,
-        ),
+        avatar,
         const SizedBox(width: AppSpacing.md),
-        Expanded(
-          child: Semantics(
-            header: true,
-            child: Text(greeting, style: context.type.headlineSmall),
-          ),
-        ),
+        Expanded(child: title),
         const SizedBox(width: AppSpacing.sm),
-        PointsPill(points: day.pointsBalance, large: true),
+        points,
       ],
     );
   }

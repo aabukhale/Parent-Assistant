@@ -131,6 +131,10 @@ class _MamilyAppState extends ConsumerState<MamilyApp> {
       locale: locale,
       localizationsDelegates: AppLocalizations.localizationsDelegates,
       supportedLocales: AppLocalizations.supportedLocales,
+      // Text grows up to 200% (WCAG 1.4.4). Beyond that the largest iOS
+      // accessibility sizes broke words letter by letter on phone widths.
+      builder: (context, child) =>
+          MediaQuery.withClampedTextScaling(maxScaleFactor: 2, child: child!),
       home: const AuthGate(),
     );
   }

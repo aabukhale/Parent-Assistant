@@ -129,40 +129,44 @@ class _AppShellState extends ConsumerState<AppShell> {
           AccountScreen(),
         ],
       ),
-      bottomNavigationBar: NavigationBar(
-        selectedIndex: index,
-        onDestinationSelected: (i) =>
-            ref.read(parentTabProvider.notifier).state = i,
-        destinations: [
-          NavigationDestination(
-            icon: Badge(
-              isLabelVisible: waiting > 0,
-              label: Text('$waiting'),
-              child: const Icon(Icons.wb_sunny_outlined),
+      // Tab bars stay usable at large text sizes, like the system tab bar.
+      bottomNavigationBar: MediaQuery.withClampedTextScaling(
+        maxScaleFactor: 1.3,
+        child: NavigationBar(
+          selectedIndex: index,
+          onDestinationSelected: (i) =>
+              ref.read(parentTabProvider.notifier).state = i,
+          destinations: [
+            NavigationDestination(
+              icon: Badge(
+                isLabelVisible: waiting > 0,
+                label: Text('$waiting'),
+                child: const Icon(Icons.wb_sunny_outlined),
+              ),
+              selectedIcon: Badge(
+                isLabelVisible: waiting > 0,
+                label: Text('$waiting'),
+                child: const Icon(Icons.wb_sunny_rounded),
+              ),
+              label: l.tabToday,
             ),
-            selectedIcon: Badge(
-              isLabelVisible: waiting > 0,
-              label: Text('$waiting'),
-              child: const Icon(Icons.wb_sunny_rounded),
+            NavigationDestination(
+              icon: const Icon(Icons.family_restroom_outlined),
+              selectedIcon: const Icon(Icons.family_restroom_rounded),
+              label: l.tabChildren,
             ),
-            label: l.tabToday,
-          ),
-          NavigationDestination(
-            icon: const Icon(Icons.family_restroom_outlined),
-            selectedIcon: const Icon(Icons.family_restroom_rounded),
-            label: l.tabChildren,
-          ),
-          NavigationDestination(
-            icon: const Icon(Icons.explore_outlined),
-            selectedIcon: const Icon(Icons.explore_rounded),
-            label: l.tabDiscover,
-          ),
-          NavigationDestination(
-            icon: const Icon(Icons.person_outline_rounded),
-            selectedIcon: const Icon(Icons.person_rounded),
-            label: l.tabAccount,
-          ),
-        ],
+            NavigationDestination(
+              icon: const Icon(Icons.explore_outlined),
+              selectedIcon: const Icon(Icons.explore_rounded),
+              label: l.tabDiscover,
+            ),
+            NavigationDestination(
+              icon: const Icon(Icons.person_outline_rounded),
+              selectedIcon: const Icon(Icons.person_rounded),
+              label: l.tabAccount,
+            ),
+          ],
+        ),
       ),
     );
   }

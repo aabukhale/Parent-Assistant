@@ -115,32 +115,36 @@ class _KidShellState extends ConsumerState<KidShell> {
             const KidMeScreen(),
           ],
         ),
-        bottomNavigationBar: NavigationBar(
-          selectedIndex: index,
-          onDestinationSelected: go,
-          height: 76,
-          destinations: [
-            NavigationDestination(
-              icon: const Text('🌞', style: TextStyle(fontSize: 26)),
-              label: l.kidTabMyDay,
-            ),
-            NavigationDestination(
-              icon: const Text('🎁', style: TextStyle(fontSize: 26)),
-              label: l.kidTabRewards,
-            ),
-            NavigationDestination(
-              icon: const Text('🤝', style: TextStyle(fontSize: 26)),
-              label: l.kidTabTogether,
-            ),
-            NavigationDestination(
-              icon: Badge(
-                isLabelVisible: unread > 0,
-                label: Text('$unread'),
-                child: const Text('🙂', style: TextStyle(fontSize: 26)),
+        // Tab bars stay usable at large text sizes, like the system tab bar.
+        bottomNavigationBar: MediaQuery.withClampedTextScaling(
+          maxScaleFactor: 1.3,
+          child: NavigationBar(
+            selectedIndex: index,
+            onDestinationSelected: go,
+            height: 76,
+            destinations: [
+              NavigationDestination(
+                icon: const Text('🌞', style: TextStyle(fontSize: 26)),
+                label: l.kidTabMyDay,
               ),
-              label: l.kidTabMe,
-            ),
-          ],
+              NavigationDestination(
+                icon: const Text('🎁', style: TextStyle(fontSize: 26)),
+                label: l.kidTabRewards,
+              ),
+              NavigationDestination(
+                icon: const Text('🤝', style: TextStyle(fontSize: 26)),
+                label: l.kidTabTogether,
+              ),
+              NavigationDestination(
+                icon: Badge(
+                  isLabelVisible: unread > 0,
+                  label: Text('$unread'),
+                  child: const Text('🙂', style: TextStyle(fontSize: 26)),
+                ),
+                label: l.kidTabMe,
+              ),
+            ],
+          ),
         ),
       ),
     );

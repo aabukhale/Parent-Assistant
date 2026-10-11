@@ -115,7 +115,11 @@ class TogetherScreen extends ConsumerWidget {
                               ),
                             ),
                           if (e.seenAt == null)
-                            StatusPill(label: l.commonNew, tone: AppTone.sleep),
+                            StatusPill(
+                              label: l.commonNew,
+                              tone: AppTone.sleep,
+                              icon: Icons.auto_awesome_rounded,
+                            ),
                         ],
                       ),
                       Text(e.message, style: context.type.bodyLarge),
