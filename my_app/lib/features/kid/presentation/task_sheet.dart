@@ -19,6 +19,42 @@ Future<void> showKidTaskSheet(BuildContext context, KidTaskSummary task) {
   );
 }
 
+/// Asks "Did you finish …?", sends the completion for a parent to check and
+/// celebrates. Returns true when it was sent. Shared by the task sheet and the
+/// "I did it!" button on My Day, so finishing a task is one confirm away.
+Future<bool> submitKidTask(
+  BuildContext context,
+  WidgetRef ref,
+  KidTaskSummary task, {
+  ValueChanged<bool>? onBusy,
+}) async {
+  final l = context.l10n;
+  final ok = await confirmAction(
+    context,
+    title: l.kidConfirmDoneTitle(task.title),
+    body: l.kidConfirmDoneBody,
+    confirmLabel: l.kidYesDone,
+    cancelLabel: l.kidNotYet,
+  );
+  if (!ok || !context.mounted) return false;
+  onBusy?.call(true);
+  try {
+    await ref.read(kidActionsProvider).completeTask(task.id);
+    if (!context.mounted) return true;
+    Celebration.show(
+      context,
+      message: '${l.kidTaskSentTitle} ${l.kidTaskSent}',
+      emoji: '🙌',
+    );
+    return true;
+  } catch (e) {
+    if (context.mounted) showKidError(context, e);
+    return false;
+  } finally {
+    onBusy?.call(false);
+  }
+}
+
 class _KidTaskSheet extends ConsumerStatefulWidget {
   const _KidTaskSheet({required this.task});
 
@@ -32,30 +68,15 @@ class _KidTaskSheetState extends ConsumerState<_KidTaskSheet> {
   bool _busy = false;
 
   Future<void> _submit() async {
-    final l = context.l10n;
-    final ok = await confirmAction(
+    final done = await submitKidTask(
       context,
-      title: l.kidConfirmDoneTitle(widget.task.title),
-      body: l.kidConfirmDoneBody,
-      confirmLabel: l.kidYesDone,
-      cancelLabel: l.kidNotYet,
+      ref,
+      widget.task,
+      onBusy: (busy) {
+        if (mounted) setState(() => _busy = busy);
+      },
     );
-    if (!ok || !mounted) return;
-    setState(() => _busy = true);
-    try {
-      await ref.read(kidActionsProvider).completeTask(widget.task.id);
-      if (!mounted) return;
-      Celebration.show(
-        context,
-        message: '${l.kidTaskSentTitle} ${l.kidTaskSent}',
-        emoji: '🙌',
-      );
-      Navigator.of(context).pop();
-    } catch (e) {
-      if (mounted) showKidError(context, e);
-    } finally {
-      if (mounted) setState(() => _busy = false);
-    }
+    if (done && mounted) Navigator.of(context).pop();
   }
 
   @override

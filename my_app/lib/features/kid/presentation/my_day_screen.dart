@@ -139,13 +139,13 @@ class _Header extends StatelessWidget {
   }
 }
 
-class _NextStepCard extends StatelessWidget {
+class _NextStepCard extends ConsumerWidget {
   const _NextStepCard({required this.day});
 
   final MyDay day;
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
     final l = context.l10n;
     final c = context.mamily;
     final next = day.nextItem;
@@ -196,6 +196,8 @@ class _NextStepCard extends StatelessWidget {
             builder: (_) => RoutineRunScreen(routineId: routine.id),
           ),
         );
+      } else if (task != null && task.canSubmit) {
+        submitKidTask(context, ref, task);
       } else if (task != null) {
         showKidTaskSheet(context, task);
       }
@@ -287,7 +289,7 @@ class _TimelineTile extends StatelessWidget {
               ? '🎒'
               : '🧩')
         : event != null
-        ? '📅'
+        ? '🗓️'
         : iconEmoji(task?.iconKey ?? task?.category);
 
     VoidCallback? onTap;

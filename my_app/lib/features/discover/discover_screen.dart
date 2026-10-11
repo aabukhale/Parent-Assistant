@@ -32,7 +32,7 @@ class DiscoverScreen extends StatelessWidget {
       ),
       NavTile(
         icon: Icons.event_rounded,
-        emoji: '📅',
+        emoji: '🗓️',
         tone: AppTone.info,
         title: l.discoverPlanner,
         subtitle: l.discoverPlannerBody,

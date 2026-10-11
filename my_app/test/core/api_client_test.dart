@@ -154,21 +154,25 @@ void main() {
     expect(await api.storage.readToken(), isNull, reason: 'token wiped on 401');
   });
 
-  test('a wrong password is invalidCredentials and keeps the session', () async {
-    api.adapter.onPost(
-      '/auth/login',
-      (s) => s.reply(401, {'success': false, 'message': 'Invalid credentials.'}),
-      data: Matchers.any,
-    );
+  test(
+    'a wrong password is invalidCredentials and keeps the session',
+    () async {
+      api.adapter.onPost(
+        '/auth/login',
+        (s) =>
+            s.reply(401, {'success': false, 'message': 'Invalid credentials.'}),
+        data: Matchers.any,
+      );
 
-    final e = await _capture(
-      () => client.post('/auth/login', body: {'login': 'a@b.c'}),
-    );
+      final e = await _capture(
+        () => client.post('/auth/login', body: {'login': 'a@b.c'}),
+      );
 
-    expect(e.kind, ApiErrorKind.invalidCredentials);
-    expect(api.unauthorizedSignals, 0);
-    expect(await api.storage.readToken(), 'tok_abc123');
-  });
+      expect(e.kind, ApiErrorKind.invalidCredentials);
+      expect(api.unauthorizedSignals, 0);
+      expect(await api.storage.readToken(), 'tok_abc123');
+    },
+  );
 }
 
 /// Runs [action], expecting it to throw an [ApiException], and returns it.
