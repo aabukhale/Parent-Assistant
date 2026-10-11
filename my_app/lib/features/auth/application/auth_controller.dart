@@ -77,19 +77,40 @@ class AuthController extends Notifier<AuthState> {
   }
 
   /// Parent sign-in. On a device where a child is signed in, the child
-  /// session is parked first, so a grown-up can step in with real credentials
+  /// session is parked, so a grown-up can step in with real credentials
   /// and later hand the device back without re-pairing.
-  Future<void> login(LoginInput input) async {
-    await _parkChildIfActive();
-    await _applySession(await _repo.login(input), syncLocale: true);
+  Future<void> login(LoginInput input) =>
+      _signInParent(() => _repo.login(input));
+
+  Future<void> register(RegisterInput input) =>
+      _signInParent(() => _repo.register(input));
+
+  /// Parks a child session only once the parent's credentials are accepted:
+  /// a mistyped password must leave the child signed in.
+  Future<void> _signInParent(Future<AuthSession> Function() signIn) async {
+    final childToken = state.isChild ? await _storage.readToken() : null;
+    final AuthSession session;
+    try {
+      session = await signIn();
+    } catch (_) {
+      if (childToken != null) {
+        // The token may already have been replaced if the server accepted
+        // the password but a follow-up call failed: put the child back.
+        await _storage.writeToken(childToken);
+        await _storage.writeSessionKind(ChildAuthRepository.sessionKind);
+      }
+      rethrow;
+    }
+    if (childToken != null) {
+      await _storage.writeParkedChildToken(childToken);
+      // Child caches, widgets and notifications must not leak into the
+      // parent session.
+      await ref.read(sessionCleanupProvider).run();
+    }
+    await _applySession(session, syncLocale: true);
     state = state.copyWith(
       hasParkedChild: await _storage.readParkedChildToken() != null,
     );
-  }
-
-  Future<void> register(RegisterInput input) async {
-    await _parkChildIfActive();
-    await _applySession(await _repo.register(input), syncLocale: true);
   }
 
   /// Pair this install with a child profile using a parent-issued code.
@@ -164,16 +185,6 @@ class AuthController extends Notifier<AuthState> {
     if (membership == null) return;
     await _storage.writeActiveFamilyId(membership.familyId);
     state = state.copyWith(activeMembershipId: membershipId);
-  }
-
-  Future<void> _parkChildIfActive() async {
-    if (!state.isChild) return;
-    final token = await _storage.readToken();
-    if (token != null && token.isNotEmpty) {
-      await _storage.writeParkedChildToken(token);
-    }
-    await _storage.clearSession();
-    await ref.read(sessionCleanupProvider).run();
   }
 
   FamilyMembership? _membershipById(String id) {
