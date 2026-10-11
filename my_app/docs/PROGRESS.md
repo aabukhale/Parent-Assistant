@@ -45,7 +45,11 @@ Feature preservation matrix: `docs/feature-matrix.md`.
 ## Commands & results
 
 - `flutter analyze` → No issues found
-- `flutter test` → 485 passed (2026-10-11, after b567ec3)
+- `flutter test` → 486 passed (2026-10-11, after efdac90)
+- `flutter test integration_test -d <iOS simulator> --dart-define=API_BASE_URL=http://127.0.0.1:8000/api/v1`
+  → 1 passed (pair a child with a real code → "I did it!" → request appears
+  in the parent inbox). Needs the local backend running with
+  `php artisan mamily:demo-seed --fresh`.
 - `flutter build ios --simulator --debug` → ✓ (Xcode 27, arm64 simulator)
 - `flutter build apk --debug` (JDK 17) → ✓; `./gradlew :app:lintDebug` → 0 errors
 - Simulator walkthrough (iPhone 17 Pro, local backend + `mamily:demo-seed`):
