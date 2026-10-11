@@ -123,11 +123,15 @@ class _MamilyAppState extends ConsumerState<MamilyApp> {
       }
     });
 
+    // Child screens pushed on the root navigator (routine run, task details)
+    // sit outside the kid shell, so the app-wide theme follows the session.
+    final isChild = ref.watch(authControllerProvider.select((s) => s.isChild));
+
     return MaterialApp(
       navigatorKey: rootNavigatorKey,
       debugShowCheckedModeBanner: false,
       onGenerateTitle: (context) => context.l10n.appTitle,
-      theme: AppTheme.light,
+      theme: isChild ? AppTheme.kid : AppTheme.light,
       locale: locale,
       localizationsDelegates: AppLocalizations.localizationsDelegates,
       supportedLocales: AppLocalizations.supportedLocales,
