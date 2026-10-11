@@ -154,12 +154,7 @@ class _RoleCard extends StatelessWidget {
               ],
             ),
           ),
-          Icon(
-            Directionality.of(context) == TextDirection.rtl
-                ? Icons.arrow_back_rounded
-                : Icons.arrow_forward_rounded,
-            color: tone.foreground,
-          ),
+          Icon(Icons.arrow_forward_rounded, color: tone.foreground),
         ],
       ),
     );

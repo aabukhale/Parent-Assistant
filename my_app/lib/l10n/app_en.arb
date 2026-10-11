@@ -14,6 +14,8 @@
   "errorTimeout": "The request took too long. Please try again.",
   "errorServer": "An unexpected server error occurred. Try again later.",
   "errorUnauthorized": "Your session has expired. Please sign in again.",
+  "errorInvalidCredentials": "Incorrect email or password.",
+  "@errorInvalidCredentials": {"description": "Sign-in failed: wrong email or password."},
   "errorForbidden": "You don't have permission to do that.",
   "errorNotFound": "That item doesn't exist or can't be accessed.",
   "errorConflict": "That couldn't be completed due to a state conflict. Data was refreshed.",
@@ -547,6 +549,7 @@
     }
   },
   "dashUnavailableShort": "Not available",
+  "dashNotMeasured": "Not measured",
   "dashSectionNoData": "No data for this period",
   "dashTodayTitle": "Today",
   "dashPoints": "Points",

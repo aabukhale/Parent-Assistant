@@ -67,11 +67,7 @@ class _PlannerScreenState extends ConsumerState<PlannerScreen> {
                         const Duration(days: 7),
                       ),
                     ),
-                    icon: Icon(
-                      Directionality.of(context) == TextDirection.rtl
-                          ? Icons.chevron_right_rounded
-                          : Icons.chevron_left_rounded,
-                    ),
+                    icon: Icon(Icons.chevron_left_rounded),
                   ),
                   Expanded(
                     child: Text(
@@ -86,11 +82,7 @@ class _PlannerScreenState extends ConsumerState<PlannerScreen> {
                       () =>
                           _weekStart = _weekStart.add(const Duration(days: 7)),
                     ),
-                    icon: Icon(
-                      Directionality.of(context) == TextDirection.rtl
-                          ? Icons.chevron_left_rounded
-                          : Icons.chevron_right_rounded,
-                    ),
+                    icon: Icon(Icons.chevron_right_rounded),
                   ),
                 ],
               ),

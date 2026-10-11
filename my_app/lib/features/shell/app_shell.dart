@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
@@ -74,34 +76,36 @@ class _AppShellState extends ConsumerState<AppShell> {
   ) async {
     final s = uri.pathSegments;
     if (s.length < 2) return;
-    Future<void> push(Widget w) =>
-        nav.push(MaterialPageRoute<void>(builder: (_) => w));
+    // Not awaited: a nested route (hub → check-ins) must stack both screens
+    // now, not open the second only after the first is popped.
+    void push(Widget w) =>
+        unawaited(nav.push(MaterialPageRoute<void>(builder: (_) => w)));
     switch (s[1]) {
       case 'inbox':
         read(parentTabProvider.notifier).state = 0;
-        await push(const RequestsInboxScreen());
+        push(const RequestsInboxScreen());
       case 'notifications':
-        await push(const NotificationInboxScreen());
+        push(const NotificationInboxScreen());
       case 'planner':
-        await push(const PlannerScreen());
+        push(const PlannerScreen());
       case 'recap':
-        await push(const RecapScreen());
+        push(const RecapScreen());
       case 'challenges' when s.length >= 3:
-        await push(ChallengeDetailScreen(challengeId: s[2]));
+        push(ChallengeDetailScreen(challengeId: s[2]));
       case 'challenges':
-        await push(const ChallengesScreen());
+        push(const ChallengesScreen());
       case 'children' when s.length >= 3:
         final childId = s[2];
         read(parentTabProvider.notifier).state = 1;
-        await push(ChildHubScreen(childId: childId));
+        push(ChildHubScreen(childId: childId));
         if (s.length >= 4) {
           switch (s[3]) {
             case 'checkins':
-              await push(ChildCheckinsScreen(childId: childId, childName: ''));
+              push(ChildCheckinsScreen(childId: childId, childName: ''));
             case 'routines':
-              await push(ChildRoutinesScreen(childId: childId, childName: ''));
+              push(ChildRoutinesScreen(childId: childId, childName: ''));
             case 'tasks' when s.length >= 5:
-              await push(TaskDetailScreen(taskId: s[4]));
+              push(TaskDetailScreen(taskId: s[4]));
           }
         }
     }

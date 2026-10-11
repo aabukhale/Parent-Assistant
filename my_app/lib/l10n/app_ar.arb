@@ -14,6 +14,7 @@
   "errorTimeout": "استغرق الطلب وقتًا طويلًا. حاول مجددًا.",
   "errorServer": "حدث خطأ غير متوقع في الخادم. حاول لاحقًا.",
   "errorUnauthorized": "انتهت الجلسة. يرجى تسجيل الدخول من جديد.",
+  "errorInvalidCredentials": "البريد الإلكتروني أو كلمة المرور غير صحيحة.",
   "errorForbidden": "ليست لديك صلاحية لتنفيذ هذا الإجراء.",
   "errorNotFound": "العنصر المطلوب غير موجود أو لا يمكن الوصول إليه.",
   "errorConflict": "تعذّر إتمام العملية بسبب تعارض في الحالة. تم تحديث البيانات.",
@@ -547,6 +548,7 @@
     }
   },
   "dashUnavailableShort": "غير متاح",
+  "dashNotMeasured": "غير مُقاس",
   "dashSectionNoData": "لا توجد بيانات لهذه الفترة",
   "dashTodayTitle": "اليوم",
   "dashPoints": "النقاط",

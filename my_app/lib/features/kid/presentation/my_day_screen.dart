@@ -354,13 +354,7 @@ class _TimelineTile extends StatelessWidget {
               ],
             ),
           ),
-          if (onTap != null)
-            Icon(
-              Directionality.of(context) == TextDirection.rtl
-                  ? Icons.chevron_left_rounded
-                  : Icons.chevron_right_rounded,
-              color: c.ink3,
-            ),
+          if (onTap != null) Icon(Icons.chevron_right_rounded, color: c.ink3),
         ],
       ),
     );

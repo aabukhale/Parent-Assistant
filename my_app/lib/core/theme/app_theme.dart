@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 
 import 'app_typography.dart';
 import 'contrast.dart';
@@ -95,6 +96,13 @@ class AppTheme {
         iconTheme: IconThemeData(color: c.ink),
         actionsIconTheme: IconThemeData(color: c.ink),
         titleTextStyle: textTheme.titleLarge,
+        // A transparent bar would otherwise be read as dark, giving white
+        // status-bar icons on the light background.
+        systemOverlayStyle:
+            ThemeData.estimateBrightnessForColor(c.background) ==
+                Brightness.light
+            ? SystemUiOverlayStyle.dark
+            : SystemUiOverlayStyle.light,
       ),
       cardTheme: CardThemeData(
         color: c.surface,

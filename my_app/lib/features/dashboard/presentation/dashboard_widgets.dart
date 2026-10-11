@@ -77,6 +77,8 @@ class DashboardStatTile extends StatelessWidget {
             const SizedBox(height: 10),
             Text(
               value ?? l.dashUnavailableShort,
+              maxLines: 2,
+              overflow: TextOverflow.ellipsis,
               style: TextStyle(
                 color: value == null ? AppColors.textMuted : AppColors.navy,
                 fontSize: value == null ? 13 : 18,
@@ -86,12 +88,47 @@ class DashboardStatTile extends StatelessWidget {
             const SizedBox(height: 2),
             Text(
               label,
+              maxLines: 2,
+              overflow: TextOverflow.ellipsis,
               style: const TextStyle(color: AppColors.textMuted, fontSize: 11),
             ),
           ],
         ),
       ),
     );
+  }
+}
+
+/// Two-column tiles whose rows grow to fit their tallest tile.
+class DashboardTileGrid extends StatelessWidget {
+  const DashboardTileGrid({super.key, required this.tiles, this.gap = 10});
+
+  final List<Widget> tiles;
+  final double gap;
+
+  @override
+  Widget build(BuildContext context) {
+    final rows = <Widget>[];
+    for (var i = 0; i < tiles.length; i += 2) {
+      if (i > 0) rows.add(SizedBox(height: gap));
+      rows.add(
+        IntrinsicHeight(
+          child: Row(
+            crossAxisAlignment: CrossAxisAlignment.stretch,
+            children: [
+              Expanded(child: tiles[i]),
+              SizedBox(width: gap),
+              Expanded(
+                child: i + 1 < tiles.length
+                    ? tiles[i + 1]
+                    : const SizedBox.shrink(),
+              ),
+            ],
+          ),
+        ),
+      );
+    }
+    return Column(children: rows);
   }
 }
 

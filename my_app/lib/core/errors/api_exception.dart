@@ -11,6 +11,11 @@ enum ApiErrorKind {
   /// 401 — token missing, invalid or expired. Triggers a session wipe.
   unauthorized,
 
+  /// 401 from a sign-in request — wrong email or password. Unlike
+  /// [unauthorized] this never ends the current session (a parent mistyping
+  /// their password on a child's paired phone must not sign the child out).
+  invalidCredentials,
+
   /// 403 — authenticated but not permitted (caregiver missing a grant).
   forbidden,
 

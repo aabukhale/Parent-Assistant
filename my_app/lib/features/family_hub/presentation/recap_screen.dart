@@ -61,11 +61,7 @@ class _RecapScreenState extends ConsumerState<RecapScreen> {
                     IconButton(
                       tooltip: l.recapPrevious,
                       onPressed: () => _shift(r, -7),
-                      icon: Icon(
-                        Directionality.of(context) == TextDirection.rtl
-                            ? Icons.chevron_right_rounded
-                            : Icons.chevron_left_rounded,
-                      ),
+                      icon: Icon(Icons.chevron_left_rounded),
                     ),
                     Expanded(
                       child: Text(
@@ -77,11 +73,7 @@ class _RecapScreenState extends ConsumerState<RecapScreen> {
                     IconButton(
                       tooltip: l.recapNext,
                       onPressed: isCurrent ? null : () => _shift(r, 7),
-                      icon: Icon(
-                        Directionality.of(context) == TextDirection.rtl
-                            ? Icons.chevron_left_rounded
-                            : Icons.chevron_right_rounded,
-                      ),
+                      icon: Icon(Icons.chevron_right_rounded),
                     ),
                   ],
                 ),

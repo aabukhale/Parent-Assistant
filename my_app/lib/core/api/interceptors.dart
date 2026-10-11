@@ -3,6 +3,11 @@ import 'dart:async';
 import 'package:dio/dio.dart';
 import 'package:flutter/foundation.dart';
 
+/// Sign-in requests answer 401 for a wrong password; that is not a sign the
+/// current session ended.
+bool isCredentialRequest(RequestOptions options) =>
+    options.path.endsWith('/auth/login');
+
 /// Adds `Authorization: Bearer <token>` and `Accept: application/json` to every
 /// request. The token is read fresh on each call so a login/logout mid-session
 /// is picked up without rebuilding the client.
@@ -32,7 +37,8 @@ class AuthInterceptor extends Interceptor {
     DioException err,
     ErrorInterceptorHandler handler,
   ) async {
-    if (err.response?.statusCode == 401) {
+    if (err.response?.statusCode == 401 &&
+        !isCredentialRequest(err.requestOptions)) {
       await onUnauthorized();
     }
     handler.next(err);

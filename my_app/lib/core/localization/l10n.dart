@@ -20,6 +20,7 @@ extension ApiExceptionL10n on ApiException {
     ApiErrorKind.network => l.errorNetwork,
     ApiErrorKind.timeout => l.errorTimeout,
     ApiErrorKind.unauthorized => l.errorUnauthorized,
+    ApiErrorKind.invalidCredentials => l.errorInvalidCredentials,
     ApiErrorKind.forbidden => l.errorForbidden,
     ApiErrorKind.notFound => l.errorNotFound,
     ApiErrorKind.conflict => l.errorConflict,

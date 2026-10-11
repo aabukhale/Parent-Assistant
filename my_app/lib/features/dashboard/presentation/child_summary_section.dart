@@ -104,14 +104,10 @@ class ChildSummarySection extends ConsumerWidget {
                 ),
               ),
               const SizedBox(height: 12),
-              GridView.count(
-                crossAxisCount: 2,
-                shrinkWrap: true,
-                physics: const NeverScrollableScrollPhysics(),
-                mainAxisSpacing: 10,
-                crossAxisSpacing: 10,
-                childAspectRatio: 1.55,
-                children: [
+              // Rows sized to their content (a fixed aspect ratio overflowed
+              // with longer values, Arabic text or large font sizes).
+              DashboardTileGrid(
+                tiles: [
                   DashboardStatTile(
                     label: l.dashPoints,
                     value: '${s.pointsBalance}',
@@ -128,10 +124,12 @@ class ChildSummarySection extends ConsumerWidget {
                             ),
                           )
                         : l.dashScreenTimeToday,
-                    value: formatDurationMinutes(
-                      context,
-                      s.screenTimeToday.usedMinutes,
-                    ),
+                    value: s.screenTimeToday.measured
+                        ? formatDurationMinutes(
+                            context,
+                            s.screenTimeToday.usedMinutes,
+                          )
+                        : l.dashNotMeasured,
                     icon: Icons.phone_android_rounded,
                     color: AppColors.coral,
                   ),

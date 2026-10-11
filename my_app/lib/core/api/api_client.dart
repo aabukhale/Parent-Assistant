@@ -2,6 +2,7 @@ import 'package:dio/dio.dart';
 
 import '../errors/api_exception.dart';
 import 'api_envelope.dart';
+import 'interceptors.dart';
 
 /// Thin wrapper over [Dio] that every repository uses.
 ///
@@ -91,6 +92,8 @@ class ApiClient {
     final fieldErrors = _parseFieldErrors(body);
 
     final kind = switch (status) {
+      401 when isCredentialRequest(e.requestOptions) =>
+        ApiErrorKind.invalidCredentials,
       401 => ApiErrorKind.unauthorized,
       403 => ApiErrorKind.forbidden,
       404 => ApiErrorKind.notFound,

@@ -14,6 +14,7 @@
   "errorTimeout": "הבקשה ארכה יותר מדי זמן. נסה שוב.",
   "errorServer": "אירעה שגיאת שרת בלתי צפויה. נסה מאוחר יותר.",
   "errorUnauthorized": "פג תוקף ההתחברות. יש להתחבר מחדש.",
+  "errorInvalidCredentials": "האימייל או הסיסמה שגויים.",
   "errorForbidden": "אין לך הרשאה לבצע פעולה זו.",
   "errorNotFound": "הפריט המבוקש לא קיים או שלא ניתן לגשת אליו.",
   "errorConflict": "לא ניתן היה להשלים את הפעולה עקב התנגשות מצב. הנתונים רועננו.",
@@ -547,6 +548,7 @@
     }
   },
   "dashUnavailableShort": "לא זמין",
+  "dashNotMeasured": "לא נמדד",
   "dashSectionNoData": "אין נתונים לתקופה זו",
   "dashTodayTitle": "היום",
   "dashPoints": "נקודות",

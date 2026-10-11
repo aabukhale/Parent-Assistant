@@ -85,6 +85,10 @@ void showResultSnack(
       SnackBar(
         content: Text(message),
         duration: Duration(seconds: onUndo == null ? 3 : 5),
+        // Snackbars with an action persist by default, which left "Undo"
+        // covering later screens. Keep it only for screen-reader users, who
+        // need time to reach the action.
+        persist: MediaQuery.accessibleNavigationOf(context),
         action: onUndo == null
             ? null
             : SnackBarAction(label: context.l10n.commonUndo, onPressed: onUndo),
