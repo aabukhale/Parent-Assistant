@@ -40,7 +40,7 @@ Feature preservation matrix: `docs/feature-matrix.md`.
 - [x] Parent redesign
 - [x] Notifications (Dart; real push needs Firebase/APNs config)
 - [x] OS surfaces (Android widget + floating card; iOS widget + Live Activity)
-- [ ] Verification + docs (in progress)
+- [x] Verification + docs
 
 ## Commands & results
 
@@ -52,6 +52,7 @@ Feature preservation matrix: `docs/feature-matrix.md`.
   `php artisan mamily:demo-seed --fresh`.
 - `flutter build ios --simulator --debug` → ✓ (Xcode 27, arm64 simulator)
 - `flutter build apk --debug` (JDK 17) → ✓; `./gradlew :app:lintDebug` → 0 errors
+- `flutter build ios --release --no-codesign` → ✓ (incl. FamilyPulseWidget extension)
 - Simulator walkthrough (iPhone 17 Pro, local backend + `mamily:demo-seed`):
   role entry, parent sign-in, Today, inbox approve/undo, Children, child hub,
   Account, sign-out, pairing by `mamily://pair` link, My Day, Rewards,
@@ -80,17 +81,14 @@ unmeasured screen time and overflowed; ProgressBar fill never drew; kid
 child screens pushed outside the shell lost the kid theme; default Flutter
 app icons.
 
-## Checkpoint (2026-10-11, usage limit reached)
+## Still open
 
-Done: foundation, role entry + pairing + recovery, full child experience, parent redesign (Today/Inbox/Child hub/Children/Discover/Account), challenges, planner, recap, routines builder, meals, check-ins & praise, devices & pairing, notification + surface settings, push service (Dart), widget/overlay sync (Dart), Live Activity bridge (Dart). `flutter analyze` clean, `flutter test` 457 passed (at 6888e87).
-
-Switched iOS to CocoaPods (SwiftPM could not resolve firebase-ios-sdk 12.19.0); Podfile platform 15.0.
-
-BLOCKER: disk full (~2.5 GB free). iOS simulator build not yet completed. Free space before building (e.g. old Runner-* DerivedData — not deleted by me since they may belong to other projects).
-Simulator panel access was not granted, so screenshots must use `xcrun simctl io booted screenshot`.
-
-Next, in order:
-1. Free disk; `flutter build ios --simulator --debug --dart-define=API_BASE_URL=http://127.0.0.1:8000/api/v1`; run with `php artisan serve` + `php artisan mamily:demo-seed --fresh`; screenshot & fix layout (phone/tablet, ar/en, large text).
-2. Native: Android manifest (POST_NOTIFICATIONS, SYSTEM_ALERT_WINDOW, foreground service), Kotlin overlay service on channel `mamily/overlay`, FamilyPulseWidgetProvider; conditional google-services plugin. iOS: WidgetKit extension `FamilyPulseWidget` + App Group `group.com.mamily.app`, ActivityKit on channel `mamily/live_activity`, push entitlements.
-3. Restyle remaining legacy feature screens (tasks, rewards store, goals, sleep, screen time, content, devices, activities, library, games, reports, forms).
-4. New Flutter tests (kid repo/screens, inbox actions, pairing flow, deep-link authorization), integration test, APK + iOS builds, final report.
+- Older detail screens (tasks, rewards store, goals, sleep, screen time,
+  content, devices, activities, library, games, reports, forms) still use
+  hard-coded `AppColors`/`TextStyle` (~500 sites) instead of
+  `context.mamily`/`context.type`. They work and use the accessible palette;
+  only targeted fixes were made (task icons, history link).
+- Icon picker tiles announce the raw English key ("bed") to screen readers.
+- Android widget/floating card never run on a device (no emulator image).
+- Real push, signing, App Store/Play setup: needs Firebase files, APNs key,
+  team ID, and a real bundle/application id (still `com.example.*`).
