@@ -17,6 +17,7 @@ class TaskCreateInput {
     this.recurrenceConfig,
     this.deadlineAt,
     this.category,
+    this.iconKey,
   });
 
   final String title;
@@ -26,6 +27,7 @@ class TaskCreateInput {
   final RecurrenceConfig? recurrenceConfig;
   final DateTime? deadlineAt;
   final String? category;
+  final String? iconKey;
 
   Map<String, dynamic> toJson() {
     final config = recurrenceType.needsConfig
@@ -41,6 +43,7 @@ class TaskCreateInput {
       if (deadlineAt != null)
         'deadline_at': deadlineAt!.toUtc().toIso8601String(),
       if ((category ?? '').trim().isNotEmpty) 'category': category!.trim(),
+      'icon_key': ?iconKey,
     };
   }
 }
@@ -58,6 +61,7 @@ class TaskUpdateInput {
     this.clearDeadline = false,
     this.category,
     this.clearCategory = false,
+    this.iconKey,
     this.status,
   });
 
@@ -69,6 +73,7 @@ class TaskUpdateInput {
   final bool clearDeadline;
   final String? category;
   final bool clearCategory;
+  final String? iconKey;
   final TaskStatus? status;
 
   Map<String, dynamic> toJson() => {
@@ -86,6 +91,7 @@ class TaskUpdateInput {
       'category': null
     else if (category != null)
       'category': category!.trim(),
+    'icon_key': ?iconKey,
     if (status != null) 'status': status!.wire,
   };
 

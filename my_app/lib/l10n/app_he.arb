@@ -274,6 +274,8 @@
   "taskFieldDescription": "תיאור (רשות)",
   "taskFieldPoints": "נקודות",
   "taskFieldCategory": "קטגוריה (רשות)",
+  "taskFieldIcon": "סמל",
+  "taskFieldIconHint": "מה שהילד/ה רואה ליד המשימה",
   "taskFieldDeadline": "מועד אחרון (רשות)",
   "taskFieldRecurrence": "חזרה",
   "recurrenceOneTime": "חד-פעמי",

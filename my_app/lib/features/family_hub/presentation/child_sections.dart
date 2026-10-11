@@ -536,7 +536,26 @@ class _RoutineFormScreenState extends ConsumerState<RoutineFormScreen> {
                 padding: const EdgeInsets.only(bottom: AppSpacing.sm),
                 child: Row(
                   children: [
-                    EmojiTile(emoji: iconEmoji(_steps[i].iconKey), size: 40),
+                    InkWell(
+                      borderRadius: AppRadii.mediumAll,
+                      onTap: () async {
+                        final step = _steps[i];
+                        final key = await pickIconKey(
+                          context,
+                          current: step.iconKey,
+                        );
+                        if (key != null && mounted) {
+                          setState(() => step.iconKey = key);
+                        }
+                      },
+                      child: Tooltip(
+                        message: l.taskFieldIcon,
+                        child: EmojiTile(
+                          emoji: iconEmoji(_steps[i].iconKey),
+                          size: 40,
+                        ),
+                      ),
+                    ),
                     const SizedBox(width: AppSpacing.sm),
                     Expanded(
                       child: TextField(

@@ -7,6 +7,7 @@ import '../../../core/theme/app_colors.dart';
 import '../../../widgets/app_text_field.dart';
 import '../../../widgets/primary_button.dart';
 import '../../auth/presentation/auth_form_widgets.dart';
+import '../../kid/presentation/kid_widgets.dart';
 import '../application/tasks_controller.dart';
 import '../data/models/child_task.dart';
 import '../data/models/task_enums.dart';
@@ -33,6 +34,7 @@ class _TaskFormScreenState extends ConsumerState<TaskFormScreen> {
   late final TextEditingController _description;
   late final TextEditingController _points;
   late final TextEditingController _category;
+  String? _iconKey;
 
   TaskRecurrence _recurrence = TaskRecurrence.daily;
   RecurrenceConfig _recurrenceConfig = const RecurrenceConfig();
@@ -52,6 +54,7 @@ class _TaskFormScreenState extends ConsumerState<TaskFormScreen> {
     _description = TextEditingController(text: e?.description ?? '');
     _points = TextEditingController(text: e != null ? '${e.points}' : '10');
     _category = TextEditingController(text: e?.category ?? '');
+    _iconKey = e?.iconKey;
     _recurrence = e?.recurrenceType ?? TaskRecurrence.daily;
     _recurrenceConfig = e?.recurrenceConfig ?? const RecurrenceConfig();
     _deadline = e?.deadlineAt?.toLocal();
@@ -146,6 +149,7 @@ class _TaskFormScreenState extends ConsumerState<TaskFormScreen> {
     recurrenceConfig: _recurrence.needsConfig ? _recurrenceConfig : null,
     deadlineAt: _deadline,
     category: _category.text,
+    iconKey: _iconKey,
   );
 
   TaskUpdateInput _buildUpdate(int points) {
@@ -160,6 +164,7 @@ class _TaskFormScreenState extends ConsumerState<TaskFormScreen> {
       clearDeadline: _deadline == null,
       category: cat.isEmpty ? null : cat,
       clearCategory: cat.isEmpty,
+      iconKey: _iconKey,
       status: _status,
     );
   }
@@ -262,6 +267,21 @@ class _TaskFormScreenState extends ConsumerState<TaskFormScreen> {
                   prefixIcon: Icons.label_outline_rounded,
                 ),
                 AuthFieldError(messages: _fieldErrors['category']),
+                const SizedBox(height: 16),
+                ListTile(
+                  contentPadding: EdgeInsets.zero,
+                  leading: EmojiTile(
+                    emoji: iconEmoji(_iconKey ?? _category.text),
+                    size: 44,
+                  ),
+                  title: Text(l.taskFieldIcon),
+                  subtitle: Text(l.taskFieldIconHint),
+                  trailing: const Icon(Icons.chevron_right_rounded),
+                  onTap: () async {
+                    final key = await pickIconKey(context, current: _iconKey);
+                    if (key != null && mounted) setState(() => _iconKey = key);
+                  },
+                ),
                 if (widget.isEdit) ...[
                   const SizedBox(height: 18),
                   _sectionLabel(l.taskStatusActive),

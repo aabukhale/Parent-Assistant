@@ -27,6 +27,71 @@ String iconEmoji(String? key) => switch (key) {
   _ => '⭐',
 };
 
+/// One key per icon in [iconEmoji], in picker order.
+const pickableIconKeys = [
+  'bed',
+  'tooth',
+  'shirt',
+  'breakfast',
+  'snack',
+  'backpack',
+  'hands',
+  'book',
+  'ball',
+  'toys',
+  'bath',
+  'pajamas',
+  'music',
+  'art',
+  'pet',
+  'plant',
+  'kitchen',
+  'water',
+  'kindness',
+];
+
+/// Bottom sheet to choose a task or routine-step icon. Returns the key, or
+/// null if dismissed.
+Future<String?> pickIconKey(BuildContext context, {String? current}) {
+  return showModalBottomSheet<String>(
+    context: context,
+    showDragHandle: true,
+    builder: (sheetContext) => SafeArea(
+      child: Padding(
+        padding: const EdgeInsets.fromLTRB(
+          AppSpacing.lg,
+          0,
+          AppSpacing.lg,
+          AppSpacing.lg,
+        ),
+        child: Wrap(
+          spacing: AppSpacing.sm,
+          runSpacing: AppSpacing.sm,
+          children: [
+            for (final key in pickableIconKeys)
+              Semantics(
+                button: true,
+                selected: key == current,
+                label: key,
+                child: InkWell(
+                  borderRadius: AppRadii.mediumAll,
+                  onTap: () => Navigator.of(sheetContext).pop(key),
+                  child: EmojiTile(
+                    emoji: iconEmoji(key),
+                    size: 52,
+                    fill: key == current
+                        ? sheetContext.mamily.accent.background
+                        : null,
+                  ),
+                ),
+              ),
+          ],
+        ),
+      ),
+    ),
+  );
+}
+
 String moodEmoji(String mood) => switch (mood) {
   'great' => '🤩',
   'happy' => '😊',

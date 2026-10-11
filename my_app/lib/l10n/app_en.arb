@@ -275,6 +275,8 @@
   "taskFieldDescription": "Description (optional)",
   "taskFieldPoints": "Points",
   "taskFieldCategory": "Category (optional)",
+  "taskFieldIcon": "Icon",
+  "taskFieldIconHint": "What your child sees next to this task",
   "taskFieldDeadline": "Deadline (optional)",
   "taskFieldRecurrence": "Recurrence",
   "recurrenceOneTime": "One-time",

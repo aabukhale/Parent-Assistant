@@ -220,6 +220,30 @@ void main() {
       });
     });
 
+    test('icon_key is sent only when one was chosen', () {
+      const base = (title: 'X', points: 5);
+      expect(
+        TaskCreateInput(
+          title: base.title,
+          points: base.points,
+          recurrenceType: TaskRecurrence.daily,
+          iconKey: 'pet',
+        ).toJson()['icon_key'],
+        'pet',
+      );
+      expect(
+        TaskCreateInput(
+          title: base.title,
+          points: base.points,
+          recurrenceType: TaskRecurrence.daily,
+        ).toJson().containsKey('icon_key'),
+        isFalse,
+      );
+      expect(const TaskUpdateInput(iconKey: 'bath').toJson(), {
+        'icon_key': 'bath',
+      });
+    });
+
     test('TaskUpdateInput never sends recurrence and honours clear flags', () {
       final json = const TaskUpdateInput(
         title: 'New',

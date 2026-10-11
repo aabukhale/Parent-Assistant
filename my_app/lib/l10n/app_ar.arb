@@ -274,6 +274,8 @@
   "taskFieldDescription": "الوصف (اختياري)",
   "taskFieldPoints": "النقاط",
   "taskFieldCategory": "الفئة (اختياري)",
+  "taskFieldIcon": "الأيقونة",
+  "taskFieldIconHint": "ما يراه طفلك بجانب هذه المهمة",
   "taskFieldDeadline": "الموعد النهائي (اختياري)",
   "taskFieldRecurrence": "التكرار",
   "recurrenceOneTime": "مرة واحدة",

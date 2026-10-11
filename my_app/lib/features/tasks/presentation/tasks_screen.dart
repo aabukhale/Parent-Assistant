@@ -8,6 +8,7 @@ import '../../../core/theme/app_colors.dart';
 import '../../../core/widgets/state_views.dart';
 import '../../family/application/permissions_controller.dart';
 import '../../family/data/models/family_permission.dart';
+import '../../kid/presentation/kid_widgets.dart';
 import '../../rewards/presentation/rewards_store_screen.dart';
 import '../application/points_controller.dart';
 import '../application/tasks_controller.dart';
@@ -221,9 +222,25 @@ class _BalanceCard extends ConsumerWidget {
               ),
             ),
             const SizedBox(height: 6),
-            Text(
-              l.tasksPointsHistory,
-              style: const TextStyle(color: Colors.white70, fontSize: 11),
+            Row(
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                Text(
+                  l.tasksPointsHistory,
+                  style: const TextStyle(
+                    color: Colors.white,
+                    fontSize: 13,
+                    fontWeight: FontWeight.w600,
+                    decoration: TextDecoration.underline,
+                    decorationColor: Colors.white,
+                  ),
+                ),
+                const Icon(
+                  Icons.chevron_right_rounded,
+                  color: Colors.white,
+                  size: 18,
+                ),
+              ],
             ),
           ],
         ),
@@ -284,14 +301,10 @@ class _TaskCard extends StatelessWidget {
         ),
         child: Row(
           children: [
-            Container(
-              width: 44,
-              height: 44,
-              decoration: BoxDecoration(
-                color: AppColors.amber.withValues(alpha: 0.15),
-                borderRadius: BorderRadius.circular(14),
-              ),
-              child: const Icon(Icons.task_alt_rounded, color: AppColors.amber),
+            // The same icon the child sees for this task.
+            EmojiTile(
+              emoji: iconEmoji(task.iconKey ?? task.category),
+              size: 44,
             ),
             const SizedBox(width: 14),
             Expanded(
