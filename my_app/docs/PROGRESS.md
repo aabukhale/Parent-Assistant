@@ -34,21 +34,47 @@ Feature preservation matrix: `docs/feature-matrix.md`.
 ## Phase log
 
 - [x] Workspace + baseline
-- [ ] Foundation
-- [ ] Entry + pairing
-- [ ] Child experience
-- [ ] Parent redesign
-- [ ] Notifications
-- [ ] OS surfaces
-- [ ] Verification + docs
+- [x] Foundation
+- [x] Entry + pairing
+- [x] Child experience
+- [x] Parent redesign
+- [x] Notifications (Dart; real push needs Firebase/APNs config)
+- [x] OS surfaces (Android widget + floating card; iOS widget + Live Activity)
+- [ ] Verification + docs (in progress)
 
 ## Commands & results
 
-(appended as work proceeds)
+- `flutter analyze` → No issues found
+- `flutter test` → 485 passed (2026-10-11, after b567ec3)
+- `flutter build ios --simulator --debug` → ✓ (Xcode 27, arm64 simulator)
+- `flutter build apk --debug` (JDK 17) → ✓; `./gradlew :app:lintDebug` → 0 errors
+- Simulator walkthrough (iPhone 17 Pro, local backend + `mamily:demo-seed`):
+  role entry, parent sign-in, Today, inbox approve/undo, Children, child hub,
+  Account, sign-out, pairing by `mamily://pair` link, My Day, Rewards,
+  Together, Me, shared-phone parent sign-in + hand-back, Arabic RTL, largest
+  accessibility text, home-screen widget (small/medium), routine Live
+  Activity (Dynamic Island + Lock Screen).
 
 ## Blockers / external setup
 
 - No `google-services.json` / `GoogleService-Info.plist` / APNs key on this machine.
+- No Android system image/AVD installed: Android widget and floating card are
+  built and lint-clean but not run on a device.
+- Xcode 27 `lipo -verify_arch` accepts one arch only, which breaks Flutter's
+  universal simulator build; simulator builds exclude x86_64 (Apple Silicon).
+
+## Fixed after running the app (2026-10-11)
+
+iOS build (deployment target 15, arm64 simulator); `mamily://` scheme was not
+registered on either platform; missing iOS camera string (QR pairing crash);
+missing Android INTERNET/POST_NOTIFICATIONS; wrong password showed "session
+expired"; a mistyped parent password on a child's phone signed the child out;
+double RTL mirroring of arrows; white status-bar icons; nested deep links
+waited for a pop; undo snackbars never dismissed; child hub showed 0m for
+unmeasured screen time and overflowed; ProgressBar fill never drew; kid
+'I did it' took 3 taps; text broke letter-by-letter at the largest sizes;
+child screens pushed outside the shell lost the kid theme; default Flutter
+app icons.
 
 ## Checkpoint (2026-10-11, usage limit reached)
 
