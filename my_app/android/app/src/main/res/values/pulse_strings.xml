@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="pulse_title">Family Pulse</string>
+    <string name="pulse_widget_description">What is waiting for you and how today is going, at a glance.</string>
+    <string name="pulse_all_caught_up">All caught up</string>
+    <plurals name="pulse_waiting">
+        <item quantity="one">%d thing is waiting for you</item>
+        <item quantity="other">%d things are waiting for you</item>
+    </plurals>
+    <string name="pulse_child_fallback">Child %d</string>
+    <string name="pulse_routine">routine %d%%</string>
+    <plurals name="pulse_to_review">
+        <item quantity="one">%d to review</item>
+        <item quantity="other">%d to review</item>
+    </plurals>
+    <string name="pulse_points">%d ⭐</string>
+    <string name="pulse_no_contact">no recent contact</string>
+    <string name="pulse_updated">Updated %s</string>
+    <string name="pulse_stale">Not updated recently. Open Mamily to refresh.</string>
+    <string name="pulse_signed_out">Sign in to Mamily to see your family.</string>
+    <string name="overlay_channel_name">Floating Family Pulse</string>
+    <string name="overlay_notification_title">Family Pulse card is on</string>
+    <string name="overlay_notification_text">Tap to open Mamily. Turn it off any time.</string>
+    <string name="overlay_stop">Turn off</string>
+    <plurals name="pulse_tasks">
+        <item quantity="one">%1$d/%2$d task</item>
+        <item quantity="other">%1$d/%2$d tasks</item>
+    </plurals>
+    <plurals name="pulse_more">
+        <item quantity="one">+%d more</item>
+        <item quantity="other">+%d more</item>
+    </plurals>
+</resources>

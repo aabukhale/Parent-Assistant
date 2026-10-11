@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="pulse_title">نبض العائلة</string>
+    <string name="pulse_widget_description">ما ينتظرك وكيف يسير اليوم، بلمحة سريعة.</string>
+    <string name="pulse_all_caught_up">لا شيء بانتظارك</string>
+    <plurals name="pulse_waiting">
+        <item quantity="zero">لا شيء بانتظارك</item>
+        <item quantity="one">أمر واحد بانتظارك</item>
+        <item quantity="two">أمران بانتظارك</item>
+        <item quantity="few">%d أمور بانتظارك</item>
+        <item quantity="many">%d أمرًا بانتظارك</item>
+        <item quantity="other">%d أمر بانتظارك</item>
+    </plurals>
+    <string name="pulse_child_fallback">الطفل %d</string>
+    <string name="pulse_routine">الروتين %d%%</string>
+    <plurals name="pulse_to_review">
+        <item quantity="zero">لا شيء للمراجعة</item>
+        <item quantity="one">واحد للمراجعة</item>
+        <item quantity="two">اثنان للمراجعة</item>
+        <item quantity="few">%d للمراجعة</item>
+        <item quantity="many">%d للمراجعة</item>
+        <item quantity="other">%d للمراجعة</item>
+    </plurals>
+    <string name="pulse_points">%d ⭐</string>
+    <string name="pulse_no_contact">لا تواصل مؤخرًا</string>
+    <string name="pulse_updated">تم التحديث %s</string>
+    <string name="pulse_stale">لم يُحدَّث مؤخرًا. افتح Mamily للتحديث.</string>
+    <string name="pulse_signed_out">سجّل الدخول إلى Mamily لترى عائلتك.</string>
+    <string name="overlay_channel_name">بطاقة نبض العائلة العائمة</string>
+    <string name="overlay_notification_title">بطاقة نبض العائلة مفعّلة</string>
+    <string name="overlay_notification_text">اضغط لفتح Mamily. يمكنك إيقافها في أي وقت.</string>
+    <string name="overlay_stop">إيقاف</string>
+    <plurals name="pulse_tasks">
+        <item quantity="zero">%1$d/%2$d مهام</item>
+        <item quantity="one">%1$d/%2$d مهمة</item>
+        <item quantity="two">%1$d/%2$d مهمة</item>
+        <item quantity="few">%1$d/%2$d مهام</item>
+        <item quantity="many">%1$d/%2$d مهمة</item>
+        <item quantity="other">%1$d/%2$d مهمة</item>
+    </plurals>
+    <plurals name="pulse_more">
+        <item quantity="zero">+%d آخرون</item>
+        <item quantity="one">+%d آخر</item>
+        <item quantity="two">+%d آخران</item>
+        <item quantity="few">+%d آخرين</item>
+        <item quantity="many">+%d آخرين</item>
+        <item quantity="other">+%d آخرين</item>
+    </plurals>
+</resources>

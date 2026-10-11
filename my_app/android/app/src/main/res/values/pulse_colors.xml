@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Mamily light tokens (lib/core/theme/mamily_colors.dart). -->
+    <color name="pulse_surface">#FFFAF7F3</color>
+    <color name="pulse_border">#FFECE4DA</color>
+    <color name="pulse_ink">#FF2E3B63</color>
+    <color name="pulse_ink_muted">#FF4F5872</color>
+    <color name="pulse_accent">#FFB3311F</color>
+</resources>

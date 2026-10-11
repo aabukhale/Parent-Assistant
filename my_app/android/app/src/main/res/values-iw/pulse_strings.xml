@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="pulse_title">הדופק המשפחתי</string>
+    <string name="pulse_widget_description">מה מחכה לך ואיך עובר היום, במבט אחד.</string>
+    <string name="pulse_all_caught_up">אין דברים שמחכים לך</string>
+    <plurals name="pulse_waiting">
+        <item quantity="one">דבר אחד מחכה לך</item>
+        <item quantity="two">%d דברים מחכים לך</item>
+        <item quantity="other">%d דברים מחכים לך</item>
+    </plurals>
+    <string name="pulse_child_fallback">ילד/ה %d</string>
+    <string name="pulse_routine">שגרה %d%%</string>
+    <plurals name="pulse_to_review">
+        <item quantity="one">%d לבדיקה</item>
+        <item quantity="two">%d לבדיקה</item>
+        <item quantity="other">%d לבדיקה</item>
+    </plurals>
+    <string name="pulse_points">%d ⭐</string>
+    <string name="pulse_no_contact">אין קשר לאחרונה</string>
+    <string name="pulse_updated">עודכן %s</string>
+    <string name="pulse_stale">לא עודכן לאחרונה. פתחו את Mamily לרענון.</string>
+    <string name="pulse_signed_out">התחברו ל-Mamily כדי לראות את המשפחה.</string>
+    <string name="overlay_channel_name">כרטיס דופק צף</string>
+    <string name="overlay_notification_title">כרטיס הדופק המשפחתי פעיל</string>
+    <string name="overlay_notification_text">הקישו לפתיחת Mamily. אפשר לכבות בכל עת.</string>
+    <string name="overlay_stop">כיבוי</string>
+    <plurals name="pulse_tasks">
+        <item quantity="one">%1$d/%2$d משימה</item>
+        <item quantity="two">%1$d/%2$d משימות</item>
+        <item quantity="other">%1$d/%2$d משימות</item>
+    </plurals>
+    <plurals name="pulse_more">
+        <item quantity="one">+%d נוסף</item>
+        <item quantity="two">+%d נוספים</item>
+        <item quantity="other">+%d נוספים</item>
+    </plurals>
+</resources>
