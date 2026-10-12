@@ -5,8 +5,14 @@ import '../theme/app_typography.dart';
 import '../theme/design_tokens.dart';
 import '../theme/mamily_colors.dart';
 
+bool _confirmOpen = false;
+
 /// A bottom-sheet confirmation with one clear primary action. Returns true
 /// only when the user explicitly confirms.
+///
+/// Only one can be open at a time: a second call while one is showing (a
+/// double tap on "I did it!" or "Ask for it") returns false at once instead
+/// of stacking another sheet.
 Future<bool> confirmAction(
   BuildContext context, {
   required String title,
@@ -14,6 +20,32 @@ Future<bool> confirmAction(
   required String confirmLabel,
   String? cancelLabel,
   bool destructive = false,
+  Widget? extra,
+}) async {
+  if (_confirmOpen) return false;
+  _confirmOpen = true;
+  try {
+    return await _showConfirm(
+      context,
+      title: title,
+      body: body,
+      confirmLabel: confirmLabel,
+      cancelLabel: cancelLabel,
+      destructive: destructive,
+      extra: extra,
+    );
+  } finally {
+    _confirmOpen = false;
+  }
+}
+
+Future<bool> _showConfirm(
+  BuildContext context, {
+  required String title,
+  String? body,
+  required String confirmLabel,
+  String? cancelLabel,
+  required bool destructive,
   Widget? extra,
 }) async {
   final result = await showModalBottomSheet<bool>(
