@@ -122,7 +122,7 @@ class AuthPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(),
-      body: AppContentFrame(
+      body: SafeArea(
         top: false,
         child: AppContentFrame(
           maxWidth: 520,

@@ -29,10 +29,7 @@ class GameDetailsScreen extends ConsumerWidget {
           async.valueOrNull?.title ?? l.gamesTitle,
           maxLines: 1,
           overflow: TextOverflow.ellipsis,
-          style: const TextStyle(
-            color: AppColors.navy,
-            fontWeight: FontWeight.bold,
-          ),
+          style: context.type.titleSmall,
         ),
       ),
       body: AppContentFrame(
@@ -56,66 +53,20 @@ class GameDetailsScreen extends ConsumerWidget {
               children: [
                 Text(
                   gameTypeLabel(l, game.gameType),
-                  style: const TextStyle(
-                    color: AppColors.coral,
-                    fontSize: 12,
-                    fontWeight: FontWeight.bold,
+                  style: context.type.labelMedium?.copyWith(
+                    color: context.mamily.actionText,
                   ),
                 ),
                 const SizedBox(height: AppSpacing.xs),
-                Text(
-                  game.title,
-                  style: const TextStyle(
-                    color: AppColors.navy,
-                    fontSize: 22,
-                    fontWeight: FontWeight.bold,
-                  ),
-                ),
+                Text(game.title, style: context.type.titleLarge),
                 if ((game.description ?? '').isNotEmpty) ...[
                   const SizedBox(height: AppSpacing.sm),
-                  Text(
-                    game.description!,
-                    style: const TextStyle(color: AppColors.navy, height: 1.6),
-                  ),
+                  Text(game.description!, style: context.type.bodyMedium),
                 ],
                 const SizedBox(height: AppSpacing.xl),
-                Container(
-                  width: double.infinity,
-                  padding: const EdgeInsets.all(16),
-                  decoration: BoxDecoration(
-                    color: const Color(0xFFEFF1F8),
-                    borderRadius: BorderRadius.circular(16),
-                  ),
-                  child: Row(
-                    children: [
-                      const Icon(
-                        Icons.info_outline_rounded,
-                        color: AppColors.textMuted,
-                        size: 20,
-                      ),
-                      const SizedBox(width: AppSpacing.sm),
-                      Expanded(
-                        child: Text(
-                          l.gamesNotPlayable,
-                          style: const TextStyle(
-                            color: AppColors.textMuted,
-                            fontSize: 12,
-                            height: 1.4,
-                          ),
-                        ),
-                      ),
-                    ],
-                  ),
-                ),
+                NoticeBanner(tone: AppTone.info, message: l.gamesNotPlayable),
                 const SizedBox(height: AppSpacing.xl),
-                Text(
-                  l.gamesProgressTitle,
-                  style: const TextStyle(
-                    color: AppColors.navy,
-                    fontSize: 16,
-                    fontWeight: FontWeight.bold,
-                  ),
-                ),
+                Text(l.gamesProgressTitle, style: context.type.titleSmall),
                 const SizedBox(height: AppSpacing.sm),
                 progress.when(
                   loading: () => const Padding(
@@ -129,7 +80,9 @@ class GameDetailsScreen extends ConsumerWidget {
                   data: (_) => gp == null
                       ? Text(
                           l.gamesNoProgress,
-                          style: const TextStyle(color: AppColors.textMuted),
+                          style: context.type.bodyMedium?.copyWith(
+                            color: context.mamily.ink2,
+                          ),
                         )
                       : _ProgressCard(progress: gp),
                 ),
@@ -151,20 +104,20 @@ class _ProgressCard extends StatelessWidget {
     final l = context.l10n;
     final tag = Localizations.localeOf(context).toLanguageTag();
     final minutes = (progress.totalPlaySeconds / 60).round();
-    return Container(
-      padding: const EdgeInsets.all(16),
-      decoration: BoxDecoration(
-        color: Colors.white,
-        borderRadius: BorderRadius.circular(18),
-      ),
+    return AppCard(
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          _row(l.gamesBestScore, progress.bestScore?.toString() ?? '—'),
-          _row(l.gamesAttempts, '${progress.totalAttempts}'),
-          _row(l.gamesPlayTime, l.gamesMinutes(minutes)),
+          _row(
+            context,
+            l.gamesBestScore,
+            progress.bestScore?.toString() ?? '—',
+          ),
+          _row(context, l.gamesAttempts, '${progress.totalAttempts}'),
+          _row(context, l.gamesPlayTime, l.gamesMinutes(minutes)),
           if (progress.lastPlayedAt != null)
             _row(
+              context,
               l.gamesLastPlayed,
               DateFormat.yMMMd(tag).format(progress.lastPlayedAt!),
             ),
@@ -173,23 +126,19 @@ class _ProgressCard extends StatelessWidget {
     );
   }
 
-  Widget _row(String label, String value) => Padding(
+  Widget _row(BuildContext context, String label, String value) => Padding(
     padding: const EdgeInsets.symmetric(vertical: 3),
     child: Row(
       children: [
         Expanded(
           child: Text(
             label,
-            style: const TextStyle(color: AppColors.textMuted, fontSize: 13),
+            style: context.type.bodyMedium?.copyWith(
+              color: context.mamily.ink2,
+            ),
           ),
         ),
-        Text(
-          value,
-          style: const TextStyle(
-            color: AppColors.navy,
-            fontWeight: FontWeight.bold,
-          ),
-        ),
+        Text(value, style: context.type.titleSmall),
       ],
     ),
   );

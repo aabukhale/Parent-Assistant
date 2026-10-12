@@ -16,7 +16,7 @@ class WelcomeScreen extends StatelessWidget {
 
     return Scaffold(
       appBar: AppBar(),
-      body: AppContentFrame(
+      body: SafeArea(
         top: false,
         child: AppContentFrame(
           maxWidth: 520,

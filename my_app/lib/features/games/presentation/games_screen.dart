@@ -49,20 +49,9 @@ class GamesScreen extends ConsumerWidget {
                       AppSpacing.xxxl,
                     ),
                     children: [
-                      Container(
-                        padding: const EdgeInsets.all(12),
-                        decoration: BoxDecoration(
-                          color: const Color(0xFFEFF1F8),
-                          borderRadius: BorderRadius.circular(14),
-                        ),
-                        child: Text(
-                          l.gamesPreviewNote,
-                          style: const TextStyle(
-                            color: AppColors.textMuted,
-                            fontSize: 11,
-                            height: 1.4,
-                          ),
-                        ),
+                      NoticeBanner(
+                        tone: AppTone.info,
+                        message: l.gamesPreviewNote,
                       ),
                       const SizedBox(height: AppSpacing.md),
                       for (final game in state.games) _GameCard(game: game),
@@ -118,26 +107,14 @@ class _GameCard extends StatelessWidget {
           builder: (_) => GameDetailsScreen(gameSlug: game.slug),
         ),
       ),
-      child: Container(
-        margin: const EdgeInsets.only(bottom: 10),
-        padding: const EdgeInsets.all(16),
-        decoration: BoxDecoration(
-          color: Colors.white,
-          borderRadius: BorderRadius.circular(20),
-        ),
+      child: AppCard(
+        margin: const EdgeInsets.only(bottom: AppSpacing.sm),
         child: Row(
           children: [
-            Container(
-              width: 52,
-              height: 52,
-              decoration: BoxDecoration(
-                color: const Color(0xFF7C89B8).withValues(alpha: 0.15),
-                borderRadius: BorderRadius.circular(16),
-              ),
-              child: const Icon(
-                Icons.sports_esports_rounded,
-                color: Color(0xFF7C89B8),
-              ),
+            IconBadge(
+              icon: Icons.sports_esports_rounded,
+              tone: AppTone.info,
+              size: 52,
             ),
             const SizedBox(width: AppSpacing.md),
             Expanded(
@@ -148,27 +125,22 @@ class _GameCard extends StatelessWidget {
                     game.title,
                     maxLines: 1,
                     overflow: TextOverflow.ellipsis,
-                    style: const TextStyle(
-                      color: AppColors.navy,
-                      fontWeight: FontWeight.bold,
-                      fontSize: 15,
-                    ),
+                    style: context.type.titleSmall,
                   ),
                   const SizedBox(height: 3),
                   Text(
                     gameTypeLabel(l, game.gameType),
-                    style: const TextStyle(
-                      color: AppColors.textMuted,
-                      fontSize: 12,
+                    style: context.type.bodySmall?.copyWith(
+                      color: context.mamily.ink2,
                     ),
                   ),
                 ],
               ),
             ),
-            const Icon(
+            Icon(
               Icons.chevron_right_rounded,
               size: 18,
-              color: Color(0xFF9AA3B5),
+              color: context.mamily.ink3,
             ),
           ],
         ),

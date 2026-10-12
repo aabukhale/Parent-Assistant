@@ -26,10 +26,7 @@ class ArticleDetailsScreen extends ConsumerWidget {
           async.valueOrNull?.title ?? l.libraryTitle,
           maxLines: 1,
           overflow: TextOverflow.ellipsis,
-          style: const TextStyle(
-            color: AppColors.navy,
-            fontWeight: FontWeight.bold,
-          ),
+          style: context.type.titleSmall,
         ),
       ),
       body: AppContentFrame(
@@ -71,22 +68,12 @@ class _Body extends StatelessWidget {
         if (article.categories.isNotEmpty)
           Text(
             article.categories.map((c) => c.name).join(' · '),
-            style: const TextStyle(
-              color: AppColors.coral,
-              fontSize: 12,
-              fontWeight: FontWeight.bold,
+            style: context.type.labelMedium?.copyWith(
+              color: context.mamily.actionText,
             ),
           ),
         const SizedBox(height: AppSpacing.xs),
-        Text(
-          article.title,
-          style: const TextStyle(
-            color: AppColors.navy,
-            fontSize: 22,
-            fontWeight: FontWeight.bold,
-            height: 1.35,
-          ),
-        ),
+        Text(article.title, style: context.type.titleLarge),
         const SizedBox(height: AppSpacing.sm),
         Wrap(
           spacing: 8,
@@ -96,46 +83,34 @@ class _Body extends StatelessWidget {
             if ((article.author.name ?? '').isNotEmpty)
               Text(
                 article.author.name!,
-                style: const TextStyle(
-                  color: AppColors.textMuted,
-                  fontSize: 12,
+                style: context.type.bodySmall?.copyWith(
+                  color: context.mamily.ink2,
                 ),
               ),
             if (authorType != null)
               Text(
                 '· $authorType',
-                style: const TextStyle(
-                  color: AppColors.textMuted,
-                  fontSize: 12,
+                style: context.type.bodySmall?.copyWith(
+                  color: context.mamily.ink2,
                 ),
               ),
             if (article.publishedAt != null)
               Text(
                 '· ${DateFormat.yMMMd(tag).format(article.publishedAt!.toLocal())}',
-                style: const TextStyle(
-                  color: AppColors.textMuted,
-                  fontSize: 12,
+                style: context.type.bodySmall?.copyWith(
+                  color: context.mamily.ink2,
                 ),
               ),
           ],
         ),
         const SizedBox(height: AppSpacing.xl),
         if (article.hasBody)
-          Text(
-            article.body!,
-            style: const TextStyle(
-              color: AppColors.navy,
-              fontSize: 15,
-              height: 1.7,
-            ),
-          )
+          Text(article.body!, style: context.type.bodyLarge)
         else
           Text(
             article.excerpt ?? l.libraryNoBody,
-            style: const TextStyle(
-              color: AppColors.textMuted,
-              fontSize: 14,
-              height: 1.6,
+            style: context.type.bodyMedium?.copyWith(
+              color: context.mamily.ink2,
             ),
           ),
       ],

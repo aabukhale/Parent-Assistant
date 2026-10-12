@@ -57,7 +57,7 @@ class _RoutineRunScreenState extends ConsumerState<RoutineRunScreen> {
     final async = ref.watch(kidRoutineProvider(widget.routineId));
     return Scaffold(
       appBar: AppBar(),
-      body: AppContentFrame(
+      body: SafeArea(
         top: false,
         child: AppContentFrame(
           child: async.when(

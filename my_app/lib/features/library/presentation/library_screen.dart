@@ -60,7 +60,9 @@ class LibraryScreen extends ConsumerWidget {
                         child: Center(
                           child: Text(
                             l.libraryEmpty,
-                            style: const TextStyle(color: AppColors.textMuted),
+                            style: context.type.bodyMedium?.copyWith(
+                              color: context.mamily.ink2,
+                            ),
                           ),
                         ),
                       )
@@ -153,17 +155,10 @@ class _Recommendations extends ConsumerWidget {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 const SizedBox(height: AppSpacing.md),
-                Text(
-                  l.libraryRecommendedTitle,
-                  style: const TextStyle(
-                    color: AppColors.navy,
-                    fontSize: 15,
-                    fontWeight: FontWeight.bold,
-                  ),
-                ),
+                Text(l.libraryRecommendedTitle, style: context.type.titleSmall),
                 const SizedBox(height: AppSpacing.sm),
                 SizedBox(
-                  height: 110,
+                  height: 132,
                   child: ListView.separated(
                     scrollDirection: Axis.horizontal,
                     itemCount: articles.length,
@@ -171,39 +166,34 @@ class _Recommendations extends ConsumerWidget {
                         const SizedBox(width: AppSpacing.sm),
                     itemBuilder: (_, i) {
                       final a = articles[i];
-                      return GestureDetector(
-                        onTap: () => Navigator.of(context).push(
-                          MaterialPageRoute(
-                            builder: (_) => ArticleDetailsScreen(slug: a.slug),
-                          ),
-                        ),
-                        child: Container(
-                          width: 200,
-                          padding: const EdgeInsets.all(14),
-                          decoration: BoxDecoration(
-                            color: AppColors.navy,
-                            borderRadius: BorderRadius.circular(18),
+                      return SizedBox(
+                        width: 220,
+                        child: AppCard(
+                          tone: AppTone.info,
+                          onTap: () => Navigator.of(context).push(
+                            MaterialPageRoute(
+                              builder: (_) =>
+                                  ArticleDetailsScreen(slug: a.slug),
+                            ),
                           ),
                           child: Column(
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
-                              Text(
-                                a.title,
-                                maxLines: 3,
-                                overflow: TextOverflow.ellipsis,
-                                style: const TextStyle(
-                                  color: Colors.white,
-                                  fontWeight: FontWeight.bold,
-                                  fontSize: 13,
+                              Expanded(
+                                child: Text(
+                                  a.title,
+                                  maxLines: 3,
+                                  overflow: TextOverflow.ellipsis,
+                                  style: context.type.titleSmall,
                                 ),
                               ),
-                              const Spacer(),
                               if (a.categories.isNotEmpty)
                                 Text(
                                   a.categories.first.name,
-                                  style: const TextStyle(
-                                    color: Color(0xFFD8DDEC),
-                                    fontSize: 10,
+                                  maxLines: 1,
+                                  overflow: TextOverflow.ellipsis,
+                                  style: context.type.labelMedium?.copyWith(
+                                    color: context.mamily.info.foreground,
                                   ),
                                 ),
                             ],
@@ -232,44 +222,28 @@ class _ArticleCard extends StatelessWidget {
           builder: (_) => ArticleDetailsScreen(slug: article.slug),
         ),
       ),
-      child: Container(
-        margin: const EdgeInsets.only(bottom: 12),
-        padding: const EdgeInsets.all(16),
-        decoration: BoxDecoration(
-          color: Colors.white,
-          borderRadius: BorderRadius.circular(20),
-        ),
+      child: AppCard(
+        margin: const EdgeInsets.only(bottom: AppSpacing.sm),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             if (article.categories.isNotEmpty)
               Text(
                 article.categories.map((c) => c.name).join(' · '),
-                style: const TextStyle(
-                  color: AppColors.coral,
-                  fontSize: 11,
-                  fontWeight: FontWeight.bold,
+                style: context.type.labelMedium?.copyWith(
+                  color: context.mamily.actionText,
                 ),
               ),
             const SizedBox(height: AppSpacing.xs),
-            Text(
-              article.title,
-              style: const TextStyle(
-                color: AppColors.navy,
-                fontWeight: FontWeight.bold,
-                fontSize: 15,
-              ),
-            ),
+            Text(article.title, style: context.type.titleSmall),
             if ((article.excerpt ?? '').isNotEmpty) ...[
               const SizedBox(height: AppSpacing.xs),
               Text(
                 article.excerpt!,
                 maxLines: 2,
                 overflow: TextOverflow.ellipsis,
-                style: const TextStyle(
-                  color: AppColors.textMuted,
-                  fontSize: 12,
-                  height: 1.4,
+                style: context.type.bodySmall?.copyWith(
+                  color: context.mamily.ink2,
                 ),
               ),
             ],
