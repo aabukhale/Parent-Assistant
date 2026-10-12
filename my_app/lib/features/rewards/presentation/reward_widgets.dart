@@ -2,10 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 
 import '../../../core/localization/l10n.dart';
-import '../../../core/theme/app_colors.dart';
+import '../../../core/design_system.dart';
 import '../data/models/reward.dart';
 import '../data/models/reward_enums.dart';
-import '../data/models/reward_redemption.dart';
 import '../data/models/screen_time_override.dart';
 
 String _tag(BuildContext c) => Localizations.localeOf(c).toLanguageTag();
@@ -38,13 +37,21 @@ String redemptionStatusLabel(AppLocalizations l, RedemptionStatus s) =>
       RedemptionStatus.cancelled => l.redemptionStatusCancelled,
     };
 
-Color redemptionStatusColor(RedemptionStatus s) => switch (s) {
-  RedemptionStatus.pending => AppColors.amber,
-  RedemptionStatus.approved => const Color(0xFF57C77A),
-  RedemptionStatus.rejected => AppColors.coral,
-  RedemptionStatus.cancelled => AppColors.textMuted,
+AppTone redemptionStatusTone(RedemptionStatus s) => switch (s) {
+  RedemptionStatus.pending => AppTone.warning,
+  RedemptionStatus.approved => AppTone.success,
+  RedemptionStatus.rejected => AppTone.danger,
+  RedemptionStatus.cancelled => AppTone.neutral,
 };
 
+IconData redemptionStatusIcon(RedemptionStatus s) => switch (s) {
+  RedemptionStatus.pending => Icons.hourglass_top_rounded,
+  RedemptionStatus.approved => Icons.check_circle_rounded,
+  RedemptionStatus.rejected => Icons.cancel_rounded,
+  RedemptionStatus.cancelled => Icons.block_rounded,
+};
+
+/// Whether a reward belongs to this family or is offered by Mamily to all.
 class ScopeBadge extends StatelessWidget {
   const ScopeBadge({super.key, required this.isGlobal});
   final bool isGlobal;
@@ -52,42 +59,12 @@ class ScopeBadge extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final l = context.l10n;
-    final color = isGlobal ? const Color(0xFF7C89B8) : AppColors.teal;
-    return Container(
-      padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 2),
-      decoration: BoxDecoration(
-        color: color.withValues(alpha: 0.15),
-        borderRadius: BorderRadius.circular(8),
-      ),
-      child: Text(
-        isGlobal ? l.rewardScopeGlobal : l.rewardScopeFamily,
-        style: TextStyle(
-          color: color,
-          fontSize: 10,
-          fontWeight: FontWeight.bold,
-        ),
-      ),
+    return StatusPill(
+      label: isGlobal ? l.rewardScopeGlobal : l.rewardScopeFamily,
+      tone: isGlobal ? AppTone.info : AppTone.accent,
+      icon: isGlobal ? Icons.public_rounded : Icons.home_rounded,
     );
   }
-}
-
-class StatusPill extends StatelessWidget {
-  const StatusPill({super.key, required this.text, required this.color});
-  final String text;
-  final Color color;
-
-  @override
-  Widget build(BuildContext context) => Container(
-    padding: const EdgeInsets.symmetric(horizontal: 9, vertical: 3),
-    decoration: BoxDecoration(
-      color: color.withValues(alpha: 0.15),
-      borderRadius: BorderRadius.circular(9),
-    ),
-    child: Text(
-      text,
-      style: TextStyle(color: color, fontSize: 10, fontWeight: FontWeight.bold),
-    ),
-  );
 }
 
 /// Informational affordability hint from the **cached** balance — the backend
@@ -104,14 +81,26 @@ class AffordabilityHint extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final l = context.l10n;
+    final c = context.mamily;
     if (balance == null) return const SizedBox.shrink();
     final canAfford = balance! >= cost;
-    return Text(
-      canAfford ? l.rewardAffordCan : l.rewardAffordNeed(cost - balance!),
-      style: TextStyle(
-        color: canAfford ? const Color(0xFF57C77A) : AppColors.coral,
-        fontSize: 11,
-      ),
+    final tone = canAfford ? c.success : c.warning;
+    return Row(
+      mainAxisSize: MainAxisSize.min,
+      children: [
+        Icon(
+          canAfford ? Icons.check_circle_outline_rounded : Icons.timelapse,
+          size: AppSizes.iconSm,
+          color: tone.foreground,
+        ),
+        const SizedBox(width: AppSpacing.xs),
+        Flexible(
+          child: Text(
+            canAfford ? l.rewardAffordCan : l.rewardAffordNeed(cost - balance!),
+            style: context.type.bodySmall?.copyWith(color: tone.foreground),
+          ),
+        ),
+      ],
     );
   }
 }
@@ -126,54 +115,45 @@ class ScreenTimeOverrideCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final l = context.l10n;
+    final c = context.mamily;
     final revoked = data.isRevoked;
-    return Container(
-      margin: const EdgeInsets.only(top: 8),
-      padding: const EdgeInsets.all(10),
-      decoration: BoxDecoration(
-        color: const Color(0xFFEFF1F8),
-        borderRadius: BorderRadius.circular(12),
-      ),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Row(
-            children: [
-              Icon(
-                revoked ? Icons.timer_off_outlined : Icons.timelapse_rounded,
-                size: 16,
-                color: revoked ? AppColors.textMuted : const Color(0xFF7C89B8),
-              ),
-              const SizedBox(width: 6),
-              Text(
-                revoked
-                    ? l.screenTimeRevoked
-                    : l.screenTimeGranted(data.additionalMinutes),
-                style: TextStyle(
-                  color: revoked ? AppColors.textMuted : AppColors.navy,
-                  fontSize: 12,
-                  fontWeight: FontWeight.bold,
+    return Padding(
+      padding: const EdgeInsets.only(top: AppSpacing.sm),
+      child: AppCard(
+        tone: revoked ? AppTone.neutral : AppTone.info,
+        padding: const EdgeInsets.all(AppSpacing.md),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Row(
+              children: [
+                Icon(
+                  revoked ? Icons.timer_off_outlined : Icons.timelapse_rounded,
+                  size: AppSizes.iconSm,
+                  color: revoked ? c.ink2 : c.info.foreground,
                 ),
+                const SizedBox(width: AppSpacing.xs),
+                Expanded(
+                  child: Text(
+                    revoked
+                        ? l.screenTimeRevoked
+                        : l.screenTimeGranted(data.additionalMinutes),
+                    style: context.type.labelLarge,
+                  ),
+                ),
+              ],
+            ),
+            if (!revoked && data.expiresAt != null)
+              Text(
+                l.screenTimeExpires(formatRewardDate(context, data.expiresAt!)),
+                style: context.type.bodySmall?.copyWith(color: c.ink2),
               ),
-            ],
-          ),
-          if (!revoked && data.expiresAt != null) ...[
-            const SizedBox(height: 2),
             Text(
-              l.screenTimeExpires(formatRewardDate(context, data.expiresAt!)),
-              style: const TextStyle(color: AppColors.textMuted, fontSize: 11),
+              l.screenTimePolicyNote,
+              style: context.type.bodySmall?.copyWith(color: c.ink2),
             ),
           ],
-          const SizedBox(height: 2),
-          Text(
-            l.screenTimePolicyNote,
-            style: const TextStyle(
-              color: AppColors.textMuted,
-              fontSize: 10,
-              height: 1.3,
-            ),
-          ),
-        ],
+        ),
       ),
     );
   }
@@ -181,8 +161,4 @@ class ScreenTimeOverrideCard extends StatelessWidget {
 
 extension RewardX on Reward {
   IconData get icon => rewardTypeIcon(type);
-}
-
-extension RedemptionX on RewardRedemption {
-  Color get statusColor => redemptionStatusColor(status);
 }

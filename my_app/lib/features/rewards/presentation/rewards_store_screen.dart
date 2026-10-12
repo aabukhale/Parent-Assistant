@@ -1,10 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
+import '../../../core/design_system.dart';
 import '../../../core/errors/api_exception.dart';
 import '../../../core/localization/l10n.dart';
-import '../../../core/theme/app_colors.dart';
-import '../../../core/widgets/state_views.dart';
 import '../../family/application/permissions_controller.dart';
 import '../../family/data/models/family_permission.dart';
 import '../../tasks/application/points_controller.dart';
@@ -41,20 +40,9 @@ class _RewardsStoreScreenState extends ConsumerState<RewardsStoreScreen> {
     final rewards = ref.watch(rewardsControllerProvider);
 
     return Scaffold(
-      backgroundColor: AppColors.background,
-      appBar: AppBar(
-        title: Text(
-          l.rewardsStoreTitle,
-          style: const TextStyle(
-            color: AppColors.navy,
-            fontWeight: FontWeight.bold,
-          ),
-        ),
-      ),
+      appBar: AppBar(title: Text(l.rewardsStoreTitle)),
       floatingActionButton: _tab == 0 && canManage
           ? FloatingActionButton.extended(
-              backgroundColor: AppColors.coral,
-              foregroundColor: Colors.white,
               onPressed: () => Navigator.of(context).push(
                 MaterialPageRoute(builder: (_) => const RewardFormScreen()),
               ),
@@ -62,7 +50,7 @@ class _RewardsStoreScreenState extends ConsumerState<RewardsStoreScreen> {
               label: Text(l.rewardsAdd),
             )
           : null,
-      body: SafeArea(
+      body: AppContentFrame(
         child: RefreshIndicator(
           onRefresh: () async {
             await ref.read(rewardsControllerProvider.notifier).refresh();
@@ -70,12 +58,25 @@ class _RewardsStoreScreenState extends ConsumerState<RewardsStoreScreen> {
             ref.invalidate(pointsBalanceProvider);
           },
           child: ListView(
-            padding: const EdgeInsets.fromLTRB(20, 12, 20, 100),
+            padding: const EdgeInsets.fromLTRB(
+              AppSpacing.lg,
+              AppSpacing.sm,
+              AppSpacing.lg,
+              96,
+            ),
             children: [
               if (permissions.shouldSurfacePermissionError)
-                _PermissionBanner(onRetry: () => refreshPermissions(ref)),
+                Padding(
+                  padding: const EdgeInsets.only(bottom: AppSpacing.md),
+                  child: NoticeBanner(
+                    tone: AppTone.warning,
+                    message: l.permLoadFailed,
+                    actionLabel: l.commonRetry,
+                    onAction: () => refreshPermissions(ref),
+                  ),
+                ),
               const _BalanceStrip(),
-              const SizedBox(height: 16),
+              const SizedBox(height: AppSpacing.lg),
               SegmentedButton<int>(
                 segments: [
                   ButtonSegment(value: 0, label: Text(l.rewardsTabCatalog)),
@@ -84,7 +85,7 @@ class _RewardsStoreScreenState extends ConsumerState<RewardsStoreScreen> {
                 selected: {_tab},
                 onSelectionChanged: (s) => setState(() => _tab = s.first),
               ),
-              const SizedBox(height: 14),
+              const SizedBox(height: AppSpacing.md),
               if (_tab == 0 && canManage && rewards.hasValue)
                 Align(
                   alignment: AlignmentDirectional.centerStart,
@@ -98,7 +99,7 @@ class _RewardsStoreScreenState extends ConsumerState<RewardsStoreScreen> {
                   ),
                 ),
               if (_tab == 0 && canManage && rewards.hasValue)
-                const SizedBox(height: 10),
+                const SizedBox(height: AppSpacing.sm),
               if (_tab == 0)
                 _CatalogSection(canManage: canManage)
               else
@@ -142,41 +143,29 @@ class _BalanceStrip extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     final l = context.l10n;
     final balance = ref.watch(pointsBalanceProvider);
-    return Container(
-      padding: const EdgeInsets.all(16),
-      decoration: BoxDecoration(
-        color: AppColors.coral,
-        borderRadius: BorderRadius.circular(20),
-      ),
+    return AppCard(
+      tone: AppTone.warning,
       child: Row(
         children: [
-          const Icon(Icons.stars_rounded, color: Colors.white, size: 28),
-          const SizedBox(width: 12),
-          Text(
-            l.tasksPointsBalance,
-            style: const TextStyle(color: Colors.white, fontSize: 13),
+          const IconBadge(emoji: '⭐', tone: AppTone.warning, size: 40),
+          const SizedBox(width: AppSpacing.md),
+          Expanded(
+            child: Text(l.tasksPointsBalance, style: context.type.labelLarge),
           ),
-          const Spacer(),
           balance.when(
-            loading: () => const SizedBox(
-              width: 18,
-              height: 18,
-              child: CircularProgressIndicator(
-                color: Colors.white,
-                strokeWidth: 2,
-              ),
+            loading: () => const SizedBox.square(
+              dimension: 20,
+              child: CircularProgressIndicator(strokeWidth: 2),
             ),
-            error: (e, _) => Text(
-              e is ApiException ? e.localizedMessage(l) : l.errorUnknown,
-              style: const TextStyle(color: Colors.white, fontSize: 11),
+            error: (e, _) => Flexible(
+              child: Text(
+                e is ApiException ? e.localizedMessage(l) : l.errorUnknown,
+                style: context.type.bodySmall,
+              ),
             ),
             data: (b) => Text(
               formatPoints(context, b.balance),
-              style: const TextStyle(
-                color: Colors.white,
-                fontSize: 22,
-                fontWeight: FontWeight.bold,
-              ),
+              style: context.type.headlineSmall,
             ),
           ),
         ],
@@ -199,20 +188,12 @@ class _CatalogSection extends ConsumerWidget {
     return async.when(
       skipLoadingOnReload: true,
       loading: () => const Padding(
-        padding: EdgeInsets.all(28),
-        child: Center(child: CircularProgressIndicator(color: AppColors.coral)),
+        padding: EdgeInsets.all(AppSpacing.xxl),
+        child: Center(child: CircularProgressIndicator()),
       ),
       error: (e, _) => ErrorRetryView(error: e, onRetry: notifier.refresh),
       data: (state) => state.isEmpty
-          ? Padding(
-              padding: const EdgeInsets.symmetric(vertical: 30),
-              child: Center(
-                child: Text(
-                  l.rewardsCatalogEmpty,
-                  style: const TextStyle(color: AppColors.textMuted),
-                ),
-              ),
-            )
+          ? EmptyView(emoji: '🎁', message: l.rewardsCatalogEmpty)
           : Column(
               children: [
                 for (final reward in state.rewards)
@@ -230,11 +211,9 @@ class _CatalogSection extends ConsumerWidget {
                   ),
                 if (state.hasMore)
                   Padding(
-                    padding: const EdgeInsets.only(top: 4),
+                    padding: const EdgeInsets.only(top: AppSpacing.xs),
                     child: state.loadingMore
-                        ? const CircularProgressIndicator(
-                            color: AppColors.coral,
-                          )
+                        ? const CircularProgressIndicator()
                         : OutlinedButton(
                             onPressed: () => _loadMore(context, ref),
                             child: Text(l.rewardsLoadMore),
@@ -263,41 +242,24 @@ class _CatalogSection extends ConsumerWidget {
   ) async {
     final l = context.l10n;
     final balance = ref.read(pointsBalanceProvider).valueOrNull?.balance;
-    final confirmed = await showDialog<bool>(
-      context: context,
-      builder: (_) => AlertDialog(
-        title: Text(l.rewardRequestTitle),
-        content: Column(
-          mainAxisSize: MainAxisSize.min,
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Text(l.rewardRequestConfirm(reward.title, reward.pointsCost)),
-            const SizedBox(height: 8),
-            AffordabilityHint(cost: reward.pointsCost, balance: balance),
-            const SizedBox(height: 8),
-            Text(
-              l.rewardOnBehalfNote,
-              style: const TextStyle(
-                color: AppColors.textMuted,
-                fontSize: 11,
-                height: 1.4,
-              ),
-            ),
-          ],
-        ),
-        actions: [
-          TextButton(
-            onPressed: () => Navigator.of(context).pop(false),
-            child: Text(l.commonCancel),
-          ),
-          TextButton(
-            onPressed: () => Navigator.of(context).pop(true),
-            child: Text(l.rewardRequest),
+    final confirmed = await confirmAction(
+      context,
+      title: l.rewardRequestTitle,
+      body: l.rewardRequestConfirm(reward.title, reward.pointsCost),
+      confirmLabel: l.rewardRequest,
+      extra: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          AffordabilityHint(cost: reward.pointsCost, balance: balance),
+          const SizedBox(height: AppSpacing.sm),
+          Text(
+            l.rewardOnBehalfNote,
+            style: context.type.bodySmall?.copyWith(color: context.mamily.ink2),
           ),
         ],
       ),
     );
-    if (confirmed != true) return;
+    if (!confirmed) return;
     try {
       await ref
           .read(redemptionsControllerProvider.notifier)
@@ -323,27 +285,14 @@ class _CatalogSection extends ConsumerWidget {
     Reward reward,
   ) async {
     final l = context.l10n;
-    final ok = await showDialog<bool>(
-      context: context,
-      builder: (_) => AlertDialog(
-        title: Text(l.rewardDeleteConfirmTitle),
-        content: Text(l.rewardDeleteConfirmBody(reward.title)),
-        actions: [
-          TextButton(
-            onPressed: () => Navigator.of(context).pop(false),
-            child: Text(l.commonCancel),
-          ),
-          TextButton(
-            onPressed: () => Navigator.of(context).pop(true),
-            child: Text(
-              l.rewardDeleteAction,
-              style: const TextStyle(color: AppColors.coral),
-            ),
-          ),
-        ],
-      ),
+    final ok = await confirmAction(
+      context,
+      title: l.rewardDeleteConfirmTitle,
+      body: l.rewardDeleteConfirmBody(reward.title),
+      confirmLabel: l.rewardDeleteAction,
+      destructive: true,
     );
-    if (ok != true) return;
+    if (!ok) return;
     try {
       await ref
           .read(rewardsControllerProvider.notifier)
@@ -381,70 +330,46 @@ class _RewardCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final l = context.l10n;
-    return Container(
-      margin: const EdgeInsets.only(bottom: 10),
-      padding: const EdgeInsets.all(16),
-      decoration: BoxDecoration(
-        color: Colors.white,
-        borderRadius: BorderRadius.circular(20),
-      ),
+    final c = context.mamily;
+    return AppCard(
+      margin: const EdgeInsets.only(bottom: AppSpacing.sm),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Row(
+            crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Container(
-                width: 44,
-                height: 44,
-                decoration: BoxDecoration(
-                  color: AppColors.amber.withValues(alpha: 0.15),
-                  borderRadius: BorderRadius.circular(14),
-                ),
-                child: Icon(
-                  rewardTypeIcon(reward.type),
-                  color: AppColors.amber,
-                ),
+              IconBadge(
+                icon: rewardTypeIcon(reward.type),
+                tone: AppTone.warning,
               ),
-              const SizedBox(width: 12),
+              const SizedBox(width: AppSpacing.md),
               Expanded(
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Text(
                       reward.title,
-                      maxLines: 1,
+                      maxLines: 2,
                       overflow: TextOverflow.ellipsis,
-                      style: const TextStyle(
-                        color: AppColors.navy,
-                        fontWeight: FontWeight.bold,
+                      style: context.type.titleSmall?.copyWith(
+                        color: reward.isActive ? null : c.ink2,
                       ),
                     ),
-                    const SizedBox(height: 3),
+                    Text(
+                      '${l.rewardCost(reward.pointsCost)} · ${rewardTypeLabel(l, reward.type)}',
+                      style: context.type.bodySmall?.copyWith(color: c.ink2),
+                    ),
+                    const SizedBox(height: AppSpacing.xs),
                     Wrap(
-                      spacing: 6,
-                      runSpacing: 4,
-                      crossAxisAlignment: WrapCrossAlignment.center,
+                      spacing: AppSpacing.xs,
+                      runSpacing: AppSpacing.xs,
                       children: [
-                        Text(
-                          l.rewardCost(reward.pointsCost),
-                          style: const TextStyle(
-                            color: AppColors.textMuted,
-                            fontSize: 12,
-                          ),
-                        ),
-                        Text('·', style: TextStyle(color: AppColors.textMuted)),
-                        Text(
-                          rewardTypeLabel(l, reward.type),
-                          style: const TextStyle(
-                            color: AppColors.textMuted,
-                            fontSize: 12,
-                          ),
-                        ),
                         ScopeBadge(isGlobal: reward.isGlobal),
                         if (!reward.isActive)
                           StatusPill(
-                            text: l.rewardInactiveBadge,
-                            color: AppColors.textMuted,
+                            label: l.rewardInactiveBadge,
+                            icon: Icons.pause_circle_outline_rounded,
                           ),
                       ],
                     ),
@@ -453,10 +378,8 @@ class _RewardCard extends StatelessWidget {
               ),
               if (canManage && !reward.isGlobal)
                 PopupMenuButton<String>(
-                  icon: const Icon(
-                    Icons.more_vert_rounded,
-                    color: AppColors.textMuted,
-                  ),
+                  tooltip: l.commonEdit,
+                  icon: Icon(Icons.more_vert_rounded, color: c.ink2),
                   onSelected: (v) => v == 'edit' ? onEdit() : onDelete(),
                   itemBuilder: (_) => [
                     PopupMenuItem(
@@ -472,28 +395,23 @@ class _RewardCard extends StatelessWidget {
             ],
           ),
           if ((reward.description ?? '').isNotEmpty) ...[
-            const SizedBox(height: 6),
+            const SizedBox(height: AppSpacing.sm),
             Text(
               reward.description!,
-              maxLines: 2,
+              maxLines: 3,
               overflow: TextOverflow.ellipsis,
-              style: const TextStyle(color: AppColors.textMuted, fontSize: 12),
+              style: context.type.bodyMedium?.copyWith(color: c.ink2),
             ),
           ],
-          const SizedBox(height: 8),
-          Row(
+          const SizedBox(height: AppSpacing.md),
+          Wrap(
+            alignment: WrapAlignment.spaceBetween,
+            crossAxisAlignment: WrapCrossAlignment.center,
+            spacing: AppSpacing.sm,
+            runSpacing: AppSpacing.sm,
             children: [
-              Expanded(
-                child: AffordabilityHint(
-                  cost: reward.pointsCost,
-                  balance: balance,
-                ),
-              ),
+              AffordabilityHint(cost: reward.pointsCost, balance: balance),
               FilledButton(
-                style: FilledButton.styleFrom(
-                  backgroundColor: AppColors.coral,
-                  visualDensity: VisualDensity.compact,
-                ),
                 onPressed: reward.isActive ? onRequest : null,
                 child: Text(l.rewardRequest),
               ),
@@ -525,20 +443,12 @@ class _RedemptionsSection extends ConsumerWidget {
     return async.when(
       skipLoadingOnReload: true,
       loading: () => const Padding(
-        padding: EdgeInsets.all(28),
-        child: Center(child: CircularProgressIndicator(color: AppColors.coral)),
+        padding: EdgeInsets.all(AppSpacing.xxl),
+        child: Center(child: CircularProgressIndicator()),
       ),
       error: (e, _) => ErrorRetryView(error: e, onRetry: notifier.refresh),
       data: (state) => state.isEmpty
-          ? Padding(
-              padding: const EdgeInsets.symmetric(vertical: 30),
-              child: Center(
-                child: Text(
-                  l.rewardsHistoryEmpty,
-                  style: const TextStyle(color: AppColors.textMuted),
-                ),
-              ),
-            )
+          ? EmptyView(emoji: '🧾', message: l.rewardsHistoryEmpty)
           : Column(
               children: [
                 for (final r in state.redemptions)
@@ -567,11 +477,9 @@ class _RedemptionsSection extends ConsumerWidget {
                   ),
                 if (state.hasMore)
                   Padding(
-                    padding: const EdgeInsets.only(top: 4),
+                    padding: const EdgeInsets.only(top: AppSpacing.xs),
                     child: state.loadingMore
-                        ? const CircularProgressIndicator(
-                            color: AppColors.coral,
-                          )
+                        ? const CircularProgressIndicator()
                         : OutlinedButton(
                             onPressed: notifier.loadMore,
                             child: Text(l.rewardsLoadMore),
@@ -634,149 +542,92 @@ class _RedemptionCard extends StatelessWidget {
     final showApproveReject = canReview && r.canApproveOrReject;
     final showCancel = canReview && r.canCancel;
 
-    return Container(
-      margin: const EdgeInsets.only(bottom: 10),
-      padding: const EdgeInsets.all(14),
-      decoration: BoxDecoration(
-        color: Colors.white,
-        borderRadius: BorderRadius.circular(18),
-      ),
+    final c = context.mamily;
+    final meta = [
+      '${l.redemptionCostLabel(r.pointsCost)} · ${rewardTypeLabel(l, r.rewardType)}',
+      if (r.createdAt != null) formatRewardDate(context, r.createdAt!),
+    ].join('\n');
+    return AppCard(
+      margin: const EdgeInsets.only(bottom: AppSpacing.sm),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Row(
+            crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Icon(
-                rewardTypeIcon(r.rewardType),
-                size: 18,
-                color: AppColors.textMuted,
+              IconBadge(
+                icon: rewardTypeIcon(r.rewardType),
+                tone: AppTone.warning,
+                size: 40,
               ),
-              const SizedBox(width: 8),
+              const SizedBox(width: AppSpacing.md),
               Expanded(
-                child: Text(
-                  r.rewardTitle,
-                  maxLines: 1,
-                  overflow: TextOverflow.ellipsis,
-                  style: const TextStyle(
-                    color: AppColors.navy,
-                    fontWeight: FontWeight.bold,
-                    fontSize: 13,
-                  ),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text(
+                      r.rewardTitle,
+                      maxLines: 2,
+                      overflow: TextOverflow.ellipsis,
+                      style: context.type.titleSmall,
+                    ),
+                    Text(
+                      meta,
+                      style: context.type.bodySmall?.copyWith(color: c.ink2),
+                    ),
+                  ],
                 ),
               ),
+              const SizedBox(width: AppSpacing.sm),
               StatusPill(
-                text: redemptionStatusLabel(l, r.status),
-                color: redemptionStatusColor(r.status),
+                label: redemptionStatusLabel(l, r.status),
+                tone: redemptionStatusTone(r.status),
+                icon: redemptionStatusIcon(r.status),
               ),
             ],
           ),
-          const SizedBox(height: 2),
-          Text(
-            '${l.redemptionCostLabel(r.pointsCost)} · ${rewardTypeLabel(l, r.rewardType)}',
-            style: const TextStyle(color: AppColors.textMuted, fontSize: 12),
-          ),
           if ((r.reviewNote ?? '').isNotEmpty) ...[
-            const SizedBox(height: 4),
+            const SizedBox(height: AppSpacing.sm),
             Text(
               r.reviewNote!,
-              style: const TextStyle(color: AppColors.textMuted, fontSize: 12),
-            ),
-          ],
-          if (r.createdAt != null) ...[
-            const SizedBox(height: 2),
-            Text(
-              formatRewardDate(context, r.createdAt!),
-              style: const TextStyle(color: AppColors.textMuted, fontSize: 11),
+              style: context.type.bodyMedium?.copyWith(color: c.ink2),
             ),
           ],
           if (r.screenTimeOverride != null)
             ScreenTimeOverrideCard(data: r.screenTimeOverride!),
           if (busy)
             const Padding(
-              padding: EdgeInsets.only(top: 8),
-              child: SizedBox(
-                height: 18,
-                width: 18,
-                child: CircularProgressIndicator(
-                  strokeWidth: 2,
-                  color: AppColors.coral,
-                ),
+              padding: EdgeInsets.only(top: AppSpacing.sm),
+              child: SizedBox.square(
+                dimension: 20,
+                child: CircularProgressIndicator(strokeWidth: 2),
               ),
             )
           else if (showApproveReject || showCancel) ...[
-            const SizedBox(height: 8),
+            const SizedBox(height: AppSpacing.md),
             Wrap(
-              spacing: 8,
+              spacing: AppSpacing.sm,
+              runSpacing: AppSpacing.sm,
               children: [
                 if (showApproveReject)
-                  FilledButton(
-                    style: FilledButton.styleFrom(
-                      backgroundColor: const Color(0xFF57C77A),
-                      visualDensity: VisualDensity.compact,
-                    ),
+                  FilledButton.icon(
                     onPressed: onApprove,
-                    child: Text(l.redemptionApprove),
+                    icon: const Icon(Icons.check_rounded),
+                    label: Text(l.redemptionApprove),
                   ),
                 if (showApproveReject)
                   OutlinedButton(
-                    style: OutlinedButton.styleFrom(
-                      foregroundColor: AppColors.coral,
-                      visualDensity: VisualDensity.compact,
-                    ),
                     onPressed: onReject,
                     child: Text(l.redemptionReject),
                   ),
                 if (showCancel)
-                  OutlinedButton(
-                    style: OutlinedButton.styleFrom(
-                      foregroundColor: AppColors.textMuted,
-                      visualDensity: VisualDensity.compact,
-                    ),
+                  TextButton(
                     onPressed: onCancel,
                     child: Text(l.redemptionCancel),
                   ),
               ],
             ),
           ],
-        ],
-      ),
-    );
-  }
-}
-
-class _PermissionBanner extends StatelessWidget {
-  const _PermissionBanner({required this.onRetry});
-  final VoidCallback onRetry;
-
-  @override
-  Widget build(BuildContext context) {
-    final l = context.l10n;
-    return Container(
-      margin: const EdgeInsets.only(bottom: 14),
-      padding: const EdgeInsets.all(12),
-      decoration: BoxDecoration(
-        color: const Color(0xFFFFF3E0),
-        borderRadius: BorderRadius.circular(14),
-      ),
-      child: Row(
-        children: [
-          const Icon(
-            Icons.info_outline_rounded,
-            color: AppColors.amber,
-            size: 20,
-          ),
-          const SizedBox(width: 10),
-          Expanded(
-            child: Text(
-              l.permLoadFailed,
-              style: const TextStyle(
-                color: AppColors.navy,
-                fontSize: 12,
-                height: 1.4,
-              ),
-            ),
-          ),
-          TextButton(onPressed: onRetry, child: Text(l.commonRetry)),
         ],
       ),
     );
