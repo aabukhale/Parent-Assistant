@@ -3,7 +3,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import '../../../core/errors/api_exception.dart';
 import '../../../core/localization/l10n.dart';
-import '../../../core/theme/app_colors.dart';
+import '../../../core/design_system.dart';
 import '../../../widgets/app_text_field.dart';
 import '../../../widgets/primary_button.dart';
 import '../../auth/presentation/auth_form_widgets.dart';
@@ -181,11 +181,15 @@ class _LearningGoalFormScreenState
   Widget build(BuildContext context) {
     final l = context.l10n;
     return Scaffold(
-      backgroundColor: AppColors.background,
       appBar: AppBar(title: Text(widget.isEdit ? l.lgEditTitle : l.lgNewTitle)),
-      body: SafeArea(
+      body: AppContentFrame(
         child: SingleChildScrollView(
-          padding: const EdgeInsets.all(22),
+          padding: const EdgeInsets.fromLTRB(
+            AppSpacing.xl,
+            AppSpacing.sm,
+            AppSpacing.xl,
+            AppSpacing.xxxl,
+          ),
           child: Form(
             key: _formKey,
             child: Column(
@@ -203,16 +207,14 @@ class _LearningGoalFormScreenState
                       : null,
                 ),
                 AuthFieldError(messages: _fieldErrors['title']),
-                const SizedBox(height: 16),
+                const SizedBox(height: AppSpacing.lg),
                 AppTextField(
                   label: l.lgFieldDescription,
                   controller: _description,
                   prefixIcon: Icons.notes_rounded,
                 ),
                 AuthFieldError(messages: _fieldErrors['description']),
-                const SizedBox(height: 18),
-                _Label(l.lgFieldMetric),
-                const SizedBox(height: 8),
+                FormSectionLabel(l.lgFieldMetric),
                 _MetricPicker(
                   value: _metric,
                   locked: widget.isEdit,
@@ -223,15 +225,14 @@ class _LearningGoalFormScreenState
                     padding: const EdgeInsets.only(top: 6),
                     child: Text(
                       l.lgMetricLocked,
-                      style: const TextStyle(
-                        color: AppColors.textMuted,
-                        fontSize: 11,
+                      style: context.type.bodySmall?.copyWith(
+                        color: context.mamily.ink2,
                       ),
                     ),
                   ),
                 AuthFieldError(messages: _fieldErrors['metric']),
                 if (_metric.requiresTarget) ...[
-                  const SizedBox(height: 16),
+                  const SizedBox(height: AppSpacing.lg),
                   AppTextField(
                     label: _metric == LearningGoalMetric.percent
                         ? '${l.lgFieldTarget} (%)'
@@ -245,7 +246,7 @@ class _LearningGoalFormScreenState
                   AuthFieldError(messages: _fieldErrors['target_value']),
                 ],
                 if (_metric == LearningGoalMetric.numeric) ...[
-                  const SizedBox(height: 16),
+                  const SizedBox(height: AppSpacing.lg),
                   AppTextField(
                     label: l.lgFieldUnit,
                     hint: l.lgFieldUnitHint,
@@ -253,22 +254,24 @@ class _LearningGoalFormScreenState
                   ),
                   AuthFieldError(messages: _fieldErrors['unit']),
                 ],
-                const SizedBox(height: 18),
+                const SizedBox(height: AppSpacing.lg),
                 if (!widget.isEdit) ...[
-                  _Label(l.lgFieldStartDate),
-                  const SizedBox(height: 8),
-                  _DateRow(
-                    label: formatGoalDate(context, _startDate),
+                  FormSectionLabel(l.lgFieldStartDate),
+                  PickerField(
+                    icon: Icons.event_outlined,
+                    label: l.lgFieldStartDate,
+                    value: formatGoalDate(context, _startDate),
                     onTap: () => _pickDate(isStart: true),
                   ),
                   AuthFieldError(messages: _fieldErrors['start_date']),
-                  const SizedBox(height: 16),
+                  const SizedBox(height: AppSpacing.lg),
                 ],
-                _Label(l.lgFieldTargetDate),
-                const SizedBox(height: 8),
-                _DateRow(
-                  label: _targetDate == null
-                      ? l.lgFieldTargetDate
+                FormSectionLabel(l.lgFieldTargetDate),
+                PickerField(
+                  icon: Icons.flag_outlined,
+                  label: l.lgFieldTargetDate,
+                  value: _targetDate == null
+                      ? null
                       : formatGoalDate(context, _targetDate!),
                   onClear: _targetDate == null
                       ? null
@@ -277,16 +280,14 @@ class _LearningGoalFormScreenState
                 ),
                 AuthFieldError(messages: _fieldErrors['target_date']),
                 if (widget.isEdit) ...[
-                  const SizedBox(height: 18),
-                  _Label(l.lgFieldStatus),
-                  const SizedBox(height: 8),
+                  FormSectionLabel(l.lgFieldStatus),
                   _StatusPicker(
                     value: _status,
                     onChanged: (s) => setState(() => _status = s),
                   ),
                   AuthFieldError(messages: _fieldErrors['status']),
                 ],
-                const SizedBox(height: 28),
+                const SizedBox(height: AppSpacing.xxl),
                 PrimaryButton(
                   text: l.lgSave,
                   onPressed: _submitting ? null : _submit,
@@ -294,9 +295,7 @@ class _LearningGoalFormScreenState
                 if (_submitting)
                   const Padding(
                     padding: EdgeInsets.only(top: 16),
-                    child: Center(
-                      child: CircularProgressIndicator(color: AppColors.coral),
-                    ),
+                    child: Center(child: CircularProgressIndicator()),
                   ),
               ],
             ),
@@ -305,23 +304,6 @@ class _LearningGoalFormScreenState
       ),
     );
   }
-}
-
-class _Label extends StatelessWidget {
-  const _Label(this.text);
-  final String text;
-  @override
-  Widget build(BuildContext context) => Align(
-    alignment: AlignmentDirectional.centerStart,
-    child: Text(
-      text,
-      style: const TextStyle(
-        color: AppColors.navy,
-        fontSize: 15,
-        fontWeight: FontWeight.bold,
-      ),
-    ),
-  );
 }
 
 class _MetricPicker extends StatelessWidget {
@@ -340,64 +322,17 @@ class _MetricPicker extends StatelessWidget {
     return Column(
       children: [
         for (final m in LearningGoalMetric.values)
-          Opacity(
-            opacity: locked && m != value ? 0.5 : 1,
-            child: GestureDetector(
-              onTap: locked ? null : () => onChanged(m),
-              child: Container(
-                margin: const EdgeInsets.only(bottom: 8),
-                padding: const EdgeInsets.all(14),
-                decoration: BoxDecoration(
-                  color: Colors.white,
-                  borderRadius: BorderRadius.circular(16),
-                  border: Border.all(
-                    color: value == m ? AppColors.coral : AppColors.border,
-                    width: value == m ? 2 : 1,
-                  ),
-                ),
-                child: Row(
-                  children: [
-                    Icon(
-                      value == m
-                          ? Icons.radio_button_checked_rounded
-                          : Icons.radio_button_unchecked_rounded,
-                      color: value == m ? AppColors.coral : AppColors.textMuted,
-                      size: 20,
-                    ),
-                    const SizedBox(width: 12),
-                    Expanded(
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Text(
-                            goalMetricLabel(l, m),
-                            style: const TextStyle(
-                              color: AppColors.navy,
-                              fontWeight: FontWeight.bold,
-                            ),
-                          ),
-                          const SizedBox(height: 2),
-                          Text(
-                            switch (m) {
-                              LearningGoalMetric.boolean =>
-                                l.lgMetricBooleanHelp,
-                              LearningGoalMetric.numeric =>
-                                l.lgMetricNumericHelp,
-                              LearningGoalMetric.percent =>
-                                l.lgMetricPercentHelp,
-                            },
-                            style: const TextStyle(
-                              color: AppColors.textMuted,
-                              fontSize: 12,
-                            ),
-                          ),
-                        ],
-                      ),
-                    ),
-                  ],
-                ),
-              ),
-            ),
+          RadioOptionCard<LearningGoalMetric>(
+            value: m,
+            groupValue: value,
+            enabled: !locked,
+            title: goalMetricLabel(l, m),
+            subtitle: switch (m) {
+              LearningGoalMetric.boolean => l.lgMetricBooleanHelp,
+              LearningGoalMetric.numeric => l.lgMetricNumericHelp,
+              LearningGoalMetric.percent => l.lgMetricPercentHelp,
+            },
+            onChanged: onChanged,
           ),
       ],
     );
@@ -412,58 +347,12 @@ class _StatusPicker extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final l = context.l10n;
-    return Wrap(
-      spacing: 8,
-      children: [
-        for (final s in LearningGoalStatus.editable)
-          ChoiceChip(
-            label: Text(goalStatusLabel(l, s)),
-            selected: value == s,
-            onSelected: (_) => onChanged(s),
-            selectedColor: AppColors.teal,
-          ),
-      ],
-    );
-  }
-}
-
-class _DateRow extends StatelessWidget {
-  const _DateRow({required this.label, required this.onTap, this.onClear});
-  final String label;
-  final VoidCallback onTap;
-  final VoidCallback? onClear;
-
-  @override
-  Widget build(BuildContext context) {
-    return InkWell(
-      onTap: onTap,
-      borderRadius: BorderRadius.circular(18),
-      child: Container(
-        padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 16),
-        decoration: BoxDecoration(
-          color: Colors.white,
-          borderRadius: BorderRadius.circular(18),
-          border: Border.all(color: AppColors.border),
-        ),
-        child: Row(
-          children: [
-            const Icon(Icons.event_outlined, color: Color(0xFF8E98AC)),
-            const SizedBox(width: 12),
-            Expanded(
-              child: Text(label, style: const TextStyle(color: AppColors.navy)),
-            ),
-            if (onClear != null)
-              GestureDetector(
-                onTap: onClear,
-                child: const Icon(
-                  Icons.close_rounded,
-                  size: 18,
-                  color: AppColors.textMuted,
-                ),
-              ),
-          ],
-        ),
-      ),
+    return ChoiceChipBar<LearningGoalStatus>(
+      options: {
+        for (final s in LearningGoalStatus.editable) s: goalStatusLabel(l, s),
+      },
+      selected: value,
+      onSelected: onChanged,
     );
   }
 }

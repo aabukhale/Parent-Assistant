@@ -3,7 +3,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import '../../../core/errors/api_exception.dart';
 import '../../../core/localization/l10n.dart';
-import '../../../core/theme/app_colors.dart';
+import '../../../core/design_system.dart';
 import '../../../widgets/app_text_field.dart';
 import '../../../widgets/primary_button.dart';
 import '../../auth/presentation/auth_form_widgets.dart';
@@ -18,10 +18,7 @@ Future<bool?> showRecordProgressSheet(BuildContext context, LearningGoal goal) {
   return showModalBottomSheet<bool>(
     context: context,
     isScrollControlled: true,
-    backgroundColor: AppColors.background,
-    shape: const RoundedRectangleBorder(
-      borderRadius: BorderRadius.vertical(top: Radius.circular(24)),
-    ),
+    showDragHandle: true,
     builder: (_) => Padding(
       padding: EdgeInsets.only(
         bottom: MediaQuery.of(context).viewInsets.bottom,
@@ -148,40 +145,26 @@ class _RecordProgressFormState extends ConsumerState<_RecordProgressForm> {
     final l = context.l10n;
     return SafeArea(
       child: SingleChildScrollView(
-        padding: const EdgeInsets.fromLTRB(22, 18, 22, 22),
+        padding: const EdgeInsets.fromLTRB(
+          AppSpacing.xl,
+          0,
+          AppSpacing.xl,
+          AppSpacing.xl,
+        ),
         child: Form(
           key: _formKey,
           child: Column(
             mainAxisSize: MainAxisSize.min,
             crossAxisAlignment: CrossAxisAlignment.stretch,
             children: [
-              Center(
-                child: Container(
-                  width: 40,
-                  height: 4,
-                  decoration: BoxDecoration(
-                    color: AppColors.border,
-                    borderRadius: BorderRadius.circular(2),
-                  ),
-                ),
-              ),
-              const SizedBox(height: 16),
-              Text(
-                l.lgRecordTitle,
-                style: const TextStyle(
-                  color: AppColors.navy,
-                  fontSize: 18,
-                  fontWeight: FontWeight.bold,
-                ),
-              ),
-              const SizedBox(height: 16),
+              Text(l.lgRecordTitle, style: context.type.titleMedium),
+              const SizedBox(height: AppSpacing.lg),
               if (_formError != null) AuthFormErrorBanner(message: _formError!),
               if (_metric == LearningGoalMetric.boolean)
                 SwitchListTile(
                   contentPadding: EdgeInsets.zero,
                   title: Text(l.lgProgressDone),
                   value: _booleanDone,
-                  activeThumbColor: AppColors.coral,
                   onChanged: (v) => setState(() => _booleanDone = v),
                 )
               else
@@ -200,66 +183,35 @@ class _RecordProgressFormState extends ConsumerState<_RecordProgressForm> {
                       : null,
                 ),
               AuthFieldError(messages: _fieldErrors['value']),
-              const SizedBox(height: 14),
+              const SizedBox(height: AppSpacing.md),
               AppTextField(
                 label: l.lgProgressNote,
                 controller: _note,
                 prefixIcon: Icons.notes_rounded,
               ),
               AuthFieldError(messages: _fieldErrors['note']),
-              const SizedBox(height: 14),
-              InkWell(
+              const SizedBox(height: AppSpacing.md),
+              PickerField(
+                icon: Icons.event_outlined,
+                label: l.lgProgressDate,
+                value: _recordedAt == null
+                    ? null
+                    : formatGoalDate(context, _recordedAt!),
+                onClear: _recordedAt == null
+                    ? null
+                    : () => setState(() => _recordedAt = null),
                 onTap: _pickDate,
-                borderRadius: BorderRadius.circular(18),
-                child: Container(
-                  padding: const EdgeInsets.symmetric(
-                    horizontal: 16,
-                    vertical: 15,
-                  ),
-                  decoration: BoxDecoration(
-                    color: Colors.white,
-                    borderRadius: BorderRadius.circular(18),
-                    border: Border.all(color: AppColors.border),
-                  ),
-                  child: Row(
-                    children: [
-                      const Icon(
-                        Icons.event_outlined,
-                        color: Color(0xFF8E98AC),
-                      ),
-                      const SizedBox(width: 12),
-                      Text(
-                        _recordedAt == null
-                            ? l.lgProgressDate
-                            : formatGoalDate(context, _recordedAt!),
-                        style: const TextStyle(color: AppColors.navy),
-                      ),
-                      const Spacer(),
-                      if (_recordedAt != null)
-                        GestureDetector(
-                          onTap: () => setState(() => _recordedAt = null),
-                          child: const Icon(
-                            Icons.close_rounded,
-                            size: 18,
-                            color: AppColors.textMuted,
-                          ),
-                        ),
-                    ],
-                  ),
-                ),
               ),
               AuthFieldError(messages: _fieldErrors['recorded_at']),
-              const SizedBox(height: 20),
+              const SizedBox(height: AppSpacing.xl),
               PrimaryButton(
                 text: l.lgSave,
                 onPressed: _submitting ? null : _submit,
               ),
               if (_submitting)
                 const Padding(
-                  padding: EdgeInsets.only(top: 14),
-                  child: Center(
-                    child: CircularProgressIndicator(color: AppColors.coral),
-                  ),
+                  padding: EdgeInsets.only(top: AppSpacing.md),
+                  child: Center(child: CircularProgressIndicator()),
                 ),
             ],
           ),

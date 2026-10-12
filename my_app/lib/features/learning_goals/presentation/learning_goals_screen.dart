@@ -3,8 +3,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import '../../../core/errors/api_exception.dart';
 import '../../../core/localization/l10n.dart';
-import '../../../core/theme/app_colors.dart';
-import '../../../core/widgets/state_views.dart';
+import '../../../core/design_system.dart';
 import '../../children/application/selected_child_controller.dart';
 import '../../family/application/permissions_controller.dart';
 import '../../family/data/models/family_permission.dart';
@@ -30,30 +29,32 @@ class LearningGoalsScreen extends ConsumerWidget {
     );
 
     return Scaffold(
-      backgroundColor: AppColors.background,
-      appBar: AppBar(
-        title: Text(
-          l.lgTitle,
-          style: const TextStyle(
-            color: AppColors.navy,
-            fontWeight: FontWeight.bold,
-          ),
-        ),
-      ),
+      appBar: AppBar(title: Text(l.lgTitle)),
       floatingActionButton: canManage && (state.valueOrNull?.isEmpty == false)
           ? FloatingActionButton.extended(
-              backgroundColor: AppColors.coral,
-              foregroundColor: Colors.white,
               onPressed: () => _openForm(context),
               icon: const Icon(Icons.add_rounded),
               label: Text(l.lgAddGoal),
             )
           : null,
-      body: SafeArea(
+      body: AppContentFrame(
         child: Column(
           children: [
             if (permissions.shouldSurfacePermissionError)
-              _PermissionErrorBanner(onRetry: () => refreshPermissions(ref)),
+              Padding(
+                padding: const EdgeInsets.fromLTRB(
+                  AppSpacing.lg,
+                  AppSpacing.md,
+                  AppSpacing.lg,
+                  0,
+                ),
+                child: NoticeBanner(
+                  tone: AppTone.warning,
+                  message: l.permLoadFailed,
+                  actionLabel: l.commonRetry,
+                  onAction: () => refreshPermissions(ref),
+                ),
+              ),
             Expanded(
               child: state.when(
                 skipLoadingOnReload: true,
@@ -125,38 +126,40 @@ class _List extends StatelessWidget {
     return RefreshIndicator(
       onRefresh: onRefresh,
       child: ListView(
-        padding: const EdgeInsets.fromLTRB(20, 8, 20, 100),
+        padding: const EdgeInsets.fromLTRB(
+          AppSpacing.lg,
+          AppSpacing.sm,
+          AppSpacing.lg,
+          96,
+        ),
         children: [
           if ((childName ?? '').isNotEmpty)
             Text(
               l.lgSubtitle(childName!),
-              style: const TextStyle(color: AppColors.textMuted, fontSize: 15),
+              style: context.type.bodyLarge?.copyWith(
+                color: context.mamily.ink2,
+              ),
             ),
-          const SizedBox(height: 12),
-          SingleChildScrollView(
-            scrollDirection: Axis.horizontal,
-            child: Row(
-              children: [
-                for (final f in _filters) ...[
-                  _FilterChip(value: f, current: list.statusFilter),
-                  const SizedBox(width: 8),
-                ],
-              ],
-            ),
+          const SizedBox(height: AppSpacing.md),
+          Wrap(
+            spacing: AppSpacing.sm,
+            runSpacing: AppSpacing.sm,
+            children: [
+              for (final f in _filters)
+                _FilterChip(value: f, current: list.statusFilter),
+            ],
           ),
-          const SizedBox(height: 14),
+          const SizedBox(height: AppSpacing.md),
           for (final goal in list.goals)
             Padding(
-              padding: const EdgeInsets.only(bottom: 12),
+              padding: const EdgeInsets.only(bottom: AppSpacing.sm),
               child: _GoalCard(goal: goal, onTap: () => onTap(goal)),
             ),
           if (list.hasMore)
             Padding(
-              padding: const EdgeInsets.only(top: 4),
+              padding: const EdgeInsets.only(top: AppSpacing.xs),
               child: list.loadingMore
-                  ? const Center(
-                      child: CircularProgressIndicator(color: AppColors.coral),
-                    )
+                  ? const Center(child: CircularProgressIndicator())
                   : OutlinedButton(
                       onPressed: onLoadMore,
                       child: Text(l.lgLoadMore),
@@ -183,18 +186,12 @@ class _FilterChip extends ConsumerWidget {
       'archived' => l.lgStatusArchived,
       _ => l.lgFilterAll,
     };
-    final selected = current == value;
     return ChoiceChip(
       label: Text(label),
-      selected: selected,
+      selected: current == value,
       onSelected: (_) => ref
           .read(learningGoalsControllerProvider.notifier)
           .setStatusFilter(value),
-      selectedColor: AppColors.navy,
-      labelStyle: TextStyle(
-        color: selected ? Colors.white : AppColors.navy,
-        fontSize: 12,
-      ),
     );
   }
 }
@@ -207,44 +204,33 @@ class _GoalCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final l = context.l10n;
-    return GestureDetector(
+    return AppCard(
       onTap: onTap,
-      child: Container(
-        padding: const EdgeInsets.all(16),
-        decoration: BoxDecoration(
-          color: Colors.white,
-          borderRadius: BorderRadius.circular(22),
-        ),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Row(
-              children: [
-                Expanded(
-                  child: Text(
-                    goal.title,
-                    maxLines: 2,
-                    overflow: TextOverflow.ellipsis,
-                    style: const TextStyle(
-                      color: AppColors.navy,
-                      fontSize: 16,
-                      fontWeight: FontWeight.bold,
-                    ),
-                  ),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Row(
+            children: [
+              Expanded(
+                child: Text(
+                  goal.title,
+                  maxLines: 2,
+                  overflow: TextOverflow.ellipsis,
+                  style: context.type.titleSmall,
                 ),
-                const SizedBox(width: 8),
-                GoalStatusChip(status: goal.status),
-              ],
-            ),
-            const SizedBox(height: 6),
-            Text(
-              '${goalMetricLabel(l, goal.metric)} · ${goalStandingText(l, goal)}',
-              style: const TextStyle(color: AppColors.textMuted, fontSize: 12),
-            ),
-            const SizedBox(height: 12),
-            GoalProgressBar(goal: goal),
-          ],
-        ),
+              ),
+              const SizedBox(width: AppSpacing.sm),
+              GoalStatusChip(status: goal.status),
+            ],
+          ),
+          const SizedBox(height: AppSpacing.xs),
+          Text(
+            '${goalMetricLabel(l, goal.metric)} · ${goalStandingText(l, goal)}',
+            style: context.type.bodySmall?.copyWith(color: context.mamily.ink2),
+          ),
+          const SizedBox(height: AppSpacing.md),
+          GoalProgressBar(goal: goal),
+        ],
       ),
     );
   }
@@ -263,72 +249,17 @@ class _Empty extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final l = context.l10n;
-    return RefreshIndicator(
+    return EmptyView(
+      emoji: '🎯',
+      message: l.lgEmpty,
       onRefresh: onRefresh,
-      child: ListView(
-        children: [
-          const SizedBox(height: 110),
-          const Icon(Icons.flag_outlined, size: 60, color: AppColors.textMuted),
-          const SizedBox(height: 14),
-          Text(
-            l.lgEmpty,
-            textAlign: TextAlign.center,
-            style: const TextStyle(color: AppColors.textMuted, fontSize: 15),
-          ),
-          const SizedBox(height: 18),
-          if (canManage)
-            Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 48),
-              child: FilledButton.icon(
-                style: FilledButton.styleFrom(backgroundColor: AppColors.coral),
-                onPressed: onAdd,
-                icon: const Icon(Icons.add_rounded),
-                label: Text(l.lgAddGoal),
-              ),
-            ),
-        ],
-      ),
-    );
-  }
-}
-
-/// Shown when the caregiver's effective-permissions could not be loaded — the
-/// management actions are hidden (denied by default) until it succeeds.
-class _PermissionErrorBanner extends StatelessWidget {
-  const _PermissionErrorBanner({required this.onRetry});
-  final VoidCallback onRetry;
-
-  @override
-  Widget build(BuildContext context) {
-    final l = context.l10n;
-    return Container(
-      margin: const EdgeInsets.fromLTRB(16, 12, 16, 0),
-      padding: const EdgeInsets.all(12),
-      decoration: BoxDecoration(
-        color: const Color(0xFFFFF3E0),
-        borderRadius: BorderRadius.circular(14),
-      ),
-      child: Row(
-        children: [
-          const Icon(
-            Icons.info_outline_rounded,
-            color: AppColors.amber,
-            size: 20,
-          ),
-          const SizedBox(width: 10),
-          Expanded(
-            child: Text(
-              l.permLoadFailed,
-              style: const TextStyle(
-                color: AppColors.navy,
-                fontSize: 12,
-                height: 1.4,
-              ),
-            ),
-          ),
-          TextButton(onPressed: onRetry, child: Text(l.commonRetry)),
-        ],
-      ),
+      action: canManage
+          ? FilledButton.icon(
+              onPressed: onAdd,
+              icon: const Icon(Icons.add_rounded),
+              label: Text(l.lgAddGoal),
+            )
+          : null,
     );
   }
 }

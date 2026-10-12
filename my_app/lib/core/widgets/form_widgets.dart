@@ -127,6 +127,7 @@ class RadioOptionCard<T> extends StatelessWidget {
     required this.onChanged,
     this.subtitle,
     this.leading,
+    this.enabled = true,
   });
 
   final T value;
@@ -136,6 +137,10 @@ class RadioOptionCard<T> extends StatelessWidget {
   final Widget? leading;
   final ValueChanged<T> onChanged;
 
+  /// Locked choices (e.g. fields that can't change after creation) stay
+  /// visible but dimmed and inert.
+  final bool enabled;
+
   @override
   Widget build(BuildContext context) {
     final c = context.mamily;
@@ -143,11 +148,13 @@ class RadioOptionCard<T> extends StatelessWidget {
     return Semantics(
       inMutuallyExclusiveGroup: true,
       checked: selected,
+      enabled: enabled,
       child: Padding(
         padding: const EdgeInsets.only(bottom: AppSpacing.sm),
         child: AppCard(
           tone: selected ? AppTone.accent : null,
-          onTap: () => onChanged(value),
+          color: enabled || selected ? null : c.surfaceMuted,
+          onTap: enabled ? () => onChanged(value) : null,
           padding: const EdgeInsets.symmetric(
             horizontal: AppSpacing.lg,
             vertical: AppSpacing.md,
@@ -169,7 +176,12 @@ class RadioOptionCard<T> extends StatelessWidget {
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    Text(title, style: context.type.titleSmall),
+                    Text(
+                      title,
+                      style: context.type.titleSmall?.copyWith(
+                        color: enabled || selected ? null : c.ink2,
+                      ),
+                    ),
                     if (subtitle != null)
                       Text(
                         subtitle!,
