@@ -11,10 +11,11 @@ import android.widget.RemoteViews
 import es.antonborri.home_widget.HomeWidgetProvider
 
 /**
- * Home-screen Family Pulse widget. Redrawn whenever the app calls
- * `HomeWidget.updateWidget` (on resume and after approvals) — never on a
- * timer — so it shows its age and turns "stale" rather than pretending to be
- * live. Logout writes null, which shows the signed-out state.
+ * Home-screen Family Pulse widget. New data arrives when the app calls
+ * `HomeWidget.updateWidget` (on resume and after approvals); the system's
+ * 30-minute update only re-renders the saved payload, so the widget shows its
+ * age and turns "stale" rather than pretending to be live. It never fetches.
+ * Logout writes null, which shows the signed-out state.
  */
 class FamilyPulseWidgetProvider : HomeWidgetProvider() {
 
@@ -35,8 +36,8 @@ class FamilyPulseWidgetProvider : HomeWidgetProvider() {
         views.setOnClickPendingIntent(R.id.pulse_root, openApp(context, surface != null))
 
         if (surface == null) {
-            views.setTextViewText(R.id.pulse_headline, context.getString(R.string.pulse_title))
-            views.setTextViewText(R.id.pulse_footer, context.getString(R.string.pulse_signed_out))
+            views.setTextViewText(R.id.pulse_headline, context.getString(R.string.pulse_signed_out))
+            views.setTextViewText(R.id.pulse_footer, "")
             CHILD_ROWS.forEach { views.setViewVisibility(it, View.GONE) }
             views.setViewVisibility(R.id.pulse_more, View.GONE)
             return views

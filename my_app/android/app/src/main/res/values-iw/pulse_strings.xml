@@ -18,6 +18,10 @@
     <string name="pulse_points">%d ⭐</string>
     <string name="pulse_no_contact">אין קשר לאחרונה</string>
     <string name="pulse_updated">עודכן %s</string>
+    <string name="pulse_updated_just_now">עודכן עכשיו</string>
+    <string name="pulse_preview_headline">2 בקשות מחכות לך</string>
+    <string name="pulse_preview_child_1">🦄 ילד/ה 1 · 2/3 משימות</string>
+    <string name="pulse_preview_child_2">🦁 ילד/ה 2 · 1/2 משימות · 2 לבדיקה</string>
     <string name="pulse_stale">לא עודכן לאחרונה. פתחו את Mamily לרענון.</string>
     <string name="pulse_signed_out">התחברו ל-Mamily כדי לראות את המשפחה.</string>
     <string name="overlay_channel_name">כרטיס דופק צף</string>

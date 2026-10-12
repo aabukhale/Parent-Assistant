@@ -58,6 +58,8 @@ class FamilyPulseOverlayService : Service() {
             return START_NOT_STICKY
         }
         render()
+        // Out of the way while Mamily itself is on screen.
+        card?.visibility = if (appInForeground) View.GONE else View.VISIBLE
         // Not sticky: if the system kills it, it stays off until the parent
         // opens the app again — no surprise reappearing windows.
         return START_NOT_STICKY
@@ -93,7 +95,7 @@ class FamilyPulseOverlayService : Service() {
             Notification.Builder(this)
         }
         val notification = builder
-            .setSmallIcon(R.mipmap.ic_launcher)
+            .setSmallIcon(R.drawable.ic_stat_mamily)
             .setContentTitle(getString(R.string.overlay_notification_title))
             .setContentText(getString(R.string.overlay_notification_text))
             .setOngoing(true)
@@ -166,6 +168,7 @@ class FamilyPulseOverlayService : Service() {
         windowManager?.addView(view, params)
         card = view
         render()
+        view.visibility = if (appInForeground) View.GONE else View.VISIBLE
     }
 
     private fun render() {
@@ -195,6 +198,15 @@ class FamilyPulseOverlayService : Service() {
         var running = false
             private set
 
+        @Volatile
+        private var appInForeground = false
+
+        /** Called by MainActivity on resume/pause. */
+        fun setAppInForeground(context: Context, foreground: Boolean) {
+            appInForeground = foreground
+            update(context)
+        }
+
         fun hasPermission(context: Context): Boolean = Settings.canDrawOverlays(context)
 
         fun start(context: Context): Boolean {
@@ -210,7 +222,12 @@ class FamilyPulseOverlayService : Service() {
 
         /** Re-reads the saved payload; no-op when the card is not running. */
         fun update(context: Context) {
-            if (running) context.startService(Intent(context, FamilyPulseOverlayService::class.java))
+            if (!running) return
+            // A running foreground service accepts this; guard anyway against
+            // background-start restrictions so a resume/pause never crashes.
+            runCatching {
+                context.startService(Intent(context, FamilyPulseOverlayService::class.java))
+            }
         }
 
         fun stop(context: Context) {

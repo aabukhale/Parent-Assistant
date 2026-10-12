@@ -1,12 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
-<!-- No updatePeriodMillis: the app refreshes the widget when it has new data. -->
+<!-- The app pushes new data; the 30-min system update (Android's minimum)
+     only re-renders the saved payload so the widget can turn "not updated
+     recently" on its own. It never fetches anything. -->
 <appwidget-provider xmlns:android="http://schemas.android.com/apk/res/android"
     android:description="@string/pulse_widget_description"
     android:initialLayout="@layout/family_pulse_widget"
+    android:previewLayout="@layout/family_pulse_widget_preview"
     android:minWidth="180dp"
     android:minHeight="110dp"
     android:targetCellWidth="3"
     android:targetCellHeight="2"
     android:resizeMode="horizontal|vertical"
-    android:updatePeriodMillis="0"
+    android:updatePeriodMillis="1800000"
     android:widgetCategory="home_screen" />

@@ -7,6 +7,7 @@ import '../../core/errors/api_exception.dart';
 import '../../core/localization/l10n.dart';
 import '../family_hub/application/hub_providers.dart';
 import '../family_hub/data/hub_repository.dart';
+import '../notifications/push/push_service.dart';
 import '../surfaces/surface_sync.dart';
 
 /// What the home-screen widget / Android floating card / Live Activity may
@@ -156,6 +157,10 @@ class _SurfacesSettingsScreenState extends ConsumerState<SurfacesSettingsScreen>
                       else
                         FilledButton(
                           onPressed: () async {
+                            // So its "turn off" notification can show.
+                            await ref
+                                .read(pushServiceProvider)
+                                .requestLocalNotificationPermission();
                             await sync.startOverlay();
                             await _checkOverlay();
                           },

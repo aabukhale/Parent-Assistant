@@ -16,6 +16,10 @@
     <string name="pulse_points">%d ⭐</string>
     <string name="pulse_no_contact">no recent contact</string>
     <string name="pulse_updated">Updated %s</string>
+    <string name="pulse_updated_just_now">Updated just now</string>
+    <string name="pulse_preview_headline">2 requests are waiting for you</string>
+    <string name="pulse_preview_child_1">🦄 Child 1 · 2/3 tasks</string>
+    <string name="pulse_preview_child_2">🦁 Child 2 · 1/2 tasks · 2 to review</string>
     <string name="pulse_stale">Not updated recently. Open Mamily to refresh.</string>
     <string name="pulse_signed_out">Sign in to Mamily to see your family.</string>
     <string name="overlay_channel_name">Floating Family Pulse</string>

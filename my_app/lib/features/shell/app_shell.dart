@@ -76,6 +76,9 @@ class _AppShellState extends ConsumerState<AppShell> {
   ) async {
     final s = uri.pathSegments;
     if (s.length < 2) return;
+    // A link (widget, floating card, notification) starts from the root,
+    // so repeated taps don't stack the same screen again and again.
+    nav.popUntil((r) => r.isFirst);
     // Not awaited: a nested route (hub → check-ins) must stack both screens
     // now, not open the second only after the first is popped.
     void push(Widget w) =>

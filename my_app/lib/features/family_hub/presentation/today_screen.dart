@@ -86,6 +86,15 @@ class TodayScreen extends ConsumerWidget {
                   ),
                 ),
               ),
+              // Offline: say so up front, not only under the pulse cards.
+              if (inbox.valueOrNull?.fromCache == true)
+                Padding(
+                  padding: const EdgeInsets.only(bottom: AppSpacing.md),
+                  child: FreshnessLine(
+                    fetchedAt: inbox.value!.fetchedAt,
+                    fromCache: true,
+                  ),
+                ),
               // ---- Needs you -------------------------------------------------
               inbox.when(
                 loading: () =>

@@ -37,8 +37,13 @@ data class PulseSurface(
 
     fun updatedLine(context: Context, now: Long = System.currentTimeMillis()): String {
         if (isStale(now)) return context.getString(R.string.pulse_stale)
+        // Never "in 0 minutes": server and device clocks can differ slightly.
+        val at = minOf(generatedAtMillis!!, now)
+        if (now - at < DateUtils.MINUTE_IN_MILLIS) {
+            return context.getString(R.string.pulse_updated_just_now)
+        }
         val ago = DateUtils.getRelativeTimeSpanString(
-            generatedAtMillis!!, now, DateUtils.MINUTE_IN_MILLIS,
+            at, now, DateUtils.MINUTE_IN_MILLIS,
         ).toString()
         return context.getString(R.string.pulse_updated, ago)
     }
@@ -104,7 +109,10 @@ data class PulseSurface(
                 PulseSurface(
                     pendingTotal = json.optIntOrNull("pending_total"),
                     children = children,
-                    generatedAtMillis = json.optStringOrNull("generated_at")?.let {
+                    // The device's own write time: comparable with the device
+                    // clock (the server's generated_at may be skewed).
+                    generatedAtMillis = (json.optStringOrNull("written_at")
+                        ?: json.optStringOrNull("generated_at"))?.let {
                         runCatching { Instant.parse(it).toEpochMilli() }.getOrNull()
                     },
                 )

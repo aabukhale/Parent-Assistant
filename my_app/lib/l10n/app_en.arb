@@ -1650,7 +1650,7 @@
   "surfacesWidgetHow": "Add the “Family Pulse” widget from your home screen's widget gallery.",
   "surfacesUpdatesHonest": "Widgets refresh when you open Mamily and when the system allows — they show how old their data is and never claim to be live.",
   "overlayTitle": "Floating Family Pulse (Android)",
-  "overlayBody": "A small card you can drag around, expand, and tap to open Mamily. Android needs the “Display over other apps” permission for this.",
+  "overlayBody": "A small card you can drag around and tap to open Mamily. It hides while Mamily is open. Android needs the “Display over other apps” permission for this.",
   "overlayGrant": "Open permission settings",
   "overlayStart": "Show floating card",
   "overlayStop": "Hide floating card",

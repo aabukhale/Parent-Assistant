@@ -53,6 +53,9 @@ class _KidShellState extends ConsumerState<KidShell> {
   Future<void> _openKidRoute(NavigatorState nav, Reader read, Uri uri) async {
     final s = uri.pathSegments;
     if (s.length < 2) return;
+    // A link (widget, floating card, notification) starts from the root,
+    // so repeated taps don't stack the same screen again and again.
+    nav.popUntil((r) => r.isFirst);
     final tab = read(kidTabProvider.notifier);
     switch (s[1]) {
       case 'my-day':

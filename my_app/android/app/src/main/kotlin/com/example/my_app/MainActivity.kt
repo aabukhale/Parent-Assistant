@@ -9,6 +9,16 @@ import io.flutter.plugin.common.MethodChannel
 
 class MainActivity : FlutterActivity() {
 
+    override fun onResume() {
+        super.onResume()
+        FamilyPulseOverlayService.setAppInForeground(this, true)
+    }
+
+    override fun onPause() {
+        FamilyPulseOverlayService.setAppInForeground(this, false)
+        super.onPause()
+    }
+
     override fun configureFlutterEngine(flutterEngine: FlutterEngine) {
         super.configureFlutterEngine(flutterEngine)
 

@@ -103,7 +103,7 @@ class PushService {
     try {
       await _local.initialize(
         settings: const InitializationSettings(
-          android: AndroidInitializationSettings('@mipmap/ic_launcher'),
+          android: AndroidInitializationSettings('@drawable/ic_stat_mamily'),
           iOS: DarwinInitializationSettings(
             requestAlertPermission: false,
             requestBadgePermission: false,
@@ -149,6 +149,22 @@ class PushService {
       await registerCurrentSession();
     }
     return availability.value;
+  }
+
+  /// The OS permission for notifications shown by the app itself (the
+  /// floating card's persistent "turn off" notification on Android 13+).
+  /// Works without Firebase. Returns true when allowed.
+  Future<bool> requestLocalNotificationPermission() async {
+    try {
+      final android = _local
+          .resolvePlatformSpecificImplementation<
+            AndroidFlutterLocalNotificationsPlugin
+          >();
+      if (android == null) return true;
+      return await android.requestNotificationsPermission() ?? false;
+    } catch (_) {
+      return false;
+    }
   }
 
   /// Bind this install's FCM token to whoever is signed in now.

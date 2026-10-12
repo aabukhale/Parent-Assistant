@@ -36,6 +36,12 @@
         style="@style/PulseChildRow"
         android:textColor="@color/pulse_ink_muted" />
 
+    <!-- Spacer (FrameLayout: plain View isn't allowed in RemoteViews). -->
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1" />
+
     <TextView
         android:id="@+id/pulse_footer"
         android:layout_width="match_parent"
