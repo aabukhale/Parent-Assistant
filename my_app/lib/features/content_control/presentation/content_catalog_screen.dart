@@ -127,13 +127,8 @@ class _CatalogTile extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final l = context.l10n;
-    return Container(
-      margin: const EdgeInsets.only(bottom: 10),
-      padding: const EdgeInsets.all(14),
-      decoration: BoxDecoration(
-        color: Colors.white,
-        borderRadius: BorderRadius.circular(16),
-      ),
+    return AppCard(
+      margin: const EdgeInsets.only(bottom: AppSpacing.sm),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
@@ -144,29 +139,21 @@ class _CatalogTile extends StatelessWidget {
                   item.title,
                   maxLines: 2,
                   overflow: TextOverflow.ellipsis,
-                  style: const TextStyle(
-                    color: AppColors.navy,
-                    fontWeight: FontWeight.bold,
-                    fontSize: 14,
-                  ),
+                  style: context.type.labelLarge,
                 ),
               ),
               if (decision == ContentDecision.block)
                 Text(
                   l.contentDecisionBlock,
-                  style: const TextStyle(
-                    color: AppColors.coral,
-                    fontSize: 11,
-                    fontWeight: FontWeight.bold,
+                  style: context.type.labelMedium?.copyWith(
+                    color: context.mamily.actionText,
                   ),
                 )
               else if (decision == ContentDecision.allow)
                 Text(
                   l.contentDecisionAllow,
-                  style: const TextStyle(
-                    color: Color(0xFF57C77A),
-                    fontSize: 11,
-                    fontWeight: FontWeight.bold,
+                  style: context.type.labelMedium?.copyWith(
+                    color: context.mamily.success.foreground,
                   ),
                 ),
             ],
@@ -177,7 +164,7 @@ class _CatalogTile extends StatelessWidget {
               if (item.provider != null) item.provider!.name,
               for (final c in item.categories) c.name,
             ].join(' · '),
-            style: const TextStyle(color: AppColors.textMuted, fontSize: 11),
+            style: context.type.bodySmall?.copyWith(color: context.mamily.ink2),
           ),
           if (onTapRule != null) ...[
             const SizedBox(height: AppSpacing.sm),
@@ -211,14 +198,7 @@ class _ItemRuleSheet extends StatelessWidget {
           mainAxisSize: MainAxisSize.min,
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Text(
-              item.title,
-              style: const TextStyle(
-                color: AppColors.navy,
-                fontWeight: FontWeight.bold,
-                fontSize: 15,
-              ),
-            ),
+            Text(item.title, style: context.type.titleSmall),
             const SizedBox(height: AppSpacing.md),
             _row(
               context,

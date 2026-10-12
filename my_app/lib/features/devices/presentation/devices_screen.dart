@@ -48,30 +48,10 @@ class DevicesScreen extends ConsumerWidget {
                 AppSpacing.xxxl,
               ),
               children: [
-                Container(
-                  padding: const EdgeInsets.all(12),
-                  decoration: BoxDecoration(
-                    color: const Color(0xFFEFF1F8),
-                    borderRadius: BorderRadius.circular(14),
-                  ),
-                  child: Text(
-                    l.devicesNote,
-                    style: const TextStyle(
-                      color: AppColors.textMuted,
-                      fontSize: 11,
-                      height: 1.4,
-                    ),
-                  ),
-                ),
+                NoticeBanner(tone: AppTone.info, message: l.devicesNote),
                 const SizedBox(height: AppSpacing.md),
                 if (state.isEmpty)
-                  Padding(
-                    padding: const EdgeInsets.symmetric(vertical: 20),
-                    child: Text(
-                      l.devicesEmpty,
-                      style: const TextStyle(color: AppColors.textMuted),
-                    ),
-                  )
+                  EmptyView(emoji: '📱', message: l.devicesEmpty)
                 else
                   for (final d in state.devices)
                     _DeviceTile(
@@ -81,25 +61,17 @@ class DevicesScreen extends ConsumerWidget {
                     ),
                 if (state.hasMore)
                   Padding(
-                    padding: const EdgeInsets.only(top: 4),
+                    padding: const EdgeInsets.only(top: AppSpacing.xs),
                     child: OutlinedButton(
                       onPressed: controller.loadMore,
                       child: Text(l.devicesLoadMore),
                     ),
                   ),
                 const SizedBox(height: AppSpacing.lg),
-                SizedBox(
-                  width: double.infinity,
-                  height: 50,
-                  child: ElevatedButton.icon(
-                    onPressed: () => _register(context, ref),
-                    icon: const Icon(Icons.add),
-                    label: Text(l.devicesRegisterThis),
-                    style: ElevatedButton.styleFrom(
-                      backgroundColor: AppColors.coral,
-                      foregroundColor: Colors.white,
-                    ),
-                  ),
+                FilledButton.icon(
+                  onPressed: () => _register(context, ref),
+                  icon: const Icon(Icons.add_rounded),
+                  label: Text(l.devicesRegisterThis),
                 ),
               ],
             ),
@@ -194,22 +166,18 @@ class _DeviceTile extends StatelessWidget {
       DeviceMode.familyShared => l.devicesModeFamilyShared,
       DeviceMode.unknown => '—',
     };
-    return Container(
-      margin: const EdgeInsets.only(bottom: 10),
-      padding: const EdgeInsets.all(14),
-      decoration: BoxDecoration(
-        color: Colors.white,
-        borderRadius: BorderRadius.circular(16),
-      ),
+    return AppCard(
+      margin: const EdgeInsets.only(bottom: AppSpacing.sm),
       child: Row(
         children: [
-          Icon(
-            d.platform == DevicePlatform.ios
+          IconBadge(
+            icon: d.platform == DevicePlatform.ios
                 ? Icons.phone_iphone_rounded
                 : d.platform == DevicePlatform.android
                 ? Icons.phone_android_rounded
                 : Icons.devices_rounded,
-            color: d.isActive ? AppColors.navy : AppColors.textMuted,
+            tone: d.isActive ? AppTone.info : AppTone.neutral,
+            size: 40,
           ),
           const SizedBox(width: AppSpacing.md),
           Expanded(
@@ -218,29 +186,26 @@ class _DeviceTile extends StatelessWidget {
               children: [
                 Text(
                   d.name,
-                  style: TextStyle(
-                    color: d.isActive ? AppColors.navy : AppColors.textMuted,
-                    fontWeight: FontWeight.bold,
-                    fontSize: 14,
+                  style: context.type.labelLarge?.copyWith(
+                    color: d.isActive
+                        ? context.mamily.ink
+                        : context.mamily.ink2,
                   ),
                 ),
                 Text(
                   d.isActive
                       ? modeLabel
                       : '$modeLabel · ${l.devicesRevokedTag}',
-                  style: const TextStyle(
-                    color: AppColors.textMuted,
-                    fontSize: 11,
+                  style: context.type.bodySmall?.copyWith(
+                    color: context.mamily.ink2,
                   ),
                 ),
               ],
             ),
           ),
           PopupMenuButton<String>(
-            icon: const Icon(
-              Icons.more_vert_rounded,
-              color: AppColors.textMuted,
-            ),
+            tooltip: d.name,
+            icon: Icon(Icons.more_vert_rounded, color: context.mamily.ink2),
             onSelected: (v) => v == 'remove' ? onRemove() : onRevoke(),
             itemBuilder: (_) => [
               PopupMenuItem(

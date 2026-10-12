@@ -64,14 +64,7 @@ class ContentControlScreen extends ConsumerWidget {
               const SizedBox(height: AppSpacing.xl),
               Row(
                 children: [
-                  Text(
-                    l.contentRulesTitle,
-                    style: const TextStyle(
-                      color: AppColors.navy,
-                      fontSize: 16,
-                      fontWeight: FontWeight.bold,
-                    ),
-                  ),
+                  Text(l.contentRulesTitle, style: context.type.titleSmall),
                   const Spacer(),
                   if (canManage)
                     TextButton.icon(
@@ -99,7 +92,9 @@ class ContentControlScreen extends ConsumerWidget {
                         padding: const EdgeInsets.symmetric(vertical: 16),
                         child: Text(
                           l.contentRulesEmpty,
-                          style: const TextStyle(color: AppColors.textMuted),
+                          style: context.type.bodyMedium?.copyWith(
+                            color: context.mamily.ink2,
+                          ),
                         ),
                       )
                     : Column(
@@ -123,10 +118,6 @@ class ContentControlScreen extends ConsumerWidget {
                 ),
                 icon: const Icon(Icons.grid_view_rounded),
                 label: Text(l.contentBrowseCatalog),
-                style: OutlinedButton.styleFrom(
-                  foregroundColor: AppColors.navy,
-                  minimumSize: const Size.fromHeight(46),
-                ),
               ),
             ],
           ),
@@ -175,36 +166,10 @@ class ContentControlScreen extends ConsumerWidget {
 
 class _EnforcementDisclaimer extends StatelessWidget {
   @override
-  Widget build(BuildContext context) {
-    final l = context.l10n;
-    return Container(
-      padding: const EdgeInsets.all(12),
-      decoration: BoxDecoration(
-        color: const Color(0xFFFFF3E0),
-        borderRadius: BorderRadius.circular(14),
-      ),
-      child: Row(
-        children: [
-          const Icon(
-            Icons.info_outline_rounded,
-            color: AppColors.amber,
-            size: 20,
-          ),
-          const SizedBox(width: AppSpacing.sm),
-          Expanded(
-            child: Text(
-              l.contentEnforcementNote,
-              style: const TextStyle(
-                color: AppColors.navy,
-                fontSize: 12,
-                height: 1.4,
-              ),
-            ),
-          ),
-        ],
-      ),
-    );
-  }
+  Widget build(BuildContext context) => NoticeBanner(
+    tone: AppTone.warning,
+    message: context.l10n.contentEnforcementNote,
+  );
 }
 
 class _AgeFilterTile extends ConsumerWidget {
@@ -221,10 +186,8 @@ class _AgeFilterTile extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final l = context.l10n;
-    return Material(
-      color: Colors.white,
-      borderRadius: BorderRadius.circular(18),
-      clipBehavior: Clip.antiAlias,
+    return AppCard(
+      padding: EdgeInsets.zero,
       child: SwitchListTile(
         value: enabled,
         onChanged: canManage
@@ -280,41 +243,31 @@ class _RuleTile extends StatelessWidget {
         rule.contentItemId ??
         '';
 
-    return Container(
-      margin: const EdgeInsets.only(bottom: 8),
-      padding: const EdgeInsets.all(14),
-      decoration: BoxDecoration(
-        color: Colors.white,
-        borderRadius: BorderRadius.circular(16),
-      ),
+    return AppCard(
+      margin: const EdgeInsets.only(bottom: AppSpacing.sm),
       child: Row(
         children: [
-          Icon(
-            blocked ? Icons.block_rounded : Icons.check_circle_rounded,
-            color: blocked ? AppColors.coral : const Color(0xFF57C77A),
-            size: 20,
+          IconBadge(
+            icon: blocked ? Icons.block_rounded : Icons.check_circle_rounded,
+            tone: blocked ? AppTone.danger : AppTone.success,
+            size: 40,
           ),
-          const SizedBox(width: AppSpacing.sm),
+          const SizedBox(width: AppSpacing.md),
           Expanded(
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Text(
                   '$typeLabel · ${blocked ? l.contentDecisionBlock : l.contentDecisionAllow}',
-                  style: const TextStyle(
-                    color: AppColors.navy,
-                    fontWeight: FontWeight.bold,
-                    fontSize: 13,
-                  ),
+                  style: context.type.labelLarge,
                 ),
                 if (subtitle.isNotEmpty)
                   Text(
                     subtitle,
                     maxLines: 1,
                     overflow: TextOverflow.ellipsis,
-                    style: const TextStyle(
-                      color: AppColors.textMuted,
-                      fontSize: 11,
+                    style: context.type.bodySmall?.copyWith(
+                      color: context.mamily.ink2,
                     ),
                   ),
               ],
@@ -322,10 +275,10 @@ class _RuleTile extends StatelessWidget {
           ),
           if (canManage)
             IconButton(
-              icon: const Icon(
+              tooltip: l.commonDelete,
+              icon: Icon(
                 Icons.delete_outline_rounded,
-                color: AppColors.textMuted,
-                size: 20,
+                color: context.mamily.ink2,
               ),
               onPressed: onDelete,
             ),
@@ -370,14 +323,7 @@ class _ChannelRuleSheetState extends State<_ChannelRuleSheet> {
         mainAxisSize: MainAxisSize.min,
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Text(
-            l.contentAddChannel,
-            style: const TextStyle(
-              color: AppColors.navy,
-              fontSize: 17,
-              fontWeight: FontWeight.bold,
-            ),
-          ),
+          Text(l.contentAddChannel, style: context.type.titleSmall),
           const SizedBox(height: AppSpacing.md),
           TextField(
             controller: _provider,
@@ -422,15 +368,7 @@ class _ChannelRuleSheetState extends State<_ChannelRuleSheet> {
           const SizedBox(height: AppSpacing.lg),
           SizedBox(
             width: double.infinity,
-            height: 48,
-            child: ElevatedButton(
-              onPressed: _submit,
-              style: ElevatedButton.styleFrom(
-                backgroundColor: AppColors.coral,
-                foregroundColor: Colors.white,
-              ),
-              child: Text(l.commonSave),
-            ),
+            child: FilledButton(onPressed: _submit, child: Text(l.commonSave)),
           ),
         ],
       ),
