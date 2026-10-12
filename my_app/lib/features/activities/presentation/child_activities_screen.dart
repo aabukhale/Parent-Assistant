@@ -205,13 +205,8 @@ class _AssignmentCard extends StatelessWidget {
     final a = assignment;
     final last = a.latestCompletion;
 
-    return Container(
-      margin: const EdgeInsets.only(bottom: 10),
-      padding: const EdgeInsets.all(16),
-      decoration: BoxDecoration(
-        color: Colors.white,
-        borderRadius: BorderRadius.circular(18),
-      ),
+    return AppCard(
+      margin: const EdgeInsets.only(bottom: AppSpacing.sm),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
@@ -220,18 +215,14 @@ class _AssignmentCard extends StatelessWidget {
               Expanded(
                 child: Text(
                   a.activity?.title ?? l.activitiesTitle,
-                  maxLines: 1,
+                  maxLines: 2,
                   overflow: TextOverflow.ellipsis,
-                  style: const TextStyle(
-                    color: AppColors.navy,
-                    fontWeight: FontWeight.bold,
-                    fontSize: 14,
-                  ),
+                  style: context.type.titleSmall,
                 ),
               ),
               ActivityPill(
                 text: assignmentStatusLabel(l, a.status),
-                color: assignmentStatusColor(a.status),
+                tone: assignmentStatusTone(a.status),
               ),
             ],
           ),
@@ -240,59 +231,51 @@ class _AssignmentCard extends StatelessWidget {
             a.pointsReward > 0
                 ? l.activityRewardPoints(a.pointsReward)
                 : l.activityNoPoints,
-            style: const TextStyle(color: AppColors.textMuted, fontSize: 12),
+            style: context.type.bodySmall?.copyWith(color: context.mamily.ink2),
           ),
           if (a.dueDate != null)
             Text(
               l.activityDueOn(
                 '${a.dueDate!.year}-${a.dueDate!.month.toString().padLeft(2, '0')}-${a.dueDate!.day.toString().padLeft(2, '0')}',
               ),
-              style: const TextStyle(color: AppColors.textMuted, fontSize: 11),
+              style: context.type.bodySmall?.copyWith(
+                color: context.mamily.ink2,
+              ),
             ),
           if (last != null) ...[
             const SizedBox(height: AppSpacing.xs),
-            Row(
+            Wrap(
+              spacing: AppSpacing.sm,
+              runSpacing: AppSpacing.xs,
+              crossAxisAlignment: WrapCrossAlignment.center,
               children: [
-                Text(
-                  completionStatusLabel(l, last.status),
-                  style: TextStyle(
-                    color: switch (last.status) {
-                      CompletionStatus.approved => const Color(0xFF57C77A),
-                      CompletionStatus.rejected => AppColors.coral,
-                      CompletionStatus.pending => AppColors.amber,
-                    },
-                    fontSize: 12,
-                    fontWeight: FontWeight.bold,
-                  ),
+                StatusPill(
+                  label: completionStatusLabel(l, last.status),
+                  tone: switch (last.status) {
+                    CompletionStatus.approved => AppTone.success,
+                    CompletionStatus.rejected => AppTone.danger,
+                    CompletionStatus.pending => AppTone.warning,
+                  },
                 ),
-                if (last.isReversed) ...[
-                  const SizedBox(width: AppSpacing.sm),
-                  Text(
-                    l.completionReversedBadge,
-                    style: const TextStyle(
-                      color: AppColors.textMuted,
-                      fontSize: 11,
-                    ),
+                if (last.isReversed)
+                  StatusPill(
+                    label: l.completionReversedBadge,
+                    icon: Icons.undo_rounded,
                   ),
-                ],
-                if (last.pointsAwarded != null && last.pointsAwarded! > 0) ...[
-                  const SizedBox(width: AppSpacing.sm),
+                if (last.pointsAwarded != null && last.pointsAwarded! > 0)
                   Text(
                     l.activityAwarded(last.pointsAwarded!),
-                    style: const TextStyle(
-                      color: AppColors.textMuted,
-                      fontSize: 11,
+                    style: context.type.bodySmall?.copyWith(
+                      color: context.mamily.ink2,
                     ),
                   ),
-                ],
               ],
             ),
             if ((last.reviewNote ?? '').isNotEmpty)
               Text(
                 last.reviewNote!,
-                style: const TextStyle(
-                  color: AppColors.textMuted,
-                  fontSize: 11,
+                style: context.type.bodySmall?.copyWith(
+                  color: context.mamily.ink2,
                 ),
               ),
           ],
@@ -307,42 +290,26 @@ class _AssignmentCard extends StatelessWidget {
             )
           else
             Wrap(
-              spacing: 8,
-              runSpacing: 4,
+              spacing: AppSpacing.sm,
+              runSpacing: AppSpacing.sm,
               children: [
                 if (a.canComplete)
                   FilledButton(
-                    style: FilledButton.styleFrom(
-                      backgroundColor: AppColors.coral,
-                      visualDensity: VisualDensity.compact,
-                    ),
                     onPressed: onComplete,
                     child: Text(l.activityMarkDone),
                   ),
                 if (last != null && last.canApproveOrReject && canReview) ...[
                   FilledButton(
-                    style: FilledButton.styleFrom(
-                      backgroundColor: const Color(0xFF57C77A),
-                      visualDensity: VisualDensity.compact,
-                    ),
                     onPressed: () => onApprove(last.id),
                     child: Text(l.redemptionApprove),
                   ),
                   OutlinedButton(
-                    style: OutlinedButton.styleFrom(
-                      foregroundColor: AppColors.coral,
-                      visualDensity: VisualDensity.compact,
-                    ),
                     onPressed: () => onReject(last.id),
                     child: Text(l.redemptionReject),
                   ),
                 ],
                 if (last != null && last.canReverse && canReverse)
-                  OutlinedButton(
-                    style: OutlinedButton.styleFrom(
-                      foregroundColor: AppColors.textMuted,
-                      visualDensity: VisualDensity.compact,
-                    ),
+                  TextButton(
                     onPressed: () => onReverse(last.id),
                     child: Text(l.completionReverse),
                   ),
@@ -350,11 +317,7 @@ class _AssignmentCard extends StatelessWidget {
             ),
           Text(
             l.activityOnBehalfNote,
-            style: const TextStyle(
-              color: AppColors.textMuted,
-              fontSize: 10,
-              height: 1.3,
-            ),
+            style: context.type.bodySmall?.copyWith(color: context.mamily.ink2),
           ),
         ],
       ),

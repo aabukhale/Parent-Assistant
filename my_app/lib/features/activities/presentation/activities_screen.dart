@@ -38,86 +38,35 @@ class ActivitiesScreen extends ConsumerWidget {
               AppSpacing.xxxl,
             ),
             children: [
-              GestureDetector(
+              AppListTile(
+                margin: EdgeInsets.zero,
+                tone: AppTone.accent,
+                leading: const IconBadge(
+                  icon: Icons.auto_awesome_rounded,
+                  tone: AppTone.accent,
+                  size: 52,
+                ),
+                title: l.activityGenerateCta,
+                subtitle: l.activityGenerateCtaSub,
+                subtitleMaxLines: 3,
                 onTap: () => Navigator.of(context).push(
                   MaterialPageRoute(
                     builder: (_) => const GenerateActivityScreen(),
                   ),
                 ),
-                child: Container(
-                  width: double.infinity,
-                  padding: const EdgeInsets.all(20),
-                  decoration: BoxDecoration(
-                    color: AppColors.navy,
-                    borderRadius: BorderRadius.circular(24),
-                  ),
-                  child: Row(
-                    children: [
-                      const Icon(
-                        Icons.auto_awesome_rounded,
-                        color: AppColors.teal,
-                        size: 34,
-                      ),
-                      const SizedBox(width: AppSpacing.md),
-                      Expanded(
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            Text(
-                              l.activityGenerateCta,
-                              style: const TextStyle(
-                                color: Colors.white,
-                                fontSize: 15,
-                                fontWeight: FontWeight.bold,
-                              ),
-                            ),
-                            const SizedBox(height: AppSpacing.xs),
-                            Text(
-                              l.activityGenerateCtaSub,
-                              style: const TextStyle(
-                                color: Color(0xFFD8DDEC),
-                                fontSize: 11,
-                              ),
-                            ),
-                          ],
-                        ),
-                      ),
-                      const Icon(
-                        Icons.chevron_right_rounded,
-                        color: Colors.white,
-                      ),
-                    ],
-                  ),
-                ),
               ),
               const SizedBox(height: AppSpacing.xl),
-              Text(
-                l.activitiesCatalogTitle,
-                style: const TextStyle(
-                  color: AppColors.navy,
-                  fontSize: 18,
-                  fontWeight: FontWeight.bold,
-                ),
-              ),
-              const SizedBox(height: AppSpacing.md),
+              SectionHeader(title: l.activitiesCatalogTitle),
               async.when(
                 skipLoadingOnReload: true,
                 loading: () => const Padding(
-                  padding: EdgeInsets.all(28),
+                  padding: EdgeInsets.all(AppSpacing.xxl),
                   child: Center(child: CircularProgressIndicator()),
                 ),
                 error: (e, _) =>
                     ErrorRetryView(error: e, onRetry: controller.refresh),
                 data: (state) => state.isEmpty
-                    ? Padding(
-                        padding: const EdgeInsets.symmetric(vertical: 28),
-                        child: Center(
-                          child: Text(
-                            l.activitiesCatalogEmpty,
-                            style: const TextStyle(color: AppColors.textMuted),
-                          ),
-                        ),
-                      )
+                    ? EmptyView(emoji: '🧩', message: l.activitiesCatalogEmpty)
                     : Column(
                         children: [
                           for (final activity in state.activities)
@@ -174,82 +123,62 @@ class _ActivityCard extends StatelessWidget {
   Widget build(BuildContext context) {
     final l = context.l10n;
     final age = activityAgeLabel(l, activity);
-    return GestureDetector(
+    return AppCard(
       onTap: onTap,
-      child: Container(
-        margin: const EdgeInsets.only(bottom: 10),
-        padding: const EdgeInsets.all(16),
-        decoration: BoxDecoration(
-          color: Colors.white,
-          borderRadius: BorderRadius.circular(20),
-        ),
-        child: Row(
-          children: [
-            Container(
-              width: 52,
-              height: 52,
-              decoration: BoxDecoration(
-                color: AppColors.teal.withValues(alpha: 0.15),
-                borderRadius: BorderRadius.circular(16),
-              ),
-              child: Icon(
-                activitySourceIcon(activity.source),
-                color: AppColors.teal,
-              ),
-            ),
-            const SizedBox(width: AppSpacing.md),
-            Expanded(
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Text(
-                    activity.title,
-                    maxLines: 1,
-                    overflow: TextOverflow.ellipsis,
-                    style: const TextStyle(
-                      color: AppColors.navy,
-                      fontWeight: FontWeight.bold,
-                      fontSize: 15,
+      margin: const EdgeInsets.only(bottom: AppSpacing.sm),
+      child: Row(
+        children: [
+          IconBadge(
+            icon: activitySourceIcon(activity.source),
+            tone: AppTone.accent,
+            size: 52,
+          ),
+          const SizedBox(width: AppSpacing.md),
+          Expanded(
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text(
+                  activity.title,
+                  maxLines: 1,
+                  overflow: TextOverflow.ellipsis,
+                  style: context.type.titleSmall,
+                ),
+                const SizedBox(height: AppSpacing.xs),
+                Wrap(
+                  spacing: 6,
+                  runSpacing: 4,
+                  crossAxisAlignment: WrapCrossAlignment.center,
+                  children: [
+                    ActivityPill(
+                      text: activitySourceLabel(l, activity.source),
+                      icon: activitySourceIcon(activity.source),
                     ),
-                  ),
-                  const SizedBox(height: AppSpacing.xs),
-                  Wrap(
-                    spacing: 6,
-                    runSpacing: 4,
-                    crossAxisAlignment: WrapCrossAlignment.center,
-                    children: [
-                      ActivityPill(
-                        text: activitySourceLabel(l, activity.source),
-                        color: const Color(0xFF7C89B8),
+                    if (activity.durationMinutes != null)
+                      Text(
+                        l.activityDurationMin(activity.durationMinutes!),
+                        style: context.type.bodySmall?.copyWith(
+                          color: context.mamily.ink2,
+                        ),
                       ),
-                      if (activity.durationMinutes != null)
-                        Text(
-                          l.activityDurationMin(activity.durationMinutes!),
-                          style: const TextStyle(
-                            color: AppColors.textMuted,
-                            fontSize: 11,
-                          ),
+                    if (age != null)
+                      Text(
+                        age,
+                        style: context.type.bodySmall?.copyWith(
+                          color: context.mamily.ink2,
                         ),
-                      if (age != null)
-                        Text(
-                          age,
-                          style: const TextStyle(
-                            color: AppColors.textMuted,
-                            fontSize: 11,
-                          ),
-                        ),
-                    ],
-                  ),
-                ],
-              ),
+                      ),
+                  ],
+                ),
+              ],
             ),
-            const Icon(
-              Icons.chevron_right_rounded,
-              size: 18,
-              color: Color(0xFF9AA3B5),
-            ),
-          ],
-        ),
+          ),
+          Icon(
+            Icons.chevron_right_rounded,
+            size: 18,
+            color: context.mamily.ink3,
+          ),
+        ],
       ),
     );
   }

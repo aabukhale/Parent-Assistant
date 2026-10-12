@@ -72,38 +72,34 @@ class _Body extends ConsumerWidget {
         AppSpacing.xxxl,
       ),
       children: [
-        Row(
+        Wrap(
+          spacing: AppSpacing.sm,
+          runSpacing: AppSpacing.xs,
+          crossAxisAlignment: WrapCrossAlignment.center,
           children: [
             ActivityPill(
               text: activitySourceLabel(l, activity.source),
-              color: const Color(0xFF7C89B8),
+              icon: activitySourceIcon(activity.source),
             ),
-            const SizedBox(width: AppSpacing.sm),
             if (activity.durationMinutes != null)
               Text(
                 l.activityDurationMin(activity.durationMinutes!),
-                style: const TextStyle(
-                  color: AppColors.textMuted,
-                  fontSize: 12,
+                style: context.type.bodySmall?.copyWith(
+                  color: context.mamily.ink2,
                 ),
               ),
-            const Spacer(),
             if (age != null)
               Text(
                 age,
-                style: const TextStyle(
-                  color: AppColors.textMuted,
-                  fontSize: 12,
+                style: context.type.bodySmall?.copyWith(
+                  color: context.mamily.ink2,
                 ),
               ),
           ],
         ),
         const SizedBox(height: AppSpacing.md),
         if ((activity.description ?? '').isNotEmpty)
-          Text(
-            activity.description!,
-            style: const TextStyle(color: AppColors.navy, height: 1.6),
-          ),
+          Text(activity.description!, style: context.type.bodyMedium),
         if (activity.materials.isNotEmpty) ...[
           const SizedBox(height: AppSpacing.xl),
           _ListSection(title: l.activityMaterials, items: activity.materials),
@@ -116,33 +112,22 @@ class _Body extends ConsumerWidget {
             numbered: true,
           ),
         ],
-        const SizedBox(height: 26),
+        const SizedBox(height: AppSpacing.xxl),
         if (childId == null)
           Text(
             l.activityAssignNeedsChild,
-            style: const TextStyle(color: AppColors.textMuted, fontSize: 12),
+            style: context.type.bodySmall?.copyWith(color: context.mamily.ink2),
           )
         else if (!canManage)
           Text(
             l.activityAssignNoPermission,
-            style: const TextStyle(color: AppColors.textMuted, fontSize: 12),
+            style: context.type.bodySmall?.copyWith(color: context.mamily.ink2),
           )
         else
-          SizedBox(
-            width: double.infinity,
-            height: 52,
-            child: ElevatedButton.icon(
-              onPressed: () => _assign(context, ref),
-              icon: const Icon(Icons.add_task_rounded),
-              label: Text(l.activityAssignAction),
-              style: ElevatedButton.styleFrom(
-                backgroundColor: AppColors.coral,
-                foregroundColor: Colors.white,
-                shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(24),
-                ),
-              ),
-            ),
+          FilledButton.icon(
+            onPressed: () => _assign(context, ref),
+            icon: const Icon(Icons.add_task_rounded),
+            label: Text(l.activityAssignAction),
           ),
       ],
     );
@@ -194,23 +179,11 @@ class _ListSection extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      width: double.infinity,
-      padding: const EdgeInsets.all(18),
-      decoration: BoxDecoration(
-        color: Colors.white,
-        borderRadius: BorderRadius.circular(20),
-      ),
+    return AppCard(
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Text(
-            title,
-            style: const TextStyle(
-              color: AppColors.navy,
-              fontWeight: FontWeight.bold,
-            ),
-          ),
+          Text(title, style: context.type.titleSmall),
           const SizedBox(height: AppSpacing.sm),
           for (var i = 0; i < items.length; i++)
             Padding(
@@ -220,16 +193,12 @@ class _ListSection extends StatelessWidget {
                 children: [
                   Text(
                     numbered ? '${i + 1}. ' : '•  ',
-                    style: const TextStyle(color: AppColors.textMuted),
+                    style: context.type.bodyMedium?.copyWith(
+                      color: context.mamily.ink2,
+                    ),
                   ),
                   Expanded(
-                    child: Text(
-                      items[i],
-                      style: const TextStyle(
-                        color: AppColors.navy,
-                        height: 1.4,
-                      ),
-                    ),
+                    child: Text(items[i], style: context.type.bodyMedium),
                   ),
                 ],
               ),
@@ -279,18 +248,11 @@ class _AssignSheetState extends State<_AssignSheet> {
         mainAxisSize: MainAxisSize.min,
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Text(
-            l.activityAssignAction,
-            style: const TextStyle(
-              color: AppColors.navy,
-              fontSize: 17,
-              fontWeight: FontWeight.bold,
-            ),
-          ),
+          Text(l.activityAssignAction, style: context.type.titleSmall),
           const SizedBox(height: AppSpacing.xs),
           Text(
             widget.activityTitle,
-            style: const TextStyle(color: AppColors.textMuted, fontSize: 12),
+            style: context.type.bodySmall?.copyWith(color: context.mamily.ink2),
           ),
           const SizedBox(height: AppSpacing.lg),
           TextField(
@@ -328,22 +290,13 @@ class _AssignSheetState extends State<_AssignSheet> {
           const SizedBox(height: AppSpacing.sm),
           Text(
             l.activityAssignOnBehalfNote,
-            style: const TextStyle(
-              color: AppColors.textMuted,
-              fontSize: 11,
-              height: 1.4,
-            ),
+            style: context.type.bodySmall?.copyWith(color: context.mamily.ink2),
           ),
           const SizedBox(height: AppSpacing.md),
           SizedBox(
             width: double.infinity,
-            height: 48,
-            child: ElevatedButton(
+            child: FilledButton(
               onPressed: _submit,
-              style: ElevatedButton.styleFrom(
-                backgroundColor: AppColors.coral,
-                foregroundColor: Colors.white,
-              ),
               child: Text(l.activityAssignAction),
             ),
           ),

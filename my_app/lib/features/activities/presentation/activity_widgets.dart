@@ -25,10 +25,10 @@ String assignmentStatusLabel(AppLocalizations l, AssignmentStatus s) =>
       AssignmentStatus.cancelled => l.activityStatusCancelled,
     };
 
-Color assignmentStatusColor(AssignmentStatus s) => switch (s) {
-  AssignmentStatus.assigned => AppColors.amber,
-  AssignmentStatus.completed => const Color(0xFF57C77A),
-  AssignmentStatus.cancelled => AppColors.textMuted,
+AppTone assignmentStatusTone(AssignmentStatus s) => switch (s) {
+  AssignmentStatus.assigned => AppTone.warning,
+  AssignmentStatus.completed => AppTone.success,
+  AssignmentStatus.cancelled => AppTone.neutral,
 };
 
 String completionStatusLabel(AppLocalizations l, CompletionStatus s) =>
@@ -48,21 +48,20 @@ String? activityAgeLabel(AppLocalizations l, Activity a) {
   return l.activityAgeMax(a.maxAge!);
 }
 
+/// A labelled pill: tone + word (and the tone's default icon), never colour
+/// alone.
 class ActivityPill extends StatelessWidget {
-  const ActivityPill({super.key, required this.text, required this.color});
+  const ActivityPill({
+    super.key,
+    required this.text,
+    this.tone = AppTone.info,
+    this.icon,
+  });
   final String text;
-  final Color color;
+  final AppTone tone;
+  final IconData? icon;
 
   @override
-  Widget build(BuildContext context) => Container(
-    padding: const EdgeInsets.symmetric(horizontal: 9, vertical: 3),
-    decoration: BoxDecoration(
-      color: color.withValues(alpha: 0.15),
-      borderRadius: BorderRadius.circular(9),
-    ),
-    child: Text(
-      text,
-      style: TextStyle(color: color, fontSize: 10, fontWeight: FontWeight.bold),
-    ),
-  );
+  Widget build(BuildContext context) =>
+      StatusPill(label: text, tone: tone, icon: icon);
 }

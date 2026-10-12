@@ -47,29 +47,23 @@ class _GenerateActivityScreenState
             child: Column(
               mainAxisSize: MainAxisSize.min,
               children: [
-                const Icon(
+                Icon(
                   Icons.auto_awesome_rounded,
                   size: 60,
-                  color: AppColors.textMuted,
+                  color: context.mamily.ink2,
                 ),
                 const SizedBox(height: AppSpacing.lg),
                 Text(
                   l.activityGenerateUnavailableTitle,
                   textAlign: TextAlign.center,
-                  style: const TextStyle(
-                    color: AppColors.navy,
-                    fontSize: 18,
-                    fontWeight: FontWeight.bold,
-                  ),
+                  style: context.type.titleMedium,
                 ),
                 const SizedBox(height: AppSpacing.sm),
                 Text(
                   l.activityGenerateUnavailableBody,
                   textAlign: TextAlign.center,
-                  style: const TextStyle(
-                    color: AppColors.textMuted,
-                    fontSize: 14,
-                    height: 1.5,
+                  style: context.type.bodyMedium?.copyWith(
+                    color: context.mamily.ink2,
                   ),
                 ),
                 if (_message != null) ...[
@@ -77,9 +71,8 @@ class _GenerateActivityScreenState
                   Text(
                     _message!,
                     textAlign: TextAlign.center,
-                    style: const TextStyle(
-                      color: AppColors.coral,
-                      fontSize: 12,
+                    style: context.type.bodySmall?.copyWith(
+                      color: context.mamily.actionText,
                     ),
                   ),
                 ],
