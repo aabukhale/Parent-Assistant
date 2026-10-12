@@ -44,23 +44,23 @@ class InterestSelector extends StatelessWidget {
               e is ApiException
                   ? e.localizedMessage(l)
                   : l.childValidationInterests,
-              style: const TextStyle(color: AppColors.coral, fontSize: 13),
+              style: context.type.bodyMedium?.copyWith(
+                color: context.mamily.actionText,
+              ),
             ),
           ),
           TextButton(onPressed: onRetry, child: Text(l.commonRetry)),
         ],
       ),
       data: (list) => Wrap(
-        spacing: 8,
-        runSpacing: 8,
+        spacing: AppSpacing.sm,
+        runSpacing: AppSpacing.sm,
         children: [
           for (final interest in list)
             FilterChip(
               label: Text(interest.name),
               selected: selected.contains(interest.id),
               onSelected: (_) => onToggle(interest),
-              backgroundColor: Colors.white,
-              showCheckmark: false,
             ),
         ],
       ),

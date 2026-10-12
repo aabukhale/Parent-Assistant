@@ -69,7 +69,9 @@ class DevelopmentReportScreen extends ConsumerWidget {
           child: Text(
             l.dashReportsRestricted,
             textAlign: TextAlign.center,
-            style: const TextStyle(color: AppColors.textMuted, height: 1.6),
+            style: context.type.bodyMedium?.copyWith(
+              color: context.mamily.ink2,
+            ),
           ),
         ),
       );
@@ -97,9 +99,8 @@ class DevelopmentReportScreen extends ConsumerWidget {
               padding: const EdgeInsets.only(bottom: 10),
               child: Text(
                 l.dashReportFor(childName),
-                style: const TextStyle(
-                  color: AppColors.textMuted,
-                  fontSize: 13,
+                style: context.type.bodyMedium?.copyWith(
+                  color: context.mamily.ink2,
                 ),
               ),
             ),
@@ -166,38 +167,19 @@ class _ReportBody extends StatelessWidget {
         if (range.isNotEmpty)
           Padding(
             padding: const EdgeInsets.only(bottom: 4),
-            child: Text(
-              range,
-              style: const TextStyle(
-                color: AppColors.navy,
-                fontSize: 15,
-                fontWeight: FontWeight.bold,
-              ),
-            ),
+            child: Text(range, style: context.type.titleSmall),
           ),
         Text(
           l.dashReportTimezone(report.timezone),
-          style: const TextStyle(color: AppColors.textMuted, fontSize: 11),
+          style: context.type.bodySmall?.copyWith(color: context.mamily.ink2),
         ),
         const SizedBox(height: AppSpacing.md),
         if (!report.hasSufficientData)
-          Container(
-            width: double.infinity,
-            margin: const EdgeInsets.only(bottom: 14),
-            padding: const EdgeInsets.all(14),
-            decoration: BoxDecoration(
-              color: const Color(0xFFEFF1F8),
-              borderRadius: BorderRadius.circular(16),
-            ),
-            child: Text(
-              l.dashReportNoData,
-              style: const TextStyle(color: AppColors.textMuted, height: 1.5),
-            ),
-          ),
+          NoticeBanner(tone: AppTone.info, message: l.dashReportNoData),
         DashboardSectionCard(
           title: l.dashSectionScreenTime,
           icon: Icons.phone_android_rounded,
-          color: AppColors.coral,
+          tone: AppTone.brand,
           hasData: st.screenTime.hasData,
           child: Column(
             children: [
@@ -225,7 +207,7 @@ class _ReportBody extends StatelessWidget {
         DashboardSectionCard(
           title: l.dashSectionSleep,
           icon: Icons.bedtime_rounded,
-          color: const Color(0xFF9B8CC2),
+          tone: AppTone.sleep,
           hasData: st.sleep.hasData,
           child: Column(
             children: [
@@ -253,7 +235,7 @@ class _ReportBody extends StatelessWidget {
         DashboardSectionCard(
           title: l.dashSectionActivities,
           icon: Icons.directions_run_rounded,
-          color: AppColors.amber,
+          tone: AppTone.warning,
           hasData: st.activities.hasData,
           child: Column(
             children: [
@@ -271,7 +253,7 @@ class _ReportBody extends StatelessWidget {
         DashboardSectionCard(
           title: l.dashSectionGames,
           icon: Icons.sports_esports_rounded,
-          color: const Color(0xFF7C89B8),
+          tone: AppTone.info,
           hasData: st.games.hasData,
           child: Column(
             children: [
@@ -296,7 +278,7 @@ class _ReportBody extends StatelessWidget {
         DashboardSectionCard(
           title: l.dashSectionTasks,
           icon: Icons.checklist_rounded,
-          color: AppColors.teal,
+          tone: AppTone.accent,
           hasData: st.tasks.hasData,
           child: Column(
             children: [
@@ -314,7 +296,7 @@ class _ReportBody extends StatelessWidget {
         DashboardSectionCard(
           title: l.dashSectionPoints,
           icon: Icons.stars_rounded,
-          color: AppColors.amber,
+          tone: AppTone.warning,
           hasData: st.points.hasData,
           child: Column(
             children: [

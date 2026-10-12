@@ -3,7 +3,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import '../../core/errors/api_exception.dart';
 import '../../core/localization/l10n.dart';
-import '../../core/theme/app_colors.dart';
+import '../../core/design_system.dart';
 import '../../widgets/app_text_field.dart';
 import '../../widgets/primary_button.dart';
 import '../auth/application/auth_controller.dart';
@@ -93,29 +93,29 @@ class _EditProfileScreenState extends ConsumerState<EditProfileScreen> {
   Widget build(BuildContext context) {
     final l = context.l10n;
     return Scaffold(
-      backgroundColor: AppColors.background,
       appBar: AppBar(title: Text(l.profileEditTitle)),
-      body: SafeArea(
+      body: AppContentFrame(
         child: SingleChildScrollView(
-          padding: const EdgeInsets.all(22),
+          padding: const EdgeInsets.fromLTRB(
+            AppSpacing.xl,
+            AppSpacing.sm,
+            AppSpacing.xl,
+            AppSpacing.xxxl,
+          ),
           child: Form(
             key: _formKey,
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.stretch,
               children: [
-                const SizedBox(height: 8),
+                const SizedBox(height: AppSpacing.sm),
                 const Center(
-                  child: CircleAvatar(
-                    radius: 46,
-                    backgroundColor: AppColors.teal,
-                    child: Icon(
-                      Icons.person_rounded,
-                      size: 50,
-                      color: AppColors.navy,
-                    ),
+                  child: IconBadge(
+                    icon: Icons.person_rounded,
+                    tone: AppTone.accent,
+                    size: 88,
                   ),
                 ),
-                const SizedBox(height: 28),
+                const SizedBox(height: AppSpacing.xxl),
                 if (_formError != null)
                   AuthFormErrorBanner(message: _formError!),
                 AppTextField(
@@ -127,14 +127,14 @@ class _EditProfileScreenState extends ConsumerState<EditProfileScreen> {
                       : null,
                 ),
                 AuthFieldError(messages: _fieldErrors['first_name']),
-                const SizedBox(height: 16),
+                const SizedBox(height: AppSpacing.lg),
                 AppTextField(
                   label: l.authFieldLastName,
                   controller: _lastName,
                   prefixIcon: Icons.person_outline_rounded,
                 ),
                 AuthFieldError(messages: _fieldErrors['last_name']),
-                const SizedBox(height: 32),
+                const SizedBox(height: AppSpacing.xxxl),
                 PrimaryButton(
                   text: l.profileSaveChanges,
                   onPressed: _submitting ? null : _save,
@@ -142,9 +142,7 @@ class _EditProfileScreenState extends ConsumerState<EditProfileScreen> {
                 if (_submitting)
                   const Padding(
                     padding: EdgeInsets.only(top: 16),
-                    child: Center(
-                      child: CircularProgressIndicator(color: AppColors.coral),
-                    ),
+                    child: Center(child: CircularProgressIndicator()),
                   ),
               ],
             ),

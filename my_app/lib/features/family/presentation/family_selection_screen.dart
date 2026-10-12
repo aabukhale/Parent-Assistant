@@ -28,33 +28,24 @@ class FamilySelectionScreen extends ConsumerWidget {
         ],
       ),
       body: AppContentFrame(
-        child: ListView.separated(
-          padding: const EdgeInsets.all(20),
+        child: ListView.builder(
+          padding: const EdgeInsets.fromLTRB(
+            AppSpacing.lg,
+            AppSpacing.sm,
+            AppSpacing.lg,
+            AppSpacing.xxxl,
+          ),
           itemCount: memberships.length,
-          separatorBuilder: (_, _) => const SizedBox(height: AppSpacing.md),
           itemBuilder: (context, i) {
             final m = memberships[i];
-            return ListTile(
-              tileColor: Colors.white,
-              shape: RoundedRectangleBorder(
-                borderRadius: BorderRadius.circular(18),
-              ),
-              leading: const CircleAvatar(
-                backgroundColor: AppColors.teal,
-                child: Icon(
-                  Icons.family_restroom_rounded,
-                  color: AppColors.navy,
-                ),
-              ),
-              title: Text(
-                m.family.name,
-                style: const TextStyle(
-                  fontWeight: FontWeight.bold,
-                  color: AppColors.navy,
-                ),
-              ),
-              subtitle: Text(m.role.name),
-              trailing: const Icon(Icons.arrow_forward_ios_rounded, size: 16),
+            return AppListTile(
+              leading: const IconBadge(emoji: '🏡', tone: AppTone.accent),
+              title: m.family.name,
+              subtitle: switch (m.role) {
+                FamilyRole.owner => context.l10n.profileRoleOwner,
+                FamilyRole.parent => context.l10n.profileRoleParent,
+                FamilyRole.caregiver => context.l10n.profileRoleCaregiver,
+              },
               onTap: () => ref
                   .read(authControllerProvider.notifier)
                   .selectActiveFamily(m.id),

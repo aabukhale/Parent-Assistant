@@ -48,6 +48,7 @@ class PickerField extends StatelessWidget {
     this.value,
     this.onClear,
     this.enabled = true,
+    this.trailing,
   });
 
   final IconData icon;
@@ -60,6 +61,9 @@ class PickerField extends StatelessWidget {
   final VoidCallback? onClear;
   final bool enabled;
 
+  /// Extra read-only info at the end (e.g. "8 years old").
+  final String? trailing;
+
   @override
   Widget build(BuildContext context) {
     final c = context.mamily;
@@ -70,7 +74,7 @@ class PickerField extends StatelessWidget {
     return Semantics(
       button: true,
       enabled: enabled,
-      label: value == null ? label : '$label: $value',
+      label: [value == null ? label : '$label: $value', ?trailing].join(', '),
       excludeSemantics: true,
       child: Material(
         color: enabled ? c.surface : c.surfaceMuted,
@@ -97,6 +101,16 @@ class PickerField extends StatelessWidget {
                       ),
                     ),
                   ),
+                  if (trailing != null)
+                    Padding(
+                      padding: const EdgeInsetsDirectional.only(
+                        start: AppSpacing.sm,
+                      ),
+                      child: Text(
+                        trailing!,
+                        style: context.type.bodyMedium?.copyWith(color: c.ink2),
+                      ),
+                    ),
                   if (onClear != null && enabled)
                     IconButton(
                       tooltip: context.l10n.commonClear,

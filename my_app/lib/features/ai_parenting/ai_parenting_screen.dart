@@ -1,8 +1,7 @@
 import 'package:flutter/material.dart';
 
 import '../../core/localization/l10n.dart';
-import '../../core/theme/app_colors.dart';
-import '../../core/widgets/state_views.dart';
+import '../../core/design_system.dart';
 
 /// AI parenting coach. There is **no backend** for this — the Mamily API has no
 /// coach/chat endpoint. Anwar's original screen faked the assistant's replies
@@ -15,17 +14,8 @@ class AiParentingScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     final l = context.l10n;
     return Scaffold(
-      backgroundColor: AppColors.background,
-      appBar: AppBar(
-        title: Text(
-          l.aiCoachTitle,
-          style: const TextStyle(
-            color: AppColors.navy,
-            fontWeight: FontWeight.bold,
-          ),
-        ),
-      ),
-      body: SafeArea(
+      appBar: AppBar(title: Text(l.aiCoachTitle)),
+      body: AppContentFrame(
         child: ComingSoonView(
           icon: Icons.auto_awesome_rounded,
           title: l.aiCoachUnavailableTitle,

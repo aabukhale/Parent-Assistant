@@ -25,38 +25,39 @@ class HomeScreen extends ConsumerWidget {
     final async = ref.watch(parentDashboardProvider);
 
     return Scaffold(
+      // Opened from Discover, so it needs a way back.
+      appBar: AppBar(title: Text(l.discoverDashboard)),
       body: AppContentFrame(
         child: RefreshIndicator(
           onRefresh: () async => ref.invalidate(parentDashboardProvider),
           child: ListView(
-            padding: const EdgeInsets.all(20),
+            padding: const EdgeInsets.fromLTRB(
+              AppSpacing.lg,
+              AppSpacing.sm,
+              AppSpacing.lg,
+              AppSpacing.xxxl,
+            ),
             children: [
-              const SizedBox(height: AppSpacing.sm),
               Text(
                 l.homeGreeting(user?.firstName ?? ''),
-                style: const TextStyle(
-                  color: AppColors.textMuted,
-                  fontSize: 15,
+                style: context.type.bodyLarge?.copyWith(
+                  color: context.mamily.ink2,
                 ),
               ),
               const SizedBox(height: AppSpacing.xs),
               Text(
                 membership?.family.name ?? '',
-                style: const TextStyle(
-                  color: AppColors.navy,
-                  fontSize: 24,
-                  fontWeight: FontWeight.bold,
-                ),
+                style: context.type.headlineMedium,
               ),
               const SizedBox(height: AppSpacing.xxl),
               async.when(
                 skipLoadingOnReload: true,
                 loading: () => const Padding(
-                  padding: EdgeInsets.only(top: 60),
+                  padding: EdgeInsets.only(top: AppSpacing.xxxl),
                   child: LoadingView(),
                 ),
                 error: (e, _) => Padding(
-                  padding: const EdgeInsets.only(top: 40),
+                  padding: const EdgeInsets.only(top: AppSpacing.xxl),
                   child: ErrorRetryView(
                     error: e,
                     onRetry: () async =>
@@ -65,9 +66,9 @@ class HomeScreen extends ConsumerWidget {
                 ),
                 data: (dashboard) => dashboard.isEmpty
                     ? Padding(
-                        padding: const EdgeInsets.only(top: 40),
+                        padding: const EdgeInsets.only(top: AppSpacing.xxl),
                         child: EmptyView(
-                          icon: Icons.family_restroom_rounded,
+                          emoji: '👨‍👩‍👧',
                           message: l.homeNoChildren,
                         ),
                       )
@@ -76,9 +77,8 @@ class HomeScreen extends ConsumerWidget {
                         children: [
                           Text(
                             l.homeChildrenCount(dashboard.childrenCount),
-                            style: const TextStyle(
-                              color: AppColors.textMuted,
-                              fontSize: 13,
+                            style: context.type.bodyMedium?.copyWith(
+                              color: context.mamily.ink2,
                             ),
                           ),
                           const SizedBox(height: AppSpacing.md),
@@ -104,7 +104,7 @@ class _ChildDashboardCard extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     final l = context.l10n;
 
-    return GestureDetector(
+    return AppCard(
       onTap: () {
         ref.read(selectedChildIdProvider.notifier).select(summary.childId);
         Navigator.of(context).push(
@@ -113,106 +113,82 @@ class _ChildDashboardCard extends ConsumerWidget {
           ),
         );
       },
-      child: Container(
-        margin: const EdgeInsets.only(bottom: 14),
-        padding: const EdgeInsets.all(18),
-        decoration: BoxDecoration(
-          color: Colors.white,
-          borderRadius: BorderRadius.circular(24),
-        ),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Row(
-              children: [
-                const CircleAvatar(
-                  radius: 20,
-                  backgroundColor: Color(0xFFFFE4DF),
-                  child: Icon(
-                    Icons.face_rounded,
-                    color: AppColors.coral,
-                    size: 24,
-                  ),
-                ),
-                const SizedBox(width: AppSpacing.md),
-                Expanded(
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
+      margin: const EdgeInsets.only(bottom: AppSpacing.sm),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Row(
+            children: [
+              ChildAvatar(name: summary.name, seed: summary.childId, size: 44),
+              const SizedBox(width: AppSpacing.md),
+              Expanded(
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text(summary.name, style: context.type.titleSmall),
+                    if (summary.age != null)
                       Text(
-                        summary.name,
-                        style: const TextStyle(
-                          color: AppColors.navy,
-                          fontSize: 16,
-                          fontWeight: FontWeight.bold,
+                        l.childAgeYears(summary.age!),
+                        style: context.type.bodySmall?.copyWith(
+                          color: context.mamily.ink2,
                         ),
                       ),
-                      if (summary.age != null)
-                        Text(
-                          l.childAgeYears(summary.age!),
-                          style: const TextStyle(
-                            color: AppColors.textMuted,
-                            fontSize: 12,
-                          ),
-                        ),
-                    ],
-                  ),
+                  ],
                 ),
-                const Icon(
-                  Icons.chevron_right_rounded,
-                  color: Color(0xFF9AA3B5),
-                ),
-              ],
-            ),
-            const SizedBox(height: AppSpacing.md),
-            Wrap(
-              spacing: 10,
-              runSpacing: 10,
-              children: [
-                _MiniStat(
-                  icon: Icons.stars_rounded,
-                  label: l.dashPoints,
-                  value: '${summary.pointsBalance}',
-                  color: AppColors.amber,
-                ),
-                _MiniStat(
-                  icon: Icons.phone_android_rounded,
-                  label: l.dashScreenTimeToday,
-                  value: formatDurationMinutes(
-                    context,
-                    summary.screenTimeToday.usedMinutes,
-                  ),
-                  sub: summary.screenTimeToday.hasLimit
-                      ? l.dashScreenTimeOfLimit(
-                          formatDurationMinutes(
-                            context,
-                            summary.screenTimeToday.effectiveLimitMinutes!,
-                          ),
-                        )
-                      : l.dashScreenTimeNoLimit,
-                  color: AppColors.coral,
-                ),
-                _MiniStat(
-                  icon: Icons.bedtime_rounded,
-                  label: l.dashLastSleep,
-                  value: summary.lastSleep == null
-                      ? l.dashNone
-                      : formatDurationMinutes(
+              ),
+              Icon(Icons.chevron_right_rounded, color: context.mamily.ink3),
+            ],
+          ),
+          const SizedBox(height: AppSpacing.md),
+          Wrap(
+            spacing: AppSpacing.sm,
+            runSpacing: AppSpacing.sm,
+            children: [
+              _MiniStat(
+                icon: Icons.stars_rounded,
+                label: l.dashPoints,
+                value: '${summary.pointsBalance}',
+                tone: AppTone.warning,
+              ),
+              _MiniStat(
+                icon: Icons.phone_android_rounded,
+                label: l.dashScreenTimeToday,
+                value: summary.screenTimeToday.measured
+                    ? formatDurationMinutes(
+                        context,
+                        summary.screenTimeToday.usedMinutes,
+                      )
+                    : l.dashNotMeasured,
+                sub: summary.screenTimeToday.hasLimit
+                    ? l.dashScreenTimeOfLimit(
+                        formatDurationMinutes(
                           context,
-                          summary.lastSleep!.durationMinutes,
+                          summary.screenTimeToday.effectiveLimitMinutes!,
                         ),
-                  color: const Color(0xFF9B8CC2),
-                ),
-                _MiniStat(
-                  icon: Icons.pending_actions_rounded,
-                  label: l.dashPendingApprovals,
-                  value: '${summary.tasks.pendingApproval}',
-                  color: AppColors.teal,
-                ),
-              ],
-            ),
-          ],
-        ),
+                      )
+                    : l.dashScreenTimeNoLimit,
+                tone: AppTone.brand,
+              ),
+              _MiniStat(
+                icon: Icons.bedtime_rounded,
+                label: l.dashLastSleep,
+                value: summary.lastSleep == null
+                    ? l.dashNone
+                    : formatDurationMinutes(
+                        context,
+                        summary.lastSleep!.durationMinutes,
+                      ),
+                tone: AppTone.sleep,
+              ),
+              _MiniStat(
+                icon: Icons.pending_actions_rounded,
+                label: l.dashPendingApprovals,
+                value: '${summary.tasks.pendingApproval}',
+                tone: AppTone.accent,
+              ),
+            ],
+          ),
+        ],
       ),
     );
   }
@@ -223,7 +199,7 @@ class _MiniStat extends StatelessWidget {
     required this.icon,
     required this.label,
     required this.value,
-    required this.color,
+    required this.tone,
     this.sub,
   });
 
@@ -231,54 +207,51 @@ class _MiniStat extends StatelessWidget {
   final String label;
   final String value;
   final String? sub;
-  final Color color;
+  final AppTone tone;
 
   @override
   Widget build(BuildContext context) {
-    return Container(
+    return SizedBox(
       width: 150,
-      padding: const EdgeInsets.all(12),
-      decoration: BoxDecoration(
-        color: AppColors.background,
-        borderRadius: BorderRadius.circular(16),
-      ),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Row(
-            children: [
-              Icon(icon, color: color, size: 16),
-              const SizedBox(width: AppSpacing.xs),
-              Expanded(
-                child: Text(
-                  label,
-                  maxLines: 1,
-                  overflow: TextOverflow.ellipsis,
-                  style: const TextStyle(
-                    color: AppColors.textMuted,
-                    fontSize: 10,
+      child: AppCard(
+        color: context.mamily.surfaceMuted,
+        padding: const EdgeInsets.all(AppSpacing.md),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Row(
+              children: [
+                Icon(
+                  icon,
+                  color: context.mamily.tone(tone).foreground,
+                  size: AppSizes.iconSm,
+                ),
+                const SizedBox(width: AppSpacing.xs),
+                Expanded(
+                  child: Text(
+                    label,
+                    maxLines: 1,
+                    overflow: TextOverflow.ellipsis,
+                    style: context.type.bodySmall?.copyWith(
+                      color: context.mamily.ink2,
+                    ),
                   ),
                 ),
+              ],
+            ),
+            const SizedBox(height: AppSpacing.xs),
+            Text(value, style: context.type.titleSmall),
+            if (sub != null)
+              Text(
+                sub!,
+                maxLines: 1,
+                overflow: TextOverflow.ellipsis,
+                style: context.type.bodySmall?.copyWith(
+                  color: context.mamily.ink2,
+                ),
               ),
-            ],
-          ),
-          const SizedBox(height: AppSpacing.xs),
-          Text(
-            value,
-            style: const TextStyle(
-              color: AppColors.navy,
-              fontSize: 16,
-              fontWeight: FontWeight.bold,
-            ),
-          ),
-          if (sub != null)
-            Text(
-              sub!,
-              maxLines: 1,
-              overflow: TextOverflow.ellipsis,
-              style: const TextStyle(color: AppColors.textMuted, fontSize: 10),
-            ),
-        ],
+          ],
+        ),
       ),
     );
   }

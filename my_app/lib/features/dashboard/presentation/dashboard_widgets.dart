@@ -38,62 +38,49 @@ class DashboardStatTile extends StatelessWidget {
     required this.label,
     required this.value,
     required this.icon,
-    this.color = AppColors.teal,
+    this.tone = AppTone.accent,
     this.onTap,
   });
 
   final String label;
   final String? value;
   final IconData icon;
-  final Color color;
+  final AppTone tone;
   final VoidCallback? onTap;
 
   @override
   Widget build(BuildContext context) {
     final l = context.l10n;
-    return GestureDetector(
+    return AppCard(
       onTap: onTap,
-      child: Container(
-        padding: const EdgeInsets.all(16),
-        decoration: BoxDecoration(
-          color: Colors.white,
-          borderRadius: BorderRadius.circular(20),
-        ),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Row(
-              children: [
-                Icon(icon, color: color, size: 22),
-                const Spacer(),
-                if (onTap != null)
-                  const Icon(
-                    Icons.chevron_right_rounded,
-                    size: 16,
-                    color: Color(0xFF9AA3B5),
-                  ),
-              ],
-            ),
-            const SizedBox(height: AppSpacing.sm),
-            Text(
-              value ?? l.dashUnavailableShort,
-              maxLines: 2,
-              overflow: TextOverflow.ellipsis,
-              style: TextStyle(
-                color: value == null ? AppColors.textMuted : AppColors.navy,
-                fontSize: value == null ? 13 : 18,
-                fontWeight: FontWeight.bold,
-              ),
-            ),
-            const SizedBox(height: 2),
-            Text(
-              label,
-              maxLines: 2,
-              overflow: TextOverflow.ellipsis,
-              style: const TextStyle(color: AppColors.textMuted, fontSize: 11),
-            ),
-          ],
-        ),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Row(
+            children: [
+              IconBadge(icon: icon, tone: tone, size: 36),
+              const Spacer(),
+              if (onTap != null)
+                Icon(Icons.chevron_right_rounded, color: context.mamily.ink3),
+            ],
+          ),
+          const SizedBox(height: AppSpacing.sm),
+          Text(
+            value ?? l.dashUnavailableShort,
+            maxLines: 2,
+            overflow: TextOverflow.ellipsis,
+            style: value == null
+                ? context.type.bodyMedium?.copyWith(color: context.mamily.ink2)
+                : context.type.titleMedium,
+          ),
+          const SizedBox(height: 2),
+          Text(
+            label,
+            maxLines: 2,
+            overflow: TextOverflow.ellipsis,
+            style: context.type.bodySmall?.copyWith(color: context.mamily.ink2),
+          ),
+        ],
       ),
     );
   }
@@ -101,7 +88,11 @@ class DashboardStatTile extends StatelessWidget {
 
 /// Two-column tiles whose rows grow to fit their tallest tile.
 class DashboardTileGrid extends StatelessWidget {
-  const DashboardTileGrid({super.key, required this.tiles, this.gap = 10});
+  const DashboardTileGrid({
+    super.key,
+    required this.tiles,
+    this.gap = AppSpacing.sm,
+  });
 
   final List<Widget> tiles;
   final double gap;
@@ -141,41 +132,28 @@ class DashboardSectionCard extends StatelessWidget {
     required this.icon,
     required this.hasData,
     required this.child,
-    this.color = AppColors.navy,
+    this.tone = AppTone.neutral,
   });
 
   final String title;
   final IconData icon;
   final bool hasData;
   final Widget child;
-  final Color color;
+  final AppTone tone;
 
   @override
   Widget build(BuildContext context) {
     final l = context.l10n;
-    return Container(
-      width: double.infinity,
-      margin: const EdgeInsets.only(bottom: 12),
-      padding: const EdgeInsets.all(18),
-      decoration: BoxDecoration(
-        color: Colors.white,
-        borderRadius: BorderRadius.circular(22),
-      ),
+    return AppCard(
+      margin: const EdgeInsets.only(bottom: AppSpacing.sm),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Row(
             children: [
-              Icon(icon, color: color, size: 20),
-              const SizedBox(width: AppSpacing.sm),
-              Text(
-                title,
-                style: const TextStyle(
-                  color: AppColors.navy,
-                  fontSize: 15,
-                  fontWeight: FontWeight.bold,
-                ),
-              ),
+              IconBadge(icon: icon, tone: tone, size: 36),
+              const SizedBox(width: AppSpacing.md),
+              Expanded(child: Text(title, style: context.type.titleSmall)),
             ],
           ),
           const SizedBox(height: AppSpacing.md),
@@ -184,7 +162,9 @@ class DashboardSectionCard extends StatelessWidget {
           else
             Text(
               l.dashSectionNoData,
-              style: const TextStyle(color: AppColors.textMuted, fontSize: 13),
+              style: context.type.bodyMedium?.copyWith(
+                color: context.mamily.ink2,
+              ),
             ),
         ],
       ),
@@ -206,23 +186,18 @@ class DashboardMetricRow extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.symmetric(vertical: 3),
+      padding: const EdgeInsets.symmetric(vertical: AppSpacing.xs),
       child: Row(
         children: [
           Expanded(
             child: Text(
               label,
-              style: const TextStyle(color: AppColors.textMuted, fontSize: 13),
+              style: context.type.bodyMedium?.copyWith(
+                color: context.mamily.ink2,
+              ),
             ),
           ),
-          Text(
-            value,
-            style: const TextStyle(
-              color: AppColors.navy,
-              fontSize: 14,
-              fontWeight: FontWeight.bold,
-            ),
-          ),
+          Text(value, style: context.type.labelLarge),
         ],
       ),
     );
@@ -240,34 +215,13 @@ class DashboardNoticeBanner extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final l = context.l10n;
-    return Container(
-      margin: const EdgeInsets.only(bottom: 14),
-      padding: const EdgeInsets.all(12),
-      decoration: BoxDecoration(
-        color: const Color(0xFFFFF3E0),
-        borderRadius: BorderRadius.circular(14),
-      ),
-      child: Row(
-        children: [
-          const Icon(
-            Icons.info_outline_rounded,
-            color: AppColors.amber,
-            size: 20,
-          ),
-          const SizedBox(width: AppSpacing.sm),
-          Expanded(
-            child: Text(
-              message,
-              style: const TextStyle(
-                color: AppColors.navy,
-                fontSize: 12,
-                height: 1.4,
-              ),
-            ),
-          ),
-          if (onRetry != null)
-            TextButton(onPressed: onRetry, child: Text(l.commonRetry)),
-        ],
+    return Padding(
+      padding: const EdgeInsets.only(bottom: AppSpacing.md),
+      child: NoticeBanner(
+        tone: AppTone.warning,
+        message: message,
+        actionLabel: onRetry == null ? null : l.commonRetry,
+        onAction: onRetry,
       ),
     );
   }

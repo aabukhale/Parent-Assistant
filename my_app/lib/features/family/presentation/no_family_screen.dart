@@ -18,46 +18,31 @@ class NoFamilyScreen extends ConsumerWidget {
       body: AppContentFrame(
         child: Center(
           child: Padding(
-            padding: const EdgeInsets.all(32),
+            padding: const EdgeInsets.all(AppSpacing.xxxl),
             child: Column(
               mainAxisSize: MainAxisSize.min,
               children: [
-                const Icon(
-                  Icons.family_restroom_rounded,
-                  size: 64,
-                  color: AppColors.textMuted,
-                ),
+                const IconBadge(emoji: '🏡', tone: AppTone.accent, size: 80),
                 const SizedBox(height: AppSpacing.lg),
                 Text(
                   l.noFamilyTitle,
                   textAlign: TextAlign.center,
-                  style: TextStyle(
-                    fontSize: 18,
-                    fontWeight: FontWeight.bold,
-                    color: AppColors.navy,
-                  ),
+                  style: context.type.titleMedium,
                 ),
                 const SizedBox(height: AppSpacing.sm),
                 Text(
                   l.noFamilyBody,
                   textAlign: TextAlign.center,
-                  style: TextStyle(color: AppColors.textMuted, height: 1.5),
+                  style: context.type.bodyMedium?.copyWith(
+                    color: context.mamily.ink2,
+                  ),
                 ),
                 const SizedBox(height: AppSpacing.xl),
                 TextButton.icon(
                   onPressed: () =>
                       ref.read(authControllerProvider.notifier).logout(),
-                  icon: const Icon(
-                    Icons.logout_rounded,
-                    color: AppColors.coral,
-                  ),
-                  label: Text(
-                    l.authLogout,
-                    style: const TextStyle(
-                      color: AppColors.coral,
-                      fontWeight: FontWeight.bold,
-                    ),
-                  ),
+                  icon: const Icon(Icons.logout_rounded),
+                  label: Text(l.authLogout),
                 ),
               ],
             ),

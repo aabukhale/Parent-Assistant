@@ -6,14 +6,14 @@ Import everything from one place:
 import 'package:my_app/core/design_system.dart';
 ```
 
-Existing screens are **not** migrated yet. They keep working unchanged; screens
-adopt the system one redesign step at a time.
+Every parent and child screen uses the system. The legacy `AppColors` class
+has been removed; there is no second palette to fall back to.
 
 ## Rules
 
 | Need | Use | Never |
 |---|---|---|
-| Colour | `context.mamily.*` (`MamilyColors`) | raw hex, `AppColors` (legacy) |
+| Colour | `context.mamily.*` (`MamilyColors`) | raw hex |
 | Text style | `context.type.titleMedium` etc. | `TextStyle(fontSize: …)` |
 | Spacing | `AppSpacing.*` (4-pt grid) | ad-hoc numbers |
 | Radius | `AppRadii.small/medium/large/pill` | other radii |
@@ -22,7 +22,13 @@ adopt the system one redesign step at a time.
 | Inline message | `NoticeBanner` | private per-screen banners |
 | Number tile | `StatTile` | private per-screen stat widgets |
 | Group heading | `SectionHeader` | ad-hoc bold `Text` |
-| Page | `AppScaffold` | a bare `Scaffold` + hand-styled `AppBar` |
+| Page | themed `Scaffold`/`AppBar` + `AppContentFrame` (caps width, keeps bottom/side safe area) | hand-styled `AppBar`, ad-hoc paddings |
+| List row | `AppListTile` (+ `IconBadge` leading) | `GestureDetector` + `Container` rows |
+| Big number | `HeroMetricCard` | dark/coral hand-built hero cards |
+| Filters | `ChoiceChipBar` / themed `ChoiceChip` | per-chip colours, hidden checkmarks |
+| Form | `FormSectionLabel`, `PickerField`, `RadioOptionCard`, `ReadOnlyField` | hand-drawn date tiles and radio cards |
+| Confirm | `confirmAction` sheet | yes/no `AlertDialog`s |
+| Permission error | `PermissionNotice` | per-screen banners |
 
 ## Colour tokens (light, shipped)
 
