@@ -9,3 +9,4 @@
 "pulse.signedOut" = "התחברו ל-Mamily כדי לראות את המשפחה.";
 "routine.steps %lld %lld" = "%1$lld מתוך %2$lld צעדים";
 "routine.done" = "כל הכבוד, סיימת!";
+"pulse.separator" = " · ";

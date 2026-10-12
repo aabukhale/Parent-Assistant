@@ -79,7 +79,7 @@ data class PulseSurface(
         c.mood?.let { parts += moodEmoji(it) }
         c.points?.let { parts += context.getString(R.string.pulse_points, it) }
         if (c.contactState == "offline") parts += context.getString(R.string.pulse_no_contact)
-        return parts.joinToString(" · ")
+        return parts.joinToString(context.getString(R.string.pulse_separator))
     }
 
     companion object {

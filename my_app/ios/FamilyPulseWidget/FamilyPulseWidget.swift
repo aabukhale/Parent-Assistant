@@ -181,7 +181,8 @@ struct PulseWidgetView: View {
     if let mood = c.mood { parts.append(moodEmoji(mood)) }
     if let points = c.points { parts.append("\(points) ⭐") }
     if c.lastContactState == "offline" { parts.append(String(localized: "pulse.noContact")) }
-    return parts.joined(separator: " · ")
+    // Not "·" in Arabic: it looks like the Arabic-Indic zero.
+    return parts.joined(separator: String(localized: "pulse.separator"))
   }
 }
 

@@ -9,3 +9,4 @@
 "pulse.signedOut" = "Sign in to Mamily to see your family.";
 "routine.steps %lld %lld" = "%1$lld of %2$lld steps";
 "routine.done" = "All done!";
+"pulse.separator" = " · ";

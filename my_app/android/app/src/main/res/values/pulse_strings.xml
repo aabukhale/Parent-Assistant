@@ -20,6 +20,8 @@
     <string name="pulse_preview_headline">2 requests are waiting for you</string>
     <string name="pulse_preview_child_1">🦄 Child 1 · 2/3 tasks</string>
     <string name="pulse_preview_child_2">🦁 Child 2 · 1/2 tasks · 2 to review</string>
+    <!-- Between parts of a child line. Not "·" in Arabic: it looks like the Arabic-Indic zero. -->
+    <string name="pulse_separator">" · "</string>
     <string name="pulse_stale">Not updated recently. Open Mamily to refresh.</string>
     <string name="pulse_signed_out">Sign in to Mamily to see your family.</string>
     <string name="overlay_channel_name">Floating Family Pulse</string>

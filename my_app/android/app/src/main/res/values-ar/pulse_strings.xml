@@ -26,8 +26,10 @@
     <string name="pulse_updated">تم التحديث %s</string>
     <string name="pulse_updated_just_now">تم التحديث الآن</string>
     <string name="pulse_preview_headline">طلبان بانتظارك</string>
-    <string name="pulse_preview_child_1">🦄 الطفل 1 · 2/3 مهام</string>
-    <string name="pulse_preview_child_2">🦁 الطفل 2 · 1/2 مهام · 2 للمراجعة</string>
+    <string name="pulse_preview_child_1">🦄 الطفل 1، 2/3 مهام</string>
+    <string name="pulse_preview_child_2">🦁 الطفل 2، 1/2 مهام، 2 للمراجعة</string>
+    <!-- Between parts of a child line. Not "·" in Arabic: it looks like the Arabic-Indic zero. -->
+    <string name="pulse_separator">"، "</string>
     <string name="pulse_stale">لم يُحدَّث مؤخرًا. افتح Mamily للتحديث.</string>
     <string name="pulse_signed_out">سجّل الدخول إلى Mamily لترى عائلتك.</string>
     <string name="overlay_channel_name">بطاقة نبض العائلة العائمة</string>
