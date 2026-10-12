@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
 import '../../../core/localization/l10n.dart';
-import '../../../core/theme/app_colors.dart';
+import '../../../core/design_system.dart';
 import '../data/models/child_task.dart';
 import '../data/models/task_enums.dart';
 import 'task_widgets.dart';
@@ -103,17 +103,15 @@ class _RecurrenceFieldState extends State<RecurrenceField> {
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         _label(l.recurrenceWeekdays),
-        const SizedBox(height: 8),
+        const SizedBox(height: AppSpacing.sm),
         Wrap(
-          spacing: 6,
-          runSpacing: 6,
+          spacing: AppSpacing.xs,
+          runSpacing: AppSpacing.xs,
           children: [
             for (var d = 1; d <= 7; d++)
               FilterChip(
                 label: Text(isoWeekdayShort(context, d)),
                 selected: _daysOfWeek.contains(d),
-                showCheckmark: false,
-                selectedColor: AppColors.teal,
                 onSelected: (sel) => setState(() {
                   sel ? _daysOfWeek.add(d) : _daysOfWeek.remove(d);
                   _emit();
@@ -163,7 +161,7 @@ class _RecurrenceFieldState extends State<RecurrenceField> {
                 ),
             ],
           ),
-          const SizedBox(height: 8),
+          const SizedBox(height: AppSpacing.sm),
           OutlinedButton.icon(
             onPressed: _addDate,
             icon: const Icon(Icons.add_rounded, size: 18),
@@ -178,23 +176,17 @@ class _RecurrenceFieldState extends State<RecurrenceField> {
                   keyboardType: TextInputType.number,
                   decoration: InputDecoration(
                     labelText: l.recurrenceIntervalDays,
-                    filled: true,
-                    fillColor: Colors.white,
-                    border: OutlineInputBorder(
-                      borderRadius: BorderRadius.circular(16),
-                      borderSide: BorderSide.none,
-                    ),
                   ),
                   onChanged: (_) => _emit(),
                 ),
               ),
             ],
           ),
-          const SizedBox(height: 8),
-          _DatePickTile(
-            label: _anchor == null
-                ? l.recurrenceAnchorDate
-                : '${l.recurrenceAnchorDate}: ${formatTaskDate(context, _anchor!)}',
+          const SizedBox(height: AppSpacing.sm),
+          PickerField(
+            icon: Icons.event_outlined,
+            label: l.recurrenceAnchorDate,
+            value: _anchor == null ? null : formatTaskDate(context, _anchor!),
             onTap: _pickAnchor,
           ),
         ],
@@ -236,47 +228,5 @@ class _RecurrenceFieldState extends State<RecurrenceField> {
     }
   }
 
-  Widget _label(String text) => Text(
-    text,
-    style: const TextStyle(
-      color: AppColors.navy,
-      fontSize: 14,
-      fontWeight: FontWeight.bold,
-    ),
-  );
-}
-
-class _DatePickTile extends StatelessWidget {
-  const _DatePickTile({required this.label, required this.onTap});
-  final String label;
-  final VoidCallback onTap;
-
-  @override
-  Widget build(BuildContext context) {
-    return InkWell(
-      onTap: onTap,
-      borderRadius: BorderRadius.circular(16),
-      child: Container(
-        padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 14),
-        decoration: BoxDecoration(
-          color: Colors.white,
-          borderRadius: BorderRadius.circular(16),
-          border: Border.all(color: AppColors.border),
-        ),
-        child: Row(
-          children: [
-            const Icon(
-              Icons.event_outlined,
-              color: Color(0xFF8E98AC),
-              size: 20,
-            ),
-            const SizedBox(width: 10),
-            Expanded(
-              child: Text(label, style: const TextStyle(color: AppColors.navy)),
-            ),
-          ],
-        ),
-      ),
-    );
-  }
+  Widget _label(String text) => Text(text, style: context.type.titleSmall);
 }

@@ -2,10 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:intl/intl.dart';
 
+import '../../../core/design_system.dart';
 import '../../../core/errors/api_exception.dart';
 import '../../../core/localization/l10n.dart';
-import '../../../core/theme/app_colors.dart';
-import '../../../core/widgets/state_views.dart';
 import '../application/points_controller.dart';
 import '../data/models/point_transaction.dart';
 import 'task_widgets.dart';
@@ -22,17 +21,8 @@ class PointsHistoryScreen extends ConsumerWidget {
     final notifier = ref.read(pointsTxControllerProvider.notifier);
 
     return Scaffold(
-      backgroundColor: AppColors.background,
-      appBar: AppBar(
-        title: Text(
-          l.tasksPointsHistory,
-          style: const TextStyle(
-            color: AppColors.navy,
-            fontWeight: FontWeight.bold,
-          ),
-        ),
-      ),
-      body: SafeArea(
+      appBar: AppBar(title: Text(l.tasksPointsHistory)),
+      body: AppContentFrame(
         child: RefreshIndicator(
           onRefresh: notifier.refresh,
           child: async.when(
@@ -41,30 +31,25 @@ class PointsHistoryScreen extends ConsumerWidget {
             error: (e, _) =>
                 ErrorRetryView(error: e, onRetry: notifier.refresh),
             data: (state) => state.isEmpty
-                ? ListView(
-                    children: [
-                      const SizedBox(height: 120),
-                      Center(
-                        child: Text(
-                          l.tasksHistoryEmpty,
-                          style: const TextStyle(color: AppColors.textMuted),
-                        ),
-                      ),
-                    ],
+                ? EmptyView(
+                    emoji: '🧾',
+                    message: l.tasksHistoryEmpty,
+                    onRefresh: notifier.refresh,
                   )
                 : ListView(
-                    padding: const EdgeInsets.fromLTRB(20, 12, 20, 32),
+                    padding: const EdgeInsets.fromLTRB(
+                      AppSpacing.lg,
+                      AppSpacing.sm,
+                      AppSpacing.lg,
+                      AppSpacing.xxxl,
+                    ),
                     children: [
                       for (final tx in state.transactions) _TxRow(tx: tx),
                       if (state.hasMore)
                         Padding(
-                          padding: const EdgeInsets.only(top: 8),
+                          padding: const EdgeInsets.only(top: AppSpacing.sm),
                           child: state.loadingMore
-                              ? const Center(
-                                  child: CircularProgressIndicator(
-                                    color: AppColors.coral,
-                                  ),
-                                )
+                              ? const Center(child: CircularProgressIndicator())
                               : OutlinedButton(
                                   onPressed: () => _loadMore(context, ref),
                                   child: Text(l.tasksLoadMore),
@@ -100,61 +85,25 @@ class _TxRow extends StatelessWidget {
     final numberFmt = NumberFormat.decimalPattern(
       Localizations.localeOf(context).toLanguageTag(),
     );
+    final c = context.mamily;
     final sign = tx.isCredit ? '+' : '−';
-    final color = tx.isCredit ? const Color(0xFF57C77A) : AppColors.coral;
-    return Container(
-      margin: const EdgeInsets.only(bottom: 8),
-      padding: const EdgeInsets.all(14),
-      decoration: BoxDecoration(
-        color: Colors.white,
-        borderRadius: BorderRadius.circular(16),
+    final tone = tx.isCredit ? c.success : c.danger;
+    final details = [
+      if ((tx.reference ?? '').isNotEmpty) tx.reference!,
+      if (tx.createdAt != null) formatTaskDateTime(context, tx.createdAt!),
+    ].join('\n');
+    return AppListTile(
+      leading: IconBadge(
+        icon: tx.isCredit ? Icons.add_rounded : Icons.remove_rounded,
+        tone: tx.isCredit ? AppTone.success : AppTone.danger,
+        size: 40,
       ),
-      child: Row(
-        children: [
-          Expanded(
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Text(
-                  txnTypeLabel(l, tx.type),
-                  style: const TextStyle(
-                    color: AppColors.navy,
-                    fontWeight: FontWeight.bold,
-                    fontSize: 13,
-                  ),
-                ),
-                if ((tx.reference ?? '').isNotEmpty) ...[
-                  const SizedBox(height: 2),
-                  Text(
-                    tx.reference!,
-                    style: const TextStyle(
-                      color: AppColors.textMuted,
-                      fontSize: 12,
-                    ),
-                  ),
-                ],
-                if (tx.createdAt != null) ...[
-                  const SizedBox(height: 2),
-                  Text(
-                    formatTaskDateTime(context, tx.createdAt!),
-                    style: const TextStyle(
-                      color: AppColors.textMuted,
-                      fontSize: 11,
-                    ),
-                  ),
-                ],
-              ],
-            ),
-          ),
-          Text(
-            '$sign${numberFmt.format(tx.amount.abs())}',
-            style: TextStyle(
-              color: color,
-              fontSize: 16,
-              fontWeight: FontWeight.bold,
-            ),
-          ),
-        ],
+      title: txnTypeLabel(l, tx.type),
+      subtitle: details,
+      subtitleMaxLines: 3,
+      trailing: Text(
+        '$sign${numberFmt.format(tx.amount.abs())}',
+        style: context.type.titleMedium?.copyWith(color: tone.foreground),
       ),
     );
   }

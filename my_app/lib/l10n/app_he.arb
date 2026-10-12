@@ -8,6 +8,8 @@
   "commonLoading": "טוען…",
   "commonRefreshing": "מרענן…",
   "commonEmpty": "אין עדיין נתונים להצגה",
+  "commonEdit": "עריכה",
+  "commonClear": "ניקוי",
   "commonComingSoonTitle": "התכונה הזו עדיין לא זמינה",
   "commonComingSoonBody": "אנחנו עובדים על הוספת התכונה בקרוב.",
   "errorNetwork": "לא ניתן להתחבר לשרת. בדוק את החיבור ונסה שוב.",

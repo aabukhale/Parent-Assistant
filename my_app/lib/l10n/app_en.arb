@@ -8,6 +8,8 @@
   "commonLoading": "Loading…",
   "commonRefreshing": "Refreshing…",
   "commonEmpty": "Nothing to show yet",
+  "commonEdit": "Edit",
+  "commonClear": "Clear",
   "commonComingSoonTitle": "This feature isn't available yet",
   "commonComingSoonBody": "We're working on bringing this to the app soon.",
   "errorNetwork": "Couldn't reach the server. Check your connection and try again.",

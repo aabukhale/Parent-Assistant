@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 
 import '../../../core/localization/l10n.dart';
-import '../../../core/theme/app_colors.dart';
+import '../../../core/design_system.dart';
 import '../data/models/child_task.dart';
 import '../data/models/task_completion.dart';
 import '../data/models/task_enums.dart';
@@ -65,12 +65,13 @@ String txnTypeLabel(AppLocalizations l, PointTransactionType type) =>
       PointTransactionType.adjustment => l.txnTypeAdjustment,
     };
 
-Color completionStatusColor(TaskCompletion c) {
-  if (c.isReversed) return AppColors.textMuted;
+/// Status as a tone (paired with an icon and a word by [StatusPill]).
+AppTone completionStatusTone(TaskCompletion c) {
+  if (c.isReversed) return AppTone.neutral;
   return switch (c.status) {
-    CompletionStatus.pending => AppColors.amber,
-    CompletionStatus.approved => const Color(0xFF57C77A),
-    CompletionStatus.rejected => AppColors.coral,
+    CompletionStatus.pending => AppTone.warning,
+    CompletionStatus.approved => AppTone.success,
+    CompletionStatus.rejected => AppTone.danger,
   };
 }
 
@@ -88,26 +89,20 @@ class CompletionStatusChip extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final l = context.l10n;
-    final color = completionStatusColor(completion);
     return Wrap(
-      spacing: 6,
+      spacing: AppSpacing.xs,
+      runSpacing: AppSpacing.xs,
       children: [
-        _pill(completionStatusLabel(l, completion), color),
+        StatusPill(
+          label: completionStatusLabel(l, completion),
+          tone: completionStatusTone(completion),
+        ),
         if (completion.isReversed)
-          _pill(l.completionReversedBadge, AppColors.textMuted),
+          StatusPill(
+            label: l.completionReversedBadge,
+            icon: Icons.undo_rounded,
+          ),
       ],
     );
   }
-
-  Widget _pill(String text, Color color) => Container(
-    padding: const EdgeInsets.symmetric(horizontal: 9, vertical: 3),
-    decoration: BoxDecoration(
-      color: color.withValues(alpha: 0.15),
-      borderRadius: BorderRadius.circular(9),
-    ),
-    child: Text(
-      text,
-      style: TextStyle(color: color, fontSize: 10, fontWeight: FontWeight.bold),
-    ),
-  );
 }

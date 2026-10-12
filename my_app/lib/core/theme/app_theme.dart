@@ -115,6 +115,17 @@ class AppTheme {
           side: BorderSide(color: c.border, width: AppSizes.borderWidth),
         ),
       ),
+      // Filters and choices. Selected chips use the accent tone (text stays
+      // ink-on-tint, ≥ 4.5:1) plus a checkmark, so state is never colour-only.
+      chipTheme: ChipThemeData(
+        backgroundColor: c.surface,
+        selectedColor: c.accent.background,
+        checkmarkColor: c.accent.foreground,
+        side: BorderSide(color: c.border, width: AppSizes.borderWidth),
+        shape: const StadiumBorder(),
+        labelStyle: textTheme.labelLarge?.copyWith(color: c.ink),
+        padding: const EdgeInsets.symmetric(horizontal: AppSpacing.sm),
+      ),
       // One shape and one minimum height for every button. Heights are minimums
       // (never fixed) so larger text sizes can grow the button.
       filledButtonTheme: FilledButtonThemeData(

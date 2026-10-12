@@ -1,10 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
+import '../../../core/design_system.dart';
 import '../../../core/errors/api_exception.dart';
 import '../../../core/localization/l10n.dart';
-import '../../../core/theme/app_colors.dart';
-import '../../../core/widgets/state_views.dart';
 import '../../family/application/permissions_controller.dart';
 import '../../family/data/models/family_permission.dart';
 import '../application/completions_controller.dart';
@@ -14,6 +13,7 @@ import '../data/models/child_task.dart';
 import '../data/models/task_completion.dart';
 import '../data/task_requests.dart';
 import 'task_form_screen.dart';
+import '../../kid/presentation/kid_widgets.dart';
 import 'task_widgets.dart';
 import 'request_completion_sheet.dart';
 
@@ -31,21 +31,15 @@ class TaskDetailScreen extends ConsumerWidget {
         .hasPermission(FamilyPermission.manageTasks);
 
     return Scaffold(
-      backgroundColor: AppColors.background,
       appBar: AppBar(
-        title: Text(
-          async.valueOrNull?.title ?? '',
-          style: const TextStyle(
-            color: AppColors.navy,
-            fontWeight: FontWeight.bold,
-          ),
-        ),
+        title: Text(async.valueOrNull?.title ?? ''),
         actions: [
           if (canManageTasks &&
               async.hasValue &&
               !async.requireValue.isArchived) ...[
             IconButton(
-              icon: const Icon(Icons.edit_outlined, color: AppColors.navy),
+              tooltip: l.commonEdit,
+              icon: const Icon(Icons.edit_outlined),
               onPressed: () => Navigator.of(context).push(
                 MaterialPageRoute(
                   builder: (_) => TaskFormScreen(existing: async.requireValue),
@@ -53,14 +47,15 @@ class TaskDetailScreen extends ConsumerWidget {
               ),
             ),
             IconButton(
-              icon: const Icon(Icons.archive_outlined, color: AppColors.coral),
+              tooltip: l.taskArchiveAction,
+              icon: const Icon(Icons.archive_outlined),
               onPressed: () =>
                   _confirmArchive(context, ref, async.requireValue),
             ),
           ],
         ],
       ),
-      body: SafeArea(
+      body: AppContentFrame(
         child: async.when(
           loading: () => const LoadingView(),
           error: (e, _) => ErrorRetryView(
@@ -75,31 +70,24 @@ class TaskDetailScreen extends ConsumerWidget {
                   .refresh();
             },
             child: ListView(
-              padding: const EdgeInsets.fromLTRB(20, 16, 20, 40),
+              padding: const EdgeInsets.fromLTRB(
+                AppSpacing.lg,
+                AppSpacing.sm,
+                AppSpacing.lg,
+                AppSpacing.xxxl,
+              ),
               children: [
                 _TaskHeader(task: task),
-                const SizedBox(height: 16),
+                const SizedBox(height: AppSpacing.lg),
                 if (!task.isArchived)
                   FilledButton.icon(
-                    style: FilledButton.styleFrom(
-                      backgroundColor: AppColors.coral,
-                      minimumSize: const Size.fromHeight(50),
-                    ),
                     onPressed: () =>
                         showRequestCompletionSheet(context, taskId),
                     icon: const Icon(Icons.add_task_rounded),
                     label: Text(l.completionRequest),
                   ),
-                const SizedBox(height: 22),
-                Text(
-                  l.completionHistoryTitle,
-                  style: const TextStyle(
-                    color: AppColors.navy,
-                    fontSize: 16,
-                    fontWeight: FontWeight.bold,
-                  ),
-                ),
-                const SizedBox(height: 12),
+                const SizedBox(height: AppSpacing.xxl),
+                SectionHeader(title: l.completionHistoryTitle),
                 _CompletionsSection(taskId: taskId),
               ],
             ),
@@ -115,27 +103,14 @@ class TaskDetailScreen extends ConsumerWidget {
     ChildTask task,
   ) async {
     final l = context.l10n;
-    final ok = await showDialog<bool>(
-      context: context,
-      builder: (_) => AlertDialog(
-        title: Text(l.taskArchiveConfirmTitle),
-        content: Text(l.taskArchiveConfirmBody(task.title)),
-        actions: [
-          TextButton(
-            onPressed: () => Navigator.of(context).pop(false),
-            child: Text(l.commonCancel),
-          ),
-          TextButton(
-            onPressed: () => Navigator.of(context).pop(true),
-            child: Text(
-              l.taskArchiveAction,
-              style: const TextStyle(color: AppColors.coral),
-            ),
-          ),
-        ],
-      ),
+    final ok = await confirmAction(
+      context,
+      title: l.taskArchiveConfirmTitle,
+      body: l.taskArchiveConfirmBody(task.title),
+      confirmLabel: l.taskArchiveAction,
+      destructive: true,
     );
-    if (ok != true) return;
+    if (!ok) return;
     try {
       await ref.read(tasksControllerProvider.notifier).archiveTask(task.id);
       if (!context.mounted) return;
@@ -159,89 +134,67 @@ class _TaskHeader extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final l = context.l10n;
-    return Container(
-      width: double.infinity,
-      padding: const EdgeInsets.all(18),
-      decoration: BoxDecoration(
-        color: Colors.white,
-        borderRadius: BorderRadius.circular(22),
-      ),
+    final c = context.mamily;
+    return AppCard(
+      padding: const EdgeInsets.all(AppSpacing.xl),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Row(
+            crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Expanded(
-                child: Text(
-                  task.title,
-                  style: const TextStyle(
-                    color: AppColors.navy,
-                    fontSize: 18,
-                    fontWeight: FontWeight.bold,
-                  ),
-                ),
+              EmojiTile(
+                emoji: iconEmoji(task.iconKey ?? task.category),
+                size: 52,
               ),
-              Container(
-                padding: const EdgeInsets.symmetric(
-                  horizontal: 10,
-                  vertical: 4,
-                ),
-                decoration: BoxDecoration(
-                  color:
-                      (task.isArchived ? AppColors.textMuted : AppColors.teal)
-                          .withValues(alpha: 0.15),
-                  borderRadius: BorderRadius.circular(10),
-                ),
-                child: Text(
-                  task.isArchived ? l.taskStatusArchived : l.taskStatusActive,
-                  style: TextStyle(
-                    color: task.isArchived
-                        ? AppColors.textMuted
-                        : AppColors.teal,
-                    fontSize: 11,
-                    fontWeight: FontWeight.bold,
-                  ),
-                ),
+              const SizedBox(width: AppSpacing.md),
+              Expanded(child: Text(task.title, style: context.type.titleLarge)),
+              const SizedBox(width: AppSpacing.sm),
+              StatusPill(
+                label: task.isArchived
+                    ? l.taskStatusArchived
+                    : l.taskStatusActive,
+                tone: task.isArchived ? AppTone.neutral : AppTone.accent,
+                icon: task.isArchived
+                    ? Icons.archive_outlined
+                    : Icons.play_circle_outline_rounded,
               ),
             ],
           ),
           if ((task.description ?? '').isNotEmpty) ...[
-            const SizedBox(height: 8),
+            const SizedBox(height: AppSpacing.md),
             Text(
               task.description!,
-              style: const TextStyle(color: AppColors.textMuted, height: 1.5),
+              style: context.type.bodyLarge?.copyWith(color: c.ink2),
             ),
           ],
-          const SizedBox(height: 12),
+          const SizedBox(height: AppSpacing.md),
           _row(
+            context,
             Icons.stars_rounded,
             '${l.taskDetailPointsLabel}: ${task.points}',
           ),
-          _row(Icons.repeat_rounded, recurrenceSummary(context, task)),
+          _row(context, Icons.repeat_rounded, recurrenceSummary(context, task)),
           if (task.deadlineAt != null)
             _row(
+              context,
               Icons.flag_outlined,
               '${l.taskFieldDeadline}: ${formatTaskDate(context, task.deadlineAt!.toLocal())}',
             ),
           if ((task.category ?? '').isNotEmpty)
-            _row(Icons.label_outline_rounded, task.category!),
+            _row(context, Icons.label_outline_rounded, task.category!),
         ],
       ),
     );
   }
 
-  Widget _row(IconData icon, String text) => Padding(
-    padding: const EdgeInsets.only(top: 4),
+  Widget _row(BuildContext context, IconData icon, String text) => Padding(
+    padding: const EdgeInsets.only(top: AppSpacing.xs),
     child: Row(
       children: [
-        Icon(icon, size: 16, color: AppColors.textMuted),
-        const SizedBox(width: 8),
-        Expanded(
-          child: Text(
-            text,
-            style: const TextStyle(color: AppColors.navy, fontSize: 13),
-          ),
-        ),
+        Icon(icon, size: AppSizes.iconSm, color: context.mamily.ink3),
+        const SizedBox(width: AppSpacing.sm),
+        Expanded(child: Text(text, style: context.type.bodyMedium)),
       ],
     ),
   );
@@ -322,14 +275,16 @@ class _CompletionsSectionState extends ConsumerState<_CompletionsSection> {
 
     return async.when(
       loading: () => const Padding(
-        padding: EdgeInsets.all(16),
-        child: Center(child: CircularProgressIndicator(color: AppColors.coral)),
+        padding: EdgeInsets.all(AppSpacing.lg),
+        child: Center(child: CircularProgressIndicator()),
       ),
       error: (e, _) => ErrorRetryView(error: e, onRetry: notifier.refresh),
       data: (state) => state.isEmpty
           ? Text(
               l.completionHistoryEmpty,
-              style: const TextStyle(color: AppColors.textMuted),
+              style: context.type.bodyMedium?.copyWith(
+                color: context.mamily.ink2,
+              ),
             )
           : Column(
               children: [
@@ -360,11 +315,9 @@ class _CompletionsSectionState extends ConsumerState<_CompletionsSection> {
                   ),
                 if (state.hasMore)
                   Padding(
-                    padding: const EdgeInsets.only(top: 6),
+                    padding: const EdgeInsets.only(top: AppSpacing.xs),
                     child: state.loadingMore
-                        ? const CircularProgressIndicator(
-                            color: AppColors.coral,
-                          )
+                        ? const CircularProgressIndicator()
                         : OutlinedButton(
                             onPressed: notifier.loadMore,
                             child: Text(l.tasksLoadMore),
@@ -402,13 +355,9 @@ class _CompletionCard extends StatelessWidget {
     final showApproveReject = canReview && c.canApproveOrReject;
     final showReverse = canReverse && c.canReverse;
 
-    return Container(
-      margin: const EdgeInsets.only(bottom: 8),
-      padding: const EdgeInsets.all(14),
-      decoration: BoxDecoration(
-        color: Colors.white,
-        borderRadius: BorderRadius.circular(16),
-      ),
+    final colors = context.mamily;
+    return AppCard(
+      margin: const EdgeInsets.only(bottom: AppSpacing.sm),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
@@ -421,84 +370,65 @@ class _CompletionCard extends StatelessWidget {
                       : l.completionOccurrence(
                           formatTaskDate(context, c.occurrenceDate!),
                         ),
-                  style: const TextStyle(
-                    color: AppColors.navy,
-                    fontWeight: FontWeight.bold,
-                    fontSize: 13,
-                  ),
+                  style: context.type.titleSmall,
                 ),
               ),
               CompletionStatusChip(completion: c),
             ],
           ),
           if (c.isApproved && (c.pointsAwarded ?? 0) > 0 && !c.isReversed) ...[
-            const SizedBox(height: 4),
+            const SizedBox(height: AppSpacing.xs),
             Text(
               l.completionPointsAwarded(c.pointsAwarded!),
-              style: const TextStyle(
-                color: Color(0xFF57C77A),
-                fontSize: 12,
-                fontWeight: FontWeight.bold,
+              style: context.type.labelLarge?.copyWith(
+                color: colors.success.foreground,
               ),
             ),
           ],
           if ((c.reviewNote ?? '').isNotEmpty) ...[
-            const SizedBox(height: 4),
+            const SizedBox(height: AppSpacing.xs),
             Text(
               c.reviewNote!,
-              style: const TextStyle(color: AppColors.textMuted, fontSize: 12),
+              style: context.type.bodySmall?.copyWith(color: colors.ink2),
             ),
           ],
           if ((c.reversalNote ?? '').isNotEmpty) ...[
             const SizedBox(height: 2),
             Text(
               '${l.completionReversedBadge}: ${c.reversalNote!}',
-              style: const TextStyle(color: AppColors.textMuted, fontSize: 12),
+              style: context.type.bodySmall?.copyWith(color: colors.ink2),
             ),
           ],
           if (busy)
             const Padding(
-              padding: EdgeInsets.only(top: 8),
-              child: SizedBox(
-                height: 18,
-                width: 18,
-                child: CircularProgressIndicator(
-                  strokeWidth: 2,
-                  color: AppColors.coral,
-                ),
+              padding: EdgeInsets.only(top: AppSpacing.sm),
+              child: SizedBox.square(
+                dimension: 20,
+                child: CircularProgressIndicator(strokeWidth: 2),
               ),
             )
           else if (showApproveReject || showReverse) ...[
-            const SizedBox(height: 8),
+            const SizedBox(height: AppSpacing.md),
             Wrap(
-              spacing: 8,
+              spacing: AppSpacing.sm,
+              runSpacing: AppSpacing.sm,
               children: [
                 if (showApproveReject)
-                  FilledButton(
-                    style: FilledButton.styleFrom(
-                      backgroundColor: const Color(0xFF57C77A),
-                      visualDensity: VisualDensity.compact,
-                    ),
+                  FilledButton.icon(
                     onPressed: onApprove,
-                    child: Text(l.completionApprove),
+                    icon: const Icon(Icons.check_rounded),
+                    label: Text(l.completionApprove),
                   ),
                 if (showApproveReject)
                   OutlinedButton(
-                    style: OutlinedButton.styleFrom(
-                      foregroundColor: AppColors.coral,
-                      visualDensity: VisualDensity.compact,
-                    ),
                     onPressed: onReject,
                     child: Text(l.completionReject),
                   ),
                 if (showReverse)
-                  OutlinedButton(
-                    style: OutlinedButton.styleFrom(
-                      foregroundColor: AppColors.textMuted,
-                      visualDensity: VisualDensity.compact,
-                    ),
+                  TextButton.icon(
                     onPressed: onReverse,
-                    child: Text(l.completionReverse),
+                    icon: const Icon(Icons.undo_rounded),
+                    label: Text(l.completionReverse),
                   ),
               ],
             ),

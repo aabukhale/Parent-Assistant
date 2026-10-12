@@ -8,6 +8,8 @@
   "commonLoading": "جارٍ التحميل…",
   "commonRefreshing": "جارٍ التحديث…",
   "commonEmpty": "لا توجد بيانات لعرضها",
+  "commonEdit": "تعديل",
+  "commonClear": "مسح",
   "commonComingSoonTitle": "هذه الميزة غير متاحة بعد",
   "commonComingSoonBody": "نعمل على إتاحة هذه الميزة قريبًا.",
   "errorNetwork": "تعذّر الاتصال بالخادم. تحقّق من اتصالك بالإنترنت وحاول مجددًا.",

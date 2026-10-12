@@ -3,7 +3,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import '../../../core/errors/api_exception.dart';
 import '../../../core/localization/l10n.dart';
-import '../../../core/theme/app_colors.dart';
+import '../../../core/design_system.dart';
 import '../../../widgets/app_text_field.dart';
 import '../../../widgets/primary_button.dart';
 import '../../auth/presentation/auth_form_widgets.dart';
@@ -173,13 +173,17 @@ class _TaskFormScreenState extends ConsumerState<TaskFormScreen> {
   Widget build(BuildContext context) {
     final l = context.l10n;
     return Scaffold(
-      backgroundColor: AppColors.background,
       appBar: AppBar(
         title: Text(widget.isEdit ? l.tasksEditTitle : l.tasksNewTitle),
       ),
-      body: SafeArea(
+      body: AppContentFrame(
         child: SingleChildScrollView(
-          padding: const EdgeInsets.all(22),
+          padding: const EdgeInsets.fromLTRB(
+            AppSpacing.xl,
+            AppSpacing.sm,
+            AppSpacing.xl,
+            AppSpacing.xxxl,
+          ),
           child: Form(
             key: _formKey,
             child: Column(
@@ -197,14 +201,14 @@ class _TaskFormScreenState extends ConsumerState<TaskFormScreen> {
                       : null,
                 ),
                 AuthFieldError(messages: _fieldErrors['title']),
-                const SizedBox(height: 16),
+                const SizedBox(height: AppSpacing.lg),
                 AppTextField(
                   label: l.taskFieldDescription,
                   controller: _description,
                   prefixIcon: Icons.notes_rounded,
                 ),
                 AuthFieldError(messages: _fieldErrors['description']),
-                const SizedBox(height: 16),
+                const SizedBox(height: AppSpacing.lg),
                 AppTextField(
                   label: l.taskFieldPoints,
                   controller: _points,
@@ -215,9 +219,7 @@ class _TaskFormScreenState extends ConsumerState<TaskFormScreen> {
                       : null,
                 ),
                 AuthFieldError(messages: _fieldErrors['points']),
-                const SizedBox(height: 18),
-                _sectionLabel(l.taskFieldRecurrence),
-                const SizedBox(height: 8),
+                FormSectionLabel(l.taskFieldRecurrence),
                 if (widget.isEdit)
                   _ReadOnlyRecurrence(task: widget.existing!)
                 else ...[
@@ -247,12 +249,12 @@ class _TaskFormScreenState extends ConsumerState<TaskFormScreen> {
                     ),
                   ],
                 ],
-                const SizedBox(height: 18),
-                _sectionLabel(l.taskFieldDeadline),
-                const SizedBox(height: 8),
-                _DeadlineTile(
-                  label: _deadline == null
-                      ? l.taskFieldDeadline
+                FormSectionLabel(l.taskFieldDeadline),
+                PickerField(
+                  icon: Icons.flag_outlined,
+                  label: l.taskFieldDeadline,
+                  value: _deadline == null
+                      ? null
                       : formatTaskDate(context, _deadline!),
                   onClear: _deadline == null
                       ? null
@@ -260,61 +262,50 @@ class _TaskFormScreenState extends ConsumerState<TaskFormScreen> {
                   onTap: _pickDeadline,
                 ),
                 AuthFieldError(messages: _fieldErrors['deadline_at']),
-                const SizedBox(height: 16),
+                const SizedBox(height: AppSpacing.lg),
                 AppTextField(
                   label: l.taskFieldCategory,
                   controller: _category,
                   prefixIcon: Icons.label_outline_rounded,
                 ),
                 AuthFieldError(messages: _fieldErrors['category']),
-                const SizedBox(height: 16),
-                ListTile(
-                  contentPadding: EdgeInsets.zero,
+                const SizedBox(height: AppSpacing.lg),
+                AppListTile(
+                  margin: EdgeInsets.zero,
                   leading: EmojiTile(
                     emoji: iconEmoji(_iconKey ?? _category.text),
                     size: 44,
                   ),
-                  title: Text(l.taskFieldIcon),
-                  subtitle: Text(l.taskFieldIconHint),
-                  trailing: const Icon(Icons.chevron_right_rounded),
+                  title: l.taskFieldIcon,
+                  subtitle: l.taskFieldIconHint,
                   onTap: () async {
                     final key = await pickIconKey(context, current: _iconKey);
                     if (key != null && mounted) setState(() => _iconKey = key);
                   },
                 ),
                 if (widget.isEdit) ...[
-                  const SizedBox(height: 18),
-                  _sectionLabel(l.taskStatusActive),
-                  const SizedBox(height: 8),
-                  Wrap(
-                    spacing: 8,
-                    children: [
+                  FormSectionLabel(l.taskStatusActive),
+                  ChoiceChipBar<TaskStatus>(
+                    options: {
                       for (final s in TaskStatus.values)
-                        ChoiceChip(
-                          label: Text(
-                            s == TaskStatus.active
-                                ? l.taskStatusActive
-                                : l.taskStatusArchived,
-                          ),
-                          selected: _status == s,
-                          onSelected: (_) => setState(() => _status = s),
-                          selectedColor: AppColors.teal,
-                        ),
-                    ],
+                        s: s == TaskStatus.active
+                            ? l.taskStatusActive
+                            : l.taskStatusArchived,
+                    },
+                    selected: _status,
+                    onSelected: (s) => setState(() => _status = s),
                   ),
                   AuthFieldError(messages: _fieldErrors['status']),
                 ],
-                const SizedBox(height: 28),
+                const SizedBox(height: AppSpacing.xxl),
                 PrimaryButton(
                   text: l.taskSave,
                   onPressed: _submitting ? null : _submit,
                 ),
                 if (_submitting)
                   const Padding(
-                    padding: EdgeInsets.only(top: 16),
-                    child: Center(
-                      child: CircularProgressIndicator(color: AppColors.coral),
-                    ),
+                    padding: EdgeInsets.only(top: AppSpacing.lg),
+                    child: Center(child: CircularProgressIndicator()),
                   ),
               ],
             ),
@@ -323,18 +314,6 @@ class _TaskFormScreenState extends ConsumerState<TaskFormScreen> {
       ),
     );
   }
-
-  Widget _sectionLabel(String text) => Align(
-    alignment: AlignmentDirectional.centerStart,
-    child: Text(
-      text,
-      style: const TextStyle(
-        color: AppColors.navy,
-        fontSize: 15,
-        fontWeight: FontWeight.bold,
-      ),
-    ),
-  );
 }
 
 class _RecurrencePicker extends StatelessWidget {
@@ -360,54 +339,12 @@ class _RecurrencePicker extends StatelessWidget {
     return Column(
       children: [
         for (final r in TaskRecurrence.values)
-          GestureDetector(
-            onTap: () => onChanged(r),
-            child: Container(
-              margin: const EdgeInsets.only(bottom: 8),
-              padding: const EdgeInsets.all(14),
-              decoration: BoxDecoration(
-                color: Colors.white,
-                borderRadius: BorderRadius.circular(16),
-                border: Border.all(
-                  color: value == r ? AppColors.coral : AppColors.border,
-                  width: value == r ? 2 : 1,
-                ),
-              ),
-              child: Row(
-                children: [
-                  Icon(
-                    value == r
-                        ? Icons.radio_button_checked_rounded
-                        : Icons.radio_button_unchecked_rounded,
-                    color: value == r ? AppColors.coral : AppColors.textMuted,
-                    size: 20,
-                  ),
-                  const SizedBox(width: 12),
-                  Expanded(
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Text(
-                          label(r),
-                          style: const TextStyle(
-                            color: AppColors.navy,
-                            fontWeight: FontWeight.bold,
-                          ),
-                        ),
-                        const SizedBox(height: 2),
-                        Text(
-                          help(r),
-                          style: const TextStyle(
-                            color: AppColors.textMuted,
-                            fontSize: 12,
-                          ),
-                        ),
-                      ],
-                    ),
-                  ),
-                ],
-              ),
-            ),
+          RadioOptionCard<TaskRecurrence>(
+            value: r,
+            groupValue: value,
+            title: label(r),
+            subtitle: help(r),
+            onChanged: onChanged,
           ),
       ],
     );
@@ -419,70 +356,6 @@ class _ReadOnlyRecurrence extends StatelessWidget {
   final ChildTask task;
 
   @override
-  Widget build(BuildContext context) {
-    return Container(
-      padding: const EdgeInsets.all(14),
-      decoration: BoxDecoration(
-        color: const Color(0xFFF0F1F6),
-        borderRadius: BorderRadius.circular(16),
-      ),
-      child: Row(
-        children: [
-          const Icon(
-            Icons.lock_outline_rounded,
-            size: 18,
-            color: AppColors.textMuted,
-          ),
-          const SizedBox(width: 10),
-          Expanded(
-            child: Text(
-              recurrenceSummary(context, task),
-              style: const TextStyle(color: AppColors.navy),
-            ),
-          ),
-        ],
-      ),
-    );
-  }
-}
-
-class _DeadlineTile extends StatelessWidget {
-  const _DeadlineTile({required this.label, required this.onTap, this.onClear});
-  final String label;
-  final VoidCallback onTap;
-  final VoidCallback? onClear;
-
-  @override
-  Widget build(BuildContext context) {
-    return InkWell(
-      onTap: onTap,
-      borderRadius: BorderRadius.circular(16),
-      child: Container(
-        padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 14),
-        decoration: BoxDecoration(
-          color: Colors.white,
-          borderRadius: BorderRadius.circular(16),
-          border: Border.all(color: AppColors.border),
-        ),
-        child: Row(
-          children: [
-            const Icon(Icons.flag_outlined, color: Color(0xFF8E98AC), size: 20),
-            const SizedBox(width: 10),
-            Expanded(
-              child: Text(label, style: const TextStyle(color: AppColors.navy)),
-            ),
-            if (onClear != null)
-              GestureDetector(
-                onTap: onClear,
-                child: const Icon(
-                  Icons.close_rounded,
-                  size: 18,
-                  color: AppColors.textMuted,
-                ),
-              ),
-          ],
-        ),
-      ),
-    );
-  }
+  Widget build(BuildContext context) =>
+      ReadOnlyField(text: recurrenceSummary(context, task));
 }
