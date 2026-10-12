@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 
 import '../../../core/localization/l10n.dart';
-import '../../../core/theme/app_colors.dart';
+import '../../../core/design_system.dart';
 
 String _tag(BuildContext context) =>
     Localizations.localeOf(context).toLanguageTag();
@@ -74,7 +74,7 @@ class DashboardStatTile extends StatelessWidget {
                   ),
               ],
             ),
-            const SizedBox(height: 10),
+            const SizedBox(height: AppSpacing.sm),
             Text(
               value ?? l.dashUnavailableShort,
               maxLines: 2,
@@ -167,7 +167,7 @@ class DashboardSectionCard extends StatelessWidget {
           Row(
             children: [
               Icon(icon, color: color, size: 20),
-              const SizedBox(width: 8),
+              const SizedBox(width: AppSpacing.sm),
               Text(
                 title,
                 style: const TextStyle(
@@ -178,7 +178,7 @@ class DashboardSectionCard extends StatelessWidget {
               ),
             ],
           ),
-          const SizedBox(height: 12),
+          const SizedBox(height: AppSpacing.md),
           if (hasData)
             child
           else
@@ -254,7 +254,7 @@ class DashboardNoticeBanner extends StatelessWidget {
             color: AppColors.amber,
             size: 20,
           ),
-          const SizedBox(width: 10),
+          const SizedBox(width: AppSpacing.sm),
           Expanded(
             child: Text(
               message,

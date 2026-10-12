@@ -3,8 +3,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import '../../../core/errors/api_exception.dart';
 import '../../../core/localization/l10n.dart';
-import '../../../core/theme/app_colors.dart';
-import '../../../core/widgets/state_views.dart';
+import '../../../core/design_system.dart';
 import '../../family/application/permissions_controller.dart';
 import '../../family/data/models/family_permission.dart';
 import '../../tasks/data/models/task_enums.dart';
@@ -41,17 +40,8 @@ class _ChildActivitiesScreenState extends ConsumerState<ChildActivitiesScreen> {
     );
 
     return Scaffold(
-      backgroundColor: AppColors.background,
-      appBar: AppBar(
-        title: Text(
-          l.activitiesAssignedTitle,
-          style: const TextStyle(
-            color: AppColors.navy,
-            fontWeight: FontWeight.bold,
-          ),
-        ),
-      ),
-      body: SafeArea(
+      appBar: AppBar(title: Text(l.activitiesAssignedTitle)),
+      body: AppContentFrame(
         child: RefreshIndicator(
           onRefresh: controller.refresh,
           child: async.when(
@@ -70,7 +60,12 @@ class _ChildActivitiesScreenState extends ConsumerState<ChildActivitiesScreen> {
                     onRefresh: controller.refresh,
                   )
                 : ListView(
-                    padding: const EdgeInsets.fromLTRB(20, 14, 20, 40),
+                    padding: const EdgeInsets.fromLTRB(
+                      AppSpacing.lg,
+                      AppSpacing.sm,
+                      AppSpacing.lg,
+                      AppSpacing.xxxl,
+                    ),
                     children: [
                       for (final a in state.assignments)
                         _AssignmentCard(
@@ -120,11 +115,7 @@ class _ChildActivitiesScreenState extends ConsumerState<ChildActivitiesScreen> {
                         Padding(
                           padding: const EdgeInsets.only(top: 4),
                           child: state.loadingMore
-                              ? const Center(
-                                  child: CircularProgressIndicator(
-                                    color: AppColors.coral,
-                                  ),
-                                )
+                              ? const Center(child: CircularProgressIndicator())
                               : OutlinedButton(
                                   onPressed: controller.loadMore,
                                   child: Text(l.rewardsLoadMore),
@@ -244,7 +235,7 @@ class _AssignmentCard extends StatelessWidget {
               ),
             ],
           ),
-          const SizedBox(height: 4),
+          const SizedBox(height: AppSpacing.xs),
           Text(
             a.pointsReward > 0
                 ? l.activityRewardPoints(a.pointsReward)
@@ -259,7 +250,7 @@ class _AssignmentCard extends StatelessWidget {
               style: const TextStyle(color: AppColors.textMuted, fontSize: 11),
             ),
           if (last != null) ...[
-            const SizedBox(height: 6),
+            const SizedBox(height: AppSpacing.xs),
             Row(
               children: [
                 Text(
@@ -275,7 +266,7 @@ class _AssignmentCard extends StatelessWidget {
                   ),
                 ),
                 if (last.isReversed) ...[
-                  const SizedBox(width: 8),
+                  const SizedBox(width: AppSpacing.sm),
                   Text(
                     l.completionReversedBadge,
                     style: const TextStyle(
@@ -285,7 +276,7 @@ class _AssignmentCard extends StatelessWidget {
                   ),
                 ],
                 if (last.pointsAwarded != null && last.pointsAwarded! > 0) ...[
-                  const SizedBox(width: 8),
+                  const SizedBox(width: AppSpacing.sm),
                   Text(
                     l.activityAwarded(last.pointsAwarded!),
                     style: const TextStyle(
@@ -305,16 +296,13 @@ class _AssignmentCard extends StatelessWidget {
                 ),
               ),
           ],
-          const SizedBox(height: 10),
+          const SizedBox(height: AppSpacing.sm),
           if (busy)
             const Center(
               child: SizedBox(
                 width: 18,
                 height: 18,
-                child: CircularProgressIndicator(
-                  strokeWidth: 2,
-                  color: AppColors.coral,
-                ),
+                child: CircularProgressIndicator(strokeWidth: 2),
               ),
             )
           else

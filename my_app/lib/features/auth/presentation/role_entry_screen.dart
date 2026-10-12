@@ -23,7 +23,7 @@ class RoleEntryScreen extends ConsumerWidget {
     );
 
     return Scaffold(
-      body: SafeArea(
+      body: AppContentFrame(
         child: AppContentFrame(
           maxWidth: 560,
           child: ListView(

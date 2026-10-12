@@ -3,8 +3,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import '../../../core/errors/api_exception.dart';
 import '../../../core/localization/l10n.dart';
-import '../../../core/theme/app_colors.dart';
-import '../../../core/widgets/state_views.dart';
+import '../../../core/design_system.dart';
 import '../application/games_controller.dart';
 import '../data/models/game.dart';
 import 'game_details_screen.dart';
@@ -23,17 +22,8 @@ class GamesScreen extends ConsumerWidget {
     final controller = ref.read(gamesCatalogControllerProvider.notifier);
 
     return Scaffold(
-      backgroundColor: AppColors.background,
-      appBar: AppBar(
-        title: Text(
-          l.gamesTitle,
-          style: const TextStyle(
-            color: AppColors.navy,
-            fontWeight: FontWeight.bold,
-          ),
-        ),
-      ),
-      body: SafeArea(
+      appBar: AppBar(title: Text(l.gamesTitle)),
+      body: AppContentFrame(
         child: RefreshIndicator(
           onRefresh: controller.refresh,
           child: async.when(
@@ -52,7 +42,12 @@ class GamesScreen extends ConsumerWidget {
                     onRefresh: controller.refresh,
                   )
                 : ListView(
-                    padding: const EdgeInsets.fromLTRB(20, 14, 20, 40),
+                    padding: const EdgeInsets.fromLTRB(
+                      AppSpacing.lg,
+                      AppSpacing.sm,
+                      AppSpacing.lg,
+                      AppSpacing.xxxl,
+                    ),
                     children: [
                       Container(
                         padding: const EdgeInsets.all(12),
@@ -69,17 +64,13 @@ class GamesScreen extends ConsumerWidget {
                           ),
                         ),
                       ),
-                      const SizedBox(height: 14),
+                      const SizedBox(height: AppSpacing.md),
                       for (final game in state.games) _GameCard(game: game),
                       if (state.hasMore)
                         Padding(
                           padding: const EdgeInsets.only(top: 4),
                           child: state.loadingMore
-                              ? const Center(
-                                  child: CircularProgressIndicator(
-                                    color: AppColors.coral,
-                                  ),
-                                )
+                              ? const Center(child: CircularProgressIndicator())
                               : OutlinedButton(
                                   onPressed: () => _loadMore(context, ref),
                                   child: Text(l.libraryLoadMore),
@@ -148,7 +139,7 @@ class _GameCard extends StatelessWidget {
                 color: Color(0xFF7C89B8),
               ),
             ),
-            const SizedBox(width: 14),
+            const SizedBox(width: AppSpacing.md),
             Expanded(
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,

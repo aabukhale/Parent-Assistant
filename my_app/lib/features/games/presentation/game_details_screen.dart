@@ -3,8 +3,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:intl/intl.dart';
 
 import '../../../core/localization/l10n.dart';
-import '../../../core/theme/app_colors.dart';
-import '../../../core/widgets/state_views.dart';
+import '../../../core/design_system.dart';
 import '../application/games_controller.dart';
 import '../data/models/game.dart';
 import 'games_screen.dart' show gameTypeLabel;
@@ -25,7 +24,6 @@ class GameDetailsScreen extends ConsumerWidget {
     final progress = ref.watch(gameProgressProvider);
 
     return Scaffold(
-      backgroundColor: AppColors.background,
       appBar: AppBar(
         title: Text(
           async.valueOrNull?.title ?? l.gamesTitle,
@@ -37,7 +35,7 @@ class GameDetailsScreen extends ConsumerWidget {
           ),
         ),
       ),
-      body: SafeArea(
+      body: AppContentFrame(
         child: async.when(
           loading: () => const LoadingView(),
           error: (e, _) => ErrorRetryView(
@@ -49,7 +47,12 @@ class GameDetailsScreen extends ConsumerWidget {
                 ?.where((p) => p.gameId == game.id)
                 .firstOrNull;
             return ListView(
-              padding: const EdgeInsets.fromLTRB(20, 16, 20, 40),
+              padding: const EdgeInsets.fromLTRB(
+                AppSpacing.lg,
+                AppSpacing.sm,
+                AppSpacing.lg,
+                AppSpacing.xxxl,
+              ),
               children: [
                 Text(
                   gameTypeLabel(l, game.gameType),
@@ -59,7 +62,7 @@ class GameDetailsScreen extends ConsumerWidget {
                     fontWeight: FontWeight.bold,
                   ),
                 ),
-                const SizedBox(height: 6),
+                const SizedBox(height: AppSpacing.xs),
                 Text(
                   game.title,
                   style: const TextStyle(
@@ -69,13 +72,13 @@ class GameDetailsScreen extends ConsumerWidget {
                   ),
                 ),
                 if ((game.description ?? '').isNotEmpty) ...[
-                  const SizedBox(height: 10),
+                  const SizedBox(height: AppSpacing.sm),
                   Text(
                     game.description!,
                     style: const TextStyle(color: AppColors.navy, height: 1.6),
                   ),
                 ],
-                const SizedBox(height: 20),
+                const SizedBox(height: AppSpacing.xl),
                 Container(
                   width: double.infinity,
                   padding: const EdgeInsets.all(16),
@@ -90,7 +93,7 @@ class GameDetailsScreen extends ConsumerWidget {
                         color: AppColors.textMuted,
                         size: 20,
                       ),
-                      const SizedBox(width: 10),
+                      const SizedBox(width: AppSpacing.sm),
                       Expanded(
                         child: Text(
                           l.gamesNotPlayable,
@@ -104,7 +107,7 @@ class GameDetailsScreen extends ConsumerWidget {
                     ],
                   ),
                 ),
-                const SizedBox(height: 20),
+                const SizedBox(height: AppSpacing.xl),
                 Text(
                   l.gamesProgressTitle,
                   style: const TextStyle(
@@ -113,13 +116,11 @@ class GameDetailsScreen extends ConsumerWidget {
                     fontWeight: FontWeight.bold,
                   ),
                 ),
-                const SizedBox(height: 10),
+                const SizedBox(height: AppSpacing.sm),
                 progress.when(
                   loading: () => const Padding(
                     padding: EdgeInsets.all(8),
-                    child: Center(
-                      child: CircularProgressIndicator(color: AppColors.coral),
-                    ),
+                    child: Center(child: CircularProgressIndicator()),
                   ),
                   error: (e, _) => ErrorRetryView(
                     error: e,

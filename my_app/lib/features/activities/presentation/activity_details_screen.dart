@@ -3,8 +3,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import '../../../core/errors/api_exception.dart';
 import '../../../core/localization/l10n.dart';
-import '../../../core/theme/app_colors.dart';
-import '../../../core/widgets/state_views.dart';
+import '../../../core/design_system.dart';
 import '../../children/application/selected_child_controller.dart';
 import '../../family/application/permissions_controller.dart';
 import '../../family/data/models/family_permission.dart';
@@ -33,17 +32,10 @@ class ActivityDetailsScreen extends ConsumerWidget {
     final async = ref.watch(activityDetailProvider(activityId));
 
     return Scaffold(
-      backgroundColor: AppColors.background,
       appBar: AppBar(
-        title: Text(
-          async.valueOrNull?.title ?? l.activitiesTitle,
-          style: const TextStyle(
-            color: AppColors.navy,
-            fontWeight: FontWeight.bold,
-          ),
-        ),
+        title: Text(async.valueOrNull?.title ?? l.activitiesTitle),
       ),
-      body: SafeArea(
+      body: AppContentFrame(
         child: async.when(
           loading: () => const LoadingView(),
           error: (e, _) => ErrorRetryView(
@@ -73,7 +65,12 @@ class _Body extends ConsumerWidget {
     final age = activityAgeLabel(l, activity);
 
     return ListView(
-      padding: const EdgeInsets.fromLTRB(20, 16, 20, 40),
+      padding: const EdgeInsets.fromLTRB(
+        AppSpacing.lg,
+        AppSpacing.sm,
+        AppSpacing.lg,
+        AppSpacing.xxxl,
+      ),
       children: [
         Row(
           children: [
@@ -81,7 +78,7 @@ class _Body extends ConsumerWidget {
               text: activitySourceLabel(l, activity.source),
               color: const Color(0xFF7C89B8),
             ),
-            const SizedBox(width: 8),
+            const SizedBox(width: AppSpacing.sm),
             if (activity.durationMinutes != null)
               Text(
                 l.activityDurationMin(activity.durationMinutes!),
@@ -101,18 +98,18 @@ class _Body extends ConsumerWidget {
               ),
           ],
         ),
-        const SizedBox(height: 14),
+        const SizedBox(height: AppSpacing.md),
         if ((activity.description ?? '').isNotEmpty)
           Text(
             activity.description!,
             style: const TextStyle(color: AppColors.navy, height: 1.6),
           ),
         if (activity.materials.isNotEmpty) ...[
-          const SizedBox(height: 20),
+          const SizedBox(height: AppSpacing.xl),
           _ListSection(title: l.activityMaterials, items: activity.materials),
         ],
         if (activity.steps.isNotEmpty) ...[
-          const SizedBox(height: 20),
+          const SizedBox(height: AppSpacing.xl),
           _ListSection(
             title: l.activitySteps,
             items: activity.steps,
@@ -214,7 +211,7 @@ class _ListSection extends StatelessWidget {
               fontWeight: FontWeight.bold,
             ),
           ),
-          const SizedBox(height: 10),
+          const SizedBox(height: AppSpacing.sm),
           for (var i = 0; i < items.length; i++)
             Padding(
               padding: const EdgeInsets.only(bottom: 6),
@@ -290,12 +287,12 @@ class _AssignSheetState extends State<_AssignSheet> {
               fontWeight: FontWeight.bold,
             ),
           ),
-          const SizedBox(height: 4),
+          const SizedBox(height: AppSpacing.xs),
           Text(
             widget.activityTitle,
             style: const TextStyle(color: AppColors.textMuted, fontSize: 12),
           ),
-          const SizedBox(height: 16),
+          const SizedBox(height: AppSpacing.lg),
           TextField(
             controller: _points,
             keyboardType: TextInputType.number,
@@ -306,7 +303,7 @@ class _AssignSheetState extends State<_AssignSheet> {
               border: const OutlineInputBorder(),
             ),
           ),
-          const SizedBox(height: 12),
+          const SizedBox(height: AppSpacing.md),
           ListTile(
             contentPadding: EdgeInsets.zero,
             title: Text(
@@ -328,7 +325,7 @@ class _AssignSheetState extends State<_AssignSheet> {
               if (picked != null) setState(() => _dueDate = picked);
             },
           ),
-          const SizedBox(height: 8),
+          const SizedBox(height: AppSpacing.sm),
           Text(
             l.activityAssignOnBehalfNote,
             style: const TextStyle(
@@ -337,7 +334,7 @@ class _AssignSheetState extends State<_AssignSheet> {
               height: 1.4,
             ),
           ),
-          const SizedBox(height: 14),
+          const SizedBox(height: AppSpacing.md),
           SizedBox(
             width: double.infinity,
             height: 48,

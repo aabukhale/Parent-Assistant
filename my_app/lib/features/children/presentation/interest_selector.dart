@@ -3,7 +3,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import '../../../core/errors/api_exception.dart';
 import '../../../core/localization/l10n.dart';
-import '../../../core/theme/app_colors.dart';
+import '../../../core/design_system.dart';
 import '../data/models/interest.dart';
 
 /// Multi-select chips for the localized interests catalog. Selection is by
@@ -33,10 +33,7 @@ class InterestSelector extends StatelessWidget {
           child: SizedBox(
             width: 22,
             height: 22,
-            child: CircularProgressIndicator(
-              strokeWidth: 2,
-              color: AppColors.coral,
-            ),
+            child: CircularProgressIndicator(strokeWidth: 2),
           ),
         ),
       ),
@@ -62,7 +59,6 @@ class InterestSelector extends StatelessWidget {
               label: Text(interest.name),
               selected: selected.contains(interest.id),
               onSelected: (_) => onToggle(interest),
-              selectedColor: AppColors.teal,
               backgroundColor: Colors.white,
               showCheckmark: false,
             ),

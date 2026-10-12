@@ -2,8 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import '../../../core/localization/l10n.dart';
-import '../../../core/theme/app_colors.dart';
-import '../../../core/widgets/state_views.dart';
+import '../../../core/design_system.dart';
 import '../../children/application/selected_child_controller.dart';
 import '../../family/application/permissions_controller.dart';
 import '../../family/data/models/family_permission.dart';
@@ -30,17 +29,8 @@ class DevelopmentReportScreen extends ConsumerWidget {
     final period = ref.watch(reportPeriodProvider);
 
     return Scaffold(
-      backgroundColor: AppColors.background,
-      appBar: AppBar(
-        title: Text(
-          l.dashReportTitle,
-          style: const TextStyle(
-            color: AppColors.navy,
-            fontWeight: FontWeight.bold,
-          ),
-        ),
-      ),
-      body: SafeArea(
+      appBar: AppBar(title: Text(l.dashReportTitle)),
+      body: AppContentFrame(
         child: _body(
           context,
           ref,
@@ -90,7 +80,12 @@ class DevelopmentReportScreen extends ConsumerWidget {
     return RefreshIndicator(
       onRefresh: () async => ref.invalidate(developmentReportProvider(period)),
       child: ListView(
-        padding: const EdgeInsets.fromLTRB(20, 14, 20, 40),
+        padding: const EdgeInsets.fromLTRB(
+          AppSpacing.lg,
+          AppSpacing.sm,
+          AppSpacing.lg,
+          AppSpacing.xxxl,
+        ),
         children: [
           if (permissions.shouldSurfacePermissionError)
             DashboardNoticeBanner(
@@ -109,7 +104,7 @@ class DevelopmentReportScreen extends ConsumerWidget {
               ),
             ),
           _PeriodToggle(current: period),
-          const SizedBox(height: 16),
+          const SizedBox(height: AppSpacing.lg),
           async.when(
             skipLoadingOnReload: true,
             loading: () => const Padding(
@@ -184,7 +179,7 @@ class _ReportBody extends StatelessWidget {
           l.dashReportTimezone(report.timezone),
           style: const TextStyle(color: AppColors.textMuted, fontSize: 11),
         ),
-        const SizedBox(height: 14),
+        const SizedBox(height: AppSpacing.md),
         if (!report.hasSufficientData)
           Container(
             width: double.infinity,

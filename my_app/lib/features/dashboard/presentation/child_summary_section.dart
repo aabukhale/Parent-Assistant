@@ -3,7 +3,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import '../../../core/errors/api_exception.dart';
 import '../../../core/localization/l10n.dart';
-import '../../../core/theme/app_colors.dart';
+import '../../../core/design_system.dart';
 import '../../children/application/selected_child_controller.dart';
 import '../../family/application/permissions_controller.dart';
 import '../../family/data/models/family_permission.dart';
@@ -55,7 +55,7 @@ class ChildSummarySection extends ConsumerWidget {
             const Center(
               child: Padding(
                 padding: EdgeInsets.all(8),
-                child: CircularProgressIndicator(color: AppColors.coral),
+                child: CircularProgressIndicator(),
               ),
             ),
           ),
@@ -103,7 +103,7 @@ class ChildSummarySection extends ConsumerWidget {
                   ),
                 ),
               ),
-              const SizedBox(height: 12),
+              const SizedBox(height: AppSpacing.md),
               // Rows sized to their content (a fixed aspect ratio overflowed
               // with longer values, Arabic text or large font sizes).
               DashboardTileGrid(
@@ -171,7 +171,7 @@ class ChildSummarySection extends ConsumerWidget {
                   ),
                 ],
               ),
-              const SizedBox(height: 12),
+              const SizedBox(height: AppSpacing.md),
               OutlinedButton.icon(
                 onPressed: () {
                   ref.read(selectedChildIdProvider.notifier).select(childId);
@@ -218,7 +218,7 @@ class ChildSummarySection extends ConsumerWidget {
             fontWeight: FontWeight.bold,
           ),
         ),
-        const SizedBox(height: 12),
+        const SizedBox(height: AppSpacing.md),
         child,
       ],
     ),

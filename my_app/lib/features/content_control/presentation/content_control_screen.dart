@@ -3,8 +3,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import '../../../core/errors/api_exception.dart';
 import '../../../core/localization/l10n.dart';
-import '../../../core/theme/app_colors.dart';
-import '../../../core/widgets/state_views.dart';
+import '../../../core/design_system.dart';
 import '../../family/application/permissions_controller.dart';
 import '../../family/data/models/family_permission.dart';
 import '../application/content_controller.dart';
@@ -30,33 +29,27 @@ class ContentControlScreen extends ConsumerWidget {
         .hasPermission(FamilyPermission.manageContentPolicy);
 
     return Scaffold(
-      backgroundColor: AppColors.background,
-      appBar: AppBar(
-        title: Text(
-          l.contentTitle,
-          style: const TextStyle(
-            color: AppColors.navy,
-            fontWeight: FontWeight.bold,
-          ),
-        ),
-      ),
-      body: SafeArea(
+      appBar: AppBar(title: Text(l.contentTitle)),
+      body: AppContentFrame(
         child: RefreshIndicator(
           onRefresh: () async {
             ref.invalidate(contentPolicyProvider);
             await ref.read(contentRulesControllerProvider.notifier).refresh();
           },
           child: ListView(
-            padding: const EdgeInsets.fromLTRB(20, 14, 20, 40),
+            padding: const EdgeInsets.fromLTRB(
+              AppSpacing.lg,
+              AppSpacing.sm,
+              AppSpacing.lg,
+              AppSpacing.xxxl,
+            ),
             children: [
               _EnforcementDisclaimer(),
-              const SizedBox(height: 14),
+              const SizedBox(height: AppSpacing.md),
               policy.when(
                 loading: () => const Padding(
                   padding: EdgeInsets.all(24),
-                  child: Center(
-                    child: CircularProgressIndicator(color: AppColors.coral),
-                  ),
+                  child: Center(child: CircularProgressIndicator()),
                 ),
                 error: (e, _) => ErrorRetryView(
                   error: e,
@@ -68,7 +61,7 @@ class ContentControlScreen extends ConsumerWidget {
                   canManage: canManage,
                 ),
               ),
-              const SizedBox(height: 20),
+              const SizedBox(height: AppSpacing.xl),
               Row(
                 children: [
                   Text(
@@ -88,14 +81,12 @@ class ContentControlScreen extends ConsumerWidget {
                     ),
                 ],
               ),
-              const SizedBox(height: 6),
+              const SizedBox(height: AppSpacing.xs),
               rules.when(
                 skipLoadingOnReload: true,
                 loading: () => const Padding(
                   padding: EdgeInsets.all(16),
-                  child: Center(
-                    child: CircularProgressIndicator(color: AppColors.coral),
-                  ),
+                  child: Center(child: CircularProgressIndicator()),
                 ),
                 error: (e, _) => ErrorRetryView(
                   error: e,
@@ -123,7 +114,7 @@ class ContentControlScreen extends ConsumerWidget {
                         ],
                       ),
               ),
-              const SizedBox(height: 18),
+              const SizedBox(height: AppSpacing.lg),
               OutlinedButton.icon(
                 onPressed: () => Navigator.of(context).push(
                   MaterialPageRoute(
@@ -199,7 +190,7 @@ class _EnforcementDisclaimer extends StatelessWidget {
             color: AppColors.amber,
             size: 20,
           ),
-          const SizedBox(width: 10),
+          const SizedBox(width: AppSpacing.sm),
           Expanded(
             child: Text(
               l.contentEnforcementNote,
@@ -256,7 +247,6 @@ class _AgeFilterTile extends ConsumerWidget {
               ? l.contentAgeFilterSub
               : l.contentAgeFilterSubAge(contentAge!),
         ),
-        activeThumbColor: AppColors.coral,
       ),
     );
   }
@@ -304,7 +294,7 @@ class _RuleTile extends StatelessWidget {
             color: blocked ? AppColors.coral : const Color(0xFF57C77A),
             size: 20,
           ),
-          const SizedBox(width: 10),
+          const SizedBox(width: AppSpacing.sm),
           Expanded(
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
@@ -388,7 +378,7 @@ class _ChannelRuleSheetState extends State<_ChannelRuleSheet> {
               fontWeight: FontWeight.bold,
             ),
           ),
-          const SizedBox(height: 12),
+          const SizedBox(height: AppSpacing.md),
           TextField(
             controller: _provider,
             decoration: InputDecoration(
@@ -397,7 +387,7 @@ class _ChannelRuleSheetState extends State<_ChannelRuleSheet> {
               border: const OutlineInputBorder(),
             ),
           ),
-          const SizedBox(height: 10),
+          const SizedBox(height: AppSpacing.sm),
           TextField(
             controller: _ref,
             decoration: InputDecoration(
@@ -406,7 +396,7 @@ class _ChannelRuleSheetState extends State<_ChannelRuleSheet> {
               border: const OutlineInputBorder(),
             ),
           ),
-          const SizedBox(height: 10),
+          const SizedBox(height: AppSpacing.sm),
           TextField(
             controller: _label,
             decoration: InputDecoration(
@@ -414,7 +404,7 @@ class _ChannelRuleSheetState extends State<_ChannelRuleSheet> {
               border: const OutlineInputBorder(),
             ),
           ),
-          const SizedBox(height: 12),
+          const SizedBox(height: AppSpacing.md),
           SegmentedButton<ContentDecision>(
             segments: [
               ButtonSegment(
@@ -429,7 +419,7 @@ class _ChannelRuleSheetState extends State<_ChannelRuleSheet> {
             selected: {_decision},
             onSelectionChanged: (s) => setState(() => _decision = s.first),
           ),
-          const SizedBox(height: 16),
+          const SizedBox(height: AppSpacing.lg),
           SizedBox(
             width: double.infinity,
             height: 48,

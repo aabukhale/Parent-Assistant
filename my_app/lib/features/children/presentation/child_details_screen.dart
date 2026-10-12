@@ -3,8 +3,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import '../../../core/errors/api_exception.dart';
 import '../../../core/localization/l10n.dart';
-import '../../../core/theme/app_colors.dart';
-import '../../../core/widgets/state_views.dart';
+import '../../../core/design_system.dart';
 import '../../activities/presentation/child_activities_screen.dart';
 import '../../ai_parenting/ai_parenting_screen.dart';
 import '../../games/presentation/games_screen.dart';
@@ -37,15 +36,8 @@ class ChildDetailsScreen extends ConsumerWidget {
     final canManage = ref.watch(permissionsProvider).canManageChildren;
 
     return Scaffold(
-      backgroundColor: AppColors.background,
       appBar: AppBar(
-        title: Text(
-          async.valueOrNull?.name ?? '',
-          style: const TextStyle(
-            color: AppColors.navy,
-            fontWeight: FontWeight.bold,
-          ),
-        ),
+        title: Text(async.valueOrNull?.name ?? ''),
         actions: [
           if (canManage && async.hasValue) ...[
             IconButton(
@@ -66,7 +58,7 @@ class ChildDetailsScreen extends ConsumerWidget {
           ],
         ],
       ),
-      body: SafeArea(
+      body: AppContentFrame(
         child: async.when(
           loading: () => const LoadingView(),
           error: (e, _) => ErrorRetryView(
@@ -85,27 +77,14 @@ class ChildDetailsScreen extends ConsumerWidget {
     Child child,
   ) async {
     final l = context.l10n;
-    final ok = await showDialog<bool>(
-      context: context,
-      builder: (_) => AlertDialog(
-        title: Text(l.childDeleteConfirmTitle),
-        content: Text(l.childDeleteConfirmBody(child.name)),
-        actions: [
-          TextButton(
-            onPressed: () => Navigator.of(context).pop(false),
-            child: Text(l.commonCancel),
-          ),
-          TextButton(
-            onPressed: () => Navigator.of(context).pop(true),
-            child: Text(
-              l.childDeleteAction,
-              style: const TextStyle(color: AppColors.coral),
-            ),
-          ),
-        ],
-      ),
+    final ok = await confirmAction(
+      context,
+      title: l.childDeleteConfirmTitle,
+      body: l.childDeleteConfirmBody(child.name),
+      confirmLabel: l.childDeleteAction,
+      destructive: true,
     );
-    if (ok != true) return;
+    if (!ok) return;
     try {
       await ref.read(childrenControllerProvider.notifier).deleteChild(child.id);
       if (!context.mounted) return;
@@ -155,7 +134,7 @@ class _Body extends ConsumerWidget {
                     color: AppColors.coral,
                   ),
                 ),
-                const SizedBox(height: 14),
+                const SizedBox(height: AppSpacing.md),
                 Text(
                   child.name,
                   style: const TextStyle(
@@ -164,7 +143,7 @@ class _Body extends ConsumerWidget {
                     fontWeight: FontWeight.bold,
                   ),
                 ),
-                const SizedBox(height: 4),
+                const SizedBox(height: AppSpacing.xs),
                 Text(
                   l.childAgeYears(child.age),
                   style: const TextStyle(
@@ -175,7 +154,7 @@ class _Body extends ConsumerWidget {
               ],
             ),
           ),
-          const SizedBox(height: 22),
+          const SizedBox(height: AppSpacing.xl),
           _Section(
             title: l.childFieldInterests,
             child: child.interests.isEmpty
@@ -196,9 +175,9 @@ class _Body extends ConsumerWidget {
                     ],
                   ),
           ),
-          const SizedBox(height: 16),
+          const SizedBox(height: AppSpacing.lg),
           ChildSummarySection(childId: child.id),
-          const SizedBox(height: 20),
+          const SizedBox(height: AppSpacing.xl),
           // Learning goals — connected (Phase 4). Selecting the child first
           // keeps the goal providers scoped to this child.
           _FeatureTile(
@@ -374,7 +353,7 @@ class _FeatureTile extends StatelessWidget {
               ),
               child: Icon(icon, color: color),
             ),
-            const SizedBox(width: 14),
+            const SizedBox(width: AppSpacing.md),
             Expanded(
               child: Text(
                 title,
@@ -422,7 +401,7 @@ class _Section extends StatelessWidget {
               fontWeight: FontWeight.bold,
             ),
           ),
-          const SizedBox(height: 12),
+          const SizedBox(height: AppSpacing.md),
           child,
         ],
       ),

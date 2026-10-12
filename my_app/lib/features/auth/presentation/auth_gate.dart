@@ -22,7 +22,7 @@ class AuthGate extends ConsumerWidget {
     final child = switch (auth.phase) {
       AuthPhase.restoring => const _Splash(),
       AuthPhase.restoreFailed => Scaffold(
-        body: SafeArea(
+        body: AppContentFrame(
           child: ErrorRetryView(
             error: auth.restoreError!,
             onRetry: () =>

@@ -82,7 +82,7 @@ class _PairingScreenState extends ConsumerState<PairingScreen> {
       child: Builder(
         builder: (context) => Scaffold(
           appBar: AppBar(),
-          body: SafeArea(
+          body: AppContentFrame(
             child: AppContentFrame(
               maxWidth: 520,
               child: ListView(

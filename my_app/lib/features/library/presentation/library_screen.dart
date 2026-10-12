@@ -3,8 +3,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import '../../../core/errors/api_exception.dart';
 import '../../../core/localization/l10n.dart';
-import '../../../core/theme/app_colors.dart';
-import '../../../core/widgets/state_views.dart';
+import '../../../core/design_system.dart';
 import '../../children/application/selected_child_controller.dart';
 import '../application/library_controller.dart';
 import '../data/models/article.dart';
@@ -25,17 +24,8 @@ class LibraryScreen extends ConsumerWidget {
     final hasChild = ref.watch(selectedChildProvider) != null;
 
     return Scaffold(
-      backgroundColor: AppColors.background,
-      appBar: AppBar(
-        title: Text(
-          l.libraryTitle,
-          style: const TextStyle(
-            color: AppColors.navy,
-            fontWeight: FontWeight.bold,
-          ),
-        ),
-      ),
-      body: SafeArea(
+      appBar: AppBar(title: Text(l.libraryTitle)),
+      body: AppContentFrame(
         child: RefreshIndicator(
           onRefresh: () async {
             ref.invalidate(libraryCategoriesProvider);
@@ -43,21 +33,24 @@ class LibraryScreen extends ConsumerWidget {
             await controller.refresh();
           },
           child: ListView(
-            padding: const EdgeInsets.fromLTRB(20, 12, 20, 40),
+            padding: const EdgeInsets.fromLTRB(
+              AppSpacing.lg,
+              AppSpacing.sm,
+              AppSpacing.lg,
+              AppSpacing.xxxl,
+            ),
             children: [
               const _CategoryChips(),
               if (hasChild) ...[
-                const SizedBox(height: 8),
+                const SizedBox(height: AppSpacing.sm),
                 const _Recommendations(),
               ],
-              const SizedBox(height: 12),
+              const SizedBox(height: AppSpacing.md),
               async.when(
                 skipLoadingOnReload: true,
                 loading: () => const Padding(
                   padding: EdgeInsets.all(28),
-                  child: Center(
-                    child: CircularProgressIndicator(color: AppColors.coral),
-                  ),
+                  child: Center(child: CircularProgressIndicator()),
                 ),
                 error: (e, _) =>
                     ErrorRetryView(error: e, onRetry: controller.refresh),
@@ -79,9 +72,7 @@ class LibraryScreen extends ConsumerWidget {
                             Padding(
                               padding: const EdgeInsets.only(top: 4),
                               child: state.loadingMore
-                                  ? const CircularProgressIndicator(
-                                      color: AppColors.coral,
-                                    )
+                                  ? const CircularProgressIndicator()
                                   : OutlinedButton(
                                       onPressed: () => _loadMore(context, ref),
                                       child: Text(l.libraryLoadMore),
@@ -130,7 +121,7 @@ class _CategoryChips extends ConsumerWidget {
                   ref.read(libraryCategoryFilterProvider.notifier).state = null,
             ),
             for (final cat in cats) ...[
-              const SizedBox(width: 8),
+              const SizedBox(width: AppSpacing.sm),
               ChoiceChip(
                 label: Text(cat.name),
                 selected: selected == cat.key,
@@ -161,7 +152,7 @@ class _Recommendations extends ConsumerWidget {
           : Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                const SizedBox(height: 14),
+                const SizedBox(height: AppSpacing.md),
                 Text(
                   l.libraryRecommendedTitle,
                   style: const TextStyle(
@@ -170,13 +161,14 @@ class _Recommendations extends ConsumerWidget {
                     fontWeight: FontWeight.bold,
                   ),
                 ),
-                const SizedBox(height: 8),
+                const SizedBox(height: AppSpacing.sm),
                 SizedBox(
                   height: 110,
                   child: ListView.separated(
                     scrollDirection: Axis.horizontal,
                     itemCount: articles.length,
-                    separatorBuilder: (_, _) => const SizedBox(width: 10),
+                    separatorBuilder: (_, _) =>
+                        const SizedBox(width: AppSpacing.sm),
                     itemBuilder: (_, i) {
                       final a = articles[i];
                       return GestureDetector(
@@ -259,7 +251,7 @@ class _ArticleCard extends StatelessWidget {
                   fontWeight: FontWeight.bold,
                 ),
               ),
-            const SizedBox(height: 4),
+            const SizedBox(height: AppSpacing.xs),
             Text(
               article.title,
               style: const TextStyle(
@@ -269,7 +261,7 @@ class _ArticleCard extends StatelessWidget {
               ),
             ),
             if ((article.excerpt ?? '').isNotEmpty) ...[
-              const SizedBox(height: 6),
+              const SizedBox(height: AppSpacing.xs),
               Text(
                 article.excerpt!,
                 maxLines: 2,

@@ -2,8 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import '../../../core/localization/l10n.dart';
-import '../../../core/theme/app_colors.dart';
-import '../../../core/widgets/state_views.dart';
+import '../../../core/design_system.dart';
 import '../../dashboard/presentation/dashboard_widgets.dart';
 import '../../devices/presentation/devices_screen.dart';
 import '../application/screen_time_controller.dart';
@@ -25,47 +24,27 @@ class ScreenTimeScreen extends ConsumerWidget {
     final rules = ref.watch(screenTimeRulesProvider);
 
     return Scaffold(
-      backgroundColor: AppColors.background,
-      appBar: AppBar(
-        title: Text(
-          l.stTitle,
-          style: const TextStyle(
-            color: AppColors.navy,
-            fontWeight: FontWeight.bold,
-          ),
-        ),
-      ),
-      body: SafeArea(
+      appBar: AppBar(title: Text(l.stTitle)),
+      body: AppContentFrame(
         child: RefreshIndicator(
           onRefresh: () async {
             ref.invalidate(screenTimeSummaryProvider);
             ref.invalidate(screenTimeRulesProvider);
           },
           child: ListView(
-            padding: const EdgeInsets.fromLTRB(20, 14, 20, 40),
+            padding: const EdgeInsets.fromLTRB(
+              AppSpacing.lg,
+              AppSpacing.sm,
+              AppSpacing.lg,
+              AppSpacing.xxxl,
+            ),
             children: [
-              Container(
-                padding: const EdgeInsets.all(12),
-                decoration: BoxDecoration(
-                  color: const Color(0xFFEFF1F8),
-                  borderRadius: BorderRadius.circular(14),
-                ),
-                child: Text(
-                  l.stEnforcementNote,
-                  style: const TextStyle(
-                    color: AppColors.textMuted,
-                    fontSize: 11,
-                    height: 1.4,
-                  ),
-                ),
-              ),
-              const SizedBox(height: 14),
+              NoticeBanner(tone: AppTone.info, message: l.stEnforcementNote),
+              const SizedBox(height: AppSpacing.md),
               summary.when(
                 loading: () => const Padding(
-                  padding: EdgeInsets.all(24),
-                  child: Center(
-                    child: CircularProgressIndicator(color: AppColors.coral),
-                  ),
+                  padding: EdgeInsets.all(AppSpacing.xxl),
+                  child: Center(child: CircularProgressIndicator()),
                 ),
                 error: (e, _) => ErrorRetryView(
                   error: e,
@@ -74,7 +53,7 @@ class ScreenTimeScreen extends ConsumerWidget {
                 ),
                 data: (s) => _SummaryCard(summary: s),
               ),
-              const SizedBox(height: 20),
+              const SizedBox(height: AppSpacing.xl),
               rules.when(
                 loading: () => const SizedBox.shrink(),
                 error: (e, _) => ErrorRetryView(
@@ -83,9 +62,12 @@ class ScreenTimeScreen extends ConsumerWidget {
                 ),
                 data: (list) => _RulesSummary(rules: list),
               ),
-              const SizedBox(height: 16),
-              _NavTile(
-                icon: Icons.tune_rounded,
+              const SizedBox(height: AppSpacing.lg),
+              AppListTile(
+                leading: IconBadge(
+                  icon: Icons.tune_rounded,
+                  tone: AppTone.info,
+                ),
                 title: l.stEditRules,
                 onTap: () => Navigator.of(context).push(
                   MaterialPageRoute(
@@ -93,15 +75,21 @@ class ScreenTimeScreen extends ConsumerWidget {
                   ),
                 ),
               ),
-              _NavTile(
-                icon: Icons.more_time_rounded,
+              AppListTile(
+                leading: IconBadge(
+                  icon: Icons.more_time_rounded,
+                  tone: AppTone.info,
+                ),
                 title: l.stExtraTime,
                 onTap: () => Navigator.of(context).push(
                   MaterialPageRoute(builder: (_) => const ExtraTimeScreen()),
                 ),
               ),
-              _NavTile(
-                icon: Icons.devices_rounded,
+              AppListTile(
+                leading: IconBadge(
+                  icon: Icons.devices_rounded,
+                  tone: AppTone.info,
+                ),
                 title: l.devicesTitle,
                 onTap: () => Navigator.of(context).push(
                   MaterialPageRoute(builder: (_) => const DevicesScreen()),
@@ -124,86 +112,54 @@ class _SummaryCard extends StatelessWidget {
     final l = context.l10n;
     final s = summary;
     return Column(
+      crossAxisAlignment: CrossAxisAlignment.stretch,
       children: [
-        Container(
-          width: double.infinity,
-          padding: const EdgeInsets.all(22),
-          decoration: BoxDecoration(
-            color: AppColors.navy,
-            borderRadius: BorderRadius.circular(24),
-          ),
-          child: Column(
-            children: [
-              Text(
-                l.stUsedToday,
-                style: const TextStyle(color: Color(0xFFD8DDEC), fontSize: 13),
-              ),
-              const SizedBox(height: 6),
-              Text(
-                formatDurationMinutes(context, s.usedMinutes),
-                style: const TextStyle(
-                  color: Colors.white,
-                  fontSize: 32,
-                  fontWeight: FontWeight.bold,
-                ),
-              ),
-              const SizedBox(height: 4),
-              Text(
-                s.hasLimit
-                    ? l.stOfLimit(
-                        formatDurationMinutes(
-                          context,
-                          s.effectiveLimitMinutes!,
-                        ),
-                      )
-                    : l.stNoLimit,
-                style: const TextStyle(color: Color(0xFFD8DDEC), fontSize: 12),
-              ),
-              if (s.bonusMinutes > 0)
-                Text(
-                  l.stBonus(formatDurationMinutes(context, s.bonusMinutes)),
-                  style: const TextStyle(
-                    color: Color(0xFF9BE7C4),
-                    fontSize: 11,
+        HeroMetricCard(
+          label: l.stUsedToday,
+          emoji: '📱',
+          tone: AppTone.info,
+          value: formatDurationMinutes(context, s.usedMinutes),
+          caption: s.hasLimit
+              ? l.stOfLimit(
+                  formatDurationMinutes(context, s.effectiveLimitMinutes!),
+                )
+              : l.stNoLimit,
+          footer: s.bonusMinutes > 0
+              ? Padding(
+                  padding: const EdgeInsets.only(top: AppSpacing.sm),
+                  child: StatusPill(
+                    label: l.stBonus(
+                      formatDurationMinutes(context, s.bonusMinutes),
+                    ),
+                    tone: AppTone.success,
+                    icon: Icons.add_alarm_rounded,
                   ),
-                ),
-            ],
-          ),
+                )
+              : null,
         ),
-        const SizedBox(height: 12),
+        const SizedBox(height: AppSpacing.md),
         if (!s.hasSufficientData)
           Text(
             l.stNoUsageData,
-            style: const TextStyle(color: AppColors.textMuted, fontSize: 12),
+            style: context.type.bodySmall?.copyWith(color: context.mamily.ink2),
           )
         else if (s.perApp.isNotEmpty) ...[
-          Align(
-            alignment: AlignmentDirectional.centerStart,
-            child: Text(
-              l.stPerApp,
-              style: const TextStyle(
-                color: AppColors.navy,
-                fontWeight: FontWeight.bold,
-              ),
-            ),
-          ),
-          const SizedBox(height: 8),
+          SectionHeader(title: l.stPerApp),
           for (final app in s.perApp)
             Padding(
-              padding: const EdgeInsets.only(bottom: 6),
+              padding: const EdgeInsets.only(bottom: AppSpacing.xs),
               child: Row(
                 children: [
                   Expanded(
                     child: Text(
                       app.appName ?? app.appIdentifier ?? app.category ?? '—',
-                      style: const TextStyle(color: AppColors.navy),
+                      style: context.type.bodyMedium,
                     ),
                   ),
                   Text(
                     formatDurationMinutes(context, app.usedMinutes),
-                    style: const TextStyle(
-                      color: AppColors.textMuted,
-                      fontSize: 12,
+                    style: context.type.bodySmall?.copyWith(
+                      color: context.mamily.ink2,
                     ),
                   ),
                 ],
@@ -225,24 +181,12 @@ class _RulesSummary extends StatelessWidget {
     final def = rules.where((r) => r.isDefault).firstOrNull;
     final overrideCount = rules.where((r) => !r.isDefault).length;
 
-    return Container(
-      width: double.infinity,
-      padding: const EdgeInsets.all(16),
-      decoration: BoxDecoration(
-        color: Colors.white,
-        borderRadius: BorderRadius.circular(18),
-      ),
+    return AppCard(
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Text(
-            l.stDailyRule,
-            style: const TextStyle(
-              color: AppColors.navy,
-              fontWeight: FontWeight.bold,
-            ),
-          ),
-          const SizedBox(height: 6),
+          Text(l.stDailyRule, style: context.type.titleSmall),
+          const SizedBox(height: AppSpacing.xs),
           Text(
             def == null
                 ? l.stNoRule
@@ -251,51 +195,19 @@ class _RulesSummary extends StatelessWidget {
                 : l.stDailyLimitValue(
                     formatDurationMinutes(context, def.dailyLimitMinutes),
                   ),
-            style: const TextStyle(color: AppColors.textMuted, fontSize: 13),
+            style: context.type.bodyMedium?.copyWith(
+              color: context.mamily.ink2,
+            ),
           ),
           if (overrideCount > 0)
             Text(
               l.stWeekdayOverrides(overrideCount),
-              style: const TextStyle(color: AppColors.textMuted, fontSize: 12),
+              style: context.type.bodySmall?.copyWith(
+                color: context.mamily.ink2,
+              ),
             ),
         ],
       ),
     );
   }
-}
-
-class _NavTile extends StatelessWidget {
-  const _NavTile({
-    required this.icon,
-    required this.title,
-    required this.onTap,
-  });
-  final IconData icon;
-  final String title;
-  final VoidCallback onTap;
-
-  @override
-  Widget build(BuildContext context) => Container(
-    margin: const EdgeInsets.only(bottom: 10),
-    decoration: BoxDecoration(
-      color: Colors.white,
-      borderRadius: BorderRadius.circular(16),
-    ),
-    child: ListTile(
-      leading: Icon(icon, color: AppColors.coral),
-      title: Text(
-        title,
-        style: const TextStyle(
-          color: AppColors.navy,
-          fontWeight: FontWeight.bold,
-          fontSize: 14,
-        ),
-      ),
-      trailing: const Icon(
-        Icons.chevron_right_rounded,
-        color: Color(0xFF9AA3B5),
-      ),
-      onTap: onTap,
-    ),
-  );
 }

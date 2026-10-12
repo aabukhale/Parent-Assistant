@@ -35,7 +35,7 @@ class ChildrenScreen extends ConsumerWidget {
               label: Text(l.childrenAdd),
             )
           : null,
-      body: SafeArea(
+      body: AppContentFrame(
         child: AppContentFrame(
           maxWidth: 860,
           child: state.when(

@@ -3,8 +3,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:intl/intl.dart';
 
 import '../../../core/localization/l10n.dart';
-import '../../../core/theme/app_colors.dart';
-import '../../../core/widgets/state_views.dart';
+import '../../../core/design_system.dart';
 import '../application/library_controller.dart';
 import '../data/models/article.dart';
 
@@ -22,7 +21,6 @@ class ArticleDetailsScreen extends ConsumerWidget {
     final async = ref.watch(articleDetailProvider(slug));
 
     return Scaffold(
-      backgroundColor: AppColors.background,
       appBar: AppBar(
         title: Text(
           async.valueOrNull?.title ?? l.libraryTitle,
@@ -34,7 +32,7 @@ class ArticleDetailsScreen extends ConsumerWidget {
           ),
         ),
       ),
-      body: SafeArea(
+      body: AppContentFrame(
         child: async.when(
           loading: () => const LoadingView(),
           error: (e, _) => ErrorRetryView(
@@ -63,7 +61,12 @@ class _Body extends StatelessWidget {
     };
 
     return ListView(
-      padding: const EdgeInsets.fromLTRB(20, 16, 20, 40),
+      padding: const EdgeInsets.fromLTRB(
+        AppSpacing.lg,
+        AppSpacing.sm,
+        AppSpacing.lg,
+        AppSpacing.xxxl,
+      ),
       children: [
         if (article.categories.isNotEmpty)
           Text(
@@ -74,7 +77,7 @@ class _Body extends StatelessWidget {
               fontWeight: FontWeight.bold,
             ),
           ),
-        const SizedBox(height: 6),
+        const SizedBox(height: AppSpacing.xs),
         Text(
           article.title,
           style: const TextStyle(
@@ -84,7 +87,7 @@ class _Body extends StatelessWidget {
             height: 1.35,
           ),
         ),
-        const SizedBox(height: 8),
+        const SizedBox(height: AppSpacing.sm),
         Wrap(
           spacing: 8,
           runSpacing: 4,
@@ -116,7 +119,7 @@ class _Body extends StatelessWidget {
               ),
           ],
         ),
-        const SizedBox(height: 20),
+        const SizedBox(height: AppSpacing.xl),
         if (article.hasBody)
           Text(
             article.body!,

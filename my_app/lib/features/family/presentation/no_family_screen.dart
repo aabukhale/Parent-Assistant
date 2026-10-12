@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import '../../../core/localization/l10n.dart';
-import '../../../core/theme/app_colors.dart';
+import '../../../core/design_system.dart';
 import '../../auth/application/auth_controller.dart';
 
 /// The authenticated user has no active family membership. Registration always
@@ -15,7 +15,7 @@ class NoFamilyScreen extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     final l = context.l10n;
     return Scaffold(
-      body: SafeArea(
+      body: AppContentFrame(
         child: Center(
           child: Padding(
             padding: const EdgeInsets.all(32),
@@ -27,7 +27,7 @@ class NoFamilyScreen extends ConsumerWidget {
                   size: 64,
                   color: AppColors.textMuted,
                 ),
-                const SizedBox(height: 16),
+                const SizedBox(height: AppSpacing.lg),
                 Text(
                   l.noFamilyTitle,
                   textAlign: TextAlign.center,
@@ -37,13 +37,13 @@ class NoFamilyScreen extends ConsumerWidget {
                     color: AppColors.navy,
                   ),
                 ),
-                const SizedBox(height: 10),
+                const SizedBox(height: AppSpacing.sm),
                 Text(
                   l.noFamilyBody,
                   textAlign: TextAlign.center,
                   style: TextStyle(color: AppColors.textMuted, height: 1.5),
                 ),
-                const SizedBox(height: 22),
+                const SizedBox(height: AppSpacing.xl),
                 TextButton.icon(
                   onPressed: () =>
                       ref.read(authControllerProvider.notifier).logout(),

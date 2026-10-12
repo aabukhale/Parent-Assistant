@@ -3,7 +3,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import '../../../core/errors/api_exception.dart';
 import '../../../core/localization/l10n.dart';
-import '../../../core/theme/app_colors.dart';
+import '../../../core/design_system.dart';
 import '../../../widgets/app_text_field.dart';
 import '../../../widgets/primary_button.dart';
 import '../../auth/presentation/auth_form_widgets.dart';
@@ -156,13 +156,17 @@ class _ChildFormScreenState extends ConsumerState<ChildFormScreen> {
     final interestsAsync = ref.watch(interestsProvider);
 
     return Scaffold(
-      backgroundColor: AppColors.background,
       appBar: AppBar(
         title: Text(widget.isEdit ? l.childEditTitle : l.childAddTitle),
       ),
-      body: SafeArea(
+      body: AppContentFrame(
         child: SingleChildScrollView(
-          padding: const EdgeInsets.all(22),
+          padding: const EdgeInsets.fromLTRB(
+            AppSpacing.xl,
+            AppSpacing.sm,
+            AppSpacing.xl,
+            AppSpacing.xxxl,
+          ),
           child: Form(
             key: _formKey,
             child: Column(
@@ -180,9 +184,9 @@ class _ChildFormScreenState extends ConsumerState<ChildFormScreen> {
                       : null,
                 ),
                 AuthFieldError(messages: _fieldErrors['name']),
-                const SizedBox(height: 18),
+                const SizedBox(height: AppSpacing.lg),
                 _Label(l.childFieldBirthDate),
-                const SizedBox(height: 8),
+                const SizedBox(height: AppSpacing.sm),
                 _DateField(
                   date: _birthDate,
                   agePreview: _agePreview,
@@ -191,9 +195,9 @@ class _ChildFormScreenState extends ConsumerState<ChildFormScreen> {
                   onTap: _pickDate,
                 ),
                 AuthFieldError(messages: _fieldErrors['birth_date']),
-                const SizedBox(height: 18),
+                const SizedBox(height: AppSpacing.lg),
                 _Label(l.childFieldGender),
-                const SizedBox(height: 8),
+                const SizedBox(height: AppSpacing.sm),
                 Wrap(
                   spacing: 8,
                   children: [
@@ -203,14 +207,13 @@ class _ChildFormScreenState extends ConsumerState<ChildFormScreen> {
                         selected: _gender == g,
                         onSelected: (sel) =>
                             setState(() => _gender = sel ? g : null),
-                        selectedColor: AppColors.teal,
                       ),
                   ],
                 ),
                 AuthFieldError(messages: _fieldErrors['gender']),
-                const SizedBox(height: 18),
+                const SizedBox(height: AppSpacing.lg),
                 _Label(l.childFieldAvatarColor),
-                const SizedBox(height: 8),
+                const SizedBox(height: AppSpacing.sm),
                 Row(
                   children: [
                     for (final hex in _palette) ...[
@@ -221,14 +224,14 @@ class _ChildFormScreenState extends ConsumerState<ChildFormScreen> {
                           () => _avatarColor = _avatarColor == hex ? null : hex,
                         ),
                       ),
-                      const SizedBox(width: 10),
+                      const SizedBox(width: AppSpacing.sm),
                     ],
                   ],
                 ),
                 AuthFieldError(messages: _fieldErrors['avatar_color']),
-                const SizedBox(height: 18),
+                const SizedBox(height: AppSpacing.lg),
                 _Label(l.childFieldInterests),
-                const SizedBox(height: 8),
+                const SizedBox(height: AppSpacing.sm),
                 InterestSelector(
                   interests: interestsAsync,
                   selected: _interestIds,
@@ -250,9 +253,7 @@ class _ChildFormScreenState extends ConsumerState<ChildFormScreen> {
                 if (_submitting)
                   const Padding(
                     padding: EdgeInsets.only(top: 16),
-                    child: Center(
-                      child: CircularProgressIndicator(color: AppColors.coral),
-                    ),
+                    child: Center(child: CircularProgressIndicator()),
                   ),
               ],
             ),
@@ -316,7 +317,7 @@ class _DateField extends StatelessWidget {
         child: Row(
           children: [
             const Icon(Icons.cake_outlined, color: Color(0xFF8E98AC)),
-            const SizedBox(width: 12),
+            const SizedBox(width: AppSpacing.md),
             Text(
               date == null ? placeholder : ChildInput.formatDate(date!),
               style: TextStyle(

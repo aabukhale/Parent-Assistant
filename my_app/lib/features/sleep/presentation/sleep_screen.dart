@@ -35,7 +35,12 @@ class SleepScreen extends ConsumerWidget {
             ref.invalidate(sleepSummaryProvider);
           },
           child: ListView(
-            padding: const EdgeInsets.fromLTRB(20, 12, 20, 40),
+            padding: const EdgeInsets.fromLTRB(
+              AppSpacing.lg,
+              AppSpacing.sm,
+              AppSpacing.lg,
+              AppSpacing.xxxl,
+            ),
             children: [
               if (permissions.shouldSurfacePermissionError)
                 PermissionNotice(onRetry: () => refreshPermissions(ref)),

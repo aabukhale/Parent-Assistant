@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
 import '../../../core/localization/l10n.dart';
-import '../../../core/theme/app_colors.dart';
+import '../../../core/design_system.dart';
 import '../../tasks/data/models/task_enums.dart';
 import '../data/models/activity.dart';
 import '../data/models/activity_assignment.dart';

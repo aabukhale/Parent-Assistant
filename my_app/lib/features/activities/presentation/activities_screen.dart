@@ -3,8 +3,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import '../../../core/errors/api_exception.dart';
 import '../../../core/localization/l10n.dart';
-import '../../../core/theme/app_colors.dart';
-import '../../../core/widgets/state_views.dart';
+import '../../../core/design_system.dart';
 import '../../children/application/selected_child_controller.dart';
 import '../application/activities_controller.dart';
 import '../data/models/activity.dart';
@@ -27,21 +26,17 @@ class ActivitiesScreen extends ConsumerWidget {
     final selectedChild = ref.watch(selectedChildProvider);
 
     return Scaffold(
-      backgroundColor: AppColors.background,
-      appBar: AppBar(
-        title: Text(
-          l.activitiesTitle,
-          style: const TextStyle(
-            color: AppColors.navy,
-            fontWeight: FontWeight.bold,
-          ),
-        ),
-      ),
-      body: SafeArea(
+      appBar: AppBar(title: Text(l.activitiesTitle)),
+      body: AppContentFrame(
         child: RefreshIndicator(
           onRefresh: controller.refresh,
           child: ListView(
-            padding: const EdgeInsets.fromLTRB(20, 12, 20, 40),
+            padding: const EdgeInsets.fromLTRB(
+              AppSpacing.lg,
+              AppSpacing.sm,
+              AppSpacing.lg,
+              AppSpacing.xxxl,
+            ),
             children: [
               GestureDetector(
                 onTap: () => Navigator.of(context).push(
@@ -63,7 +58,7 @@ class ActivitiesScreen extends ConsumerWidget {
                         color: AppColors.teal,
                         size: 34,
                       ),
-                      const SizedBox(width: 14),
+                      const SizedBox(width: AppSpacing.md),
                       Expanded(
                         child: Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
@@ -76,7 +71,7 @@ class ActivitiesScreen extends ConsumerWidget {
                                 fontWeight: FontWeight.bold,
                               ),
                             ),
-                            const SizedBox(height: 4),
+                            const SizedBox(height: AppSpacing.xs),
                             Text(
                               l.activityGenerateCtaSub,
                               style: const TextStyle(
@@ -95,7 +90,7 @@ class ActivitiesScreen extends ConsumerWidget {
                   ),
                 ),
               ),
-              const SizedBox(height: 22),
+              const SizedBox(height: AppSpacing.xl),
               Text(
                 l.activitiesCatalogTitle,
                 style: const TextStyle(
@@ -104,14 +99,12 @@ class ActivitiesScreen extends ConsumerWidget {
                   fontWeight: FontWeight.bold,
                 ),
               ),
-              const SizedBox(height: 12),
+              const SizedBox(height: AppSpacing.md),
               async.when(
                 skipLoadingOnReload: true,
                 loading: () => const Padding(
                   padding: EdgeInsets.all(28),
-                  child: Center(
-                    child: CircularProgressIndicator(color: AppColors.coral),
-                  ),
+                  child: Center(child: CircularProgressIndicator()),
                 ),
                 error: (e, _) =>
                     ErrorRetryView(error: e, onRetry: controller.refresh),
@@ -143,9 +136,7 @@ class ActivitiesScreen extends ConsumerWidget {
                             Padding(
                               padding: const EdgeInsets.only(top: 4),
                               child: state.loadingMore
-                                  ? const CircularProgressIndicator(
-                                      color: AppColors.coral,
-                                    )
+                                  ? const CircularProgressIndicator()
                                   : OutlinedButton(
                                       onPressed: () => _loadMore(context, ref),
                                       child: Text(l.rewardsLoadMore),
@@ -206,7 +197,7 @@ class _ActivityCard extends StatelessWidget {
                 color: AppColors.teal,
               ),
             ),
-            const SizedBox(width: 14),
+            const SizedBox(width: AppSpacing.md),
             Expanded(
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
@@ -221,7 +212,7 @@ class _ActivityCard extends StatelessWidget {
                       fontSize: 15,
                     ),
                   ),
-                  const SizedBox(height: 4),
+                  const SizedBox(height: AppSpacing.xs),
                   Wrap(
                     spacing: 6,
                     runSpacing: 4,

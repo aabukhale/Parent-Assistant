@@ -3,7 +3,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import '../../../core/errors/api_exception.dart';
 import '../../../core/localization/l10n.dart';
-import '../../../core/theme/app_colors.dart';
+import '../../../core/design_system.dart';
 import '../../children/application/selected_child_controller.dart';
 import '../../family/application/permissions_controller.dart';
 import '../../family/data/models/family_permission.dart';
@@ -39,17 +39,8 @@ class _GenerateActivityScreenState
     final canTry = scope.familyId != null && scope.childId != null && canManage;
 
     return Scaffold(
-      backgroundColor: AppColors.background,
-      appBar: AppBar(
-        title: Text(
-          l.activityGenerateTitle,
-          style: const TextStyle(
-            color: AppColors.navy,
-            fontWeight: FontWeight.bold,
-          ),
-        ),
-      ),
-      body: SafeArea(
+      appBar: AppBar(title: Text(l.activityGenerateTitle)),
+      body: AppContentFrame(
         child: Center(
           child: Padding(
             padding: const EdgeInsets.all(28),
@@ -61,7 +52,7 @@ class _GenerateActivityScreenState
                   size: 60,
                   color: AppColors.textMuted,
                 ),
-                const SizedBox(height: 16),
+                const SizedBox(height: AppSpacing.lg),
                 Text(
                   l.activityGenerateUnavailableTitle,
                   textAlign: TextAlign.center,
@@ -71,7 +62,7 @@ class _GenerateActivityScreenState
                     fontWeight: FontWeight.bold,
                   ),
                 ),
-                const SizedBox(height: 10),
+                const SizedBox(height: AppSpacing.sm),
                 Text(
                   l.activityGenerateUnavailableBody,
                   textAlign: TextAlign.center,
@@ -82,7 +73,7 @@ class _GenerateActivityScreenState
                   ),
                 ),
                 if (_message != null) ...[
-                  const SizedBox(height: 14),
+                  const SizedBox(height: AppSpacing.md),
                   Text(
                     _message!,
                     textAlign: TextAlign.center,
@@ -92,7 +83,7 @@ class _GenerateActivityScreenState
                     ),
                   ),
                 ],
-                const SizedBox(height: 22),
+                const SizedBox(height: AppSpacing.xl),
                 if (canTry)
                   OutlinedButton.icon(
                     onPressed: _checking ? null : _check,

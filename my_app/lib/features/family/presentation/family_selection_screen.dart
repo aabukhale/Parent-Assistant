@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import '../../../core/localization/l10n.dart';
-import '../../../core/theme/app_colors.dart';
+import '../../../core/design_system.dart';
 import '../../auth/application/auth_controller.dart';
 import '../../auth/data/models/family_membership.dart';
 
@@ -27,11 +27,11 @@ class FamilySelectionScreen extends ConsumerWidget {
           ),
         ],
       ),
-      body: SafeArea(
+      body: AppContentFrame(
         child: ListView.separated(
           padding: const EdgeInsets.all(20),
           itemCount: memberships.length,
-          separatorBuilder: (_, _) => const SizedBox(height: 12),
+          separatorBuilder: (_, _) => const SizedBox(height: AppSpacing.md),
           itemBuilder: (context, i) {
             final m = memberships[i];
             return ListTile(
