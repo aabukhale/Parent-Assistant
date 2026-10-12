@@ -50,6 +50,30 @@ const pickableIconKeys = [
   'kindness',
 ];
 
+/// Spoken name of a [pickableIconKeys] icon, in the UI language.
+String iconLabel(AppLocalizations l, String key) => switch (key) {
+  'bed' => l.iconBed,
+  'tooth' => l.iconTooth,
+  'shirt' => l.iconShirt,
+  'breakfast' => l.iconBreakfast,
+  'snack' => l.iconSnack,
+  'backpack' => l.iconBackpack,
+  'hands' => l.iconHands,
+  'book' => l.iconBook,
+  'ball' => l.iconBall,
+  'toys' => l.iconToys,
+  'bath' => l.iconBath,
+  'pajamas' => l.iconPajamas,
+  'music' => l.iconMusic,
+  'art' => l.iconArt,
+  'pet' => l.iconPet,
+  'plant' => l.iconPlant,
+  'kitchen' => l.iconKitchen,
+  'water' => l.iconWater,
+  'kindness' => l.iconKindness,
+  _ => key,
+};
+
 /// Bottom sheet to choose a task or routine-step icon. Returns the key, or
 /// null if dismissed.
 Future<String?> pickIconKey(BuildContext context, {String? current}) {
@@ -72,7 +96,7 @@ Future<String?> pickIconKey(BuildContext context, {String? current}) {
               Semantics(
                 button: true,
                 selected: key == current,
-                label: key,
+                label: iconLabel(sheetContext.l10n, key),
                 child: InkWell(
                   borderRadius: AppRadii.mediumAll,
                   onTap: () => Navigator.of(sheetContext).pop(key),
