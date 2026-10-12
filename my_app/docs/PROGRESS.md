@@ -81,14 +81,40 @@ unmeasured screen time and overflowed; ProgressBar fill never drew; kid
 child screens pushed outside the shell lost the kid theme; default Flutter
 app icons.
 
+## Session 2026-10-12
+
+- Restyled every older parent screen onto the design system: tasks (list,
+  detail, form, points history, completion sheet, recurrence), rewards
+  (store, redemptions, form), learning goals (list, detail, form, progress
+  sheet), sleep (summary, form), screen time (summary, rules, extra time),
+  content controls + catalog, devices, activities (catalog, details, child
+  assignments, generator), library + article, games + details, reports
+  (family overview, child summary, development report), child details/form,
+  family picker, edit profile, nutrition/AI-coach placeholders. Zero
+  `AppColors`/hand-written `TextStyle`/raw hex left in feature code;
+  `AppColors` deleted. New shared components: AppListTile, IconBadge,
+  HeroMetricCard, ChoiceChipBar, FormSectionLabel, PickerField,
+  RadioOptionCard, ReadOnlyField, PermissionNotice; chip theme.
+- Fixed while restyling: colour-only status pills/chips (now tone + icon +
+  word, checkmarks back on filters), 18-34px touch targets (clear buttons,
+  colour swatches), icon buttons without tooltips, family overview had no
+  way back, overview showed 0m for unmeasured screen time, raw role enum in
+  the family picker, stacked confirm sheets on double tap. Removed dead
+  ProfileScreen/AppBottomNavigation/AppBackground.
+- AppContentFrame now applies SafeArea(top: false) (a restyle step had
+  dropped bottom/side insets on 38 screens; caught and fixed).
+- Icon picker announces localized names (en/ar/he), with tests.
+- Real-backend integration tests (backend on :8000; :8001 is a second
+  instance of the same app/DB and is not used): task approval pays once,
+  reward approval spends once, routine bonus pays once, role isolation and
+  unpair → 401 → role chooser. 4/4 pass (`flutter test
+  integration_test/family_flows_test.dart -d <sim> --dart-define=API_BASE_URL=http://127.0.0.1:8000/api/v1`).
+  The older child_flow_test (seed-dependent: it expected a task as Omar's
+  next step) was folded into it and removed.
+  Pairing is rate-limited to 5/min, 30/h per IP; the suite pairs ~3 times.
+
 ## Still open
 
-- Older detail screens (tasks, rewards store, goals, sleep, screen time,
-  content, devices, activities, library, games, reports, forms) still use
-  hard-coded `AppColors`/`TextStyle` (~500 sites) instead of
-  `context.mamily`/`context.type`. They work and use the accessible palette;
-  only targeted fixes were made (task icons, history link).
-- Icon picker tiles announce the raw English key ("bed") to screen readers.
 - Android widget/floating card never run on a device (no emulator image).
 - Real push, signing, App Store/Play setup: needs Firebase files, APNs key,
   team ID, and a real bundle/application id (still `com.example.*`).
