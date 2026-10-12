@@ -233,7 +233,7 @@ class _TaskFormScreenState extends ConsumerState<TaskFormScreen> {
                   ),
                   AuthFieldError(messages: _fieldErrors['recurrence_type']),
                   if (_recurrence.needsConfig) ...[
-                    const SizedBox(height: 12),
+                    const SizedBox(height: AppSpacing.md),
                     RecurrenceField(
                       type: _recurrence,
                       initial: _recurrenceConfig,

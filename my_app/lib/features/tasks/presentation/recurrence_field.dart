@@ -145,7 +145,7 @@ class _RecurrenceFieldState extends State<RecurrenceField> {
             _emit();
           }),
         ),
-        const SizedBox(height: 12),
+        const SizedBox(height: AppSpacing.md),
         if (_mode == _CustomMode.dates) ...[
           Wrap(
             spacing: 6,

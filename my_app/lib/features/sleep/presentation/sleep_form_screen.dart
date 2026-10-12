@@ -3,8 +3,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import '../../../core/errors/api_exception.dart';
 import '../../../core/localization/l10n.dart';
-import '../../../core/theme/app_colors.dart';
-import '../../../core/widgets/state_views.dart';
+import '../../../core/design_system.dart';
 import '../../auth/presentation/auth_form_widgets.dart';
 import '../../family/application/permissions_controller.dart';
 import '../../family/data/models/family_permission.dart';
@@ -34,22 +33,21 @@ class SleepFormScreen extends ConsumerWidget {
     final async = isEdit ? ref.watch(sleepLogDetailProvider(logId!)) : null;
 
     return Scaffold(
-      backgroundColor: AppColors.background,
       appBar: AppBar(
         title: Text(isEdit ? l.sleepEditTitle : l.sleepAddTitle),
         actions: [
           if (isEdit && canManage && (async?.hasValue ?? false))
             IconButton(
-              icon: const Icon(
+              icon: Icon(
                 Icons.delete_outline_rounded,
-                color: AppColors.coral,
+                color: context.mamily.actionText,
               ),
               onPressed: () =>
                   _confirmDelete(context, ref, async!.requireValue),
             ),
         ],
       ),
-      body: SafeArea(
+      body: AppContentFrame(
         child: async == null
             ? const _SleepFormBody()
             : async.when(
@@ -72,27 +70,14 @@ class SleepFormScreen extends ConsumerWidget {
     SleepLog log,
   ) async {
     final l = context.l10n;
-    final ok = await showDialog<bool>(
-      context: context,
-      builder: (_) => AlertDialog(
-        title: Text(l.sleepDeleteConfirmTitle),
-        content: Text(l.sleepDeleteConfirmBody),
-        actions: [
-          TextButton(
-            onPressed: () => Navigator.of(context).pop(false),
-            child: Text(l.commonCancel),
-          ),
-          TextButton(
-            onPressed: () => Navigator.of(context).pop(true),
-            child: Text(
-              l.sleepDeleteAction,
-              style: const TextStyle(color: AppColors.coral),
-            ),
-          ),
-        ],
-      ),
+    final ok = await confirmAction(
+      context,
+      title: l.sleepDeleteConfirmTitle,
+      body: l.sleepDeleteConfirmBody,
+      confirmLabel: l.sleepDeleteAction,
+      destructive: true,
     );
-    if (ok != true) return;
+    if (!ok) return;
     try {
       await ref.read(sleepLogsControllerProvider.notifier).deleteLog(log.id);
       if (!context.mounted) return;
@@ -236,19 +221,19 @@ class _SleepFormBodyState extends ConsumerState<_SleepFormBody> {
   Widget build(BuildContext context) {
     final l = context.l10n;
     return SingleChildScrollView(
-      padding: const EdgeInsets.all(22),
+      padding: const EdgeInsets.fromLTRB(
+        AppSpacing.xl,
+        AppSpacing.lg,
+        AppSpacing.xl,
+        AppSpacing.xxxl,
+      ),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.stretch,
         children: [
-          const SizedBox(height: 8),
           const Center(
-            child: Icon(
-              Icons.bedtime_rounded,
-              size: 72,
-              color: Color(0xFF7C89B8),
-            ),
+            child: IconBadge(emoji: '🌙', tone: AppTone.sleep, size: 72),
           ),
-          const SizedBox(height: 28),
+          const SizedBox(height: AppSpacing.xxl),
           if (_formError != null) AuthFormErrorBanner(message: _formError!),
           _DateTimeCard(
             title: l.sleepFieldBedtime,
@@ -258,7 +243,7 @@ class _SleepFormBodyState extends ConsumerState<_SleepFormBody> {
             onTap: () => _pick(bedtime: true),
           ),
           AuthFieldError(messages: _fieldErrors['started_at']),
-          const SizedBox(height: 4),
+          const SizedBox(height: AppSpacing.xs),
           _DateTimeCard(
             title: l.sleepFieldWake,
             icon: Icons.wb_sunny_rounded,
@@ -268,34 +253,15 @@ class _SleepFormBodyState extends ConsumerState<_SleepFormBody> {
             onTap: () => _pick(bedtime: false),
           ),
           AuthFieldError(messages: _fieldErrors['ended_at']),
-          const SizedBox(height: 24),
-          SizedBox(
-            width: double.infinity,
-            height: 55,
-            child: ElevatedButton(
-              onPressed: _submitting ? null : _submit,
-              style: ElevatedButton.styleFrom(
-                backgroundColor: AppColors.coral,
-                foregroundColor: Colors.white,
-                shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(25),
-                ),
-              ),
-              child: Text(
-                l.sleepSave,
-                style: const TextStyle(
-                  fontWeight: FontWeight.bold,
-                  fontSize: 17,
-                ),
-              ),
-            ),
+          const SizedBox(height: AppSpacing.xxl),
+          FilledButton(
+            onPressed: _submitting ? null : _submit,
+            child: Text(l.sleepSave),
           ),
           if (_submitting)
             const Padding(
-              padding: EdgeInsets.only(top: 16),
-              child: Center(
-                child: CircularProgressIndicator(color: AppColors.coral),
-              ),
+              padding: EdgeInsets.only(top: AppSpacing.lg),
+              child: Center(child: CircularProgressIndicator()),
             ),
         ],
       ),
@@ -322,75 +288,45 @@ class _DateTimeCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return GestureDetector(
-      onTap: onTap,
-      child: Container(
-        width: double.infinity,
-        margin: const EdgeInsets.only(bottom: 12),
-        padding: const EdgeInsets.all(18),
-        decoration: BoxDecoration(
-          color: Colors.white,
-          borderRadius: BorderRadius.circular(22),
-        ),
+    final c = context.mamily;
+    return Semantics(
+      button: true,
+      label: '$title, $dateText, $timeText${badge == null ? '' : ', $badge'}',
+      excludeSemantics: true,
+      child: AppCard(
+        onTap: onTap,
+        margin: const EdgeInsets.only(bottom: AppSpacing.md),
+        padding: const EdgeInsets.all(AppSpacing.lg),
         child: Row(
           children: [
-            Icon(icon, color: const Color(0xFF7C89B8), size: 30),
-            const SizedBox(width: 14),
+            IconBadge(icon: icon, tone: AppTone.sleep),
+            const SizedBox(width: AppSpacing.md),
             Expanded(
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  Text(
-                    title,
-                    style: const TextStyle(
-                      color: AppColors.navy,
-                      fontWeight: FontWeight.bold,
-                    ),
-                  ),
-                  const SizedBox(height: 2),
-                  Row(
+                  Text(title, style: context.type.titleSmall),
+                  Wrap(
+                    spacing: AppSpacing.xs,
+                    runSpacing: AppSpacing.xs,
+                    crossAxisAlignment: WrapCrossAlignment.center,
                     children: [
-                      Flexible(
-                        child: Text(
-                          dateText,
-                          overflow: TextOverflow.ellipsis,
-                          style: const TextStyle(
-                            color: AppColors.textMuted,
-                            fontSize: 12,
-                          ),
-                        ),
+                      Text(
+                        dateText,
+                        style: context.type.bodySmall?.copyWith(color: c.ink2),
                       ),
-                      if (badge != null) ...[
-                        const SizedBox(width: 6),
-                        Container(
-                          padding: const EdgeInsets.symmetric(
-                            horizontal: 6,
-                            vertical: 1,
-                          ),
-                          decoration: BoxDecoration(
-                            color: const Color(0xFFE7E9F6),
-                            borderRadius: BorderRadius.circular(6),
-                          ),
-                          child: Text(
-                            badge!,
-                            style: const TextStyle(
-                              color: Color(0xFF7C89B8),
-                              fontSize: 10,
-                            ),
-                          ),
-                        ),
-                      ],
+                      if (badge != null)
+                        StatusPill(label: badge!, tone: AppTone.info),
                     ],
                   ),
                 ],
               ),
             ),
+            const SizedBox(width: AppSpacing.sm),
             Text(
               timeText,
-              style: const TextStyle(
-                color: AppColors.coral,
-                fontSize: 18,
-                fontWeight: FontWeight.bold,
+              style: context.type.titleMedium?.copyWith(
+                color: c.sleep.foreground,
               ),
             ),
           ],

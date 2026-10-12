@@ -3,8 +3,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import '../../../core/errors/api_exception.dart';
 import '../../../core/localization/l10n.dart';
-import '../../../core/theme/app_colors.dart';
-import '../../../core/widgets/state_views.dart';
+import '../../../core/design_system.dart';
 import '../../family/application/permissions_controller.dart';
 import '../../family/data/models/family_permission.dart';
 import '../application/sleep_logs_controller.dart';
@@ -28,17 +27,8 @@ class SleepScreen extends ConsumerWidget {
     final canManage = permissions.hasPermission(FamilyPermission.manageSleep);
 
     return Scaffold(
-      backgroundColor: AppColors.background,
-      appBar: AppBar(
-        title: Text(
-          l.sleepTitle,
-          style: const TextStyle(
-            color: AppColors.navy,
-            fontWeight: FontWeight.bold,
-          ),
-        ),
-      ),
-      body: SafeArea(
+      appBar: AppBar(title: Text(l.sleepTitle)),
+      body: AppContentFrame(
         child: RefreshIndicator(
           onRefresh: () async {
             await logsController.refresh();
@@ -48,41 +38,27 @@ class SleepScreen extends ConsumerWidget {
             padding: const EdgeInsets.fromLTRB(20, 12, 20, 40),
             children: [
               if (permissions.shouldSurfacePermissionError)
-                _PermissionBanner(onRetry: () => refreshPermissions(ref)),
+                PermissionNotice(onRetry: () => refreshPermissions(ref)),
               const _SummarySection(),
-              const SizedBox(height: 24),
+              const SizedBox(height: AppSpacing.xxl),
               Align(
                 alignment: AlignmentDirectional.centerStart,
                 child: Text(
                   l.sleepRecordsTitle,
-                  style: const TextStyle(
-                    color: AppColors.navy,
-                    fontSize: 20,
-                    fontWeight: FontWeight.bold,
-                  ),
+                  style: context.type.headlineSmall,
                 ),
               ),
-              const SizedBox(height: 12),
+              const SizedBox(height: AppSpacing.md),
               logs.when(
                 skipLoadingOnReload: true,
                 loading: () => const Padding(
                   padding: EdgeInsets.all(28),
-                  child: Center(
-                    child: CircularProgressIndicator(color: AppColors.coral),
-                  ),
+                  child: Center(child: CircularProgressIndicator()),
                 ),
                 error: (e, _) =>
                     ErrorRetryView(error: e, onRetry: logsController.refresh),
                 data: (state) => state.isEmpty
-                    ? Padding(
-                        padding: const EdgeInsets.symmetric(vertical: 24),
-                        child: Center(
-                          child: Text(
-                            l.sleepRecordsEmpty,
-                            style: const TextStyle(color: AppColors.textMuted),
-                          ),
-                        ),
-                      )
+                    ? EmptyView(emoji: '🌙', message: l.sleepRecordsEmpty)
                     : Column(
                         children: [
                           for (final log in state.logs)
@@ -99,11 +75,11 @@ class SleepScreen extends ConsumerWidget {
                             ),
                           if (state.hasMore)
                             Padding(
-                              padding: const EdgeInsets.only(top: 4),
+                              padding: const EdgeInsets.only(
+                                top: AppSpacing.xs,
+                              ),
                               child: state.loadingMore
-                                  ? const CircularProgressIndicator(
-                                      color: AppColors.coral,
-                                    )
+                                  ? const CircularProgressIndicator()
                                   : OutlinedButton(
                                       onPressed: () => _loadMore(context, ref),
                                       child: Text(l.sleepLoadMore),
@@ -112,27 +88,14 @@ class SleepScreen extends ConsumerWidget {
                         ],
                       ),
               ),
-              const SizedBox(height: 20),
+              const SizedBox(height: AppSpacing.xl),
               if (canManage)
-                SizedBox(
-                  width: double.infinity,
-                  height: 55,
-                  child: ElevatedButton.icon(
-                    onPressed: () => Navigator.of(context).push(
-                      MaterialPageRoute(
-                        builder: (_) => const SleepFormScreen(),
-                      ),
-                    ),
-                    icon: const Icon(Icons.add),
-                    label: Text(l.sleepAdd),
-                    style: ElevatedButton.styleFrom(
-                      backgroundColor: AppColors.coral,
-                      foregroundColor: Colors.white,
-                      shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(25),
-                      ),
-                    ),
+                FilledButton.icon(
+                  onPressed: () => Navigator.of(context).push(
+                    MaterialPageRoute(builder: (_) => const SleepFormScreen()),
                   ),
+                  icon: const Icon(Icons.add_rounded),
+                  label: Text(l.sleepAdd),
                 ),
             ],
           ),
@@ -163,88 +126,67 @@ class _SummarySection extends ConsumerWidget {
     final summary = ref.watch(sleepSummaryProvider(period));
 
     return Column(
+      crossAxisAlignment: CrossAxisAlignment.stretch,
       children: [
-        Container(
-          width: double.infinity,
-          padding: const EdgeInsets.all(24),
-          decoration: BoxDecoration(
-            color: AppColors.navy,
-            borderRadius: BorderRadius.circular(28),
+        HeroMetricCard(
+          label: l.sleepAverage,
+          emoji: '🌙',
+          tone: AppTone.sleep,
+          valueWidget: summary.when(
+            loading: () => const Padding(
+              padding: EdgeInsets.symmetric(vertical: AppSpacing.sm),
+              child: SizedBox.square(
+                dimension: 24,
+                child: CircularProgressIndicator(strokeWidth: 3),
+              ),
+            ),
+            error: (e, _) => Text(
+              e is ApiException ? e.localizedMessage(l) : l.errorUnknown,
+              style: context.type.bodyMedium?.copyWith(
+                color: context.mamily.danger.foreground,
+              ),
+            ),
+            data: (s) => s.hasSufficientData
+                ? Text(
+                    formatSleepDuration(context, s.averageSleepMinutes),
+                    style: context.type.headlineMedium,
+                  )
+                : Text(l.sleepNoData, style: context.type.bodyLarge),
           ),
-          child: Column(
-            children: [
-              const Icon(
-                Icons.bedtime_rounded,
-                color: Color(0xFFB8B5E8),
-                size: 46,
-              ),
-              const SizedBox(height: 10),
-              Text(
-                l.sleepAverage,
-                style: const TextStyle(color: Color(0xFFD8DDEC)),
-              ),
-              const SizedBox(height: 6),
-              summary.when(
-                loading: () => const Padding(
-                  padding: EdgeInsets.symmetric(vertical: 8),
-                  child: CircularProgressIndicator(color: Colors.white),
-                ),
-                error: (e, _) => Padding(
-                  padding: const EdgeInsets.only(top: 6),
-                  child: Text(
-                    e is ApiException ? e.localizedMessage(l) : l.errorUnknown,
-                    textAlign: TextAlign.center,
-                    style: const TextStyle(
-                      color: Color(0xFFFFC9C0),
-                      fontSize: 13,
-                    ),
-                  ),
-                ),
-                data: (s) => s.hasSufficientData
-                    ? Text(
-                        formatSleepDuration(context, s.averageSleepMinutes),
-                        style: const TextStyle(
-                          color: Colors.white,
-                          fontSize: 34,
-                          fontWeight: FontWeight.bold,
-                        ),
-                      )
-                    : Padding(
-                        padding: const EdgeInsets.symmetric(vertical: 6),
-                        child: Text(
-                          l.sleepNoData,
-                          textAlign: TextAlign.center,
-                          style: const TextStyle(
-                            color: Color(0xFFD8DDEC),
-                            fontSize: 14,
-                          ),
-                        ),
-                      ),
-              ),
-              const SizedBox(height: 12),
-              _PeriodToggle(current: period),
-            ],
+          footer: Padding(
+            padding: const EdgeInsets.only(top: AppSpacing.md),
+            child: ChoiceChipBar<String>(
+              options: {
+                'weekly': l.sleepPeriodWeekly,
+                'monthly': l.sleepPeriodMonthly,
+              },
+              selected: period,
+              onSelected: (p) =>
+                  ref.read(sleepPeriodProvider.notifier).state = p,
+            ),
           ),
         ),
-        const SizedBox(height: 16),
+        const SizedBox(height: AppSpacing.md),
         summary.maybeWhen(
           data: (s) => Row(
             children: [
               Expanded(
-                child: _Stat(
-                  title: l.sleepNightsLogged,
+                child: StatTile(
+                  label: l.sleepNightsLogged,
                   value: '${s.nightsLogged}',
                   icon: Icons.nightlight_rounded,
+                  tone: AppTone.sleep,
                 ),
               ),
-              const SizedBox(width: 12),
+              const SizedBox(width: AppSpacing.md),
               Expanded(
-                child: _Stat(
-                  title: l.sleepTotal,
+                child: StatTile(
+                  label: l.sleepTotal,
                   value: s.hasSufficientData
                       ? formatSleepDuration(context, s.totalSleepMinutes)
                       : '—',
                   icon: Icons.summarize_rounded,
+                  tone: AppTone.sleep,
                 ),
               ),
             ],
@@ -252,78 +194,6 @@ class _SummarySection extends ConsumerWidget {
           orElse: () => const SizedBox.shrink(),
         ),
       ],
-    );
-  }
-}
-
-class _PeriodToggle extends ConsumerWidget {
-  const _PeriodToggle({required this.current});
-  final String current;
-
-  @override
-  Widget build(BuildContext context, WidgetRef ref) {
-    final l = context.l10n;
-    return Row(
-      mainAxisAlignment: MainAxisAlignment.center,
-      children: [
-        for (final entry in {
-          'weekly': l.sleepPeriodWeekly,
-          'monthly': l.sleepPeriodMonthly,
-        }.entries)
-          Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 4),
-            child: ChoiceChip(
-              label: Text(entry.value),
-              selected: current == entry.key,
-              onSelected: (_) =>
-                  ref.read(sleepPeriodProvider.notifier).state = entry.key,
-              selectedColor: AppColors.teal,
-              backgroundColor: const Color(0xFF3E4C7A),
-              labelStyle: TextStyle(
-                color: current == entry.key ? AppColors.navy : Colors.white,
-                fontSize: 12,
-              ),
-            ),
-          ),
-      ],
-    );
-  }
-}
-
-class _Stat extends StatelessWidget {
-  const _Stat({required this.title, required this.value, required this.icon});
-  final String title;
-  final String value;
-  final IconData icon;
-
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-      padding: const EdgeInsets.all(18),
-      decoration: BoxDecoration(
-        color: Colors.white,
-        borderRadius: BorderRadius.circular(20),
-      ),
-      child: Column(
-        children: [
-          Icon(icon, color: const Color(0xFF7C89B8), size: 28),
-          const SizedBox(height: 8),
-          Text(
-            value,
-            style: const TextStyle(
-              color: AppColors.navy,
-              fontSize: 18,
-              fontWeight: FontWeight.bold,
-            ),
-          ),
-          const SizedBox(height: 2),
-          Text(
-            title,
-            textAlign: TextAlign.center,
-            style: const TextStyle(color: AppColors.textMuted, fontSize: 11),
-          ),
-        ],
-      ),
     );
   }
 }
@@ -336,112 +206,25 @@ class _SleepRecord extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final l = context.l10n;
-    return GestureDetector(
+    final times =
+        '${formatSleepTime(context, log.startedAtLocal)} → '
+        '${formatSleepTime(context, log.endedAtLocal)}';
+    return AppListTile(
+      leading: const IconBadge(emoji: '🌙', tone: AppTone.sleep, size: 40),
+      title: formatSleepDate(context, log.startedAtLocal),
+      subtitle: log.crossesMidnightLocal ? '$times · ${l.sleepNextDay}' : times,
       onTap: onTap,
-      child: Container(
-        margin: const EdgeInsets.only(bottom: 10),
-        padding: const EdgeInsets.all(16),
-        decoration: BoxDecoration(
-          color: Colors.white,
-          borderRadius: BorderRadius.circular(20),
-        ),
-        child: Row(
-          children: [
-            const Icon(Icons.bedtime_rounded, color: Color(0xFF7C89B8)),
-            const SizedBox(width: 12),
-            Expanded(
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Text(
-                    formatSleepDate(context, log.startedAtLocal),
-                    style: const TextStyle(
-                      color: AppColors.navy,
-                      fontWeight: FontWeight.bold,
-                    ),
-                  ),
-                  const SizedBox(height: 2),
-                  Row(
-                    children: [
-                      Text(
-                        '${formatSleepTime(context, log.startedAtLocal)} → '
-                        '${formatSleepTime(context, log.endedAtLocal)}',
-                        style: const TextStyle(
-                          color: AppColors.textMuted,
-                          fontSize: 12,
-                        ),
-                      ),
-                      if (log.crossesMidnightLocal) ...[
-                        const SizedBox(width: 6),
-                        Text(
-                          l.sleepNextDay,
-                          style: const TextStyle(
-                            color: Color(0xFF7C89B8),
-                            fontSize: 10,
-                          ),
-                        ),
-                      ],
-                    ],
-                  ),
-                ],
-              ),
-            ),
-            Text(
-              formatSleepDuration(context, log.durationMinutes),
-              style: const TextStyle(
-                color: AppColors.teal,
-                fontSize: 12,
-                fontWeight: FontWeight.bold,
-              ),
-            ),
-            if (onTap != null) ...[
-              const SizedBox(width: 6),
-              const Icon(
-                Icons.chevron_right_rounded,
-                size: 18,
-                color: Color(0xFF9AA3B5),
-              ),
-            ],
-          ],
-        ),
-      ),
-    );
-  }
-}
-
-class _PermissionBanner extends StatelessWidget {
-  const _PermissionBanner({required this.onRetry});
-  final VoidCallback onRetry;
-
-  @override
-  Widget build(BuildContext context) {
-    final l = context.l10n;
-    return Container(
-      margin: const EdgeInsets.only(bottom: 14),
-      padding: const EdgeInsets.all(12),
-      decoration: BoxDecoration(
-        color: const Color(0xFFFFF3E0),
-        borderRadius: BorderRadius.circular(14),
-      ),
-      child: Row(
+      trailing: Row(
+        mainAxisSize: MainAxisSize.min,
         children: [
-          const Icon(
-            Icons.info_outline_rounded,
-            color: AppColors.amber,
-            size: 20,
-          ),
-          const SizedBox(width: 10),
-          Expanded(
-            child: Text(
-              l.permLoadFailed,
-              style: const TextStyle(
-                color: AppColors.navy,
-                fontSize: 12,
-                height: 1.4,
-              ),
+          Text(
+            formatSleepDuration(context, log.durationMinutes),
+            style: context.type.labelLarge?.copyWith(
+              color: context.mamily.sleep.foreground,
             ),
           ),
-          TextButton(onPressed: onRetry, child: Text(l.commonRetry)),
+          if (onTap != null)
+            Icon(Icons.chevron_right_rounded, color: context.mamily.ink3),
         ],
       ),
     );

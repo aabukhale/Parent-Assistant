@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 
+import '../localization/l10n.dart';
 import '../theme/app_typography.dart';
 import '../theme/design_tokens.dart';
 import '../theme/mamily_colors.dart';
@@ -96,6 +97,28 @@ class NoticeBanner extends StatelessWidget {
             ],
           ),
         ),
+      ),
+    );
+  }
+}
+
+/// Shown when the caller's effective permissions could not be loaded: the
+/// management actions stay hidden (denied by default) until a retry works.
+class PermissionNotice extends StatelessWidget {
+  const PermissionNotice({super.key, required this.onRetry});
+
+  final VoidCallback onRetry;
+
+  @override
+  Widget build(BuildContext context) {
+    final l = context.l10n;
+    return Padding(
+      padding: const EdgeInsets.only(bottom: AppSpacing.md),
+      child: NoticeBanner(
+        tone: AppTone.warning,
+        message: l.permLoadFailed,
+        actionLabel: l.commonRetry,
+        onAction: onRetry,
       ),
     );
   }
