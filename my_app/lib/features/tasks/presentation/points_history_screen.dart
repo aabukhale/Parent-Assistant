@@ -32,7 +32,7 @@ class PointsHistoryScreen extends ConsumerWidget {
                 ErrorRetryView(error: e, onRetry: notifier.refresh),
             data: (state) => state.isEmpty
                 ? EmptyView(
-                    emoji: '🧾',
+                    icon: Icons.receipt_long_rounded,
                     message: l.tasksHistoryEmpty,
                     onRefresh: notifier.refresh,
                   )

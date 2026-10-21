@@ -18,7 +18,9 @@
   "errorServer": "An unexpected server error occurred. Try again later.",
   "errorUnauthorized": "Your session has expired. Please sign in again.",
   "errorInvalidCredentials": "Incorrect email or password.",
-  "@errorInvalidCredentials": {"description": "Sign-in failed: wrong email or password."},
+  "@errorInvalidCredentials": {
+    "description": "Sign-in failed: wrong email or password."
+  },
   "errorForbidden": "You don't have permission to do that.",
   "errorNotFound": "That item doesn't exist or can't be accessed.",
   "errorConflict": "That couldn't be completed due to a state conflict. Data was refreshed.",
@@ -1860,5 +1862,352 @@
   "plannerRemindDay": "1 day before",
   "plannerRemindAtStart": "At start time",
   "discoverDashboard": "Family dashboard",
-  "discoverDashboardBody": "Points, sleep and goals at a glance"
+  "discoverDashboardBody": "Points, sleep and goals at a glance",
+  "kidTabToday": "Today",
+  "kidTabFamily": "Family",
+  "kidHelp": "Help",
+  "kidHelpTitle": "Get help",
+  "kidHelpHold": "Press and hold to send",
+  "kidHelpButton": "I need help",
+  "kidHelpExplain": "Your family gets a message right away, with where this phone is.",
+  "kidHelpSending": "Sending…",
+  "kidHelpSentTo": "Sent to {names}.",
+  "@kidHelpSentTo": {
+    "placeholders": {
+      "names": {
+        "type": "String"
+      }
+    }
+  },
+  "kidHelpWaiting": "Waiting for your parent to see it.",
+  "kidHelpSeen": "{name} saw your message.",
+  "@kidHelpSeen": {
+    "placeholders": {
+      "name": {
+        "type": "String"
+      }
+    }
+  },
+  "kidHelpNoPush": "We couldn’t send a notification. Please call instead.",
+  "kidHelpFailed": "Not sent. Check the internet, or call instead.",
+  "kidHelpTryAgain": "Try again",
+  "kidHelpImOk": "I’m okay now",
+  "kidCallPerson": "Call {name}",
+  "@kidCallPerson": {
+    "placeholders": {
+      "name": {
+        "type": "String"
+      }
+    }
+  },
+  "kidEmergencyCall": "In danger? Call {number}",
+  "@kidEmergencyCall": {
+    "placeholders": {
+      "number": {
+        "type": "String"
+      }
+    }
+  },
+  "kidEmergencyNote": "Mamily doesn’t replace emergency services.",
+  "kidQuickTitle": "Tell my family",
+  "kidCheckArrived": "I arrived",
+  "kidCheckPickMeUp": "Pick me up",
+  "kidCheckCallMe": "Call me",
+  "kidCheckOkay": "I’m okay",
+  "kidCheckSent": "Sent to your family.",
+  "kidCheckSeen": "{name} saw it.",
+  "@kidCheckSeen": {
+    "placeholders": {
+      "name": {
+        "type": "String"
+      }
+    }
+  },
+  "kidCallMyParent": "Call my parent",
+  "kidNoPhone": "No phone number saved yet. Ask a grown-up to add one.",
+  "kidJourneyStart": "I’m going somewhere",
+  "kidJourneyWhere": "Where are you going?",
+  "kidJourneyOther": "Somewhere else",
+  "kidJourneyName": "Place name",
+  "kidJourneyWhen": "When will you get there?",
+  "kidJourneyInMinutes": "In {minutes} min",
+  "@kidJourneyInMinutes": {
+    "placeholders": {
+      "minutes": {
+        "type": "int"
+      }
+    }
+  },
+  "kidJourneyGo": "Start",
+  "kidJourneyOnWay": "On the way to {place}",
+  "@kidJourneyOnWay": {
+    "placeholders": {
+      "place": {
+        "type": "String"
+      }
+    }
+  },
+  "kidJourneyExpected": "Get there by {time}",
+  "@kidJourneyExpected": {
+    "placeholders": {
+      "time": {
+        "type": "String"
+      }
+    }
+  },
+  "kidJourneyOverdue": "Your family is waiting to hear from you.",
+  "kidJourneyMoreTime": "I need more time",
+  "kidJourneyCancel": "Cancel trip",
+  "kidJourneyShared": "Your family can see you’re on the way.",
+  "kidLocationTitle": "Your family can see where this phone is",
+  "kidLocationBody": "This helps them know you got there safely. Only your family can see it.",
+  "kidLocationOk": "OK, got it",
+  "kidLocationOnBadge": "Location shared with family",
+  "kidPausedUntil": "Most apps are paused until {time}.",
+  "@kidPausedUntil": {
+    "placeholders": {
+      "time": {
+        "type": "String"
+      }
+    }
+  },
+  "kidPausedNamed": "{name}: most apps are paused until {time}.",
+  "@kidPausedNamed": {
+    "placeholders": {
+      "name": {
+        "type": "String"
+      },
+      "time": {
+        "type": "String"
+      }
+    }
+  },
+  "kidPausedNow": "Your parent paused apps for now.",
+  "kidPausedStillOk": "You can still call your family and use Mamily.",
+  "kidAskMoreTime": "Ask for more time",
+  "kidWaitingParent": "Waiting for your parent.",
+  "kidTimeLeft": "{minutes} min of screen time left today",
+  "@kidTimeLeft": {
+    "placeholders": {
+      "minutes": {
+        "type": "int"
+      }
+    }
+  },
+  "kidTimeUsedUp": "Screen time is used up for today.",
+  "kidTimeAgreement": "Your family’s screen time plan: {minutes} min today.",
+  "@kidTimeAgreement": {
+    "placeholders": {
+      "minutes": {
+        "type": "int"
+      }
+    }
+  },
+  "kidFamilyTalk": "Talk to my family",
+  "kidVideoCall": "Video call",
+  "kidAskHelpInApp": "Ask for help in Mamily",
+  "kidAgreements": "Our agreements",
+  "kidAgree": "I agree",
+  "kidAgreed": "You agreed",
+  "kidAgreementChanged": "Something changed. Please read it again.",
+  "kidAgreementsEmpty": "No agreements yet.",
+  "kidLessons": "Stay safe online",
+  "kidLessonFinish": "I finished",
+  "kidLessonNext": "Next",
+  "kidLessonDoneBadge": "Done",
+  "kidSafetyCard": "My safety card",
+  "kidPickup": "Who picks me up",
+  "kidTrustedAdults": "Grown-ups I can call",
+  "kidMyThings": "My things",
+  "kidSignOutLocked": "Your parent’s rules are on this phone. A grown-up has to remove it from Mamily.",
+  "kidRemoteHelpAsk": "{name} wants to help you in Mamily",
+  "@kidRemoteHelpAsk": {
+    "placeholders": {
+      "name": {
+        "type": "String"
+      }
+    }
+  },
+  "kidRemoteHelpBody": "{name} will see your Mamily screen and can point at things. Not your other apps. You can stop any time.",
+  "@kidRemoteHelpBody": {
+    "placeholders": {
+      "name": {
+        "type": "String"
+      }
+    }
+  },
+  "kidRemoteCallAsk": "{name} is calling",
+  "@kidRemoteCallAsk": {
+    "placeholders": {
+      "name": {
+        "type": "String"
+      }
+    }
+  },
+  "kidRemoteVideoBody": "Video call. Your camera and microphone turn on only if you answer.",
+  "kidRemoteVoiceBody": "Voice call. Your microphone turns on only if you answer.",
+  "kidRemoteAccept": "Yes, OK",
+  "kidRemoteAnswer": "Answer",
+  "kidRemoteDecline": "Not now",
+  "kidRemoteActive": "{name} can see your Mamily screen",
+  "@kidRemoteActive": {
+    "placeholders": {
+      "name": {
+        "type": "String"
+      }
+    }
+  },
+  "kidRemoteStop": "Stop",
+  "kidRemoteEnded": "Help session ended.",
+  "kidRemoteLook": "Look here",
+  "kidRemoteWaitingFor": "Waiting for {name}…",
+  "@kidRemoteWaitingFor": {
+    "placeholders": {
+      "name": {
+        "type": "String"
+      }
+    }
+  },
+  "kidCelebrations": "Celebrations",
+  "kidCelebrationsBody": "Show a short celebration when I finish something.",
+  "kidSettings": "Settings",
+  "kidActivitiesTitle": "My activities",
+  "lessonScamsTitle": "Too good to be true",
+  "lessonScams1": "Free coins, skins or prizes? It is often a trick.",
+  "lessonScams2": "Never send a code, password or photo to win something.",
+  "lessonScams3": "Not sure? Ask a grown-up before you tap.",
+  "lessonBullyingTitle": "If someone is mean",
+  "lessonBullying1": "Mean messages are not your fault.",
+  "lessonBullying2": "Don’t reply. Take a screenshot and block them.",
+  "lessonBullying3": "Tell a grown-up you trust. You can use “Tell my family”.",
+  "lessonPasswordsTitle": "Passwords are secret",
+  "lessonPasswords1": "Your password is like a toothbrush: don’t share it.",
+  "lessonPasswords2": "Only your parents may know it. Not friends.",
+  "lessonPasswords3": "Long passwords with words you like are strong.",
+  "lessonPhotosTitle": "Think before you share",
+  "lessonPhotos1": "Photos can be copied and shared forever.",
+  "lessonPhotos2": "Don’t share photos that show your school or home address.",
+  "lessonPhotos3": "Someone asks for a photo that feels wrong? Say no and tell a grown-up.",
+  "lessonStrangersTitle": "People you don’t know",
+  "lessonStrangers1": "People online are not always who they say they are.",
+  "lessonStrangers2": "Never agree to meet someone from the internet alone.",
+  "lessonStrangers3": "Something feels strange? Stop and tell your family.",
+  "agreementSectionDevices": "Phones and screens",
+  "agreementSectionResponsibilities": "Responsibilities",
+  "agreementSectionRewards": "Rewards",
+  "kidPointsOf": "{count} of {total} points",
+  "@kidPointsOf": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      },
+      "total": {
+        "type": "int"
+      }
+    }
+  },
+  "callEnd": "End call",
+  "callMute": "Mute",
+  "callUnmute": "Unmute",
+  "callCameraOff": "Turn camera off",
+  "callCameraOn": "Turn camera on",
+  "callConnecting": "Connecting…",
+  "callConnected": "Connected",
+  "callEnded": "Call ended",
+  "callFailed": "The call couldn’t connect.",
+  "callPermission": "Mamily needs the microphone (and camera for video) for calls. You can allow them in Settings.",
+  "callCameraLive": "Camera on",
+  "callMicLive": "Microphone on",
+  "callRelayMissing": "Calls may not connect on some networks: a call relay isn’t set up yet.",
+  "remoteHelpInMamily": "Help in Mamily",
+  "remoteHelpExplain": "You’ll see {name}’s Mamily screen and can point at buttons. You can’t see other apps or control the phone. {name} must accept and can stop any time.",
+  "@remoteHelpExplain": {
+    "placeholders": {
+      "name": {
+        "type": "String"
+      }
+    }
+  },
+  "remoteVideoCall": "Video call",
+  "remoteVoiceCall": "Voice call",
+  "remoteCallExplain": "{name} sees an incoming call and chooses to answer. Nothing is recorded.",
+  "@remoteCallExplain": {
+    "placeholders": {
+      "name": {
+        "type": "String"
+      }
+    }
+  },
+  "remoteWaitingChild": "Waiting for {name} to accept…",
+  "@remoteWaitingChild": {
+    "placeholders": {
+      "name": {
+        "type": "String"
+      }
+    }
+  },
+  "remoteDeclined": "{name} said not now.",
+  "@remoteDeclined": {
+    "placeholders": {
+      "name": {
+        "type": "String"
+      }
+    }
+  },
+  "remoteNoAnswer": "No answer. You can try again later.",
+  "remoteEnded": "Session ended.",
+  "remoteEndedNotAllowed": "This session is no longer allowed.",
+  "remoteTapToPoint": "Tap the picture to show {name} where to tap.",
+  "@remoteTapToPoint": {
+    "placeholders": {
+      "name": {
+        "type": "String"
+      }
+    }
+  },
+  "remoteNoFrame": "Waiting for {name}’s screen…",
+  "@remoteNoFrame": {
+    "placeholders": {
+      "name": {
+        "type": "String"
+      }
+    }
+  },
+  "remoteFrameAge": "Picture from {seconds} s ago",
+  "@remoteFrameAge": {
+    "placeholders": {
+      "seconds": {
+        "type": "int"
+      }
+    }
+  },
+  "remoteChildAsksHelp": "{name} asks for help in Mamily",
+  "@remoteChildAsksHelp": {
+    "placeholders": {
+      "name": {
+        "type": "String"
+      }
+    }
+  },
+  "remoteChildCalling": "{name} is calling",
+  "@remoteChildCalling": {
+    "placeholders": {
+      "name": {
+        "type": "String"
+      }
+    }
+  },
+  "remoteAccept": "Accept",
+  "remoteDecline": "Decline",
+  "remoteEnd": "End session",
+  "remoteNoDevice": "{name} isn’t signed in on a phone right now.",
+  "@remoteNoDevice": {
+    "placeholders": {
+      "name": {
+        "type": "String"
+      }
+    }
+  },
+  "remoteStart": "Ask",
+  "remoteSectionTitle": "Help and calls"
 }

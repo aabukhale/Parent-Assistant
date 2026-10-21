@@ -231,7 +231,11 @@ class _SleepFormBodyState extends ConsumerState<_SleepFormBody> {
         crossAxisAlignment: CrossAxisAlignment.stretch,
         children: [
           const Center(
-            child: IconBadge(emoji: '🌙', tone: AppTone.sleep, size: 72),
+            child: IconBadge(
+              icon: Icons.bedtime_rounded,
+              tone: AppTone.sleep,
+              size: 72,
+            ),
           ),
           const SizedBox(height: AppSpacing.xxl),
           if (_formError != null) AuthFormErrorBanner(message: _formError!),

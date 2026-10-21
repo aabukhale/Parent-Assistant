@@ -143,10 +143,7 @@ class _TaskHeader extends StatelessWidget {
           Row(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              EmojiTile(
-                emoji: iconEmoji(task.iconKey ?? task.category),
-                size: 52,
-              ),
+              IconTile(icon: taskIcon(task.iconKey ?? task.category), size: 52),
               const SizedBox(width: AppSpacing.md),
               Expanded(child: Text(task.title, style: context.type.titleLarge)),
               const SizedBox(width: AppSpacing.sm),

@@ -63,7 +63,10 @@ class SleepScreen extends ConsumerWidget {
                 error: (e, _) =>
                     ErrorRetryView(error: e, onRetry: logsController.refresh),
                 data: (state) => state.isEmpty
-                    ? EmptyView(emoji: '🌙', message: l.sleepRecordsEmpty)
+                    ? EmptyView(
+                        icon: Icons.bedtime_rounded,
+                        message: l.sleepRecordsEmpty,
+                      )
                     : Column(
                         children: [
                           for (final log in state.logs)
@@ -135,7 +138,7 @@ class _SummarySection extends ConsumerWidget {
       children: [
         HeroMetricCard(
           label: l.sleepAverage,
-          emoji: '🌙',
+          icon: Icons.bedtime_rounded,
           tone: AppTone.sleep,
           valueWidget: summary.when(
             loading: () => const Padding(
@@ -215,7 +218,11 @@ class _SleepRecord extends StatelessWidget {
         '${formatSleepTime(context, log.startedAtLocal)} → '
         '${formatSleepTime(context, log.endedAtLocal)}';
     return AppListTile(
-      leading: const IconBadge(emoji: '🌙', tone: AppTone.sleep, size: 40),
+      leading: const IconBadge(
+        icon: Icons.bedtime_rounded,
+        tone: AppTone.sleep,
+        size: 40,
+      ),
       title: formatSleepDate(context, log.startedAtLocal),
       subtitle: log.crossesMidnightLocal ? '$times · ${l.sleepNextDay}' : times,
       onTap: onTap,

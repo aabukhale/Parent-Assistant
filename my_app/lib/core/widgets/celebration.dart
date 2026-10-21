@@ -13,11 +13,21 @@ import '../theme/mamily_colors.dart';
 class Celebration {
   const Celebration._();
 
+  /// Children (or parents) can turn the animation off; the message is then
+  /// shown as a plain snackbar. Reduced-motion is honoured either way.
+  static bool enabled = true;
+
   static void show(
     BuildContext context, {
     required String message,
-    String emoji = '🎉',
+    IconData icon = Icons.celebration_rounded,
   }) {
+    if (!enabled) {
+      ScaffoldMessenger.maybeOf(context)
+        ?..hideCurrentSnackBar()
+        ..showSnackBar(SnackBar(content: Text(message)));
+      return;
+    }
     final overlay = Overlay.maybeOf(context, rootOverlay: true);
     if (overlay == null) return;
     final reduceMotion = MediaQuery.disableAnimationsOf(context);
@@ -31,7 +41,7 @@ class Celebration {
     entry = OverlayEntry(
       builder: (_) => _CelebrationLayer(
         message: message,
-        emoji: emoji,
+        icon: icon,
         reduceMotion: reduceMotion,
         onDone: () => entry.remove(),
       ),
@@ -43,13 +53,13 @@ class Celebration {
 class _CelebrationLayer extends StatefulWidget {
   const _CelebrationLayer({
     required this.message,
-    required this.emoji,
+    required this.icon,
     required this.reduceMotion,
     required this.onDone,
   });
 
   final String message;
-  final String emoji;
+  final IconData icon;
   final bool reduceMotion;
   final VoidCallback onDone;
 
@@ -129,9 +139,10 @@ class _CelebrationLayerState extends State<_CelebrationLayer>
                         child: Column(
                           mainAxisSize: MainAxisSize.min,
                           children: [
-                            Text(
-                              widget.emoji,
-                              style: const TextStyle(fontSize: 48),
+                            Icon(
+                              widget.icon,
+                              size: 48,
+                              color: c.warning.foreground,
                             ),
                             const SizedBox(height: AppSpacing.sm),
                             Text(

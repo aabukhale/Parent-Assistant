@@ -3,31 +3,41 @@ import 'package:flutter/material.dart';
 import '../../../core/design_system.dart';
 import '../../../core/localization/l10n.dart';
 
-/// Emoji for task/step icon keys and categories. Unknown keys fall back to a star.
-String iconEmoji(String? key) => switch (key) {
-  'bed' => '🛏️',
-  'tooth' || 'teeth' => '🪥',
-  'shirt' || 'clothes' => '👕',
-  'breakfast' || 'food' || 'meal' => '🥣',
-  'snack' => '🍎',
-  'backpack' || 'school' => '🎒',
-  'hands' => '🧼',
-  'book' || 'reading' || 'homework' => '📚',
-  'ball' || 'sport' || 'play' => '⚽',
-  'toys' || 'tidy' => '🧸',
-  'bath' => '🛁',
-  'pajamas' => '🌙',
-  'music' => '🎵',
-  'art' => '🎨',
-  'pet' => '🐾',
-  'plant' || 'garden' => '🪴',
-  'kitchen' || 'chores' => '🍽️',
-  'water' => '💧',
-  'kindness' || 'heart' => '💛',
-  _ => '⭐',
+/// Icon for task/step icon keys and categories. Unknown keys fall back to a
+/// star. Always shown with a text label (title or [iconLabel]) — children are
+/// never asked to guess what a symbol means.
+IconData taskIcon(String? key) => switch (key) {
+  'bed' => Icons.bed_rounded,
+  'tooth' || 'teeth' => Icons.brush_rounded,
+  'shirt' || 'clothes' => Icons.checkroom_rounded,
+  'breakfast' || 'food' || 'meal' => Icons.breakfast_dining_rounded,
+  'snack' => Icons.cookie_rounded,
+  'backpack' || 'school' => Icons.backpack_rounded,
+  'hands' => Icons.wash_rounded,
+  'book' || 'reading' || 'homework' => Icons.menu_book_rounded,
+  'ball' || 'sport' || 'play' => Icons.sports_soccer_rounded,
+  'toys' || 'tidy' => Icons.toys_rounded,
+  'bath' => Icons.bathtub_rounded,
+  'pajamas' => Icons.nightlight_round,
+  'music' => Icons.music_note_rounded,
+  'art' => Icons.palette_rounded,
+  'pet' => Icons.pets_rounded,
+  'plant' || 'garden' => Icons.local_florist_rounded,
+  'kitchen' || 'chores' => Icons.dinner_dining_rounded,
+  'water' => Icons.water_drop_rounded,
+  'kindness' || 'heart' => Icons.favorite_rounded,
+  _ => Icons.star_rounded,
 };
 
-/// One key per icon in [iconEmoji], in picker order.
+/// Icon for a routine kind.
+IconData routineIcon(String? kind) => switch (kind) {
+  'morning' => Icons.wb_sunny_rounded,
+  'after_school' => Icons.backpack_rounded,
+  'bedtime' => Icons.bedtime_rounded,
+  _ => Icons.checklist_rounded,
+};
+
+/// One key per icon in [taskIcon], in picker order.
 const pickableIconKeys = [
   'bed',
   'tooth',
@@ -100,8 +110,8 @@ Future<String?> pickIconKey(BuildContext context, {String? current}) {
                 child: InkWell(
                   borderRadius: AppRadii.mediumAll,
                   onTap: () => Navigator.of(sheetContext).pop(key),
-                  child: EmojiTile(
-                    emoji: iconEmoji(key),
+                  child: IconTile(
+                    icon: taskIcon(key),
                     size: 52,
                     fill: key == current
                         ? sheetContext.mamily.accent.background
@@ -116,15 +126,15 @@ Future<String?> pickIconKey(BuildContext context, {String? current}) {
   );
 }
 
-String moodEmoji(String mood) => switch (mood) {
-  'great' => '🤩',
-  'happy' => '😊',
-  'okay' => '🙂',
-  'tired' => '🥱',
-  'sad' => '😢',
-  'worried' => '😟',
-  'angry' => '😠',
-  _ => '🙂',
+IconData moodIcon(String mood) => switch (mood) {
+  'great' => Icons.sentiment_very_satisfied_rounded,
+  'happy' => Icons.sentiment_satisfied_alt_rounded,
+  'okay' => Icons.sentiment_neutral_rounded,
+  'tired' => Icons.bedtime_rounded,
+  'sad' => Icons.sentiment_dissatisfied_rounded,
+  'worried' => Icons.mood_bad_rounded,
+  'angry' => Icons.sentiment_very_dissatisfied_rounded,
+  _ => Icons.sentiment_neutral_rounded,
 };
 
 String moodLabel(AppLocalizations l, String mood) => switch (mood) {
@@ -140,21 +150,32 @@ String moodLabel(AppLocalizations l, String mood) => switch (mood) {
 
 const moods = ['great', 'happy', 'okay', 'tired', 'sad', 'worried', 'angry'];
 
-String badgeEmoji(String? badge) => switch (badge) {
-  'star' => '⭐',
-  'heart' => '💖',
-  'rocket' => '🚀',
-  'trophy' => '🏆',
-  'rainbow' => '🌈',
-  'sun' => '☀️',
-  'muscle' => '💪',
-  'brain' => '🧠',
-  'kindness' => '🤝',
-  'helper' => '🦸',
-  _ => '💌',
+IconData badgeIcon(String? badge) => switch (badge) {
+  'star' => Icons.star_rounded,
+  'heart' => Icons.favorite_rounded,
+  'rocket' => Icons.rocket_launch_rounded,
+  'trophy' => Icons.emoji_events_rounded,
+  'rainbow' => Icons.looks_rounded,
+  'sun' => Icons.wb_sunny_rounded,
+  'muscle' => Icons.fitness_center_rounded,
+  'brain' => Icons.psychology_rounded,
+  'kindness' => Icons.volunteer_activism_rounded,
+  'helper' => Icons.handshake_rounded,
+  _ => Icons.mail_rounded,
 };
 
-/// Coloured points chip ("⭐ 120").
+/// Icon for a parent's reply sticker on a check-in.
+IconData stickerIcon(String key) => switch (key) {
+  'hug' => Icons.volunteer_activism_rounded,
+  'heart' => Icons.favorite_rounded,
+  'high_five' => Icons.front_hand_rounded,
+  'proud' => Icons.emoji_events_rounded,
+  'thinking_of_you' => Icons.cloud_rounded,
+  'lets_talk' => Icons.chat_rounded,
+  _ => Icons.mail_rounded,
+};
+
+/// Coloured points chip (star icon + number; announced as "120 points").
 class PointsPill extends StatelessWidget {
   const PointsPill({super.key, required this.points, this.large = false});
 
@@ -180,7 +201,11 @@ class PointsPill extends StatelessWidget {
         child: Row(
           mainAxisSize: MainAxisSize.min,
           children: [
-            Text('⭐', style: TextStyle(fontSize: large ? 20 : 16)),
+            Icon(
+              Icons.star_rounded,
+              size: large ? 22 : 18,
+              color: c.warning.foreground,
+            ),
             const SizedBox(width: AppSpacing.xs),
             Text(
               '$points',
@@ -297,17 +322,27 @@ class KidSectionTitle extends StatelessWidget {
   );
 }
 
-/// Emoji in a soft rounded square (task / step icon).
-class EmojiTile extends StatelessWidget {
-  const EmojiTile({super.key, required this.emoji, this.size = 48, this.fill});
+/// An icon in a soft rounded square (task / step / section visual). Pair it
+/// with visible text; pass [semanticLabel] only when it stands alone.
+class IconTile extends StatelessWidget {
+  const IconTile({
+    super.key,
+    required this.icon,
+    this.size = 48,
+    this.fill,
+    this.color,
+    this.semanticLabel,
+  });
 
-  final String emoji;
+  final IconData icon;
   final double size;
   final Color? fill;
+  final Color? color;
+  final String? semanticLabel;
 
   @override
-  Widget build(BuildContext context) => ExcludeSemantics(
-    child: Container(
+  Widget build(BuildContext context) {
+    final tile = Container(
       width: size,
       height: size,
       alignment: Alignment.center,
@@ -315,11 +350,14 @@ class EmojiTile extends StatelessWidget {
         color: fill ?? context.mamily.surfaceMuted,
         borderRadius: BorderRadius.circular(size * 0.3),
       ),
-      child: Text(
-        emoji,
-        style: TextStyle(fontSize: size * 0.5),
-        textScaler: TextScaler.noScaling,
+      child: Icon(
+        icon,
+        size: size * 0.55,
+        color: color ?? context.mamily.brand.foreground,
       ),
-    ),
-  );
+    );
+    return semanticLabel == null
+        ? ExcludeSemantics(child: tile)
+        : Semantics(label: semanticLabel, image: true, child: tile);
+  }
 }

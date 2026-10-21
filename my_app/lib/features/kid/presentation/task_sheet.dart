@@ -44,7 +44,7 @@ Future<bool> submitKidTask(
     Celebration.show(
       context,
       message: '${l.kidTaskSentTitle} ${l.kidTaskSent}',
-      emoji: '🙌',
+      icon: Icons.celebration_rounded,
     );
     return true;
   } catch (e) {
@@ -98,7 +98,7 @@ class _KidTaskSheetState extends ConsumerState<_KidTaskSheet> {
           children: [
             Row(
               children: [
-                EmojiTile(emoji: iconEmoji(t.iconKey ?? t.category), size: 64),
+                IconTile(icon: taskIcon(t.iconKey ?? t.category), size: 64),
                 const SizedBox(width: AppSpacing.lg),
                 Expanded(
                   child: Column(

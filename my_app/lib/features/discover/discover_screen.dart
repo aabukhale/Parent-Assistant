@@ -24,7 +24,6 @@ class DiscoverScreen extends StatelessWidget {
     final tiles = [
       NavTile(
         icon: Icons.groups_rounded,
-        emoji: '🤝',
         tone: AppTone.accent,
         title: l.discoverChallenges,
         subtitle: l.discoverChallengesBody,
@@ -32,7 +31,6 @@ class DiscoverScreen extends StatelessWidget {
       ),
       NavTile(
         icon: Icons.event_rounded,
-        emoji: '🗓️',
         tone: AppTone.info,
         title: l.discoverPlanner,
         subtitle: l.discoverPlannerBody,
@@ -40,7 +38,6 @@ class DiscoverScreen extends StatelessWidget {
       ),
       NavTile(
         icon: Icons.auto_graph_rounded,
-        emoji: '📊',
         tone: AppTone.warning,
         title: l.discoverRecap,
         subtitle: l.discoverRecapBody,
@@ -48,7 +45,6 @@ class DiscoverScreen extends StatelessWidget {
       ),
       NavTile(
         icon: Icons.dashboard_rounded,
-        emoji: '🏡',
         tone: AppTone.neutral,
         title: l.discoverDashboard,
         subtitle: l.discoverDashboardBody,
@@ -56,7 +52,6 @@ class DiscoverScreen extends StatelessWidget {
       ),
       NavTile(
         icon: Icons.extension_rounded,
-        emoji: '🧩',
         tone: AppTone.success,
         title: l.discoverActivities,
         subtitle: l.discoverActivitiesBody,
@@ -64,7 +59,6 @@ class DiscoverScreen extends StatelessWidget {
       ),
       NavTile(
         icon: Icons.menu_book_rounded,
-        emoji: '📚',
         tone: AppTone.sleep,
         title: l.discoverLibrary,
         subtitle: l.discoverLibraryBody,
@@ -72,7 +66,6 @@ class DiscoverScreen extends StatelessWidget {
       ),
       NavTile(
         icon: Icons.sports_esports_rounded,
-        emoji: '🎮',
         tone: AppTone.brand,
         title: l.discoverGames,
         subtitle: l.discoverGamesBody,
@@ -80,7 +73,6 @@ class DiscoverScreen extends StatelessWidget {
       ),
       NavTile(
         icon: Icons.support_agent_rounded,
-        emoji: '🧑‍🏫',
         tone: AppTone.neutral,
         title: l.discoverCoach,
         subtitle: l.discoverCoachBody,

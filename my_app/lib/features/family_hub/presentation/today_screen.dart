@@ -118,7 +118,7 @@ class TodayScreen extends ConsumerWidget {
                 data: (fresh) {
                   if (fresh.value.children.isEmpty) {
                     return EmptyView(
-                      emoji: '👶',
+                      icon: Icons.child_care_rounded,
                       message: l.todayNoChildren,
                       action: FilledButton.icon(
                         icon: const Icon(Icons.add_rounded),
@@ -181,7 +181,6 @@ class TodayScreen extends ConsumerWidget {
               const SizedBox(height: AppSpacing.md),
               NavTile(
                 icon: Icons.auto_graph_rounded,
-                emoji: '📊',
                 tone: AppTone.info,
                 title: l.recapTitle,
                 subtitle: l.discoverRecapBody,
@@ -479,7 +478,7 @@ class _PulseCard extends StatelessWidget {
             text: checkin == null
                 ? l.pulseNoCheckin
                 : l.pulseCheckin(
-                    '${moodEmoji(checkin['mood'] as String)} ${moodLabel(l, checkin['mood'] as String)}',
+                    moodLabel(l, checkin['mood'] as String),
                     checkin['created_at'] == null
                         ? ''
                         : relativeTime(

@@ -156,7 +156,7 @@ class MoodPicker extends StatelessWidget {
                 ),
                 child: Column(
                   children: [
-                    Text(moodEmoji(m), style: const TextStyle(fontSize: 32)),
+                    Icon(moodIcon(m), size: 34, color: c.accent.foreground),
                     const SizedBox(height: AppSpacing.xs),
                     Text(
                       moodLabel(l, m),

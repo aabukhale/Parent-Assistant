@@ -68,7 +68,7 @@ class HomeScreen extends ConsumerWidget {
                     ? Padding(
                         padding: const EdgeInsets.only(top: AppSpacing.xxl),
                         child: EmptyView(
-                          emoji: '👨‍👩‍👧',
+                          icon: Icons.family_restroom_rounded,
                           message: l.homeNoChildren,
                         ),
                       )

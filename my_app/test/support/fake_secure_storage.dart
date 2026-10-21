@@ -33,6 +33,14 @@ class FakeSecureTokenStorage implements SecureTokenStorage {
   @override
   Future<bool> hasToken() async => (_token ?? '').isNotEmpty;
 
+  bool _celebrations = true;
+
+  @override
+  Future<bool> readCelebrations() async => _celebrations;
+
+  @override
+  Future<void> writeCelebrations(bool on) async => _celebrations = on;
+
   @override
   Future<String?> readLocale() async => _locale;
 

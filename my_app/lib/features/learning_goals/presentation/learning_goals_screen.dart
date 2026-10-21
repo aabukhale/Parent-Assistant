@@ -250,7 +250,7 @@ class _Empty extends StatelessWidget {
   Widget build(BuildContext context) {
     final l = context.l10n;
     return EmptyView(
-      emoji: '🎯',
+      icon: Icons.flag_rounded,
       message: l.lgEmpty,
       onRefresh: onRefresh,
       action: canManage

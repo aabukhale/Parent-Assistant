@@ -76,7 +76,7 @@ class ChildrenScreen extends ConsumerWidget {
                   const SizedBox(height: AppSpacing.md),
                   if (list.isEmpty)
                     EmptyView(
-                      emoji: '👶',
+                      icon: Icons.child_care_rounded,
                       message: l.childrenEmpty,
                       action: canManage
                           ? FilledButton.icon(

@@ -4,15 +4,19 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import '../../../core/design_system.dart';
 import '../../../core/localization/l10n.dart';
 import '../../auth/application/auth_controller.dart';
+import '../../safety/application/kid_safety_providers.dart';
+import '../../safety/presentation/kid_help_screen.dart';
+import '../../safety/presentation/kid_safety_widgets.dart';
 import '../application/kid_providers.dart';
 import '../data/kid_models.dart';
+import 'kid_requests_screen.dart';
 import 'kid_widgets.dart';
 import 'mood_sheet.dart';
 import 'routine_run_screen.dart';
 import 'task_sheet.dart';
 
-/// The child's home: one obvious next step, today's timeline, and what they
-/// are working towards. Every item is real data for this child.
+/// "Today": one obvious next step, what is paused and why, today's plan, and
+/// what the child is working towards. Every item is real data for this child.
 class MyDayScreen extends ConsumerWidget {
   const MyDayScreen({super.key, this.onOpenRewards, this.onOpenTogether});
 
@@ -23,7 +27,14 @@ class MyDayScreen extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     final async = ref.watch(kidMyDayProvider);
     final session = ref.watch(childSessionProvider);
-    Future<void> refresh() async => ref.invalidate(kidMyDayProvider);
+    final journey = ref.watch(kidJourneyProvider).valueOrNull;
+    Future<void> refresh() async {
+      ref
+        ..invalidate(kidMyDayProvider)
+        ..invalidate(kidScreenTimeProvider)
+        ..invalidate(kidJourneyProvider)
+        ..invalidate(kidActivitiesProvider);
+    }
 
     return SafeArea(
       bottom: false,
@@ -55,6 +66,11 @@ class MyDayScreen extends ConsumerWidget {
                   FreshnessLine(fetchedAt: fresh.fetchedAt, fromCache: true),
                 ],
                 const SizedBox(height: AppSpacing.lg),
+                const _ScreenTimeStatus(),
+                if (journey != null && journey.isLive) ...[
+                  JourneyBanner(journey: journey),
+                  const SizedBox(height: AppSpacing.lg),
+                ],
                 _NextStepCard(day: fresh.value),
                 if (fresh.value.newEncouragements.isNotEmpty) ...[
                   KidSectionTitle(context.l10n.kidMessages),
@@ -84,6 +100,8 @@ class MyDayScreen extends ConsumerWidget {
                   KidSectionTitle(context.l10n.kidMyGoals),
                   for (final g in fresh.value.goals) _LearningGoalRow(goal: g),
                 ],
+                KidSectionTitle(context.l10n.kidActivitiesTitle),
+                const KidActivitiesSection(),
               ],
             ),
           ),
@@ -128,24 +146,34 @@ class _Header extends StatelessWidget {
       child: Text(greeting, style: context.type.headlineSmall),
     );
     final points = PointsPill(points: day.pointsBalance, large: true);
+    final help = _HelpButton();
 
     // With large text the greeting gets its own full-width line.
     if (MediaQuery.textScalerOf(context).scale(1) > 1.3) {
       return Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Row(children: [avatar, const Spacer(), points]),
+          Row(children: [avatar, const Spacer(), help]),
           const SizedBox(height: AppSpacing.md),
           title,
+          const SizedBox(height: AppSpacing.sm),
+          points,
         ],
       );
     }
-    return Row(
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        avatar,
-        const SizedBox(width: AppSpacing.md),
-        Expanded(child: title),
-        const SizedBox(width: AppSpacing.sm),
+        Row(
+          children: [
+            avatar,
+            const SizedBox(width: AppSpacing.md),
+            Expanded(child: title),
+            const SizedBox(width: AppSpacing.sm),
+            help,
+          ],
+        ),
+        const SizedBox(height: AppSpacing.sm),
         points,
       ],
     );
@@ -169,7 +197,14 @@ class _NextStepCard extends ConsumerWidget {
         color: allDone ? c.success.background : c.surfaceMuted,
         child: Row(
           children: [
-            Text(allDone ? '🏆' : '🌈', style: const TextStyle(fontSize: 44)),
+            IconTile(
+              icon: allDone
+                  ? Icons.emoji_events_rounded
+                  : Icons.wb_sunny_rounded,
+              size: 56,
+              fill: c.surface,
+              color: allDone ? c.success.foreground : c.brand.foreground,
+            ),
             const SizedBox(width: AppSpacing.lg),
             Expanded(
               child: Text(
@@ -184,13 +219,9 @@ class _NextStepCard extends ConsumerWidget {
 
     final routine = next.routine;
     final task = next.task;
-    final emoji = routine != null
-        ? (routine.kind == 'bedtime'
-              ? '🌙'
-              : routine.kind == 'morning'
-              ? '☀️'
-              : '🧩')
-        : iconEmoji(task?.iconKey ?? task?.category);
+    final icon = routine != null
+        ? routineIcon(routine.kind)
+        : taskIcon(task?.iconKey ?? task?.category);
     final subtitle = routine != null
         ? l.kidRoutineStepsLeft(routine.steps.length - routine.doneCount)
         : task != null && task.points > 0
@@ -237,7 +268,7 @@ class _NextStepCard extends ConsumerWidget {
           const SizedBox(height: AppSpacing.md),
           Row(
             children: [
-              EmojiTile(emoji: emoji, size: 64, fill: c.surface),
+              IconTile(icon: icon, size: 64, fill: c.surface),
               const SizedBox(width: AppSpacing.lg),
               Expanded(
                 child: Column(
@@ -293,17 +324,11 @@ class _TimelineTile extends StatelessWidget {
     final routine = item.routine;
     final task = item.task;
     final event = item.event;
-    final emoji = routine != null
-        ? (routine.kind == 'bedtime'
-              ? '🌙'
-              : routine.kind == 'morning'
-              ? '☀️'
-              : routine.kind == 'after_school'
-              ? '🎒'
-              : '🧩')
+    final icon = routine != null
+        ? routineIcon(routine.kind)
         : event != null
-        ? '🗓️'
-        : iconEmoji(task?.iconKey ?? task?.category);
+        ? Icons.event_rounded
+        : taskIcon(task?.iconKey ?? task?.category);
 
     VoidCallback? onTap;
     if (routine != null) {
@@ -328,7 +353,7 @@ class _TimelineTile extends StatelessWidget {
               textAlign: TextAlign.center,
             ),
           ),
-          EmojiTile(emoji: emoji, size: 48),
+          IconTile(icon: icon, size: 48),
           const SizedBox(width: AppSpacing.md),
           Expanded(
             child: Column(
@@ -396,7 +421,11 @@ class _GoalCard extends StatelessWidget {
             size: 72,
             color: c.warning.foreground,
             semanticsLabel: goal.title,
-            center: const Text('🎁', style: TextStyle(fontSize: 28)),
+            center: Icon(
+              Icons.card_giftcard_rounded,
+              size: 30,
+              color: c.warning.foreground,
+            ),
           ),
           const SizedBox(width: AppSpacing.lg),
           Expanded(
@@ -414,7 +443,7 @@ class _GoalCard extends StatelessWidget {
                   ),
                 ),
                 Text(
-                  '$balance / ${goal.pointsCost} ⭐',
+                  l.kidPointsOf(balance, goal.pointsCost),
                   style: context.type.bodySmall?.copyWith(color: c.ink2),
                 ),
               ],
@@ -456,16 +485,29 @@ class _MoodPrompt extends StatelessWidget {
                         borderRadius: AppRadii.largeAll,
                         onTap: () => showMoodSheet(context, initialMood: m),
                         child: Container(
-                          width: 56,
-                          height: 56,
-                          alignment: Alignment.center,
+                          width: 76,
+                          padding: const EdgeInsets.symmetric(
+                            vertical: AppSpacing.sm,
+                          ),
                           decoration: BoxDecoration(
                             color: context.mamily.surface,
                             borderRadius: AppRadii.largeAll,
                           ),
-                          child: Text(
-                            moodEmoji(m),
-                            style: const TextStyle(fontSize: 30),
+                          child: Column(
+                            children: [
+                              Icon(
+                                moodIcon(m),
+                                size: 32,
+                                color: context.mamily.info.foreground,
+                              ),
+                              const SizedBox(height: AppSpacing.xs),
+                              Text(
+                                moodLabel(l, m),
+                                style: context.type.labelMedium,
+                                textAlign: TextAlign.center,
+                                maxLines: 2,
+                              ),
+                            ],
                           ),
                         ),
                       ),
@@ -499,7 +541,12 @@ class _MessageCard extends ConsumerWidget {
         },
         child: Row(
           children: [
-            Text(badgeEmoji(e.badgeKey), style: const TextStyle(fontSize: 36)),
+            IconTile(
+              icon: badgeIcon(e.badgeKey),
+              size: 52,
+              fill: c.surface,
+              color: c.sleep.foreground,
+            ),
             const SizedBox(width: AppSpacing.md),
             Expanded(
               child: Column(
@@ -536,7 +583,7 @@ class _LearningGoalRow extends StatelessWidget {
       child: KidCard(
         child: Row(
           children: [
-            const EmojiTile(emoji: '🎯', size: 44),
+            const IconTile(icon: Icons.flag_rounded, size: 44),
             const SizedBox(width: AppSpacing.md),
             Expanded(
               child: Column(
@@ -557,6 +604,138 @@ class _LearningGoalRow extends StatelessWidget {
                 ],
               ),
             ),
+          ],
+        ),
+      ),
+    );
+  }
+}
+
+/// Labelled "Help" button in the Today header. Opens the help page; sending
+/// an alert there needs a deliberate press-and-hold.
+class _HelpButton extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    final c = context.mamily;
+    return FilledButton.icon(
+      style: FilledButton.styleFrom(
+        backgroundColor: c.danger.background,
+        foregroundColor: c.danger.foreground,
+        side: BorderSide(color: c.danger.border),
+        minimumSize: const Size(0, 52),
+      ),
+      onPressed: () => Navigator.of(
+        context,
+      ).push(MaterialPageRoute<void>(builder: (_) => const KidHelpScreen())),
+      icon: const Icon(Icons.sos_rounded),
+      label: Text(context.l10n.kidHelp),
+    );
+  }
+}
+
+/// What screen-time situation the child is in, said calmly, with the one
+/// thing they can do about it. Never claims enforcement this phone hasn't
+/// confirmed: without it, the limit is described as the family's plan.
+class _ScreenTimeStatus extends ConsumerWidget {
+  const _ScreenTimeStatus();
+
+  @override
+  Widget build(BuildContext context, WidgetRef ref) {
+    final l = context.l10n;
+    final c = context.mamily;
+    final st = ref.watch(kidScreenTimeProvider).valueOrNull?.value;
+    if (st == null) return const SizedBox.shrink();
+
+    String hhmm(DateTime t) =>
+        MaterialLocalizations.of(context).formatTimeOfDay(
+          TimeOfDay.fromDateTime(t),
+          alwaysUse24HourFormat: MediaQuery.alwaysUse24HourFormatOf(context),
+        );
+
+    final pending = st.pending;
+    final String? headline;
+    final IconData icon;
+    var tone = c.info;
+    var paused = false;
+    if (st.restrictionKind == 'restrict_now') {
+      paused = true;
+      headline = st.restrictionUntil == null
+          ? l.kidPausedNow
+          : l.kidPausedUntil(hhmm(st.restrictionUntil!));
+      icon = Icons.pause_circle_rounded;
+    } else if (st.restrictionKind == 'schedule' &&
+        st.restrictionUntil != null) {
+      paused = true;
+      headline = l.kidPausedNamed(
+        st.restrictionName ?? '',
+        hhmm(st.restrictionUntil!),
+      );
+      icon = Icons.bedtime_rounded;
+    } else if (st.remainingMinutes != null && st.limitMinutes != null) {
+      final left = st.remainingMinutes!;
+      headline = left > 0 ? l.kidTimeLeft(left) : l.kidTimeUsedUp;
+      icon = Icons.timer_rounded;
+      if (left == 0) tone = c.warning;
+    } else if (st.limitMinutes != null) {
+      headline = l.kidTimeAgreement(st.limitMinutes!);
+      icon = Icons.timer_rounded;
+    } else {
+      headline = null;
+      icon = Icons.timer_rounded;
+    }
+    if (headline == null && pending == null) return const SizedBox.shrink();
+
+    return Padding(
+      padding: const EdgeInsets.only(bottom: AppSpacing.lg),
+      child: KidCard(
+        color: paused ? c.sleep.background : tone.background,
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.stretch,
+          children: [
+            if (headline != null)
+              Row(
+                children: [
+                  Icon(
+                    icon,
+                    size: 32,
+                    color: paused ? c.sleep.foreground : tone.foreground,
+                  ),
+                  const SizedBox(width: AppSpacing.md),
+                  Expanded(
+                    child: Text(headline, style: context.type.titleMedium),
+                  ),
+                ],
+              ),
+            if (paused) ...[
+              const SizedBox(height: AppSpacing.xs),
+              Text(l.kidPausedStillOk, style: context.type.bodyMedium),
+            ],
+            const SizedBox(height: AppSpacing.md),
+            if (pending != null)
+              Row(
+                children: [
+                  Icon(Icons.hourglass_top_rounded, color: c.ink2),
+                  const SizedBox(width: AppSpacing.sm),
+                  Expanded(
+                    child: Text(
+                      '${l.kidWaitingParent} ${l.kidMinutes(pending.minutes)}',
+                      style: context.type.bodyLarge,
+                    ),
+                  ),
+                  TextButton(
+                    onPressed: () => ref
+                        .read(kidActionsProvider)
+                        .cancelScreenTime(pending.id),
+                    child: Text(l.kidWithdraw),
+                  ),
+                ],
+              )
+            else
+              OutlinedButton.icon(
+                onPressed: () => askForMoreTime(context, ref),
+                icon: const Icon(Icons.more_time_rounded),
+                label: Text(l.kidAskMoreTime),
+              ),
           ],
         ),
       ),

@@ -81,7 +81,10 @@ class _RequestsInboxScreenState extends ConsumerState<RequestsInboxScreen> {
                       ? ListView(
                           children: [
                             const SizedBox(height: 80),
-                            EmptyView(emoji: '🌤️', message: l.inboxEmpty),
+                            EmptyView(
+                              icon: Icons.wb_sunny_rounded,
+                              message: l.inboxEmpty,
+                            ),
                           ],
                         )
                       : ListView(
@@ -167,7 +170,7 @@ class _InboxItemCardState extends ConsumerState<InboxItemCard> {
     'screen_time_request' => l.inboxMinutesAsked(
       (item.detail['minutes'] as num?)?.toInt() ?? 0,
     ),
-    'checkin' => '${moodEmoji(item.title)} ${moodLabel(l, item.title)}',
+    'checkin' => moodLabel(l, item.title),
     _ => item.title,
   };
 
@@ -291,16 +294,17 @@ class _InboxItemCardState extends ConsumerState<InboxItemCard> {
               spacing: AppSpacing.sm,
               runSpacing: AppSpacing.sm,
               children: [
-                for (final (key, emoji, label) in [
-                  ('hug', '🤗', l.stickerHug),
-                  ('heart', '❤️', l.stickerHeart),
-                  ('high_five', '🙌', l.stickerHighFive),
-                  ('proud', '🥹', l.stickerProud),
-                  ('thinking_of_you', '💭', l.stickerThinking),
-                  ('lets_talk', '💬', l.stickerTalk),
+                for (final (key, label) in [
+                  ('hug', l.stickerHug),
+                  ('heart', l.stickerHeart),
+                  ('high_five', l.stickerHighFive),
+                  ('proud', l.stickerProud),
+                  ('thinking_of_you', l.stickerThinking),
+                  ('lets_talk', l.stickerTalk),
                 ])
                   ChoiceChip(
-                    label: Text('$emoji $label'),
+                    avatar: Icon(stickerIcon(key), size: 18),
+                    label: Text(label),
                     selected: sticker == key,
                     onSelected: (s) => set(() => sticker = s ? key : null),
                   ),

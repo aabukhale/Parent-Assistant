@@ -22,7 +22,11 @@ class NoFamilyScreen extends ConsumerWidget {
             child: Column(
               mainAxisSize: MainAxisSize.min,
               children: [
-                const IconBadge(emoji: '🏡', tone: AppTone.accent, size: 80),
+                const IconBadge(
+                  icon: Icons.home_rounded,
+                  tone: AppTone.accent,
+                  size: 80,
+                ),
                 const SizedBox(height: AppSpacing.lg),
                 Text(
                   l.noFamilyTitle,

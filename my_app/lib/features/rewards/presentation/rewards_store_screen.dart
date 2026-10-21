@@ -147,7 +147,11 @@ class _BalanceStrip extends ConsumerWidget {
       tone: AppTone.warning,
       child: Row(
         children: [
-          const IconBadge(emoji: '⭐', tone: AppTone.warning, size: 40),
+          const IconBadge(
+            icon: Icons.star_rounded,
+            tone: AppTone.warning,
+            size: 40,
+          ),
           const SizedBox(width: AppSpacing.md),
           Expanded(
             child: Text(l.tasksPointsBalance, style: context.type.labelLarge),
@@ -193,7 +197,10 @@ class _CatalogSection extends ConsumerWidget {
       ),
       error: (e, _) => ErrorRetryView(error: e, onRetry: notifier.refresh),
       data: (state) => state.isEmpty
-          ? EmptyView(emoji: '🎁', message: l.rewardsCatalogEmpty)
+          ? EmptyView(
+              icon: Icons.card_giftcard_rounded,
+              message: l.rewardsCatalogEmpty,
+            )
           : Column(
               children: [
                 for (final reward in state.rewards)
@@ -448,7 +455,10 @@ class _RedemptionsSection extends ConsumerWidget {
       ),
       error: (e, _) => ErrorRetryView(error: e, onRetry: notifier.refresh),
       data: (state) => state.isEmpty
-          ? EmptyView(emoji: '🧾', message: l.rewardsHistoryEmpty)
+          ? EmptyView(
+              icon: Icons.receipt_long_rounded,
+              message: l.rewardsHistoryEmpty,
+            )
           : Column(
               children: [
                 for (final r in state.redemptions)

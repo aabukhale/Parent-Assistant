@@ -50,7 +50,10 @@ class ChallengesScreen extends ConsumerWidget {
             onRetry: () async => ref.invalidate(challengesProvider),
           ),
           data: (list) => list.isEmpty
-              ? EmptyView(emoji: '🤝', message: l.challengesEmpty)
+              ? EmptyView(
+                  icon: Icons.handshake_rounded,
+                  message: l.challengesEmpty,
+                )
               : RefreshIndicator(
                   onRefresh: () async => ref.invalidate(challengesProvider),
                   child: ListView.separated(
@@ -164,7 +167,11 @@ class _ChallengeDetailScreenState extends ConsumerState<ChallengeDetailScreen> {
         ..invalidate(challengesProvider)
         ..invalidate(pulseProvider);
       if (done != null && mounted) {
-        Celebration.show(context, message: done, emoji: '🏆');
+        Celebration.show(
+          context,
+          message: done,
+          icon: Icons.emoji_events_rounded,
+        );
       }
     } on ApiException catch (e) {
       if (mounted) showResultSnack(context, e.localizedMessage(context.l10n));

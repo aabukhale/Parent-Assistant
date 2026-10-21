@@ -52,14 +52,12 @@ class EmptyView extends StatelessWidget {
     this.icon,
     this.onRefresh,
     this.title,
-    this.emoji,
     this.action,
   });
   final String? message;
   final IconData? icon;
   final Future<void> Function()? onRefresh;
   final String? title;
-  final String? emoji;
   final Widget? action;
 
   @override
@@ -71,22 +69,15 @@ class EmptyView extends StatelessWidget {
         child: Column(
           mainAxisSize: MainAxisSize.min,
           children: [
-            if (emoji != null)
-              Text(emoji!, style: const TextStyle(fontSize: 48))
-            else
-              Container(
-                width: 72,
-                height: 72,
-                decoration: BoxDecoration(
-                  color: c.surfaceMuted,
-                  shape: BoxShape.circle,
-                ),
-                child: Icon(
-                  icon ?? Icons.inbox_rounded,
-                  size: 34,
-                  color: c.ink2,
-                ),
+            Container(
+              width: 72,
+              height: 72,
+              decoration: BoxDecoration(
+                color: c.surfaceMuted,
+                shape: BoxShape.circle,
               ),
+              child: Icon(icon ?? Icons.inbox_rounded, size: 34, color: c.ink2),
+            ),
             const SizedBox(height: AppSpacing.lg),
             if (title != null) ...[
               Text(

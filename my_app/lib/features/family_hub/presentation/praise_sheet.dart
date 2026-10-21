@@ -181,9 +181,10 @@ class _PraiseSheetState extends ConsumerState<_PraiseSheet> {
                               width: 2,
                             ),
                           ),
-                          child: Text(
-                            badgeEmoji(b),
-                            style: const TextStyle(fontSize: 24),
+                          child: Icon(
+                            badgeIcon(b),
+                            size: 26,
+                            color: c.sleep.foreground,
                           ),
                         ),
                       ),

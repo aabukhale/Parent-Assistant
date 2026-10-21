@@ -1859,5 +1859,352 @@
   "plannerRemindDay": "قبل يوم",
   "plannerRemindAtStart": "عند البدء",
   "discoverDashboard": "لوحة العائلة",
-  "discoverDashboardBody": "النقاط والنوم والأهداف بنظرة سريعة"
+  "discoverDashboardBody": "النقاط والنوم والأهداف بنظرة سريعة",
+  "kidTabToday": "اليوم",
+  "kidTabFamily": "العائلة",
+  "kidHelp": "مساعدة",
+  "kidHelpTitle": "اطلب المساعدة",
+  "kidHelpHold": "اضغط مطولاً للإرسال",
+  "kidHelpButton": "أحتاج مساعدة",
+  "kidHelpExplain": "تصل رسالة إلى عائلتك فوراً، مع مكان هذا الهاتف.",
+  "kidHelpSending": "جارٍ الإرسال…",
+  "kidHelpSentTo": "أُرسلت إلى {names}.",
+  "@kidHelpSentTo": {
+    "placeholders": {
+      "names": {
+        "type": "String"
+      }
+    }
+  },
+  "kidHelpWaiting": "بانتظار أن يراها أحد والديك.",
+  "kidHelpSeen": "رأى {name} رسالتك.",
+  "@kidHelpSeen": {
+    "placeholders": {
+      "name": {
+        "type": "String"
+      }
+    }
+  },
+  "kidHelpNoPush": "تعذّر إرسال الإشعار. اتصل بدلاً من ذلك.",
+  "kidHelpFailed": "لم تُرسل. تحقّق من الإنترنت، أو اتصل بدلاً من ذلك.",
+  "kidHelpTryAgain": "حاول مرة أخرى",
+  "kidHelpImOk": "أنا بخير الآن",
+  "kidCallPerson": "اتصل بـ{name}",
+  "@kidCallPerson": {
+    "placeholders": {
+      "name": {
+        "type": "String"
+      }
+    }
+  },
+  "kidEmergencyCall": "في خطر؟ اتصل بـ{number}",
+  "@kidEmergencyCall": {
+    "placeholders": {
+      "number": {
+        "type": "String"
+      }
+    }
+  },
+  "kidEmergencyNote": "Mamily لا يحلّ محلّ خدمات الطوارئ.",
+  "kidQuickTitle": "أخبر عائلتي",
+  "kidCheckArrived": "وصلت",
+  "kidCheckPickMeUp": "تعالوا خذوني",
+  "kidCheckCallMe": "اتصلوا بي",
+  "kidCheckOkay": "أنا بخير",
+  "kidCheckSent": "أُرسلت إلى عائلتك.",
+  "kidCheckSeen": "رآها {name}.",
+  "@kidCheckSeen": {
+    "placeholders": {
+      "name": {
+        "type": "String"
+      }
+    }
+  },
+  "kidCallMyParent": "اتصل بأحد والديّ",
+  "kidNoPhone": "لا يوجد رقم هاتف محفوظ بعد. اطلب من شخص بالغ إضافته.",
+  "kidJourneyStart": "سأذهب إلى مكان ما",
+  "kidJourneyWhere": "إلى أين تذهب؟",
+  "kidJourneyOther": "مكان آخر",
+  "kidJourneyName": "اسم المكان",
+  "kidJourneyWhen": "متى ستصل؟",
+  "kidJourneyInMinutes": "خلال {minutes} د",
+  "@kidJourneyInMinutes": {
+    "placeholders": {
+      "minutes": {
+        "type": "int"
+      }
+    }
+  },
+  "kidJourneyGo": "ابدأ",
+  "kidJourneyOnWay": "في الطريق إلى {place}",
+  "@kidJourneyOnWay": {
+    "placeholders": {
+      "place": {
+        "type": "String"
+      }
+    }
+  },
+  "kidJourneyExpected": "الوصول قبل {time}",
+  "@kidJourneyExpected": {
+    "placeholders": {
+      "time": {
+        "type": "String"
+      }
+    }
+  },
+  "kidJourneyOverdue": "عائلتك تنتظر أن تسمع منك.",
+  "kidJourneyMoreTime": "أحتاج وقتاً أطول",
+  "kidJourneyCancel": "إلغاء المشوار",
+  "kidJourneyShared": "يمكن لعائلتك أن ترى أنك في الطريق.",
+  "kidLocationTitle": "يمكن لعائلتك رؤية مكان هذا الهاتف",
+  "kidLocationBody": "هذا يساعدهم على معرفة أنك وصلت بأمان. عائلتك فقط يمكنها رؤيته.",
+  "kidLocationOk": "حسناً، فهمت",
+  "kidLocationOnBadge": "الموقع مُشارَك مع العائلة",
+  "kidPausedUntil": "معظم التطبيقات متوقفة حتى {time}.",
+  "@kidPausedUntil": {
+    "placeholders": {
+      "time": {
+        "type": "String"
+      }
+    }
+  },
+  "kidPausedNamed": "{name}: معظم التطبيقات متوقفة حتى {time}.",
+  "@kidPausedNamed": {
+    "placeholders": {
+      "name": {
+        "type": "String"
+      },
+      "time": {
+        "type": "String"
+      }
+    }
+  },
+  "kidPausedNow": "أوقف والدك التطبيقات مؤقتاً.",
+  "kidPausedStillOk": "ما زال بإمكانك الاتصال بعائلتك واستخدام Mamily.",
+  "kidAskMoreTime": "اطلب وقتاً إضافياً",
+  "kidWaitingParent": "بانتظار ردّ والدك.",
+  "kidTimeLeft": "تبقّى {minutes} دقيقة من وقت الشاشة اليوم",
+  "@kidTimeLeft": {
+    "placeholders": {
+      "minutes": {
+        "type": "int"
+      }
+    }
+  },
+  "kidTimeUsedUp": "انتهى وقت الشاشة لهذا اليوم.",
+  "kidTimeAgreement": "خطة وقت الشاشة لعائلتك: {minutes} دقيقة اليوم.",
+  "@kidTimeAgreement": {
+    "placeholders": {
+      "minutes": {
+        "type": "int"
+      }
+    }
+  },
+  "kidFamilyTalk": "تحدّث مع عائلتي",
+  "kidVideoCall": "مكالمة فيديو",
+  "kidAskHelpInApp": "اطلب المساعدة في Mamily",
+  "kidAgreements": "اتفاقاتنا",
+  "kidAgree": "أوافق",
+  "kidAgreed": "لقد وافقت",
+  "kidAgreementChanged": "تغيّر شيء ما. اقرأه مرة أخرى من فضلك.",
+  "kidAgreementsEmpty": "لا توجد اتفاقات بعد.",
+  "kidLessons": "ابقَ آمناً على الإنترنت",
+  "kidLessonFinish": "أنهيت",
+  "kidLessonNext": "التالي",
+  "kidLessonDoneBadge": "تم",
+  "kidSafetyCard": "بطاقة أماني",
+  "kidPickup": "من يأخذني",
+  "kidTrustedAdults": "أشخاص بالغون يمكنني الاتصال بهم",
+  "kidMyThings": "أشيائي",
+  "kidSignOutLocked": "قواعد والديك مفعّلة على هذا الهاتف. يجب على شخص بالغ إزالته من Mamily.",
+  "kidRemoteHelpAsk": "يريد {name} مساعدتك في Mamily",
+  "@kidRemoteHelpAsk": {
+    "placeholders": {
+      "name": {
+        "type": "String"
+      }
+    }
+  },
+  "kidRemoteHelpBody": "سيرى {name} شاشة Mamily لديك ويمكنه الإشارة إلى الأشياء. وليس تطبيقاتك الأخرى. يمكنك الإيقاف في أي وقت.",
+  "@kidRemoteHelpBody": {
+    "placeholders": {
+      "name": {
+        "type": "String"
+      }
+    }
+  },
+  "kidRemoteCallAsk": "{name} يتصل",
+  "@kidRemoteCallAsk": {
+    "placeholders": {
+      "name": {
+        "type": "String"
+      }
+    }
+  },
+  "kidRemoteVideoBody": "مكالمة فيديو. لا تعمل الكاميرا والميكروفون إلا إذا أجبت.",
+  "kidRemoteVoiceBody": "مكالمة صوتية. لا يعمل الميكروفون إلا إذا أجبت.",
+  "kidRemoteAccept": "نعم، موافق",
+  "kidRemoteAnswer": "ردّ",
+  "kidRemoteDecline": "ليس الآن",
+  "kidRemoteActive": "يستطيع {name} رؤية شاشة Mamily لديك",
+  "@kidRemoteActive": {
+    "placeholders": {
+      "name": {
+        "type": "String"
+      }
+    }
+  },
+  "kidRemoteStop": "إيقاف",
+  "kidRemoteEnded": "انتهت جلسة المساعدة.",
+  "kidRemoteLook": "انظر هنا",
+  "kidRemoteWaitingFor": "بانتظار {name}…",
+  "@kidRemoteWaitingFor": {
+    "placeholders": {
+      "name": {
+        "type": "String"
+      }
+    }
+  },
+  "kidCelebrations": "الاحتفالات",
+  "kidCelebrationsBody": "اعرض احتفالاً قصيراً عندما أُنهي شيئاً.",
+  "kidSettings": "الإعدادات",
+  "kidActivitiesTitle": "أنشطتي",
+  "lessonScamsTitle": "أجمل من أن يكون حقيقياً",
+  "lessonScams1": "عملات أو جوائز مجانية؟ غالباً ما تكون خدعة.",
+  "lessonScams2": "لا ترسل أبداً رمزاً أو كلمة مرور أو صورة لتربح شيئاً.",
+  "lessonScams3": "لست متأكداً؟ اسأل شخصاً بالغاً قبل أن تضغط.",
+  "lessonBullyingTitle": "إذا كان أحدهم لئيماً",
+  "lessonBullying1": "الرسائل اللئيمة ليست ذنبك.",
+  "lessonBullying2": "لا تردّ. التقط صورة للشاشة واحظره.",
+  "lessonBullying3": "أخبر شخصاً بالغاً تثق به. يمكنك استخدام «أخبر عائلتي».",
+  "lessonPasswordsTitle": "كلمات المرور سرّية",
+  "lessonPasswords1": "كلمة المرور مثل فرشاة الأسنان: لا تشاركها.",
+  "lessonPasswords2": "والداك فقط يمكنهما معرفتها. ليس الأصدقاء.",
+  "lessonPasswords3": "كلمات المرور الطويلة بكلمات تحبها قوية.",
+  "lessonPhotosTitle": "فكّر قبل أن تشارك",
+  "lessonPhotos1": "يمكن نسخ الصور ومشاركتها إلى الأبد.",
+  "lessonPhotos2": "لا تشارك صوراً تُظهر مدرستك أو عنوان منزلك.",
+  "lessonPhotos3": "طلب منك أحدهم صورة تشعر أنها غير صحيحة؟ قل لا وأخبر شخصاً بالغاً.",
+  "lessonStrangersTitle": "أشخاص لا تعرفهم",
+  "lessonStrangers1": "الناس على الإنترنت ليسوا دائماً من يقولون إنهم هم.",
+  "lessonStrangers2": "لا توافق أبداً على مقابلة شخص من الإنترنت بمفردك.",
+  "lessonStrangers3": "تشعر أن شيئاً غريباً؟ توقّف وأخبر عائلتك.",
+  "agreementSectionDevices": "الهواتف والشاشات",
+  "agreementSectionResponsibilities": "المسؤوليات",
+  "agreementSectionRewards": "المكافآت",
+  "kidPointsOf": "{count} من {total} نقطة",
+  "@kidPointsOf": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      },
+      "total": {
+        "type": "int"
+      }
+    }
+  },
+  "callEnd": "إنهاء المكالمة",
+  "callMute": "كتم الصوت",
+  "callUnmute": "إلغاء الكتم",
+  "callCameraOff": "إيقاف الكاميرا",
+  "callCameraOn": "تشغيل الكاميرا",
+  "callConnecting": "جارٍ الاتصال…",
+  "callConnected": "متصل",
+  "callEnded": "انتهت المكالمة",
+  "callFailed": "تعذّر إجراء الاتصال.",
+  "callPermission": "يحتاج Mamily إلى الميكروفون (والكاميرا للفيديو) لإجراء المكالمات. يمكنك السماح بذلك في الإعدادات.",
+  "callCameraLive": "الكاميرا تعمل",
+  "callMicLive": "الميكروفون يعمل",
+  "callRelayMissing": "قد لا تعمل المكالمات على بعض الشبكات: لم يتم إعداد خادم ترحيل للمكالمات بعد.",
+  "remoteHelpInMamily": "المساعدة في Mamily",
+  "remoteHelpExplain": "سترى شاشة Mamily لدى {name} ويمكنك الإشارة إلى الأزرار. لا يمكنك رؤية التطبيقات الأخرى أو التحكم بالهاتف. يجب أن يوافق {name} ويمكنه الإيقاف في أي وقت.",
+  "@remoteHelpExplain": {
+    "placeholders": {
+      "name": {
+        "type": "String"
+      }
+    }
+  },
+  "remoteVideoCall": "مكالمة فيديو",
+  "remoteVoiceCall": "مكالمة صوتية",
+  "remoteCallExplain": "سيرى {name} مكالمة واردة ويختار الرد. لا يُسجَّل شيء.",
+  "@remoteCallExplain": {
+    "placeholders": {
+      "name": {
+        "type": "String"
+      }
+    }
+  },
+  "remoteWaitingChild": "بانتظار موافقة {name}…",
+  "@remoteWaitingChild": {
+    "placeholders": {
+      "name": {
+        "type": "String"
+      }
+    }
+  },
+  "remoteDeclined": "قال {name}: ليس الآن.",
+  "@remoteDeclined": {
+    "placeholders": {
+      "name": {
+        "type": "String"
+      }
+    }
+  },
+  "remoteNoAnswer": "لا رد. يمكنك المحاولة لاحقاً.",
+  "remoteEnded": "انتهت الجلسة.",
+  "remoteEndedNotAllowed": "لم تعد هذه الجلسة مسموحة.",
+  "remoteTapToPoint": "اضغط على الصورة لتُري {name} أين يضغط.",
+  "@remoteTapToPoint": {
+    "placeholders": {
+      "name": {
+        "type": "String"
+      }
+    }
+  },
+  "remoteNoFrame": "بانتظار شاشة {name}…",
+  "@remoteNoFrame": {
+    "placeholders": {
+      "name": {
+        "type": "String"
+      }
+    }
+  },
+  "remoteFrameAge": "صورة منذ {seconds} ث",
+  "@remoteFrameAge": {
+    "placeholders": {
+      "seconds": {
+        "type": "int"
+      }
+    }
+  },
+  "remoteChildAsksHelp": "{name} يطلب المساعدة في Mamily",
+  "@remoteChildAsksHelp": {
+    "placeholders": {
+      "name": {
+        "type": "String"
+      }
+    }
+  },
+  "remoteChildCalling": "{name} يتصل",
+  "@remoteChildCalling": {
+    "placeholders": {
+      "name": {
+        "type": "String"
+      }
+    }
+  },
+  "remoteAccept": "قبول",
+  "remoteDecline": "رفض",
+  "remoteEnd": "إنهاء الجلسة",
+  "remoteNoDevice": "{name} غير مسجّل الدخول على أي هاتف الآن.",
+  "@remoteNoDevice": {
+    "placeholders": {
+      "name": {
+        "type": "String"
+      }
+    }
+  },
+  "remoteStart": "اطلب",
+  "remoteSectionTitle": "المساعدة والمكالمات"
 }

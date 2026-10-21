@@ -51,7 +51,12 @@ class TogetherScreen extends ConsumerWidget {
                 ],
                 error: (e, _) => [ErrorRetryView(error: e, onRetry: refresh)],
                 data: (fresh) => fresh.value.isEmpty
-                    ? [EmptyView(emoji: '🤝', message: l.kidNoChallenges)]
+                    ? [
+                        EmptyView(
+                          icon: Icons.handshake_rounded,
+                          message: l.kidNoChallenges,
+                        ),
+                      ]
                     : [
                         for (final ch in fresh.value)
                           _ChallengeCard(challenge: ch),
@@ -80,7 +85,7 @@ class TogetherScreen extends ConsumerWidget {
         .toList();
     if (messages.isLoading && praise.isEmpty) return const [LoadingView()];
     if (praise.isEmpty && replies.isEmpty) {
-      return [EmptyView(emoji: '💌', message: l.kidNoMessages)];
+      return [EmptyView(icon: Icons.mail_rounded, message: l.kidNoMessages)];
     }
 
     final items = <(DateTime, Widget)>[
@@ -94,9 +99,11 @@ class TogetherScreen extends ConsumerWidget {
                 : null,
             child: Row(
               children: [
-                Text(
-                  badgeEmoji(e.badgeKey),
-                  style: const TextStyle(fontSize: 36),
+                IconTile(
+                  icon: badgeIcon(e.badgeKey),
+                  size: 52,
+                  fill: c.surface,
+                  color: c.sleep.foreground,
                 ),
                 const SizedBox(width: AppSpacing.md),
                 Expanded(
@@ -143,11 +150,12 @@ class TogetherScreen extends ConsumerWidget {
           KidCard(
             child: Row(
               children: [
-                Text(
-                  m.replySticker != null
-                      ? _sticker(m.replySticker!)
-                      : moodEmoji(m.mood),
-                  style: const TextStyle(fontSize: 34),
+                IconTile(
+                  icon: m.replySticker != null
+                      ? stickerIcon(m.replySticker!)
+                      : moodIcon(m.mood),
+                  size: 52,
+                  color: c.accent.foreground,
                 ),
                 const SizedBox(width: AppSpacing.md),
                 Expanded(
@@ -163,7 +171,7 @@ class TogetherScreen extends ConsumerWidget {
                       if ((m.reply ?? '').isNotEmpty)
                         Text(m.reply!, style: context.type.bodyLarge),
                       Text(
-                        '${moodEmoji(m.mood)} ${moodLabel(l, m.mood)}${m.note == null ? '' : ' · ${m.note}'}',
+                        '${moodLabel(l, m.mood)}${m.note == null ? '' : ' · ${m.note}'}',
                         style: context.type.bodySmall?.copyWith(color: c.ink2),
                       ),
                     ],
@@ -183,16 +191,6 @@ class TogetherScreen extends ConsumerWidget {
         ),
     ];
   }
-
-  static String _sticker(String key) => switch (key) {
-    'hug' => '🤗',
-    'heart' => '❤️',
-    'high_five' => '🙌',
-    'proud' => '🥹',
-    'thinking_of_you' => '💭',
-    'lets_talk' => '💬',
-    _ => '💌',
-  };
 }
 
 class _ChallengeCard extends ConsumerStatefulWidget {

@@ -96,7 +96,7 @@ class TasksScreen extends ConsumerWidget {
                     ErrorRetryView(error: e, onRetry: tasksNotifier.refresh),
                 data: (state) => state.isEmpty
                     ? EmptyView(
-                        emoji: '📋',
+                        icon: Icons.checklist_rounded,
                         message: l.tasksEmpty,
                         action: canManage
                             ? FilledButton.icon(
@@ -169,7 +169,7 @@ class _BalanceCard extends ConsumerWidget {
 
     return HeroMetricCard(
       label: l.tasksPointsBalance,
-      emoji: '⭐',
+      icon: Icons.star_rounded,
       tone: AppTone.warning,
       onTap: () => Navigator.of(
         context,
@@ -221,8 +221,8 @@ class _TaskTile extends StatelessWidget {
     final l = context.l10n;
     return AppListTile(
       // The same icon the child sees for this task.
-      leading: EmojiTile(
-        emoji: iconEmoji(task.iconKey ?? task.category),
+      leading: IconTile(
+        icon: taskIcon(task.iconKey ?? task.category),
         size: 44,
       ),
       title: task.title,

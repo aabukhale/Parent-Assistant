@@ -116,7 +116,7 @@ class _SummaryCard extends StatelessWidget {
       children: [
         HeroMetricCard(
           label: l.stUsedToday,
-          emoji: '📱',
+          icon: Icons.smartphone_rounded,
           tone: AppTone.info,
           value: formatDurationMinutes(context, s.usedMinutes),
           caption: s.hasLimit

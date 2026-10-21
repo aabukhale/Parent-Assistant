@@ -5,19 +5,18 @@ import '../theme/mamily_colors.dart';
 import '../theme/app_typography.dart';
 import 'app_card.dart';
 
-/// A tinted square holding an icon or an emoji — the leading visual of list
-/// rows and summary cards.
+/// A tinted square holding an icon — the leading visual of list rows and
+/// summary cards. (Emoji are not used: they render differently per platform
+/// and screen readers announce them inconsistently.)
 class IconBadge extends StatelessWidget {
   const IconBadge({
     super.key,
-    this.icon,
-    this.emoji,
+    required this.icon,
     this.tone = AppTone.neutral,
     this.size = 44,
-  }) : assert(icon != null || emoji != null);
+  });
 
-  final IconData? icon;
-  final String? emoji;
+  final IconData icon;
   final AppTone tone;
   final double size;
 
@@ -33,13 +32,7 @@ class IconBadge extends StatelessWidget {
           color: t.background,
           borderRadius: AppRadii.smallAll,
         ),
-        child: emoji != null
-            ? Text(
-                emoji!,
-                textScaler: TextScaler.noScaling,
-                style: TextStyle(fontSize: size * 0.5),
-              )
-            : Icon(icon, color: t.foreground, size: size * 0.5),
+        child: Icon(icon, color: t.foreground, size: size * 0.5),
       ),
     );
   }
@@ -138,7 +131,6 @@ class HeroMetricCard extends StatelessWidget {
     this.valueWidget,
     this.caption,
     this.icon,
-    this.emoji,
     this.tone = AppTone.brand,
     this.onTap,
     this.actionLabel,
@@ -152,7 +144,6 @@ class HeroMetricCard extends StatelessWidget {
   final Widget? valueWidget;
   final String? caption;
   final IconData? icon;
-  final String? emoji;
   final AppTone tone;
   final VoidCallback? onTap;
 
@@ -171,8 +162,8 @@ class HeroMetricCard extends StatelessWidget {
       child: Row(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          if (icon != null || emoji != null) ...[
-            IconBadge(icon: icon, emoji: emoji, tone: tone, size: 52),
+          if (icon != null) ...[
+            IconBadge(icon: icon!, tone: tone, size: 52),
             const SizedBox(width: AppSpacing.lg),
           ],
           Expanded(

@@ -57,7 +57,10 @@ class KidRewardsScreen extends ConsumerWidget {
                   ],
                   KidSectionTitle(l.kidTabRewards),
                   if (catalog.rewards.isEmpty)
-                    EmptyView(emoji: '🎁', message: l.kidNoRewards)
+                    EmptyView(
+                      icon: Icons.card_giftcard_rounded,
+                      message: l.kidNoRewards,
+                    )
                   else
                     LayoutBuilder(
                       builder: (context, box) {
@@ -199,11 +202,11 @@ class _RewardCard extends ConsumerStatefulWidget {
 class _RewardCardState extends ConsumerState<_RewardCard> {
   bool _busy = false;
 
-  String get _emoji => switch (widget.reward.type) {
-    'screen_time' => '📺',
-    'physical' => '🧸',
-    'family_activity' => '🎡',
-    _ => '🎟️',
+  IconData get _icon => switch (widget.reward.type) {
+    'screen_time' => Icons.timer_rounded,
+    'physical' => Icons.toys_rounded,
+    'family_activity' => Icons.attractions_rounded,
+    _ => Icons.confirmation_number_rounded,
   };
 
   Future<void> _ask() async {
@@ -220,7 +223,11 @@ class _RewardCardState extends ConsumerState<_RewardCard> {
     try {
       await ref.read(kidActionsProvider).requestReward(r.id);
       if (mounted) {
-        Celebration.show(context, message: l.kidRewardAsked, emoji: '🎁');
+        Celebration.show(
+          context,
+          message: l.kidRewardAsked,
+          icon: Icons.card_giftcard_rounded,
+        );
       }
     } catch (e) {
       if (mounted) showKidError(context, e);
@@ -254,8 +261,8 @@ class _RewardCardState extends ConsumerState<_RewardCard> {
         children: [
           Row(
             children: [
-              EmojiTile(
-                emoji: _emoji,
+              IconTile(
+                icon: _icon,
                 size: 52,
                 fill: widget.highlight ? c.surface : null,
               ),
@@ -412,7 +419,11 @@ class _SuggestSheetState extends ConsumerState<_SuggestSheet> {
       if (!mounted) return;
       final l = context.l10n;
       Navigator.of(context).pop();
-      Celebration.show(context, message: l.kidSuggestSent, emoji: '💡');
+      Celebration.show(
+        context,
+        message: l.kidSuggestSent,
+        icon: Icons.lightbulb_rounded,
+      );
     } catch (e) {
       if (mounted) showKidError(context, e);
     } finally {
@@ -486,7 +497,7 @@ class KidPointsHistoryScreen extends ConsumerWidget {
             onRetry: () async => ref.invalidate(kidPointsProvider),
           ),
           data: (fresh) => fresh.value.entries.isEmpty
-              ? EmptyView(emoji: '⭐', message: l.kidPoints(0))
+              ? EmptyView(icon: Icons.star_rounded, message: l.kidPoints(0))
               : ListView.separated(
                   padding: const EdgeInsets.all(AppSpacing.lg),
                   itemCount: fresh.value.entries.length + 1,

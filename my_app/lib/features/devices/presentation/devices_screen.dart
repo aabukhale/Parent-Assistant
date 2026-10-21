@@ -51,7 +51,10 @@ class DevicesScreen extends ConsumerWidget {
                 NoticeBanner(tone: AppTone.info, message: l.devicesNote),
                 const SizedBox(height: AppSpacing.md),
                 if (state.isEmpty)
-                  EmptyView(emoji: '📱', message: l.devicesEmpty)
+                  EmptyView(
+                    icon: Icons.smartphone_rounded,
+                    message: l.devicesEmpty,
+                  )
                 else
                   for (final d in state.devices)
                     _DeviceTile(

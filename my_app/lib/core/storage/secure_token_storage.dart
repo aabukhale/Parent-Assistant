@@ -27,6 +27,7 @@ class SecureTokenStorage {
   static const _installIdKey = 'mamily.device.install_id';
   static const _sessionKindKey = 'mamily.session.kind';
   static const _childSlotKey = 'mamily.child.parked_token';
+  static const _celebrationsKey = 'mamily.ui.celebrations';
 
   Future<String?> readToken() => _storage.read(key: _tokenKey);
 
@@ -38,6 +39,13 @@ class SecureTokenStorage {
   Future<bool> hasToken() async => (await readToken())?.isNotEmpty ?? false;
 
   Future<String?> readLocale() => _storage.read(key: _localeKey);
+
+  /// Device preference (not session data): survives sign-out like locale.
+  Future<bool> readCelebrations() async =>
+      (await _storage.read(key: _celebrationsKey)) != 'off';
+
+  Future<void> writeCelebrations(bool on) =>
+      _storage.write(key: _celebrationsKey, value: on ? 'on' : 'off');
 
   Future<void> writeLocale(String languageCode) =>
       _storage.write(key: _localeKey, value: languageCode);

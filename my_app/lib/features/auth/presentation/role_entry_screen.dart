@@ -52,7 +52,7 @@ class RoleEntryScreen extends ConsumerWidget {
               ),
               const SizedBox(height: AppSpacing.xxl),
               _RoleCard(
-                emoji: '🧑‍🍼',
+                icon: Icons.family_restroom_rounded,
                 title: l.roleParent,
                 subtitle: l.roleParentHint,
                 tone: c.brand,
@@ -64,7 +64,7 @@ class RoleEntryScreen extends ConsumerWidget {
               ),
               const SizedBox(height: AppSpacing.lg),
               _RoleCard(
-                emoji: '🧒',
+                icon: Icons.child_care_rounded,
                 title: l.roleChild,
                 subtitle: l.roleChildHint,
                 tone: c.warning,
@@ -100,14 +100,14 @@ class RoleEntryScreen extends ConsumerWidget {
 
 class _RoleCard extends StatelessWidget {
   const _RoleCard({
-    required this.emoji,
+    required this.icon,
     required this.title,
     required this.subtitle,
     required this.tone,
     required this.onTap,
   });
 
-  final String emoji;
+  final IconData icon;
   final String title;
   final String subtitle;
   final ToneColors tone;
@@ -131,7 +131,7 @@ class _RoleCard extends StatelessWidget {
               color: context.mamily.surface,
               borderRadius: AppRadii.largeAll,
             ),
-            child: Text(emoji, style: const TextStyle(fontSize: 34)),
+            child: Icon(icon, size: 36, color: tone.foreground),
           ),
           const SizedBox(width: AppSpacing.lg),
           Expanded(

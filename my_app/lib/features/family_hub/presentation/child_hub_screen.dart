@@ -214,14 +214,12 @@ class _ChildHubScreenState extends ConsumerState<ChildHubScreen> {
                     final tiles = <Widget>[
                       NavTile(
                         icon: Icons.task_alt_rounded,
-                        emoji: '✅',
                         tone: AppTone.success,
                         title: l.hubTasks,
                         onTap: () => _open(const TasksScreen()),
                       ),
                       NavTile(
                         icon: Icons.wb_sunny_rounded,
-                        emoji: '☀️',
                         tone: AppTone.warning,
                         title: l.hubRoutines,
                         onTap: () => _open(
@@ -233,28 +231,24 @@ class _ChildHubScreenState extends ConsumerState<ChildHubScreen> {
                       ),
                       NavTile(
                         icon: Icons.card_giftcard_rounded,
-                        emoji: '🎁',
                         tone: AppTone.brand,
                         title: l.hubRewards,
                         onTap: () => _open(const RewardsStoreScreen()),
                       ),
                       NavTile(
                         icon: Icons.flag_rounded,
-                        emoji: '🎯',
                         tone: AppTone.info,
                         title: l.hubGoals,
                         onTap: () => _open(const LearningGoalsScreen()),
                       ),
                       NavTile(
                         icon: Icons.extension_rounded,
-                        emoji: '🧩',
                         tone: AppTone.accent,
                         title: l.hubActivities,
                         onTap: () => _open(const ChildActivitiesScreen()),
                       ),
                       NavTile(
                         icon: Icons.favorite_rounded,
-                        emoji: '💬',
                         tone: AppTone.sleep,
                         title: l.hubCheckins,
                         onTap: () => _open(
@@ -266,14 +260,12 @@ class _ChildHubScreenState extends ConsumerState<ChildHubScreen> {
                       ),
                       NavTile(
                         icon: Icons.bedtime_rounded,
-                        emoji: '🌙',
                         tone: AppTone.sleep,
                         title: l.hubSleep,
                         onTap: () => _open(const SleepScreen()),
                       ),
                       NavTile(
                         icon: Icons.restaurant_rounded,
-                        emoji: '🥣',
                         tone: AppTone.warning,
                         title: l.hubMeals,
                         onTap: () => _open(
@@ -285,21 +277,18 @@ class _ChildHubScreenState extends ConsumerState<ChildHubScreen> {
                       ),
                       NavTile(
                         icon: Icons.timer_rounded,
-                        emoji: '⏱️',
                         tone: AppTone.info,
                         title: l.hubScreenTime,
                         onTap: () => _open(const ScreenTimeScreen()),
                       ),
                       NavTile(
                         icon: Icons.shield_rounded,
-                        emoji: '🛡️',
                         tone: AppTone.neutral,
                         title: l.hubContent,
                         onTap: () => _open(const ContentControlScreen()),
                       ),
                       NavTile(
                         icon: Icons.devices_rounded,
-                        emoji: '📱',
                         tone: AppTone.neutral,
                         title: l.hubDevices,
                         onTap: () => _open(
@@ -311,7 +300,6 @@ class _ChildHubScreenState extends ConsumerState<ChildHubScreen> {
                       ),
                       NavTile(
                         icon: Icons.insights_rounded,
-                        emoji: '📈',
                         tone: AppTone.accent,
                         title: l.hubReport,
                         onTap: () => _open(const DevelopmentReportScreen()),

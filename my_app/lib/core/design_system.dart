@@ -17,6 +17,7 @@ export 'widgets/section_header.dart';
 export 'widgets/stat_tile.dart';
 export 'widgets/status_pill.dart';
 export 'widgets/celebration.dart';
+export 'widgets/celebration_setting.dart';
 export 'widgets/child_avatar.dart';
 export 'widgets/confirm.dart';
 export 'widgets/form_widgets.dart';

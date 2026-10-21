@@ -272,8 +272,8 @@ class _TaskFormScreenState extends ConsumerState<TaskFormScreen> {
                 const SizedBox(height: AppSpacing.lg),
                 AppListTile(
                   margin: EdgeInsets.zero,
-                  leading: EmojiTile(
-                    emoji: iconEmoji(_iconKey ?? _category.text),
+                  leading: IconTile(
+                    icon: taskIcon(_iconKey ?? _category.text),
                     size: 44,
                   ),
                   title: l.taskFieldIcon,

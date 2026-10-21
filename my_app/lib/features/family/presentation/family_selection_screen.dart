@@ -39,7 +39,10 @@ class FamilySelectionScreen extends ConsumerWidget {
           itemBuilder: (context, i) {
             final m = memberships[i];
             return AppListTile(
-              leading: const IconBadge(emoji: '🏡', tone: AppTone.accent),
+              leading: const IconBadge(
+                icon: Icons.home_rounded,
+                tone: AppTone.accent,
+              ),
               title: m.family.name,
               subtitle: switch (m.role) {
                 FamilyRole.owner => context.l10n.profileRoleOwner,

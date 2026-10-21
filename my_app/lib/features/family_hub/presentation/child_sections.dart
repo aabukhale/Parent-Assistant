@@ -24,13 +24,6 @@ String routineKindLabel(AppLocalizations l, String kind) => switch (kind) {
   _ => l.routineKindCustom,
 };
 
-String routineKindEmoji(String kind) => switch (kind) {
-  'morning' => '☀️',
-  'after_school' => '🎒',
-  'bedtime' => '🌙',
-  _ => '🧩',
-};
-
 // ============================================================================
 // Routines
 // ============================================================================
@@ -78,7 +71,7 @@ class ChildRoutinesScreen extends ConsumerWidget {
           ),
           data: (list) => list.isEmpty
               ? EmptyView(
-                  emoji: '☀️',
+                  icon: Icons.wb_sunny_rounded,
                   message: l.routinesEmpty,
                   action: canManage
                       ? FilledButton.icon(
@@ -111,10 +104,7 @@ class ChildRoutinesScreen extends ConsumerWidget {
                           children: [
                             Row(
                               children: [
-                                EmojiTile(
-                                  emoji: routineKindEmoji(r.kind),
-                                  size: 48,
-                                ),
+                                IconTile(icon: routineIcon(r.kind), size: 48),
                                 const SizedBox(width: AppSpacing.md),
                                 Expanded(
                                   child: Column(
@@ -278,9 +268,10 @@ class _RoutineFormScreenState extends ConsumerState<RoutineFormScreen> {
           children: [
             for (final t in templates)
               ListTile(
-                leading: Text(
-                  routineKindEmoji(t['kind'] as String),
-                  style: const TextStyle(fontSize: 28),
+                leading: Icon(
+                  routineIcon(t['kind'] as String),
+                  size: 28,
+                  color: context.mamily.brand.foreground,
                 ),
                 title: Text(t['title'] as String),
                 subtitle: Text(
@@ -442,9 +433,8 @@ class _RoutineFormScreenState extends ConsumerState<RoutineFormScreen> {
                     'custom',
                   ])
                     ChoiceChip(
-                      label: Text(
-                        '${routineKindEmoji(k)} ${routineKindLabel(l, k)}',
-                      ),
+                      avatar: Icon(routineIcon(k), size: 18),
+                      label: Text(routineKindLabel(l, k)),
                       selected: _kind == k,
                       onSelected: (_) => setState(() => _kind = k),
                     ),
@@ -550,8 +540,8 @@ class _RoutineFormScreenState extends ConsumerState<RoutineFormScreen> {
                       },
                       child: Tooltip(
                         message: l.taskFieldIcon,
-                        child: EmojiTile(
-                          emoji: iconEmoji(_steps[i].iconKey),
+                        child: IconTile(
+                          icon: taskIcon(_steps[i].iconKey),
                           size: 40,
                         ),
                       ),
@@ -649,7 +639,7 @@ class ChildCheckinsScreen extends ConsumerWidget {
                 data: (list) => list.isEmpty
                     ? [
                         EmptyView(
-                          emoji: '💬',
+                          icon: Icons.chat_bubble_rounded,
                           message: l.checkinsEmpty(childName),
                         ),
                       ]
@@ -663,9 +653,10 @@ class ChildCheckinsScreen extends ConsumerWidget {
                               child: Row(
                                 crossAxisAlignment: CrossAxisAlignment.start,
                                 children: [
-                                  Text(
-                                    moodEmoji(m.mood),
-                                    style: const TextStyle(fontSize: 32),
+                                  Icon(
+                                    moodIcon(m.mood),
+                                    size: 32,
+                                    color: context.mamily.info.foreground,
                                   ),
                                   const SizedBox(width: AppSpacing.md),
                                   Expanded(
@@ -732,9 +723,10 @@ class ChildCheckinsScreen extends ConsumerWidget {
                       child: AppCard(
                         child: Row(
                           children: [
-                            Text(
-                              badgeEmoji(e.badgeKey),
-                              style: const TextStyle(fontSize: 28),
+                            Icon(
+                              badgeIcon(e.badgeKey),
+                              size: 28,
+                              color: context.mamily.sleep.foreground,
                             ),
                             const SizedBox(width: AppSpacing.md),
                             Expanded(
@@ -860,7 +852,7 @@ class ChildMealsScreen extends ConsumerWidget {
             onRetry: () async => ref.invalidate(childMealsProvider(childId)),
           ),
           data: (list) => list.isEmpty
-              ? EmptyView(emoji: '🥣', message: l.mealsEmpty)
+              ? EmptyView(icon: Icons.restaurant_rounded, message: l.mealsEmpty)
               : ListView.separated(
                   padding: const EdgeInsets.fromLTRB(
                     AppSpacing.lg,
@@ -879,12 +871,12 @@ class ChildMealsScreen extends ConsumerWidget {
                           : null,
                       child: Row(
                         children: [
-                          EmojiTile(
-                            emoji: switch (m.mealType) {
-                              'breakfast' => '🥣',
-                              'lunch' => '🍝',
-                              'dinner' => '🍲',
-                              _ => '🍎',
+                          IconTile(
+                            icon: switch (m.mealType) {
+                              'breakfast' => Icons.breakfast_dining_rounded,
+                              'lunch' => Icons.lunch_dining_rounded,
+                              'dinner' => Icons.dinner_dining_rounded,
+                              _ => Icons.cookie_rounded,
                             },
                           ),
                           const SizedBox(width: AppSpacing.md),
@@ -1089,7 +1081,12 @@ class ChildDevicesScreen extends ConsumerWidget {
                   ),
                 ],
                 data: (list) => list.isEmpty
-                    ? [EmptyView(emoji: '📱', message: l.pairedNone)]
+                    ? [
+                        EmptyView(
+                          icon: Icons.smartphone_rounded,
+                          message: l.pairedNone,
+                        ),
+                      ]
                     : [
                         for (final d in list)
                           Padding(

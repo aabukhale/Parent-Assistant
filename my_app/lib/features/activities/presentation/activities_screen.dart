@@ -66,7 +66,10 @@ class ActivitiesScreen extends ConsumerWidget {
                 error: (e, _) =>
                     ErrorRetryView(error: e, onRetry: controller.refresh),
                 data: (state) => state.isEmpty
-                    ? EmptyView(emoji: '🧩', message: l.activitiesCatalogEmpty)
+                    ? EmptyView(
+                        icon: Icons.extension_rounded,
+                        message: l.activitiesCatalogEmpty,
+                      )
                     : Column(
                         children: [
                           for (final activity in state.activities)

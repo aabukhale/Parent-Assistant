@@ -642,9 +642,21 @@ class KidScreenTime {
     this.bonusMinutes,
     this.usedMinutes,
     this.remainingMinutes,
+    this.restrictionKind,
+    this.restrictionName,
+    this.restrictionUntil,
   });
 
   final int? limitMinutes;
+
+  /// What is limiting the child right now (restrict_now | schedule), its
+  /// name and when it ends — for calm copy like "paused until 17:00".
+  final String? restrictionKind;
+  final String? restrictionName;
+  final DateTime? restrictionUntil;
+
+  /// Whether this phone confirmed it enforces the current rules.
+  bool get enforcedOnDevice => enforcement == 'enforced_on_device';
   final int? bonusMinutes;
   final int? usedMinutes;
   final int? remainingMinutes;
@@ -668,6 +680,11 @@ class KidScreenTime {
     remainingMinutes: (j['remaining_minutes'] as num?)?.toInt(),
     usageSource: j['usage_source'] as String? ?? 'not_reported',
     enforcement: j['enforcement'] as String? ?? 'not_enforced_by_app',
+    restrictionKind: (j['current_restriction'] as Map?)?['kind'] as String?,
+    restrictionName: (j['current_restriction'] as Map?)?['name'] as String?,
+    restrictionUntil: DateTime.tryParse(
+      ((j['current_restriction'] as Map?)?['until'] as String?) ?? '',
+    )?.toLocal(),
     requests: _list(
       j['requests'],
     ).map(ScreenTimeRequest.fromJson).toList(growable: false),

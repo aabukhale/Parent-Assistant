@@ -1859,5 +1859,352 @@
   "plannerRemindDay": "יום לפני",
   "plannerRemindAtStart": "בזמן ההתחלה",
   "discoverDashboard": "לוח המשפחה",
-  "discoverDashboardBody": "נקודות, שינה ויעדים במבט אחד"
+  "discoverDashboardBody": "נקודות, שינה ויעדים במבט אחד",
+  "kidTabToday": "היום",
+  "kidTabFamily": "משפחה",
+  "kidHelp": "עזרה",
+  "kidHelpTitle": "לקבל עזרה",
+  "kidHelpHold": "לחצו לחיצה ארוכה כדי לשלוח",
+  "kidHelpButton": "אני צריך/ה עזרה",
+  "kidHelpExplain": "המשפחה שלך תקבל הודעה מיד, עם המיקום של הטלפון.",
+  "kidHelpSending": "שולח…",
+  "kidHelpSentTo": "נשלח אל {names}.",
+  "@kidHelpSentTo": {
+    "placeholders": {
+      "names": {
+        "type": "String"
+      }
+    }
+  },
+  "kidHelpWaiting": "מחכים שההורה שלך יראה.",
+  "kidHelpSeen": "{name} ראה/תה את ההודעה שלך.",
+  "@kidHelpSeen": {
+    "placeholders": {
+      "name": {
+        "type": "String"
+      }
+    }
+  },
+  "kidHelpNoPush": "לא הצלחנו לשלוח התראה. כדאי להתקשר.",
+  "kidHelpFailed": "לא נשלח. בדקו את האינטרנט, או התקשרו.",
+  "kidHelpTryAgain": "לנסות שוב",
+  "kidHelpImOk": "אני בסדר עכשיו",
+  "kidCallPerson": "להתקשר ל{name}",
+  "@kidCallPerson": {
+    "placeholders": {
+      "name": {
+        "type": "String"
+      }
+    }
+  },
+  "kidEmergencyCall": "בסכנה? התקשרו ל-{number}",
+  "@kidEmergencyCall": {
+    "placeholders": {
+      "number": {
+        "type": "String"
+      }
+    }
+  },
+  "kidEmergencyNote": "Mamily לא מחליפה שירותי חירום.",
+  "kidQuickTitle": "לספר למשפחה",
+  "kidCheckArrived": "הגעתי",
+  "kidCheckPickMeUp": "תאספו אותי",
+  "kidCheckCallMe": "תתקשרו אליי",
+  "kidCheckOkay": "אני בסדר",
+  "kidCheckSent": "נשלח למשפחה.",
+  "kidCheckSeen": "{name} ראה/תה.",
+  "@kidCheckSeen": {
+    "placeholders": {
+      "name": {
+        "type": "String"
+      }
+    }
+  },
+  "kidCallMyParent": "להתקשר להורה",
+  "kidNoPhone": "עוד לא נשמר מספר טלפון. בקשו ממבוגר להוסיף.",
+  "kidJourneyStart": "אני יוצא/ת לדרך",
+  "kidJourneyWhere": "לאן את/ה הולך/ת?",
+  "kidJourneyOther": "מקום אחר",
+  "kidJourneyName": "שם המקום",
+  "kidJourneyWhen": "מתי תגיע/י?",
+  "kidJourneyInMinutes": "בעוד {minutes} דק׳",
+  "@kidJourneyInMinutes": {
+    "placeholders": {
+      "minutes": {
+        "type": "int"
+      }
+    }
+  },
+  "kidJourneyGo": "להתחיל",
+  "kidJourneyOnWay": "בדרך אל {place}",
+  "@kidJourneyOnWay": {
+    "placeholders": {
+      "place": {
+        "type": "String"
+      }
+    }
+  },
+  "kidJourneyExpected": "להגיע עד {time}",
+  "@kidJourneyExpected": {
+    "placeholders": {
+      "time": {
+        "type": "String"
+      }
+    }
+  },
+  "kidJourneyOverdue": "המשפחה מחכה לשמוע ממך.",
+  "kidJourneyMoreTime": "אני צריך/ה עוד זמן",
+  "kidJourneyCancel": "לבטל את הדרך",
+  "kidJourneyShared": "המשפחה יכולה לראות שאת/ה בדרך.",
+  "kidLocationTitle": "המשפחה יכולה לראות איפה הטלפון הזה",
+  "kidLocationBody": "זה עוזר להם לדעת שהגעת בשלום. רק המשפחה שלך יכולה לראות.",
+  "kidLocationOk": "הבנתי",
+  "kidLocationOnBadge": "המיקום משותף עם המשפחה",
+  "kidPausedUntil": "רוב האפליקציות מושהות עד {time}.",
+  "@kidPausedUntil": {
+    "placeholders": {
+      "time": {
+        "type": "String"
+      }
+    }
+  },
+  "kidPausedNamed": "{name}: רוב האפליקציות מושהות עד {time}.",
+  "@kidPausedNamed": {
+    "placeholders": {
+      "name": {
+        "type": "String"
+      },
+      "time": {
+        "type": "String"
+      }
+    }
+  },
+  "kidPausedNow": "ההורה השהה את האפליקציות לזמן מה.",
+  "kidPausedStillOk": "אפשר עדיין להתקשר למשפחה ולהשתמש ב-Mamily.",
+  "kidAskMoreTime": "לבקש עוד זמן",
+  "kidWaitingParent": "מחכים להורה.",
+  "kidTimeLeft": "נשארו {minutes} דקות מסך היום",
+  "@kidTimeLeft": {
+    "placeholders": {
+      "minutes": {
+        "type": "int"
+      }
+    }
+  },
+  "kidTimeUsedUp": "זמן המסך להיום נגמר.",
+  "kidTimeAgreement": "תוכנית זמן המסך של המשפחה: {minutes} דקות היום.",
+  "@kidTimeAgreement": {
+    "placeholders": {
+      "minutes": {
+        "type": "int"
+      }
+    }
+  },
+  "kidFamilyTalk": "לדבר עם המשפחה",
+  "kidVideoCall": "שיחת וידאו",
+  "kidAskHelpInApp": "לבקש עזרה ב-Mamily",
+  "kidAgreements": "ההסכמים שלנו",
+  "kidAgree": "אני מסכים/ה",
+  "kidAgreed": "הסכמת",
+  "kidAgreementChanged": "משהו השתנה. כדאי לקרוא שוב.",
+  "kidAgreementsEmpty": "עוד אין הסכמים.",
+  "kidLessons": "לשמור על עצמך ברשת",
+  "kidLessonFinish": "סיימתי",
+  "kidLessonNext": "הבא",
+  "kidLessonDoneBadge": "הושלם",
+  "kidSafetyCard": "כרטיס הבטיחות שלי",
+  "kidPickup": "מי אוסף אותי",
+  "kidTrustedAdults": "מבוגרים שאפשר להתקשר אליהם",
+  "kidMyThings": "הדברים שלי",
+  "kidSignOutLocked": "הכללים של ההורים פעילים בטלפון הזה. מבוגר צריך להסיר אותו מ-Mamily.",
+  "kidRemoteHelpAsk": "{name} רוצה לעזור לך ב-Mamily",
+  "@kidRemoteHelpAsk": {
+    "placeholders": {
+      "name": {
+        "type": "String"
+      }
+    }
+  },
+  "kidRemoteHelpBody": "{name} יראה/תראה את מסך Mamily שלך ויוכל/תוכל להצביע על דברים. לא את שאר האפליקציות. אפשר לעצור בכל רגע.",
+  "@kidRemoteHelpBody": {
+    "placeholders": {
+      "name": {
+        "type": "String"
+      }
+    }
+  },
+  "kidRemoteCallAsk": "{name} מתקשר/ת",
+  "@kidRemoteCallAsk": {
+    "placeholders": {
+      "name": {
+        "type": "String"
+      }
+    }
+  },
+  "kidRemoteVideoBody": "שיחת וידאו. המצלמה והמיקרופון נדלקים רק אם עונים.",
+  "kidRemoteVoiceBody": "שיחה קולית. המיקרופון נדלק רק אם עונים.",
+  "kidRemoteAccept": "כן, בסדר",
+  "kidRemoteAnswer": "לענות",
+  "kidRemoteDecline": "לא עכשיו",
+  "kidRemoteActive": "{name} רואה את מסך Mamily שלך",
+  "@kidRemoteActive": {
+    "placeholders": {
+      "name": {
+        "type": "String"
+      }
+    }
+  },
+  "kidRemoteStop": "לעצור",
+  "kidRemoteEnded": "מפגש העזרה הסתיים.",
+  "kidRemoteLook": "תסתכלו כאן",
+  "kidRemoteWaitingFor": "מחכים ל{name}…",
+  "@kidRemoteWaitingFor": {
+    "placeholders": {
+      "name": {
+        "type": "String"
+      }
+    }
+  },
+  "kidCelebrations": "חגיגות",
+  "kidCelebrationsBody": "להציג חגיגה קצרה כשמסיימים משהו.",
+  "kidSettings": "הגדרות",
+  "kidActivitiesTitle": "הפעילויות שלי",
+  "lessonScamsTitle": "טוב מכדי להיות אמיתי",
+  "lessonScams1": "מטבעות או פרסים בחינם? זה הרבה פעמים תרגיל.",
+  "lessonScams2": "אף פעם לא שולחים קוד, סיסמה או תמונה כדי לזכות במשהו.",
+  "lessonScams3": "לא בטוחים? שואלים מבוגר לפני שלוחצים.",
+  "lessonBullyingTitle": "אם מישהו מתנהג רע",
+  "lessonBullying1": "הודעות פוגעות הן לא באשמתך.",
+  "lessonBullying2": "לא עונים. מצלמים מסך וחוסמים.",
+  "lessonBullying3": "מספרים למבוגר שסומכים עליו. אפשר להשתמש ב„לספר למשפחה”.",
+  "lessonPasswordsTitle": "סיסמאות הן סוד",
+  "lessonPasswords1": "סיסמה היא כמו מברשת שיניים: לא משתפים.",
+  "lessonPasswords2": "רק ההורים יכולים לדעת אותה. לא חברים.",
+  "lessonPasswords3": "סיסמה ארוכה עם מילים שאוהבים היא חזקה.",
+  "lessonPhotosTitle": "לחשוב לפני ששולחים",
+  "lessonPhotos1": "אפשר להעתיק ולשתף תמונות לתמיד.",
+  "lessonPhotos2": "לא משתפים תמונות שמראות את בית הספר או את הכתובת.",
+  "lessonPhotos3": "מישהו מבקש תמונה שמרגישה לא נכון? אומרים לא ומספרים למבוגר.",
+  "lessonStrangersTitle": "אנשים שלא מכירים",
+  "lessonStrangers1": "אנשים ברשת הם לא תמיד מי שהם אומרים.",
+  "lessonStrangers2": "אף פעם לא נפגשים לבד עם מישהו מהאינטרנט.",
+  "lessonStrangers3": "משהו מרגיש מוזר? עוצרים ומספרים למשפחה.",
+  "agreementSectionDevices": "טלפונים ומסכים",
+  "agreementSectionResponsibilities": "אחריות",
+  "agreementSectionRewards": "פרסים",
+  "kidPointsOf": "{count} מתוך {total} נקודות",
+  "@kidPointsOf": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      },
+      "total": {
+        "type": "int"
+      }
+    }
+  },
+  "callEnd": "לסיים שיחה",
+  "callMute": "השתקה",
+  "callUnmute": "ביטול השתקה",
+  "callCameraOff": "לכבות מצלמה",
+  "callCameraOn": "להדליק מצלמה",
+  "callConnecting": "מתחבר…",
+  "callConnected": "מחובר",
+  "callEnded": "השיחה הסתיימה",
+  "callFailed": "לא הצלחנו לחבר את השיחה.",
+  "callPermission": "Mamily צריכה את המיקרופון (ואת המצלמה לווידאו) כדי לבצע שיחות. אפשר לאשר בהגדרות.",
+  "callCameraLive": "המצלמה פועלת",
+  "callMicLive": "המיקרופון פועל",
+  "callRelayMissing": "ייתכן ששיחות לא יתחברו בחלק מהרשתות: עוד לא הוגדר שרת ממסר לשיחות.",
+  "remoteHelpInMamily": "עזרה ב-Mamily",
+  "remoteHelpExplain": "תראו את מסך Mamily של {name} ותוכלו להצביע על כפתורים. אי אפשר לראות אפליקציות אחרות או לשלוט בטלפון. {name} צריך/ה לאשר ויכול/ה לעצור בכל רגע.",
+  "@remoteHelpExplain": {
+    "placeholders": {
+      "name": {
+        "type": "String"
+      }
+    }
+  },
+  "remoteVideoCall": "שיחת וידאו",
+  "remoteVoiceCall": "שיחה קולית",
+  "remoteCallExplain": "{name} יראה/תראה שיחה נכנסת ויבחר/תבחר אם לענות. שום דבר לא מוקלט.",
+  "@remoteCallExplain": {
+    "placeholders": {
+      "name": {
+        "type": "String"
+      }
+    }
+  },
+  "remoteWaitingChild": "מחכים ש{name} יאשר/תאשר…",
+  "@remoteWaitingChild": {
+    "placeholders": {
+      "name": {
+        "type": "String"
+      }
+    }
+  },
+  "remoteDeclined": "{name} אמר/ה לא עכשיו.",
+  "@remoteDeclined": {
+    "placeholders": {
+      "name": {
+        "type": "String"
+      }
+    }
+  },
+  "remoteNoAnswer": "אין מענה. אפשר לנסות שוב אחר כך.",
+  "remoteEnded": "המפגש הסתיים.",
+  "remoteEndedNotAllowed": "המפגש הזה כבר לא מורשה.",
+  "remoteTapToPoint": "הקישו על התמונה כדי להראות ל{name} איפה ללחוץ.",
+  "@remoteTapToPoint": {
+    "placeholders": {
+      "name": {
+        "type": "String"
+      }
+    }
+  },
+  "remoteNoFrame": "מחכים למסך של {name}…",
+  "@remoteNoFrame": {
+    "placeholders": {
+      "name": {
+        "type": "String"
+      }
+    }
+  },
+  "remoteFrameAge": "תמונה מלפני {seconds} שנ׳",
+  "@remoteFrameAge": {
+    "placeholders": {
+      "seconds": {
+        "type": "int"
+      }
+    }
+  },
+  "remoteChildAsksHelp": "{name} מבקש/ת עזרה ב-Mamily",
+  "@remoteChildAsksHelp": {
+    "placeholders": {
+      "name": {
+        "type": "String"
+      }
+    }
+  },
+  "remoteChildCalling": "{name} מתקשר/ת",
+  "@remoteChildCalling": {
+    "placeholders": {
+      "name": {
+        "type": "String"
+      }
+    }
+  },
+  "remoteAccept": "לאשר",
+  "remoteDecline": "לדחות",
+  "remoteEnd": "לסיים מפגש",
+  "remoteNoDevice": "{name} לא מחובר/ת בטלפון כרגע.",
+  "@remoteNoDevice": {
+    "placeholders": {
+      "name": {
+        "type": "String"
+      }
+    }
+  },
+  "remoteStart": "לבקש",
+  "remoteSectionTitle": "עזרה ושיחות"
 }

@@ -42,7 +42,11 @@ class _RoutineRunScreenState extends ConsumerState<RoutineRunScreen> {
       final run = updated.todayRun;
       if (run != null && run.isFinished && !step.checked) {
         HapticFeedback.mediumImpact();
-        Celebration.show(context, message: l.kidRoutineDone, emoji: '🏆');
+        Celebration.show(
+          context,
+          message: l.kidRoutineDone,
+          icon: Icons.emoji_events_rounded,
+        );
         await RoutineLiveActivity.end(updated);
       }
     } catch (e) {
@@ -206,8 +210,8 @@ class _StepTile extends StatelessWidget {
               padding: const EdgeInsets.all(AppSpacing.md),
               child: Row(
                 children: [
-                  EmojiTile(
-                    emoji: iconEmoji(step.iconKey),
+                  IconTile(
+                    icon: taskIcon(step.iconKey),
                     size: 52,
                     fill: step.checked ? c.surface : null,
                   ),

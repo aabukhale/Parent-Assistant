@@ -102,7 +102,6 @@ class NavTile extends StatelessWidget {
     this.onTap,
     this.tone = AppTone.neutral,
     this.trailing,
-    this.emoji,
   });
 
   final IconData icon;
@@ -111,7 +110,6 @@ class NavTile extends StatelessWidget {
   final VoidCallback? onTap;
   final AppTone tone;
   final Widget? trailing;
-  final String? emoji;
 
   @override
   Widget build(BuildContext context) {
@@ -133,9 +131,7 @@ class NavTile extends StatelessWidget {
               color: t.background,
               borderRadius: AppRadii.mediumAll,
             ),
-            child: emoji != null
-                ? Text(emoji!, style: const TextStyle(fontSize: 22))
-                : Icon(icon, color: t.foreground),
+            child: Icon(icon, color: t.foreground),
           ),
           const SizedBox(width: AppSpacing.md),
           Expanded(
