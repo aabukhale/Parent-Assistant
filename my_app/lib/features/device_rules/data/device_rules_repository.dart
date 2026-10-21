@@ -89,6 +89,22 @@ class DeviceRulesRepository {
         )).dataMap,
       );
 
+  /// Apps reported by the child's Android phones (for the picker).
+  Future<({List<AppRef> apps, DateTime? reportedAt})> apps(
+    String childId,
+  ) async {
+    final d = (await _client.get('${_base(childId)}/apps')).dataMap;
+    return (
+      apps: ((d['apps'] as List?) ?? const [])
+          .whereType<Map>()
+          .map((m) => AppRef.fromJson(m.cast<String, dynamic>()))
+          .toList(),
+      reportedAt: DateTime.tryParse(
+        (d['reported_at'] as String?) ?? '',
+      )?.toLocal(),
+    );
+  }
+
   Future<List<RuleVersion>> history(String childId) async {
     final items = (await _client.get(
       '${_base(childId)}/history',

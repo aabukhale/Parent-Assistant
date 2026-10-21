@@ -2209,5 +2209,764 @@
     }
   },
   "remoteStart": "Ask",
-  "remoteSectionTitle": "Help and calls"
+  "remoteSectionTitle": "Help and calls",
+  "rulesTitle": "Phone rules",
+  "rulesOnPhones": "On {name}’s phones",
+  "@rulesOnPhones": {
+    "placeholders": {
+      "name": {
+        "type": "String"
+      }
+    }
+  },
+  "rulesStateActive": "Rules are on",
+  "rulesStateActiveBody": "Confirmed by the phone {when}.",
+  "@rulesStateActiveBody": {
+    "placeholders": {
+      "when": {
+        "type": "String"
+      }
+    }
+  },
+  "rulesStatePartial": "Some rules are on",
+  "rulesStatePartialBody": "This phone can’t do everything you set. See what it can do below.",
+  "rulesStateWaiting": "Waiting for the phone",
+  "rulesStateWaitingBody": "The phone gets the new rules the next time Mamily opens with internet.",
+  "rulesStateOffline": "Phone is offline",
+  "rulesStateOfflineBody": "Last contact {when}. Rules apply once it reconnects.",
+  "@rulesStateOfflineBody": {
+    "placeholders": {
+      "when": {
+        "type": "String"
+      }
+    }
+  },
+  "rulesStatePermission": "Permission needed on the phone",
+  "rulesStatePermissionBody": "Open Mamily on {name}’s phone and follow the steps on the screen.",
+  "@rulesStatePermissionBody": {
+    "placeholders": {
+      "name": {
+        "type": "String"
+      }
+    }
+  },
+  "rulesStateUnsupported": "This phone can’t block apps",
+  "rulesStateUnsupportedBody": "Your rules still show on {name}’s Today screen as the family plan. See “What this phone can do”.",
+  "@rulesStateUnsupportedBody": {
+    "placeholders": {
+      "name": {
+        "type": "String"
+      }
+    }
+  },
+  "rulesStateNotConfirmed": "Couldn’t confirm",
+  "rulesStateNotConfirmedBody": "The phone hasn’t confirmed the rules recently. Open Mamily on it to check.",
+  "rulesStateNoRules": "No rules yet",
+  "rulesStateNoRulesBody": "Start with a ready-made plan below.",
+  "rulesNoDevice": "No phone is linked yet",
+  "rulesNoDeviceBody": "Link {name}’s phone so the rules can reach it.",
+  "@rulesNoDeviceBody": {
+    "placeholders": {
+      "name": {
+        "type": "String"
+      }
+    }
+  },
+  "rulesCanDo": "What this phone can do",
+  "capAppBlocking": "Pause chosen apps",
+  "capAppLimits": "Daily limits for apps",
+  "capSchedules": "School, homework and bedtime times",
+  "capWebFilter": "Website rules",
+  "capRestrictNow": "Pause now",
+  "capUsage": "Show app usage to you",
+  "capDeviceLock": "Lock the whole phone",
+  "capAvailable": "Yes",
+  "capPermission": "Needs permission on the phone",
+  "capSetup": "Needs special phone setup",
+  "capUnsupported": "Not possible on this phone",
+  "capUnknown": "Not reported yet",
+  "capSetupHelpAndroid": "Android only lets an app pause other apps when the phone was set up for it from the start (a factory reset with Mamily as the phone manager). Until then Mamily can show the rules and usage, but can’t enforce them.",
+  "capSetupHelpIos": "On iPhone, a parent approves Screen Time access for Mamily on the child’s iPhone (Family Sharing). Usage stays on that iPhone and can’t be sent to you.",
+  "rulesPauseTitle": "Pause apps now",
+  "rulesPauseBody": "All apps pause except phone calls, emergency messages, Mamily and the apps you always allow.",
+  "rulesPause30": "30 min",
+  "rulesPause60": "1 hour",
+  "rulesPauseUntil": "Until I stop it",
+  "rulesPausedUntil": "Paused until {time}",
+  "@rulesPausedUntil": {
+    "placeholders": {
+      "time": {
+        "type": "String"
+      }
+    }
+  },
+  "rulesPausedOpen": "Paused until you stop it",
+  "rulesPauseExpired": "The pause ended.",
+  "rulesRelease": "Stop the pause",
+  "rulesPauseConfirm": "Pause {name}’s apps {duration}?",
+  "@rulesPauseConfirm": {
+    "placeholders": {
+      "name": {
+        "type": "String"
+      },
+      "duration": {
+        "type": "String"
+      }
+    }
+  },
+  "rulesPresets": "Ready-made plans",
+  "presetSchool": "School",
+  "presetSchoolBody": "Only allowed apps during school hours",
+  "presetHomework": "Homework",
+  "presetHomeworkBody": "Focus time for homework",
+  "presetBedtime": "Bedtime",
+  "presetBedtimeBody": "Apps rest at night",
+  "presetWeekend": "Weekend",
+  "presetWeekendBody": "A different daily allowance",
+  "presetCustom": "Custom",
+  "rulesExplainSchedule": "{dayList}, {start}–{end}: only calls, Mamily and allowed apps work.",
+  "@rulesExplainSchedule": {
+    "placeholders": {
+      "dayList": {
+        "type": "String"
+      },
+      "start": {
+        "type": "String"
+      },
+      "end": {
+        "type": "String"
+      }
+    }
+  },
+  "rulesExplainScheduleBlock": "{dayList}, {start}–{end}: the apps you paused can’t be opened.",
+  "@rulesExplainScheduleBlock": {
+    "placeholders": {
+      "dayList": {
+        "type": "String"
+      },
+      "start": {
+        "type": "String"
+      },
+      "end": {
+        "type": "String"
+      }
+    }
+  },
+  "rulesExplainWeekend": "On {dayList}: {minutes} min of screen time a day.",
+  "@rulesExplainWeekend": {
+    "placeholders": {
+      "dayList": {
+        "type": "String"
+      },
+      "minutes": {
+        "type": "int"
+      }
+    }
+  },
+  "rulesDays": "Days",
+  "rulesFrom": "From",
+  "rulesTo": "To",
+  "rulesMinutesPerDay": "Minutes per day",
+  "rulesSchedules": "Times",
+  "rulesSchedulesEmpty": "No times set. Use a ready-made plan above.",
+  "rulesApps": "Apps",
+  "rulesBlockedApps": "Always paused",
+  "rulesAllowedApps": "Always allowed",
+  "rulesAllowedAppsBody": "Still work during school, homework, bedtime and pauses.",
+  "rulesAppCount": "{count} apps",
+  "@rulesAppCount": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "rulesChooseApps": "Choose apps",
+  "rulesNoAppList": "{name}’s phone hasn’t sent its app list yet. Open Mamily on it once.",
+  "@rulesNoAppList": {
+    "placeholders": {
+      "name": {
+        "type": "String"
+      }
+    }
+  },
+  "rulesIosPickOnPhone": "iPhone apps are chosen on {name}’s iPhone: sign in as a parent there and open Phone rules.",
+  "@rulesIosPickOnPhone": {
+    "placeholders": {
+      "name": {
+        "type": "String"
+      }
+    }
+  },
+  "rulesLimits": "Daily limits",
+  "rulesLimitsEmpty": "No limits for app types.",
+  "rulesAddLimit": "Add a limit",
+  "rulesLimitLine": "{what}: {minutes} min a day",
+  "@rulesLimitLine": {
+    "placeholders": {
+      "what": {
+        "type": "String"
+      },
+      "minutes": {
+        "type": "int"
+      }
+    }
+  },
+  "catGames": "Games",
+  "catSocial": "Social media",
+  "catVideo": "Videos",
+  "catBrowsers": "Web browsers",
+  "catMessaging": "Messaging",
+  "catEducation": "Learning",
+  "catOther": "Other apps",
+  "rulesWeb": "Websites",
+  "rulesWebOff": "No website rules",
+  "rulesWebBlock": "Block these websites",
+  "rulesWebOnly": "Only approved websites",
+  "rulesWebAdd": "Add website",
+  "rulesWebHint": "example.com",
+  "rulesWebInvalid": "Type a website like example.com",
+  "rulesWebNote": "Works in the phone’s main browser where supported.",
+  "rulesReviewSave": "Review and save",
+  "rulesReviewTitle": "Here’s what will change",
+  "rulesReviewApplies": "Applies to: {devices}",
+  "@rulesReviewApplies": {
+    "placeholders": {
+      "devices": {
+        "type": "String"
+      }
+    }
+  },
+  "rulesReviewAppliesNone": "No phone is linked yet; the rules wait until one is.",
+  "rulesReviewLimits": "{device} can’t do: {what}",
+  "@rulesReviewLimits": {
+    "placeholders": {
+      "device": {
+        "type": "String"
+      },
+      "what": {
+        "type": "String"
+      }
+    }
+  },
+  "rulesReviewAfter": "Rules apply once the phone confirms. You can undo this later.",
+  "rulesSaved": "Saved. Waiting for the phone to confirm.",
+  "rulesConflict": "Someone else changed these rules. We loaded the latest version.",
+  "rulesChangeAddedBlocked": "Pause always: {name}",
+  "@rulesChangeAddedBlocked": {
+    "placeholders": {
+      "name": {
+        "type": "String"
+      }
+    }
+  },
+  "rulesChangeRemovedBlocked": "No longer paused: {name}",
+  "@rulesChangeRemovedBlocked": {
+    "placeholders": {
+      "name": {
+        "type": "String"
+      }
+    }
+  },
+  "rulesChangeAddedAllowed": "Always allowed: {name}",
+  "@rulesChangeAddedAllowed": {
+    "placeholders": {
+      "name": {
+        "type": "String"
+      }
+    }
+  },
+  "rulesChangeRemovedAllowed": "No longer always allowed: {name}",
+  "@rulesChangeRemovedAllowed": {
+    "placeholders": {
+      "name": {
+        "type": "String"
+      }
+    }
+  },
+  "rulesChangeSchedule": "{name}: {start}–{end}",
+  "@rulesChangeSchedule": {
+    "placeholders": {
+      "name": {
+        "type": "String"
+      },
+      "start": {
+        "type": "String"
+      },
+      "end": {
+        "type": "String"
+      }
+    }
+  },
+  "rulesChangeScheduleRemoved": "Removed: {name}",
+  "@rulesChangeScheduleRemoved": {
+    "placeholders": {
+      "name": {
+        "type": "String"
+      }
+    }
+  },
+  "rulesChangeLimits": "Daily limits changed",
+  "rulesChangeWeb": "Website rules changed",
+  "rulesHistory": "Changes",
+  "rulesHistoryBy": "{who} · {when}",
+  "@rulesHistoryBy": {
+    "placeholders": {
+      "who": {
+        "type": "String"
+      },
+      "when": {
+        "type": "String"
+      }
+    }
+  },
+  "rulesUndoTo": "Go back to this",
+  "rulesUndoConfirm": "Go back to the rules from {when}? A pause that is running stays on.",
+  "@rulesUndoConfirm": {
+    "placeholders": {
+      "when": {
+        "type": "String"
+      }
+    }
+  },
+  "rulesUndone": "Earlier rules restored.",
+  "rulesKindEdit": "Rules changed",
+  "rulesKindPreset": "Plan added",
+  "rulesKindRestrict": "Paused",
+  "rulesKindRelease": "Pause stopped",
+  "rulesKindUndo": "Went back",
+  "rulesKindExtra": "Extra time",
+  "rulesKindAllowance": "Daily time changed",
+  "rulesEssentials": "Calls, emergency messages and Mamily always keep working.",
+  "rulesNoPermission": "Only parents and allowed caregivers can change phone rules.",
+  "everyDay": "Every day",
+  "mapTitle": "Family map",
+  "mapLastSeen": "Last seen {when}",
+  "@mapLastSeen": {
+    "placeholders": {
+      "when": {
+        "type": "String"
+      }
+    }
+  },
+  "mapAccuracy": "Within about {meters} m",
+  "@mapAccuracy": {
+    "placeholders": {
+      "meters": {
+        "type": "String"
+      }
+    }
+  },
+  "mapBattery": "Battery {pct}%",
+  "@mapBattery": {
+    "placeholders": {
+      "pct": {
+        "type": "int"
+      }
+    }
+  },
+  "mapBatteryCharging": "Battery {pct}%, charging",
+  "@mapBatteryCharging": {
+    "placeholders": {
+      "pct": {
+        "type": "int"
+      }
+    }
+  },
+  "mapLastContact": "Phone last in touch {when}",
+  "@mapLastContact": {
+    "placeholders": {
+      "when": {
+        "type": "String"
+      }
+    }
+  },
+  "locFresh": "Recent location",
+  "locStale": "Older location",
+  "locSharingOff": "Location sharing is off",
+  "locSharingOffBody": "Turn it on to see where {name}’s phone is. {name} will see that it’s shared.",
+  "@locSharingOffBody": {
+    "placeholders": {
+      "name": {
+        "type": "String"
+      }
+    }
+  },
+  "locTurnOn": "Turn on sharing",
+  "locTurnOff": "Stop sharing",
+  "locNoDevice": "No phone linked",
+  "locPermission": "Location permission is off on the phone",
+  "locPermissionBody": "On {name}’s phone, open Mamily and allow location.",
+  "@locPermissionBody": {
+    "placeholders": {
+      "name": {
+        "type": "String"
+      }
+    }
+  },
+  "locServicesOff": "Location is switched off on the phone",
+  "locOffline": "Phone hasn’t been in touch for a day",
+  "locNoLocationYet": "No location yet",
+  "locNoLocationYetBody": "It appears after {name} opens Mamily with location allowed.",
+  "@locNoLocationYetBody": {
+    "placeholders": {
+      "name": {
+        "type": "String"
+      }
+    }
+  },
+  "locNotLive": "This is the last location the phone sent, not a live view.",
+  "locHistory": "Earlier today",
+  "locSharingChildSees": "{name} sees “Location shared with family”.",
+  "@locSharingChildSees": {
+    "placeholders": {
+      "name": {
+        "type": "String"
+      }
+    }
+  },
+  "placesTitle": "Safe places",
+  "placesEmpty": "Add home or school to get “arrived” messages.",
+  "placeAdd": "Add a safe place",
+  "placeEdit": "Edit safe place",
+  "placeName": "Name",
+  "placeKindHome": "Home",
+  "placeKindSchool": "School",
+  "placeKindOther": "Other",
+  "placeTapMap": "Tap the map to place it",
+  "placeRadius": "Area size: {meters} m",
+  "@placeRadius": {
+    "placeholders": {
+      "meters": {
+        "type": "String"
+      }
+    }
+  },
+  "placeNotifyArrive": "Tell me when they arrive",
+  "placeNotifyLeave": "Tell me when they leave",
+  "placeNoGuarantee": "Arrival messages depend on the phone sending its location, so they can be late or missed.",
+  "placeUseMyLocation": "Use my location",
+  "journeysTitle": "On the way",
+  "journeyTo": "{name} → {place}",
+  "@journeyTo": {
+    "placeholders": {
+      "name": {
+        "type": "String"
+      },
+      "place": {
+        "type": "String"
+      }
+    }
+  },
+  "journeyExpected": "Expected by {time}",
+  "@journeyExpected": {
+    "placeholders": {
+      "time": {
+        "type": "String"
+      }
+    }
+  },
+  "journeyOverdue": "Check-in overdue since {time}",
+  "@journeyOverdue": {
+    "placeholders": {
+      "time": {
+        "type": "String"
+      }
+    }
+  },
+  "journeyOverdueHint": "This only means {name} hasn’t checked in yet. Try calling.",
+  "@journeyOverdueHint": {
+    "placeholders": {
+      "name": {
+        "type": "String"
+      }
+    }
+  },
+  "safetyTitle": "Safety",
+  "safetyHelpNow": "{name} asked for help",
+  "@safetyHelpNow": {
+    "placeholders": {
+      "name": {
+        "type": "String"
+      }
+    }
+  },
+  "safetyHelpSeen": "I’ve seen it",
+  "safetyHelpResolve": "Resolved",
+  "safetyHelpSeenBy": "Seen by {name}",
+  "@safetyHelpSeenBy": {
+    "placeholders": {
+      "name": {
+        "type": "String"
+      }
+    }
+  },
+  "safetyHelpCall": "Call {name}",
+  "@safetyHelpCall": {
+    "placeholders": {
+      "name": {
+        "type": "String"
+      }
+    }
+  },
+  "safetyHelpLocation": "Where the phone was",
+  "safetyNoAlerts": "No open help requests.",
+  "safetyCheckins": "Check-ins",
+  "safetyCheckinLine": "{name}: {what}",
+  "@safetyCheckinLine": {
+    "placeholders": {
+      "name": {
+        "type": "String"
+      },
+      "what": {
+        "type": "String"
+      }
+    }
+  },
+  "safetyAck": "Got it",
+  "safetyAcked": "Answered",
+  "safetyCentreTitle": "Safety centre",
+  "safetyContacts": "Trusted contacts",
+  "safetyContactAdd": "Add contact",
+  "safetyContactName": "Name",
+  "safetyContactPhone": "Phone",
+  "safetyContactRelation": "Who is this? (e.g. Grandma)",
+  "safetyContactPickup": "Can pick up the children",
+  "safetyPickup": "Pickup instructions",
+  "safetyPickupHint": "Who picks up when, and the password word if you use one.",
+  "safetyEmergencyNumber": "Local emergency number",
+  "safetyEmergencyHint": "e.g. 112, 911, 100, 101",
+  "safetyChildSees": "Your children see these on their safety card, also offline.",
+  "safetyWhoGetsAlerts": "Who gets urgent alerts",
+  "safetyWhoGetsAlertsBody": "Help requests, “pick me up”, “call me” and late check-ins.",
+  "safetyCaregiverNeedsPermission": "Caregivers also need “Safety” permission.",
+  "safetyChildrenAll": "All children",
+  "safetyChildrenSome": "Only: {names}",
+  "@safetyChildrenSome": {
+    "placeholders": {
+      "names": {
+        "type": "String"
+      }
+    }
+  },
+  "safetyEditAccess": "Which children",
+  "accessHistory": "Access history",
+  "accessHistoryBody": "Who looked at locations, changed rules, linked phones or started help sessions.",
+  "accessViewedLocation": "{who} viewed {child}’s location",
+  "@accessViewedLocation": {
+    "placeholders": {
+      "who": {
+        "type": "String"
+      },
+      "child": {
+        "type": "String"
+      }
+    }
+  },
+  "accessViewedHistory": "{who} viewed {child}’s earlier locations",
+  "@accessViewedHistory": {
+    "placeholders": {
+      "who": {
+        "type": "String"
+      },
+      "child": {
+        "type": "String"
+      }
+    }
+  },
+  "accessRulesChanged": "{who} changed {child}’s phone rules",
+  "@accessRulesChanged": {
+    "placeholders": {
+      "who": {
+        "type": "String"
+      },
+      "child": {
+        "type": "String"
+      }
+    }
+  },
+  "accessRemoteStarted": "Help session with {child} started",
+  "@accessRemoteStarted": {
+    "placeholders": {
+      "child": {
+        "type": "String"
+      }
+    }
+  },
+  "accessRemoteEnded": "Help session with {child} ended",
+  "@accessRemoteEnded": {
+    "placeholders": {
+      "child": {
+        "type": "String"
+      }
+    }
+  },
+  "accessRemoteRequested": "{who} asked for a session with {child}",
+  "@accessRemoteRequested": {
+    "placeholders": {
+      "who": {
+        "type": "String"
+      },
+      "child": {
+        "type": "String"
+      }
+    }
+  },
+  "accessSharingOn": "{who} turned on location sharing for {child}",
+  "@accessSharingOn": {
+    "placeholders": {
+      "who": {
+        "type": "String"
+      },
+      "child": {
+        "type": "String"
+      }
+    }
+  },
+  "accessSharingOff": "{who} turned off location sharing for {child}",
+  "@accessSharingOff": {
+    "placeholders": {
+      "who": {
+        "type": "String"
+      },
+      "child": {
+        "type": "String"
+      }
+    }
+  },
+  "accessCaregiver": "{who} changed a caregiver’s access",
+  "@accessCaregiver": {
+    "placeholders": {
+      "who": {
+        "type": "String"
+      }
+    }
+  },
+  "accessOther": "{who}: {action}",
+  "@accessOther": {
+    "placeholders": {
+      "who": {
+        "type": "String"
+      },
+      "action": {
+        "type": "String"
+      }
+    }
+  },
+  "accessSystem": "Mamily",
+  "notifUrgentTitle": "Urgent alerts",
+  "notifUrgentBody": "Help requests, “pick me up”, “call me” and late check-ins come right away, even during your quiet hours. Your phone’s Do Not Disturb can still silence them.",
+  "notifUrgentQuiet": "Send urgent alerts during quiet hours",
+  "notifCatSafety": "Safety and help",
+  "notifCatLocation": "Arrivals and check-ins",
+  "notifCatRemote": "Help and call requests",
+  "setupTitle": "Setup checklist",
+  "setupIntro": "What’s ready on {name}’s phone, and what still needs a step.",
+  "@setupIntro": {
+    "placeholders": {
+      "name": {
+        "type": "String"
+      }
+    }
+  },
+  "setupDone": "Done",
+  "setupTodo": "To do",
+  "setupNotPossible": "Not possible on this phone",
+  "setupLinked": "Phone linked to Mamily",
+  "setupLinkedHow": "Show a pairing code and scan it on the child’s phone.",
+  "setupLocationSharing": "Location sharing turned on",
+  "setupLocationPermission": "Location allowed on the phone",
+  "setupLocationPermissionHow": "Open Mamily on the phone and tap “OK” when it asks about location.",
+  "setupRulesEnforce": "Phone can pause apps",
+  "setupUsage": "App usage can be shown to you",
+  "setupUsageHowAndroid": "On the phone: Settings → Usage access → Mamily → allow.",
+  "setupRulesConfirmed": "Rules confirmed by the phone",
+  "setupContacts": "Trusted contacts added",
+  "setupPlaces": "Home or school added",
+  "setupOpen": "Open",
+  "agreementsTitle": "Agreements",
+  "agreementsIntro": "Write down what you agreed together. {name} can read it and tap “I agree”. It doesn’t change any phone rule by itself.",
+  "@agreementsIntro": {
+    "placeholders": {
+      "name": {
+        "type": "String"
+      }
+    }
+  },
+  "agreementNew": "New agreement",
+  "agreementTitle": "Title",
+  "agreementAddItem": "Add a line",
+  "agreementChildAgreed": "{name} agreed",
+  "@agreementChildAgreed": {
+    "placeholders": {
+      "name": {
+        "type": "String"
+      }
+    }
+  },
+  "agreementWaiting": "Waiting for {name} to read it",
+  "@agreementWaiting": {
+    "placeholders": {
+      "name": {
+        "type": "String"
+      }
+    }
+  },
+  "lessonsProgress": "Safety lessons: {done} of {total} done",
+  "@lessonsProgress": {
+    "placeholders": {
+      "done": {
+        "type": "int"
+      },
+      "total": {
+        "type": "int"
+      }
+    }
+  },
+  "hubSectionSafety": "Safety and phone",
+  "hubSectionDaily": "Day to day",
+  "hubSectionWellbeing": "Wellbeing",
+  "hubSectionMore": "More",
+  "hubLocation": "Location and safety",
+  "hubPhoneRules": "Phone rules",
+  "hubHelpCalls": "Help and calls",
+  "hubAgreements": "Agreements and lessons",
+  "hubSetup": "Setup checklist",
+  "todayUrgent": "Needs you now",
+  "inboxHelpAlert": "{name} asked for help",
+  "@inboxHelpAlert": {
+    "placeholders": {
+      "name": {
+        "type": "String"
+      }
+    }
+  },
+  "inboxPickMeUp": "{name}: pick me up",
+  "@inboxPickMeUp": {
+    "placeholders": {
+      "name": {
+        "type": "String"
+      }
+    }
+  },
+  "inboxCallMe": "{name}: call me",
+  "@inboxCallMe": {
+    "placeholders": {
+      "name": {
+        "type": "String"
+      }
+    }
+  },
+  "inboxJourneyOverdue": "{name} hasn’t checked in from {place} yet",
+  "@inboxJourneyOverdue": {
+    "placeholders": {
+      "name": {
+        "type": "String"
+      },
+      "place": {
+        "type": "String"
+      }
+    }
+  },
+  "inboxOpenSafety": "Open"
 }

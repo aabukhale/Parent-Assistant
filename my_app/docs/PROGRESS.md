@@ -118,3 +118,41 @@ app icons.
 - Android widget/floating card never run on a device (no emulator image).
 - Real push, signing, App Store/Play setup: needs Firebase files, APNs key,
   team ID, and a real bundle/application id (still `com.example.*`).
+
+## Session 2026-10-21/22 — device rules, safety, remote help, child redesign
+
+Capability matrix: `docs/capability-matrix.md`. Backend progress: `mamily/docs/PROGRESS.md`.
+
+### Done (Flutter, Dart only)
+- Child: Today / Rewards / Family; all emoji → labelled Material icons;
+  Help page (press-and-hold SOS, call fallbacks, emergency number), quick
+  check-ins, journeys, location explanation, agreements, lessons, safety
+  card, celebrations toggle; remote layer (consent sheet, banner + Stop,
+  Mamily-only snapshots, pointer ring); WebRTC call screen.
+- Parent: Phone rules (per-device honest state, capabilities, pause now,
+  presets, schedules, app pickers, limits, websites, review-before-save,
+  history/undo), family map (OSM), safe places, safety screen (help alerts,
+  check-ins), safety centre (contacts, pickup, emergency number, urgent
+  recipients, caregiver child scope), access history, agreements, setup
+  checklist, remote help/call screens. Linked from the child hub.
+- `flutter analyze` → 2 infos; `flutter test` → 489 passed.
+
+### NOT done yet (next concrete actions, in order)
+1. Native: Android `mamily/device_rules` channel (DeviceAdminReceiver,
+   setPackagesSuspended engine, Chrome managed config, UsageStats,
+   installed apps, alarms/boot) — today the channel is missing, so every
+   capability honestly reports "unsupported". iOS Family Controls plugin
+   + DeviceActivity extension. Manifest/Info.plist: location (+background
+   during journeys), camera/mic, foreground service type location.
+2. Deep links `/parent/remote/{id}`, `/parent/safety`, `/parent/family-map`
+   in `lib/app/deep_links.dart`; inbox rendering of help_alert /
+   safety_checkin / journey_overdue; urgent card on parent Today;
+   urgent toggle + new categories in notification settings; push data
+   signals `sync_rules` / `remote_session` → DeviceRulesSync / remote poll.
+3. Clear native enforcement on 401 revocation (main.dart listener).
+4. Regroup child hub tiles into sections (strings exist: hubSection*).
+5. Tests for new widgets/repositories; integration journeys (extra time,
+   restriction, remote revoke); emulator + simulator screenshots
+   (RTL/large text); migrate the normal dev DB (back it up first).
+6. Docs: API reference for new endpoints, external setup list (Firebase,
+   APNs, TURN, Family Controls distribution entitlement, OSM tile provider).

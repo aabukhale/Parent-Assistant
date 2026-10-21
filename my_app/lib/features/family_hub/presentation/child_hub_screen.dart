@@ -20,7 +20,13 @@ import '../../screen_time/presentation/screen_time_screen.dart';
 import '../../sleep/presentation/sleep_screen.dart';
 import '../../tasks/presentation/tasks_screen.dart';
 import '../application/hub_providers.dart';
+import '../../device_rules/presentation/device_rules_screen.dart';
+import '../../remote/presentation/parent_remote_screen.dart';
+import '../../safety/presentation/child_setup_screens.dart';
+import '../../safety/presentation/family_map_screen.dart';
+import '../../safety/presentation/parent_safety_screen.dart';
 import 'child_sections.dart';
+import 'pairing_sheet.dart';
 import 'hub_widgets.dart';
 import 'praise_sheet.dart';
 import 'requests_inbox_screen.dart';
@@ -212,6 +218,68 @@ class _ChildHubScreenState extends ConsumerState<ChildHubScreen> {
                         ? box.maxWidth
                         : (box.maxWidth - AppSpacing.md) / 2;
                     final tiles = <Widget>[
+                      NavTile(
+                        icon: Icons.map_rounded,
+                        tone: AppTone.info,
+                        title: l.hubLocation,
+                        onTap: () =>
+                            _open(FamilyMapScreen(focusChildId: child.id)),
+                      ),
+                      NavTile(
+                        icon: Icons.phonelink_lock_rounded,
+                        tone: AppTone.sleep,
+                        title: l.hubPhoneRules,
+                        onTap: () => _open(
+                          DeviceRulesScreen(
+                            childId: child.id,
+                            childName: child.name,
+                          ),
+                        ),
+                      ),
+                      NavTile(
+                        icon: Icons.support_agent_rounded,
+                        tone: AppTone.brand,
+                        title: l.hubHelpCalls,
+                        onTap: () => showStartRemoteSheet(
+                          context,
+                          ref,
+                          childId: child.id,
+                          childName: child.name,
+                        ),
+                      ),
+                      NavTile(
+                        icon: Icons.health_and_safety_rounded,
+                        tone: AppTone.danger,
+                        title: l.safetyTitle,
+                        onTap: () => _open(const ParentSafetyScreen()),
+                      ),
+                      NavTile(
+                        icon: Icons.handshake_rounded,
+                        tone: AppTone.accent,
+                        title: l.hubAgreements,
+                        onTap: () => _open(
+                          ChildAgreementsScreen(
+                            childId: child.id,
+                            childName: child.name,
+                          ),
+                        ),
+                      ),
+                      NavTile(
+                        icon: Icons.checklist_rounded,
+                        tone: AppTone.success,
+                        title: l.hubSetup,
+                        onTap: () => _open(
+                          ChildSetupScreen(
+                            childId: child.id,
+                            childName: child.name,
+                            onPair: () => showPairingSheet(
+                              context,
+                              childId: child.id,
+                              childName: child.name,
+                            ),
+                          ),
+                        ),
+                      ),
                       NavTile(
                         icon: Icons.task_alt_rounded,
                         tone: AppTone.success,

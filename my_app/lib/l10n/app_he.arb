@@ -2206,5 +2206,764 @@
     }
   },
   "remoteStart": "לבקש",
-  "remoteSectionTitle": "עזרה ושיחות"
+  "remoteSectionTitle": "עזרה ושיחות",
+  "rulesTitle": "כללי הטלפון",
+  "rulesOnPhones": "בטלפונים של {name}",
+  "@rulesOnPhones": {
+    "placeholders": {
+      "name": {
+        "type": "String"
+      }
+    }
+  },
+  "rulesStateActive": "הכללים פעילים",
+  "rulesStateActiveBody": "הטלפון אישר {when}.",
+  "@rulesStateActiveBody": {
+    "placeholders": {
+      "when": {
+        "type": "String"
+      }
+    }
+  },
+  "rulesStatePartial": "חלק מהכללים פעילים",
+  "rulesStatePartialBody": "הטלפון הזה לא יכול לבצע את כל מה שהגדרתם. ראו למטה מה הוא יכול.",
+  "rulesStateWaiting": "מחכים לטלפון",
+  "rulesStateWaitingBody": "הטלפון יקבל את הכללים החדשים בפעם הבאה ש-Mamily תיפתח עם אינטרנט.",
+  "rulesStateOffline": "הטלפון לא מחובר",
+  "rulesStateOfflineBody": "קשר אחרון {when}. הכללים יוחלו כשהוא יתחבר שוב.",
+  "@rulesStateOfflineBody": {
+    "placeholders": {
+      "when": {
+        "type": "String"
+      }
+    }
+  },
+  "rulesStatePermission": "צריך הרשאה בטלפון",
+  "rulesStatePermissionBody": "פתחו את Mamily בטלפון של {name} ופעלו לפי השלבים במסך.",
+  "@rulesStatePermissionBody": {
+    "placeholders": {
+      "name": {
+        "type": "String"
+      }
+    }
+  },
+  "rulesStateUnsupported": "הטלפון הזה לא יכול לחסום אפליקציות",
+  "rulesStateUnsupportedBody": "הכללים עדיין מוצגים במסך „היום” של {name} כתוכנית המשפחה. ראו „מה הטלפון יכול לעשות”.",
+  "@rulesStateUnsupportedBody": {
+    "placeholders": {
+      "name": {
+        "type": "String"
+      }
+    }
+  },
+  "rulesStateNotConfirmed": "לא ניתן לאשר",
+  "rulesStateNotConfirmedBody": "הטלפון לא אישר את הכללים לאחרונה. פתחו בו את Mamily כדי לבדוק.",
+  "rulesStateNoRules": "עוד אין כללים",
+  "rulesStateNoRulesBody": "התחילו עם תוכנית מוכנה למטה.",
+  "rulesNoDevice": "עוד לא קושר טלפון",
+  "rulesNoDeviceBody": "קשרו את הטלפון של {name} כדי שהכללים יגיעו אליו.",
+  "@rulesNoDeviceBody": {
+    "placeholders": {
+      "name": {
+        "type": "String"
+      }
+    }
+  },
+  "rulesCanDo": "מה הטלפון הזה יכול לעשות",
+  "capAppBlocking": "השהיית אפליקציות שנבחרו",
+  "capAppLimits": "מגבלה יומית לאפליקציות",
+  "capSchedules": "זמני בית ספר, שיעורים ושינה",
+  "capWebFilter": "כללי אתרים",
+  "capRestrictNow": "השהיה עכשיו",
+  "capUsage": "הצגת השימוש באפליקציות",
+  "capDeviceLock": "נעילת הטלפון כולו",
+  "capAvailable": "כן",
+  "capPermission": "צריך הרשאה בטלפון",
+  "capSetup": "צריך הגדרה מיוחדת לטלפון",
+  "capUnsupported": "לא אפשרי בטלפון הזה",
+  "capUnknown": "עוד לא דווח",
+  "capSetupHelpAndroid": "אנדרואיד מאפשרת לאפליקציה להשהות אפליקציות אחרות רק אם הטלפון הוגדר לכך מההתחלה (איפוס להגדרות יצרן עם Mamily כמנהלת הטלפון). עד אז Mamily יכולה להציג את הכללים והשימוש, אבל לא לאכוף אותם.",
+  "capSetupHelpIos": "באייפון, הורה מאשר ל-Mamily גישה ל„זמן מסך” באייפון של הילד/ה (שיתוף משפחתי). נתוני השימוש נשארים באייפון ולא נשלחים אליכם.",
+  "rulesPauseTitle": "השהיית אפליקציות עכשיו",
+  "rulesPauseBody": "כל האפליקציות מושהות, חוץ משיחות, הודעות חירום, Mamily והאפליקציות שתמיד מותרות.",
+  "rulesPause30": "30 דק׳",
+  "rulesPause60": "שעה",
+  "rulesPauseUntil": "עד שאעצור",
+  "rulesPausedUntil": "מושהה עד {time}",
+  "@rulesPausedUntil": {
+    "placeholders": {
+      "time": {
+        "type": "String"
+      }
+    }
+  },
+  "rulesPausedOpen": "מושהה עד שתעצרו",
+  "rulesPauseExpired": "ההשהיה הסתיימה.",
+  "rulesRelease": "לעצור את ההשהיה",
+  "rulesPauseConfirm": "להשהות את האפליקציות של {name} {duration}?",
+  "@rulesPauseConfirm": {
+    "placeholders": {
+      "name": {
+        "type": "String"
+      },
+      "duration": {
+        "type": "String"
+      }
+    }
+  },
+  "rulesPresets": "תוכניות מוכנות",
+  "presetSchool": "בית ספר",
+  "presetSchoolBody": "רק אפליקציות מותרות בשעות בית הספר",
+  "presetHomework": "שיעורי בית",
+  "presetHomeworkBody": "זמן ריכוז לשיעורי בית",
+  "presetBedtime": "שעת שינה",
+  "presetBedtimeBody": "האפליקציות נחות בלילה",
+  "presetWeekend": "סוף שבוע",
+  "presetWeekendBody": "זמן יומי אחר",
+  "presetCustom": "מותאם אישית",
+  "rulesExplainSchedule": "{dayList}, {start}–{end}: רק שיחות, Mamily ואפליקציות מותרות עובדות.",
+  "@rulesExplainSchedule": {
+    "placeholders": {
+      "dayList": {
+        "type": "String"
+      },
+      "start": {
+        "type": "String"
+      },
+      "end": {
+        "type": "String"
+      }
+    }
+  },
+  "rulesExplainScheduleBlock": "{dayList}, {start}–{end}: אי אפשר לפתוח את האפליקציות שהשהיתם.",
+  "@rulesExplainScheduleBlock": {
+    "placeholders": {
+      "dayList": {
+        "type": "String"
+      },
+      "start": {
+        "type": "String"
+      },
+      "end": {
+        "type": "String"
+      }
+    }
+  },
+  "rulesExplainWeekend": "ב{dayList}: {minutes} דקות מסך ביום.",
+  "@rulesExplainWeekend": {
+    "placeholders": {
+      "dayList": {
+        "type": "String"
+      },
+      "minutes": {
+        "type": "int"
+      }
+    }
+  },
+  "rulesDays": "ימים",
+  "rulesFrom": "מ-",
+  "rulesTo": "עד",
+  "rulesMinutesPerDay": "דקות ביום",
+  "rulesSchedules": "זמנים",
+  "rulesSchedulesEmpty": "לא הוגדרו זמנים. השתמשו בתוכנית מוכנה למעלה.",
+  "rulesApps": "אפליקציות",
+  "rulesBlockedApps": "תמיד מושהות",
+  "rulesAllowedApps": "תמיד מותרות",
+  "rulesAllowedAppsBody": "עובדות גם בזמן בית ספר, שיעורים, שינה והשהיות.",
+  "rulesAppCount": "{count} אפליקציות",
+  "@rulesAppCount": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "rulesChooseApps": "בחירת אפליקציות",
+  "rulesNoAppList": "הטלפון של {name} עוד לא שלח את רשימת האפליקציות. פתחו בו את Mamily פעם אחת.",
+  "@rulesNoAppList": {
+    "placeholders": {
+      "name": {
+        "type": "String"
+      }
+    }
+  },
+  "rulesIosPickOnPhone": "אפליקציות אייפון נבחרות באייפון של {name}: התחברו שם כהורה ופתחו את „כללי הטלפון”.",
+  "@rulesIosPickOnPhone": {
+    "placeholders": {
+      "name": {
+        "type": "String"
+      }
+    }
+  },
+  "rulesLimits": "מגבלות יומיות",
+  "rulesLimitsEmpty": "אין מגבלות לסוגי אפליקציות.",
+  "rulesAddLimit": "הוספת מגבלה",
+  "rulesLimitLine": "{what}: {minutes} דקות ביום",
+  "@rulesLimitLine": {
+    "placeholders": {
+      "what": {
+        "type": "String"
+      },
+      "minutes": {
+        "type": "int"
+      }
+    }
+  },
+  "catGames": "משחקים",
+  "catSocial": "רשתות חברתיות",
+  "catVideo": "סרטונים",
+  "catBrowsers": "דפדפנים",
+  "catMessaging": "הודעות",
+  "catEducation": "למידה",
+  "catOther": "אפליקציות אחרות",
+  "rulesWeb": "אתרים",
+  "rulesWebOff": "בלי כללי אתרים",
+  "rulesWebBlock": "לחסום את האתרים האלה",
+  "rulesWebOnly": "רק אתרים מאושרים",
+  "rulesWebAdd": "הוספת אתר",
+  "rulesWebHint": "example.com",
+  "rulesWebInvalid": "כתבו אתר כמו example.com",
+  "rulesWebNote": "עובד בדפדפן הראשי של הטלפון, איפה שזה נתמך.",
+  "rulesReviewSave": "לבדוק ולשמור",
+  "rulesReviewTitle": "זה מה שישתנה",
+  "rulesReviewApplies": "חל על: {devices}",
+  "@rulesReviewApplies": {
+    "placeholders": {
+      "devices": {
+        "type": "String"
+      }
+    }
+  },
+  "rulesReviewAppliesNone": "עוד לא קושר טלפון; הכללים יחכו עד שיקושר.",
+  "rulesReviewLimits": "{device} לא יכול: {what}",
+  "@rulesReviewLimits": {
+    "placeholders": {
+      "device": {
+        "type": "String"
+      },
+      "what": {
+        "type": "String"
+      }
+    }
+  },
+  "rulesReviewAfter": "הכללים יוחלו אחרי שהטלפון יאשר. אפשר לבטל אחר כך.",
+  "rulesSaved": "נשמר. מחכים לאישור הטלפון.",
+  "rulesConflict": "מישהו אחר שינה את הכללים. טענו את הגרסה העדכנית.",
+  "rulesChangeAddedBlocked": "השהיה קבועה: {name}",
+  "@rulesChangeAddedBlocked": {
+    "placeholders": {
+      "name": {
+        "type": "String"
+      }
+    }
+  },
+  "rulesChangeRemovedBlocked": "כבר לא מושהה: {name}",
+  "@rulesChangeRemovedBlocked": {
+    "placeholders": {
+      "name": {
+        "type": "String"
+      }
+    }
+  },
+  "rulesChangeAddedAllowed": "תמיד מותר: {name}",
+  "@rulesChangeAddedAllowed": {
+    "placeholders": {
+      "name": {
+        "type": "String"
+      }
+    }
+  },
+  "rulesChangeRemovedAllowed": "כבר לא תמיד מותר: {name}",
+  "@rulesChangeRemovedAllowed": {
+    "placeholders": {
+      "name": {
+        "type": "String"
+      }
+    }
+  },
+  "rulesChangeSchedule": "{name}: {start}–{end}",
+  "@rulesChangeSchedule": {
+    "placeholders": {
+      "name": {
+        "type": "String"
+      },
+      "start": {
+        "type": "String"
+      },
+      "end": {
+        "type": "String"
+      }
+    }
+  },
+  "rulesChangeScheduleRemoved": "הוסר: {name}",
+  "@rulesChangeScheduleRemoved": {
+    "placeholders": {
+      "name": {
+        "type": "String"
+      }
+    }
+  },
+  "rulesChangeLimits": "המגבלות היומיות השתנו",
+  "rulesChangeWeb": "כללי האתרים השתנו",
+  "rulesHistory": "שינויים",
+  "rulesHistoryBy": "{who} · {when}",
+  "@rulesHistoryBy": {
+    "placeholders": {
+      "who": {
+        "type": "String"
+      },
+      "when": {
+        "type": "String"
+      }
+    }
+  },
+  "rulesUndoTo": "לחזור לזה",
+  "rulesUndoConfirm": "לחזור לכללים מ-{when}? השהיה פעילה תישאר.",
+  "@rulesUndoConfirm": {
+    "placeholders": {
+      "when": {
+        "type": "String"
+      }
+    }
+  },
+  "rulesUndone": "הכללים הקודמים שוחזרו.",
+  "rulesKindEdit": "הכללים השתנו",
+  "rulesKindPreset": "נוספה תוכנית",
+  "rulesKindRestrict": "השהיה",
+  "rulesKindRelease": "ההשהיה נעצרה",
+  "rulesKindUndo": "חזרה לגרסה קודמת",
+  "rulesKindExtra": "זמן נוסף",
+  "rulesKindAllowance": "הזמן היומי השתנה",
+  "rulesEssentials": "שיחות, הודעות חירום ו-Mamily תמיד ממשיכות לעבוד.",
+  "rulesNoPermission": "רק הורים ומטפלים מורשים יכולים לשנות את כללי הטלפון.",
+  "everyDay": "כל יום",
+  "mapTitle": "מפת המשפחה",
+  "mapLastSeen": "נראה לאחרונה {when}",
+  "@mapLastSeen": {
+    "placeholders": {
+      "when": {
+        "type": "String"
+      }
+    }
+  },
+  "mapAccuracy": "בטווח של כ-{meters} מ׳",
+  "@mapAccuracy": {
+    "placeholders": {
+      "meters": {
+        "type": "String"
+      }
+    }
+  },
+  "mapBattery": "סוללה {pct}%",
+  "@mapBattery": {
+    "placeholders": {
+      "pct": {
+        "type": "int"
+      }
+    }
+  },
+  "mapBatteryCharging": "סוללה {pct}%, בטעינה",
+  "@mapBatteryCharging": {
+    "placeholders": {
+      "pct": {
+        "type": "int"
+      }
+    }
+  },
+  "mapLastContact": "הטלפון היה בקשר לאחרונה {when}",
+  "@mapLastContact": {
+    "placeholders": {
+      "when": {
+        "type": "String"
+      }
+    }
+  },
+  "locFresh": "מיקום עדכני",
+  "locStale": "מיקום ישן יותר",
+  "locSharingOff": "שיתוף המיקום כבוי",
+  "locSharingOffBody": "הפעילו כדי לראות איפה הטלפון של {name}. {name} יראה/תראה שהמיקום משותף.",
+  "@locSharingOffBody": {
+    "placeholders": {
+      "name": {
+        "type": "String"
+      }
+    }
+  },
+  "locTurnOn": "להפעיל שיתוף",
+  "locTurnOff": "להפסיק שיתוף",
+  "locNoDevice": "לא מקושר טלפון",
+  "locPermission": "הרשאת המיקום כבויה בטלפון",
+  "locPermissionBody": "בטלפון של {name}, פתחו את Mamily ואשרו גישה למיקום.",
+  "@locPermissionBody": {
+    "placeholders": {
+      "name": {
+        "type": "String"
+      }
+    }
+  },
+  "locServicesOff": "המיקום כבוי בטלפון",
+  "locOffline": "הטלפון לא היה בקשר כבר יום",
+  "locNoLocationYet": "עוד אין מיקום",
+  "locNoLocationYetBody": "זה יופיע אחרי ש{name} יפתח/תפתח את Mamily עם הרשאת מיקום.",
+  "@locNoLocationYetBody": {
+    "placeholders": {
+      "name": {
+        "type": "String"
+      }
+    }
+  },
+  "locNotLive": "זה המיקום האחרון שהטלפון שלח, לא תצוגה חיה.",
+  "locHistory": "מוקדם יותר היום",
+  "locSharingChildSees": "{name} רואה „המיקום משותף עם המשפחה”.",
+  "@locSharingChildSees": {
+    "placeholders": {
+      "name": {
+        "type": "String"
+      }
+    }
+  },
+  "placesTitle": "מקומות בטוחים",
+  "placesEmpty": "הוסיפו בית או בית ספר כדי לקבל הודעות „הגיע/ה”.",
+  "placeAdd": "הוספת מקום בטוח",
+  "placeEdit": "עריכת מקום בטוח",
+  "placeName": "שם",
+  "placeKindHome": "בית",
+  "placeKindSchool": "בית ספר",
+  "placeKindOther": "אחר",
+  "placeTapMap": "הקישו על המפה כדי למקם",
+  "placeRadius": "גודל האזור: {meters} מ׳",
+  "@placeRadius": {
+    "placeholders": {
+      "meters": {
+        "type": "String"
+      }
+    }
+  },
+  "placeNotifyArrive": "להודיע כשמגיעים",
+  "placeNotifyLeave": "להודיע כשיוצאים",
+  "placeNoGuarantee": "הודעות הגעה תלויות בכך שהטלפון שולח מיקום, ולכן הן יכולות להתעכב או להחמיץ.",
+  "placeUseMyLocation": "להשתמש במיקום שלי",
+  "journeysTitle": "בדרך",
+  "journeyTo": "{name} ← {place}",
+  "@journeyTo": {
+    "placeholders": {
+      "name": {
+        "type": "String"
+      },
+      "place": {
+        "type": "String"
+      }
+    }
+  },
+  "journeyExpected": "צפוי עד {time}",
+  "@journeyExpected": {
+    "placeholders": {
+      "time": {
+        "type": "String"
+      }
+    }
+  },
+  "journeyOverdue": "העדכון באיחור מאז {time}",
+  "@journeyOverdue": {
+    "placeholders": {
+      "time": {
+        "type": "String"
+      }
+    }
+  },
+  "journeyOverdueHint": "זה אומר רק ש{name} עוד לא עדכן/ה. נסו להתקשר.",
+  "@journeyOverdueHint": {
+    "placeholders": {
+      "name": {
+        "type": "String"
+      }
+    }
+  },
+  "safetyTitle": "בטיחות",
+  "safetyHelpNow": "{name} ביקש/ה עזרה",
+  "@safetyHelpNow": {
+    "placeholders": {
+      "name": {
+        "type": "String"
+      }
+    }
+  },
+  "safetyHelpSeen": "ראיתי",
+  "safetyHelpResolve": "טופל",
+  "safetyHelpSeenBy": "נראה על ידי {name}",
+  "@safetyHelpSeenBy": {
+    "placeholders": {
+      "name": {
+        "type": "String"
+      }
+    }
+  },
+  "safetyHelpCall": "להתקשר ל{name}",
+  "@safetyHelpCall": {
+    "placeholders": {
+      "name": {
+        "type": "String"
+      }
+    }
+  },
+  "safetyHelpLocation": "איפה היה הטלפון",
+  "safetyNoAlerts": "אין בקשות עזרה פתוחות.",
+  "safetyCheckins": "עדכונים",
+  "safetyCheckinLine": "{name}: {what}",
+  "@safetyCheckinLine": {
+    "placeholders": {
+      "name": {
+        "type": "String"
+      },
+      "what": {
+        "type": "String"
+      }
+    }
+  },
+  "safetyAck": "קיבלתי",
+  "safetyAcked": "נענה",
+  "safetyCentreTitle": "מרכז בטיחות",
+  "safetyContacts": "אנשי קשר מהימנים",
+  "safetyContactAdd": "הוספת איש קשר",
+  "safetyContactName": "שם",
+  "safetyContactPhone": "טלפון",
+  "safetyContactRelation": "מי זה? (למשל סבתא)",
+  "safetyContactPickup": "יכול/ה לאסוף את הילדים",
+  "safetyPickup": "הוראות איסוף",
+  "safetyPickupHint": "מי אוסף ומתי, ומילת הסיסמה אם יש.",
+  "safetyEmergencyNumber": "מספר חירום מקומי",
+  "safetyEmergencyHint": "למשל 112, 911, 100, 101",
+  "safetyChildSees": "הילדים רואים את זה בכרטיס הבטיחות שלהם, גם בלי אינטרנט.",
+  "safetyWhoGetsAlerts": "מי מקבל התראות דחופות",
+  "safetyWhoGetsAlertsBody": "בקשות עזרה, „תאספו אותי”, „תתקשרו אליי” ועדכונים באיחור.",
+  "safetyCaregiverNeedsPermission": "מטפלים צריכים גם הרשאת „בטיחות”.",
+  "safetyChildrenAll": "כל הילדים",
+  "safetyChildrenSome": "רק: {names}",
+  "@safetyChildrenSome": {
+    "placeholders": {
+      "names": {
+        "type": "String"
+      }
+    }
+  },
+  "safetyEditAccess": "אילו ילדים",
+  "accessHistory": "היסטוריית גישה",
+  "accessHistoryBody": "מי צפה במיקומים, שינה כללים, קישר טלפונים או התחיל מפגשי עזרה.",
+  "accessViewedLocation": "{who} צפה/תה במיקום של {child}",
+  "@accessViewedLocation": {
+    "placeholders": {
+      "who": {
+        "type": "String"
+      },
+      "child": {
+        "type": "String"
+      }
+    }
+  },
+  "accessViewedHistory": "{who} צפה/תה במיקומים הקודמים של {child}",
+  "@accessViewedHistory": {
+    "placeholders": {
+      "who": {
+        "type": "String"
+      },
+      "child": {
+        "type": "String"
+      }
+    }
+  },
+  "accessRulesChanged": "{who} שינה/תה את כללי הטלפון של {child}",
+  "@accessRulesChanged": {
+    "placeholders": {
+      "who": {
+        "type": "String"
+      },
+      "child": {
+        "type": "String"
+      }
+    }
+  },
+  "accessRemoteStarted": "התחיל מפגש עזרה עם {child}",
+  "@accessRemoteStarted": {
+    "placeholders": {
+      "child": {
+        "type": "String"
+      }
+    }
+  },
+  "accessRemoteEnded": "מפגש העזרה עם {child} הסתיים",
+  "@accessRemoteEnded": {
+    "placeholders": {
+      "child": {
+        "type": "String"
+      }
+    }
+  },
+  "accessRemoteRequested": "{who} ביקש/ה מפגש עם {child}",
+  "@accessRemoteRequested": {
+    "placeholders": {
+      "who": {
+        "type": "String"
+      },
+      "child": {
+        "type": "String"
+      }
+    }
+  },
+  "accessSharingOn": "{who} הפעיל/ה שיתוף מיקום ל{child}",
+  "@accessSharingOn": {
+    "placeholders": {
+      "who": {
+        "type": "String"
+      },
+      "child": {
+        "type": "String"
+      }
+    }
+  },
+  "accessSharingOff": "{who} כיבה/תה שיתוף מיקום ל{child}",
+  "@accessSharingOff": {
+    "placeholders": {
+      "who": {
+        "type": "String"
+      },
+      "child": {
+        "type": "String"
+      }
+    }
+  },
+  "accessCaregiver": "{who} שינה/תה גישה של מטפל/ת",
+  "@accessCaregiver": {
+    "placeholders": {
+      "who": {
+        "type": "String"
+      }
+    }
+  },
+  "accessOther": "{who}: {action}",
+  "@accessOther": {
+    "placeholders": {
+      "who": {
+        "type": "String"
+      },
+      "action": {
+        "type": "String"
+      }
+    }
+  },
+  "accessSystem": "Mamily",
+  "notifUrgentTitle": "התראות דחופות",
+  "notifUrgentBody": "בקשות עזרה, „תאספו אותי”, „תתקשרו אליי” ועדכונים באיחור מגיעים מיד, גם בשעות השקט. מצב „נא לא להפריע” בטלפון עדיין יכול להשתיק אותם.",
+  "notifUrgentQuiet": "לשלוח התראות דחופות בשעות השקט",
+  "notifCatSafety": "בטיחות ועזרה",
+  "notifCatLocation": "הגעות ועדכונים",
+  "notifCatRemote": "בקשות עזרה ושיחות",
+  "setupTitle": "רשימת הגדרה",
+  "setupIntro": "מה מוכן בטלפון של {name}, ומה עוד צריך צעד.",
+  "@setupIntro": {
+    "placeholders": {
+      "name": {
+        "type": "String"
+      }
+    }
+  },
+  "setupDone": "בוצע",
+  "setupTodo": "לביצוע",
+  "setupNotPossible": "לא אפשרי בטלפון הזה",
+  "setupLinked": "הטלפון מקושר ל-Mamily",
+  "setupLinkedHow": "הציגו קוד קישור וסרקו אותו בטלפון של הילד/ה.",
+  "setupLocationSharing": "שיתוף מיקום מופעל",
+  "setupLocationPermission": "מיקום מאושר בטלפון",
+  "setupLocationPermissionHow": "פתחו את Mamily בטלפון ולחצו „אישור” כשהיא שואלת על מיקום.",
+  "setupRulesEnforce": "הטלפון יכול להשהות אפליקציות",
+  "setupUsage": "אפשר להציג לכם שימוש באפליקציות",
+  "setupUsageHowAndroid": "בטלפון: הגדרות ← גישה לנתוני שימוש ← Mamily ← לאשר.",
+  "setupRulesConfirmed": "הכללים אושרו על ידי הטלפון",
+  "setupContacts": "נוספו אנשי קשר מהימנים",
+  "setupPlaces": "נוסף בית או בית ספר",
+  "setupOpen": "לפתוח",
+  "agreementsTitle": "הסכמים",
+  "agreementsIntro": "רשמו מה הסכמתם יחד. {name} יכול/ה לקרוא וללחוץ „אני מסכים/ה”. זה לא משנה בעצמו אף כלל בטלפון.",
+  "@agreementsIntro": {
+    "placeholders": {
+      "name": {
+        "type": "String"
+      }
+    }
+  },
+  "agreementNew": "הסכם חדש",
+  "agreementTitle": "כותרת",
+  "agreementAddItem": "הוספת שורה",
+  "agreementChildAgreed": "{name} הסכים/ה",
+  "@agreementChildAgreed": {
+    "placeholders": {
+      "name": {
+        "type": "String"
+      }
+    }
+  },
+  "agreementWaiting": "מחכים ש{name} יקרא/תקרא",
+  "@agreementWaiting": {
+    "placeholders": {
+      "name": {
+        "type": "String"
+      }
+    }
+  },
+  "lessonsProgress": "שיעורי בטיחות: {done} מתוך {total} הושלמו",
+  "@lessonsProgress": {
+    "placeholders": {
+      "done": {
+        "type": "int"
+      },
+      "total": {
+        "type": "int"
+      }
+    }
+  },
+  "hubSectionSafety": "בטיחות וטלפון",
+  "hubSectionDaily": "יום-יום",
+  "hubSectionWellbeing": "רווחה",
+  "hubSectionMore": "עוד",
+  "hubLocation": "מיקום ובטיחות",
+  "hubPhoneRules": "כללי הטלפון",
+  "hubHelpCalls": "עזרה ושיחות",
+  "hubAgreements": "הסכמים ושיעורים",
+  "hubSetup": "רשימת הגדרה",
+  "todayUrgent": "צריך אותך עכשיו",
+  "inboxHelpAlert": "{name} ביקש/ה עזרה",
+  "@inboxHelpAlert": {
+    "placeholders": {
+      "name": {
+        "type": "String"
+      }
+    }
+  },
+  "inboxPickMeUp": "{name}: תאספו אותי",
+  "@inboxPickMeUp": {
+    "placeholders": {
+      "name": {
+        "type": "String"
+      }
+    }
+  },
+  "inboxCallMe": "{name}: תתקשרו אליי",
+  "@inboxCallMe": {
+    "placeholders": {
+      "name": {
+        "type": "String"
+      }
+    }
+  },
+  "inboxJourneyOverdue": "{name} עוד לא עדכן/ה מ{place}",
+  "@inboxJourneyOverdue": {
+    "placeholders": {
+      "name": {
+        "type": "String"
+      },
+      "place": {
+        "type": "String"
+      }
+    }
+  },
+  "inboxOpenSafety": "לפתוח"
 }

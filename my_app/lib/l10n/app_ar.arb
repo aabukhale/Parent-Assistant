@@ -1729,13 +1729,13 @@
   "routineNotToday": "غير مجدول اليوم",
   "routineHistory": "السجل",
   "routineStepsRequired": "أضف خطوة واحدة على الأقل.",
-  "weekdayShort1": "إثن",
-  "weekdayShort2": "ثلا",
-  "weekdayShort3": "أرب",
-  "weekdayShort4": "خمي",
-  "weekdayShort5": "جمع",
-  "weekdayShort6": "سبت",
-  "weekdayShort7": "أحد",
+  "weekdayShort1": "الإثنين",
+  "weekdayShort2": "الثلاثاء",
+  "weekdayShort3": "الأربعاء",
+  "weekdayShort4": "الخميس",
+  "weekdayShort5": "الجمعة",
+  "weekdayShort6": "السبت",
+  "weekdayShort7": "الأحد",
   "challengesTitle": "تحديات العائلة",
   "challengesEmpty": "ضع هدفًا مشتركًا — مثل قراءة 300 دقيقة معًا هذا الأسبوع — واحتفلوا عند تحقيقه.",
   "challengeNew": "تحدٍّ جديد",
@@ -2206,5 +2206,764 @@
     }
   },
   "remoteStart": "اطلب",
-  "remoteSectionTitle": "المساعدة والمكالمات"
+  "remoteSectionTitle": "المساعدة والمكالمات",
+  "rulesTitle": "قواعد الهاتف",
+  "rulesOnPhones": "على هواتف {name}",
+  "@rulesOnPhones": {
+    "placeholders": {
+      "name": {
+        "type": "String"
+      }
+    }
+  },
+  "rulesStateActive": "القواعد مفعّلة",
+  "rulesStateActiveBody": "أكّدها الهاتف {when}.",
+  "@rulesStateActiveBody": {
+    "placeholders": {
+      "when": {
+        "type": "String"
+      }
+    }
+  },
+  "rulesStatePartial": "بعض القواعد مفعّلة",
+  "rulesStatePartialBody": "لا يستطيع هذا الهاتف تنفيذ كل ما حددته. انظر ما يمكنه فعله أدناه.",
+  "rulesStateWaiting": "بانتظار الهاتف",
+  "rulesStateWaitingBody": "سيستلم الهاتف القواعد الجديدة عند فتح Mamily في المرة القادمة مع اتصال بالإنترنت.",
+  "rulesStateOffline": "الهاتف غير متصل",
+  "rulesStateOfflineBody": "آخر اتصال {when}. تُطبَّق القواعد بعد عودة الاتصال.",
+  "@rulesStateOfflineBody": {
+    "placeholders": {
+      "when": {
+        "type": "String"
+      }
+    }
+  },
+  "rulesStatePermission": "يلزم إذن على الهاتف",
+  "rulesStatePermissionBody": "افتح Mamily على هاتف {name} واتبع الخطوات على الشاشة.",
+  "@rulesStatePermissionBody": {
+    "placeholders": {
+      "name": {
+        "type": "String"
+      }
+    }
+  },
+  "rulesStateUnsupported": "هذا الهاتف لا يستطيع حظر التطبيقات",
+  "rulesStateUnsupportedBody": "ستظهر قواعدك على شاشة «اليوم» لدى {name} كخطة العائلة. انظر «ما يستطيع هذا الهاتف فعله».",
+  "@rulesStateUnsupportedBody": {
+    "placeholders": {
+      "name": {
+        "type": "String"
+      }
+    }
+  },
+  "rulesStateNotConfirmed": "تعذّر التأكيد",
+  "rulesStateNotConfirmedBody": "لم يؤكّد الهاتف القواعد مؤخراً. افتح Mamily عليه للتحقق.",
+  "rulesStateNoRules": "لا توجد قواعد بعد",
+  "rulesStateNoRulesBody": "ابدأ بخطة جاهزة أدناه.",
+  "rulesNoDevice": "لم يُربط أي هاتف بعد",
+  "rulesNoDeviceBody": "اربط هاتف {name} لكي تصل إليه القواعد.",
+  "@rulesNoDeviceBody": {
+    "placeholders": {
+      "name": {
+        "type": "String"
+      }
+    }
+  },
+  "rulesCanDo": "ما يستطيع هذا الهاتف فعله",
+  "capAppBlocking": "إيقاف تطبيقات محددة",
+  "capAppLimits": "حدود يومية للتطبيقات",
+  "capSchedules": "أوقات المدرسة والواجبات والنوم",
+  "capWebFilter": "قواعد المواقع",
+  "capRestrictNow": "الإيقاف الآن",
+  "capUsage": "عرض استخدام التطبيقات لك",
+  "capDeviceLock": "قفل الهاتف بالكامل",
+  "capAvailable": "نعم",
+  "capPermission": "يحتاج إذناً على الهاتف",
+  "capSetup": "يحتاج إعداداً خاصاً للهاتف",
+  "capUnsupported": "غير ممكن على هذا الهاتف",
+  "capUnknown": "لم يُبلَّغ بعد",
+  "capSetupHelpAndroid": "يسمح أندرويد لتطبيق بإيقاف التطبيقات الأخرى فقط إذا تم إعداد الهاتف لذلك منذ البداية (إعادة ضبط المصنع مع Mamily كمدير للهاتف). حتى ذلك الحين يستطيع Mamily عرض القواعد والاستخدام لكن لا يستطيع فرضها.",
+  "capSetupHelpIos": "على آيفون، يوافق أحد الوالدين على وصول Mamily إلى «مدة استخدام الجهاز» على آيفون الطفل (المشاركة العائلية). يبقى الاستخدام على ذلك الآيفون ولا يمكن إرساله إليك.",
+  "rulesPauseTitle": "إيقاف التطبيقات الآن",
+  "rulesPauseBody": "تتوقف جميع التطبيقات ما عدا المكالمات ورسائل الطوارئ وMamily والتطبيقات المسموح بها دائماً.",
+  "rulesPause30": "30 د",
+  "rulesPause60": "ساعة",
+  "rulesPauseUntil": "حتى أوقفه",
+  "rulesPausedUntil": "متوقف حتى {time}",
+  "@rulesPausedUntil": {
+    "placeholders": {
+      "time": {
+        "type": "String"
+      }
+    }
+  },
+  "rulesPausedOpen": "متوقف حتى توقفه أنت",
+  "rulesPauseExpired": "انتهى الإيقاف المؤقت.",
+  "rulesRelease": "إنهاء الإيقاف",
+  "rulesPauseConfirm": "إيقاف تطبيقات {name} {duration}؟",
+  "@rulesPauseConfirm": {
+    "placeholders": {
+      "name": {
+        "type": "String"
+      },
+      "duration": {
+        "type": "String"
+      }
+    }
+  },
+  "rulesPresets": "خطط جاهزة",
+  "presetSchool": "المدرسة",
+  "presetSchoolBody": "التطبيقات المسموح بها فقط خلال ساعات المدرسة",
+  "presetHomework": "الواجبات",
+  "presetHomeworkBody": "وقت تركيز للواجبات",
+  "presetBedtime": "وقت النوم",
+  "presetBedtimeBody": "التطبيقات تستريح ليلاً",
+  "presetWeekend": "عطلة نهاية الأسبوع",
+  "presetWeekendBody": "وقت يومي مختلف",
+  "presetCustom": "مخصص",
+  "rulesExplainSchedule": "{dayList}، {start}–{end}: تعمل المكالمات وMamily والتطبيقات المسموح بها فقط.",
+  "@rulesExplainSchedule": {
+    "placeholders": {
+      "dayList": {
+        "type": "String"
+      },
+      "start": {
+        "type": "String"
+      },
+      "end": {
+        "type": "String"
+      }
+    }
+  },
+  "rulesExplainScheduleBlock": "{dayList}، {start}–{end}: لا يمكن فتح التطبيقات التي أوقفتها.",
+  "@rulesExplainScheduleBlock": {
+    "placeholders": {
+      "dayList": {
+        "type": "String"
+      },
+      "start": {
+        "type": "String"
+      },
+      "end": {
+        "type": "String"
+      }
+    }
+  },
+  "rulesExplainWeekend": "في {dayList}: {minutes} دقيقة من وقت الشاشة يومياً.",
+  "@rulesExplainWeekend": {
+    "placeholders": {
+      "dayList": {
+        "type": "String"
+      },
+      "minutes": {
+        "type": "int"
+      }
+    }
+  },
+  "rulesDays": "الأيام",
+  "rulesFrom": "من",
+  "rulesTo": "إلى",
+  "rulesMinutesPerDay": "دقائق يومياً",
+  "rulesSchedules": "الأوقات",
+  "rulesSchedulesEmpty": "لم تُحدَّد أوقات. استخدم خطة جاهزة أعلاه.",
+  "rulesApps": "التطبيقات",
+  "rulesBlockedApps": "متوقفة دائماً",
+  "rulesAllowedApps": "مسموح بها دائماً",
+  "rulesAllowedAppsBody": "تعمل حتى خلال المدرسة والواجبات والنوم والإيقاف.",
+  "rulesAppCount": "{count} تطبيقات",
+  "@rulesAppCount": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "rulesChooseApps": "اختر التطبيقات",
+  "rulesNoAppList": "لم يرسل هاتف {name} قائمة تطبيقاته بعد. افتح Mamily عليه مرة واحدة.",
+  "@rulesNoAppList": {
+    "placeholders": {
+      "name": {
+        "type": "String"
+      }
+    }
+  },
+  "rulesIosPickOnPhone": "تُختار تطبيقات الآيفون على آيفون {name}: سجّل الدخول كوالد هناك وافتح «قواعد الهاتف».",
+  "@rulesIosPickOnPhone": {
+    "placeholders": {
+      "name": {
+        "type": "String"
+      }
+    }
+  },
+  "rulesLimits": "الحدود اليومية",
+  "rulesLimitsEmpty": "لا توجد حدود لأنواع التطبيقات.",
+  "rulesAddLimit": "إضافة حد",
+  "rulesLimitLine": "{what}: {minutes} دقيقة يومياً",
+  "@rulesLimitLine": {
+    "placeholders": {
+      "what": {
+        "type": "String"
+      },
+      "minutes": {
+        "type": "int"
+      }
+    }
+  },
+  "catGames": "الألعاب",
+  "catSocial": "التواصل الاجتماعي",
+  "catVideo": "الفيديو",
+  "catBrowsers": "المتصفحات",
+  "catMessaging": "المراسلة",
+  "catEducation": "التعلّم",
+  "catOther": "تطبيقات أخرى",
+  "rulesWeb": "المواقع",
+  "rulesWebOff": "بلا قواعد للمواقع",
+  "rulesWebBlock": "حظر هذه المواقع",
+  "rulesWebOnly": "المواقع المعتمدة فقط",
+  "rulesWebAdd": "إضافة موقع",
+  "rulesWebHint": "example.com",
+  "rulesWebInvalid": "اكتب موقعاً مثل example.com",
+  "rulesWebNote": "يعمل في المتصفح الرئيسي للهاتف حيث يكون مدعوماً.",
+  "rulesReviewSave": "مراجعة وحفظ",
+  "rulesReviewTitle": "إليك ما سيتغيّر",
+  "rulesReviewApplies": "ينطبق على: {devices}",
+  "@rulesReviewApplies": {
+    "placeholders": {
+      "devices": {
+        "type": "String"
+      }
+    }
+  },
+  "rulesReviewAppliesNone": "لم يُربط أي هاتف بعد؛ ستنتظر القواعد حتى يُربط هاتف.",
+  "rulesReviewLimits": "{device} لا يستطيع: {what}",
+  "@rulesReviewLimits": {
+    "placeholders": {
+      "device": {
+        "type": "String"
+      },
+      "what": {
+        "type": "String"
+      }
+    }
+  },
+  "rulesReviewAfter": "تُطبَّق القواعد بعد تأكيد الهاتف. يمكنك التراجع لاحقاً.",
+  "rulesSaved": "تم الحفظ. بانتظار تأكيد الهاتف.",
+  "rulesConflict": "غيّر شخص آخر هذه القواعد. حمّلنا أحدث نسخة.",
+  "rulesChangeAddedBlocked": "إيقاف دائم: {name}",
+  "@rulesChangeAddedBlocked": {
+    "placeholders": {
+      "name": {
+        "type": "String"
+      }
+    }
+  },
+  "rulesChangeRemovedBlocked": "لم يعد متوقفاً: {name}",
+  "@rulesChangeRemovedBlocked": {
+    "placeholders": {
+      "name": {
+        "type": "String"
+      }
+    }
+  },
+  "rulesChangeAddedAllowed": "مسموح دائماً: {name}",
+  "@rulesChangeAddedAllowed": {
+    "placeholders": {
+      "name": {
+        "type": "String"
+      }
+    }
+  },
+  "rulesChangeRemovedAllowed": "لم يعد مسموحاً دائماً: {name}",
+  "@rulesChangeRemovedAllowed": {
+    "placeholders": {
+      "name": {
+        "type": "String"
+      }
+    }
+  },
+  "rulesChangeSchedule": "{name}: {start}–{end}",
+  "@rulesChangeSchedule": {
+    "placeholders": {
+      "name": {
+        "type": "String"
+      },
+      "start": {
+        "type": "String"
+      },
+      "end": {
+        "type": "String"
+      }
+    }
+  },
+  "rulesChangeScheduleRemoved": "أُزيل: {name}",
+  "@rulesChangeScheduleRemoved": {
+    "placeholders": {
+      "name": {
+        "type": "String"
+      }
+    }
+  },
+  "rulesChangeLimits": "تغيّرت الحدود اليومية",
+  "rulesChangeWeb": "تغيّرت قواعد المواقع",
+  "rulesHistory": "التغييرات",
+  "rulesHistoryBy": "{who} · {when}",
+  "@rulesHistoryBy": {
+    "placeholders": {
+      "who": {
+        "type": "String"
+      },
+      "when": {
+        "type": "String"
+      }
+    }
+  },
+  "rulesUndoTo": "العودة إلى هذا",
+  "rulesUndoConfirm": "العودة إلى القواعد من {when}؟ يبقى الإيقاف الجاري مفعّلاً.",
+  "@rulesUndoConfirm": {
+    "placeholders": {
+      "when": {
+        "type": "String"
+      }
+    }
+  },
+  "rulesUndone": "تمت استعادة القواعد السابقة.",
+  "rulesKindEdit": "تغيّرت القواعد",
+  "rulesKindPreset": "أُضيفت خطة",
+  "rulesKindRestrict": "إيقاف مؤقت",
+  "rulesKindRelease": "انتهى الإيقاف",
+  "rulesKindUndo": "تم التراجع",
+  "rulesKindExtra": "وقت إضافي",
+  "rulesKindAllowance": "تغيّر الوقت اليومي",
+  "rulesEssentials": "تبقى المكالمات ورسائل الطوارئ وMamily تعمل دائماً.",
+  "rulesNoPermission": "يمكن للوالدين ومقدّمي الرعاية المصرّح لهم فقط تغيير قواعد الهاتف.",
+  "everyDay": "كل يوم",
+  "mapTitle": "خريطة العائلة",
+  "mapLastSeen": "آخر ظهور {when}",
+  "@mapLastSeen": {
+    "placeholders": {
+      "when": {
+        "type": "String"
+      }
+    }
+  },
+  "mapAccuracy": "ضمن حوالي {meters} م",
+  "@mapAccuracy": {
+    "placeholders": {
+      "meters": {
+        "type": "String"
+      }
+    }
+  },
+  "mapBattery": "البطارية {pct}%",
+  "@mapBattery": {
+    "placeholders": {
+      "pct": {
+        "type": "int"
+      }
+    }
+  },
+  "mapBatteryCharging": "البطارية {pct}%، قيد الشحن",
+  "@mapBatteryCharging": {
+    "placeholders": {
+      "pct": {
+        "type": "int"
+      }
+    }
+  },
+  "mapLastContact": "آخر تواصل للهاتف {when}",
+  "@mapLastContact": {
+    "placeholders": {
+      "when": {
+        "type": "String"
+      }
+    }
+  },
+  "locFresh": "موقع حديث",
+  "locStale": "موقع أقدم",
+  "locSharingOff": "مشاركة الموقع متوقفة",
+  "locSharingOffBody": "فعّلها لترى مكان هاتف {name}. سيرى {name} أنه مُشارَك.",
+  "@locSharingOffBody": {
+    "placeholders": {
+      "name": {
+        "type": "String"
+      }
+    }
+  },
+  "locTurnOn": "تفعيل المشاركة",
+  "locTurnOff": "إيقاف المشاركة",
+  "locNoDevice": "لا يوجد هاتف مربوط",
+  "locPermission": "إذن الموقع متوقف على الهاتف",
+  "locPermissionBody": "على هاتف {name}، افتح Mamily واسمح بالوصول إلى الموقع.",
+  "@locPermissionBody": {
+    "placeholders": {
+      "name": {
+        "type": "String"
+      }
+    }
+  },
+  "locServicesOff": "الموقع مُطفأ على الهاتف",
+  "locOffline": "لم يتواصل الهاتف منذ يوم",
+  "locNoLocationYet": "لا يوجد موقع بعد",
+  "locNoLocationYetBody": "يظهر بعد أن يفتح {name} تطبيق Mamily مع السماح بالموقع.",
+  "@locNoLocationYetBody": {
+    "placeholders": {
+      "name": {
+        "type": "String"
+      }
+    }
+  },
+  "locNotLive": "هذا آخر موقع أرسله الهاتف، وليس عرضاً مباشراً.",
+  "locHistory": "في وقت سابق اليوم",
+  "locSharingChildSees": "يرى {name} «الموقع مُشارَك مع العائلة».",
+  "@locSharingChildSees": {
+    "placeholders": {
+      "name": {
+        "type": "String"
+      }
+    }
+  },
+  "placesTitle": "أماكن آمنة",
+  "placesEmpty": "أضف المنزل أو المدرسة لتصلك رسائل «وصل».",
+  "placeAdd": "إضافة مكان آمن",
+  "placeEdit": "تعديل المكان الآمن",
+  "placeName": "الاسم",
+  "placeKindHome": "المنزل",
+  "placeKindSchool": "المدرسة",
+  "placeKindOther": "آخر",
+  "placeTapMap": "اضغط على الخريطة لتحديد المكان",
+  "placeRadius": "حجم المنطقة: {meters} م",
+  "@placeRadius": {
+    "placeholders": {
+      "meters": {
+        "type": "String"
+      }
+    }
+  },
+  "placeNotifyArrive": "أخبرني عند الوصول",
+  "placeNotifyLeave": "أخبرني عند المغادرة",
+  "placeNoGuarantee": "تعتمد رسائل الوصول على إرسال الهاتف لموقعه، لذا قد تتأخر أو تُفقد.",
+  "placeUseMyLocation": "استخدم موقعي",
+  "journeysTitle": "في الطريق",
+  "journeyTo": "{name} ← {place}",
+  "@journeyTo": {
+    "placeholders": {
+      "name": {
+        "type": "String"
+      },
+      "place": {
+        "type": "String"
+      }
+    }
+  },
+  "journeyExpected": "الوصول المتوقع {time}",
+  "@journeyExpected": {
+    "placeholders": {
+      "time": {
+        "type": "String"
+      }
+    }
+  },
+  "journeyOverdue": "تأخر تسجيل الوصول منذ {time}",
+  "@journeyOverdue": {
+    "placeholders": {
+      "time": {
+        "type": "String"
+      }
+    }
+  },
+  "journeyOverdueHint": "هذا يعني فقط أن {name} لم يسجّل وصوله بعد. جرّب الاتصال.",
+  "@journeyOverdueHint": {
+    "placeholders": {
+      "name": {
+        "type": "String"
+      }
+    }
+  },
+  "safetyTitle": "الأمان",
+  "safetyHelpNow": "طلب {name} المساعدة",
+  "@safetyHelpNow": {
+    "placeholders": {
+      "name": {
+        "type": "String"
+      }
+    }
+  },
+  "safetyHelpSeen": "رأيتها",
+  "safetyHelpResolve": "تم الحل",
+  "safetyHelpSeenBy": "رآها {name}",
+  "@safetyHelpSeenBy": {
+    "placeholders": {
+      "name": {
+        "type": "String"
+      }
+    }
+  },
+  "safetyHelpCall": "اتصل بـ{name}",
+  "@safetyHelpCall": {
+    "placeholders": {
+      "name": {
+        "type": "String"
+      }
+    }
+  },
+  "safetyHelpLocation": "أين كان الهاتف",
+  "safetyNoAlerts": "لا توجد طلبات مساعدة مفتوحة.",
+  "safetyCheckins": "رسائل الاطمئنان",
+  "safetyCheckinLine": "{name}: {what}",
+  "@safetyCheckinLine": {
+    "placeholders": {
+      "name": {
+        "type": "String"
+      },
+      "what": {
+        "type": "String"
+      }
+    }
+  },
+  "safetyAck": "تم",
+  "safetyAcked": "تم الرد",
+  "safetyCentreTitle": "مركز الأمان",
+  "safetyContacts": "جهات اتصال موثوقة",
+  "safetyContactAdd": "إضافة جهة اتصال",
+  "safetyContactName": "الاسم",
+  "safetyContactPhone": "الهاتف",
+  "safetyContactRelation": "من هذا؟ (مثلاً الجدة)",
+  "safetyContactPickup": "يمكنه أخذ الأطفال",
+  "safetyPickup": "تعليمات الاصطحاب",
+  "safetyPickupHint": "من يصطحب ومتى، وكلمة السر إن كنتم تستخدمونها.",
+  "safetyEmergencyNumber": "رقم الطوارئ المحلي",
+  "safetyEmergencyHint": "مثلاً 112 أو 911 أو 100 أو 101",
+  "safetyChildSees": "يرى أطفالك هذه في بطاقة الأمان الخاصة بهم، حتى دون إنترنت.",
+  "safetyWhoGetsAlerts": "من يتلقى التنبيهات العاجلة",
+  "safetyWhoGetsAlertsBody": "طلبات المساعدة، «تعالوا خذوني»، «اتصلوا بي» وتأخّر تسجيل الوصول.",
+  "safetyCaregiverNeedsPermission": "يحتاج مقدّمو الرعاية أيضاً إلى صلاحية «الأمان».",
+  "safetyChildrenAll": "جميع الأطفال",
+  "safetyChildrenSome": "فقط: {names}",
+  "@safetyChildrenSome": {
+    "placeholders": {
+      "names": {
+        "type": "String"
+      }
+    }
+  },
+  "safetyEditAccess": "أي أطفال",
+  "accessHistory": "سجل الوصول",
+  "accessHistoryBody": "من اطّلع على المواقع أو غيّر القواعد أو ربط الهواتف أو بدأ جلسات مساعدة.",
+  "accessViewedLocation": "اطّلع {who} على موقع {child}",
+  "@accessViewedLocation": {
+    "placeholders": {
+      "who": {
+        "type": "String"
+      },
+      "child": {
+        "type": "String"
+      }
+    }
+  },
+  "accessViewedHistory": "اطّلع {who} على مواقع {child} السابقة",
+  "@accessViewedHistory": {
+    "placeholders": {
+      "who": {
+        "type": "String"
+      },
+      "child": {
+        "type": "String"
+      }
+    }
+  },
+  "accessRulesChanged": "غيّر {who} قواعد هاتف {child}",
+  "@accessRulesChanged": {
+    "placeholders": {
+      "who": {
+        "type": "String"
+      },
+      "child": {
+        "type": "String"
+      }
+    }
+  },
+  "accessRemoteStarted": "بدأت جلسة مساعدة مع {child}",
+  "@accessRemoteStarted": {
+    "placeholders": {
+      "child": {
+        "type": "String"
+      }
+    }
+  },
+  "accessRemoteEnded": "انتهت جلسة المساعدة مع {child}",
+  "@accessRemoteEnded": {
+    "placeholders": {
+      "child": {
+        "type": "String"
+      }
+    }
+  },
+  "accessRemoteRequested": "طلب {who} جلسة مع {child}",
+  "@accessRemoteRequested": {
+    "placeholders": {
+      "who": {
+        "type": "String"
+      },
+      "child": {
+        "type": "String"
+      }
+    }
+  },
+  "accessSharingOn": "فعّل {who} مشاركة موقع {child}",
+  "@accessSharingOn": {
+    "placeholders": {
+      "who": {
+        "type": "String"
+      },
+      "child": {
+        "type": "String"
+      }
+    }
+  },
+  "accessSharingOff": "أوقف {who} مشاركة موقع {child}",
+  "@accessSharingOff": {
+    "placeholders": {
+      "who": {
+        "type": "String"
+      },
+      "child": {
+        "type": "String"
+      }
+    }
+  },
+  "accessCaregiver": "غيّر {who} صلاحيات أحد مقدّمي الرعاية",
+  "@accessCaregiver": {
+    "placeholders": {
+      "who": {
+        "type": "String"
+      }
+    }
+  },
+  "accessOther": "{who}: {action}",
+  "@accessOther": {
+    "placeholders": {
+      "who": {
+        "type": "String"
+      },
+      "action": {
+        "type": "String"
+      }
+    }
+  },
+  "accessSystem": "Mamily",
+  "notifUrgentTitle": "التنبيهات العاجلة",
+  "notifUrgentBody": "تصل طلبات المساعدة و«تعالوا خذوني» و«اتصلوا بي» وتأخّر تسجيل الوصول فوراً، حتى في ساعات الهدوء. قد يُسكتها وضع «عدم الإزعاج» في هاتفك.",
+  "notifUrgentQuiet": "إرسال التنبيهات العاجلة خلال ساعات الهدوء",
+  "notifCatSafety": "الأمان والمساعدة",
+  "notifCatLocation": "الوصول ورسائل الاطمئنان",
+  "notifCatRemote": "طلبات المساعدة والمكالمات",
+  "setupTitle": "قائمة الإعداد",
+  "setupIntro": "ما هو جاهز على هاتف {name}، وما يحتاج خطوة بعد.",
+  "@setupIntro": {
+    "placeholders": {
+      "name": {
+        "type": "String"
+      }
+    }
+  },
+  "setupDone": "تم",
+  "setupTodo": "للقيام به",
+  "setupNotPossible": "غير ممكن على هذا الهاتف",
+  "setupLinked": "الهاتف مربوط بـMamily",
+  "setupLinkedHow": "اعرض رمز ربط وامسحه على هاتف الطفل.",
+  "setupLocationSharing": "مشاركة الموقع مفعّلة",
+  "setupLocationPermission": "الموقع مسموح على الهاتف",
+  "setupLocationPermissionHow": "افتح Mamily على الهاتف واضغط «موافق» عندما يسأل عن الموقع.",
+  "setupRulesEnforce": "يستطيع الهاتف إيقاف التطبيقات",
+  "setupUsage": "يمكن عرض استخدام التطبيقات لك",
+  "setupUsageHowAndroid": "على الهاتف: الإعدادات ← الوصول إلى الاستخدام ← Mamily ← سماح.",
+  "setupRulesConfirmed": "القواعد مؤكدة من الهاتف",
+  "setupContacts": "أُضيفت جهات اتصال موثوقة",
+  "setupPlaces": "أُضيف المنزل أو المدرسة",
+  "setupOpen": "فتح",
+  "agreementsTitle": "الاتفاقات",
+  "agreementsIntro": "دوّنوا ما اتفقتم عليه معاً. يستطيع {name} قراءته والضغط على «أوافق». لا يغيّر ذلك أي قاعدة للهاتف بحد ذاته.",
+  "@agreementsIntro": {
+    "placeholders": {
+      "name": {
+        "type": "String"
+      }
+    }
+  },
+  "agreementNew": "اتفاق جديد",
+  "agreementTitle": "العنوان",
+  "agreementAddItem": "إضافة سطر",
+  "agreementChildAgreed": "وافق {name}",
+  "@agreementChildAgreed": {
+    "placeholders": {
+      "name": {
+        "type": "String"
+      }
+    }
+  },
+  "agreementWaiting": "بانتظار أن يقرأه {name}",
+  "@agreementWaiting": {
+    "placeholders": {
+      "name": {
+        "type": "String"
+      }
+    }
+  },
+  "lessonsProgress": "دروس الأمان: أُنجز {done} من {total}",
+  "@lessonsProgress": {
+    "placeholders": {
+      "done": {
+        "type": "int"
+      },
+      "total": {
+        "type": "int"
+      }
+    }
+  },
+  "hubSectionSafety": "الأمان والهاتف",
+  "hubSectionDaily": "الحياة اليومية",
+  "hubSectionWellbeing": "الرفاه",
+  "hubSectionMore": "المزيد",
+  "hubLocation": "الموقع والأمان",
+  "hubPhoneRules": "قواعد الهاتف",
+  "hubHelpCalls": "المساعدة والمكالمات",
+  "hubAgreements": "الاتفاقات والدروس",
+  "hubSetup": "قائمة الإعداد",
+  "todayUrgent": "يحتاجك الآن",
+  "inboxHelpAlert": "طلب {name} المساعدة",
+  "@inboxHelpAlert": {
+    "placeholders": {
+      "name": {
+        "type": "String"
+      }
+    }
+  },
+  "inboxPickMeUp": "{name}: تعالوا خذوني",
+  "@inboxPickMeUp": {
+    "placeholders": {
+      "name": {
+        "type": "String"
+      }
+    }
+  },
+  "inboxCallMe": "{name}: اتصلوا بي",
+  "@inboxCallMe": {
+    "placeholders": {
+      "name": {
+        "type": "String"
+      }
+    }
+  },
+  "inboxJourneyOverdue": "لم يسجّل {name} وصوله إلى {place} بعد",
+  "@inboxJourneyOverdue": {
+    "placeholders": {
+      "name": {
+        "type": "String"
+      },
+      "place": {
+        "type": "String"
+      }
+    }
+  },
+  "inboxOpenSafety": "فتح"
 }
