@@ -1,7 +1,10 @@
 // The new safety / phone-rules screens in English, Arabic and Hebrew, at
 // normal and 200 % text, on a small phone and a tablet. Any overflow or
 // layout exception fails the test.
+import 'dart:io';
+
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:my_app/core/cache/offline_cache.dart';
@@ -187,6 +190,15 @@ final _screens = [
 ];
 
 void main() {
+  // The help alert's map snippet caches tiles under the app cache dir.
+  setUpAll(() {
+    TestDefaultBinaryMessengerBinding.instance.defaultBinaryMessenger
+        .setMockMethodCallHandler(
+          const MethodChannel('plugins.flutter.io/path_provider'),
+          (call) async => Directory.systemTemp.path,
+        );
+  });
+
   const sizes = {'phone': Size(360, 740), 'tablet': Size(1024, 1366)};
 
   for (final screen in _screens) {
@@ -240,6 +252,19 @@ void main() {
             await tester.pump(const Duration(milliseconds: 500));
 
             expect(tester.takeException(), isNull);
+            if (locale == 'en' && scale == 1.0 && size.key == 'phone') {
+              final handle = tester.ensureSemantics();
+              await expectLater(
+                tester,
+                meetsGuideline(labeledTapTargetGuideline),
+              );
+              await expectLater(
+                tester,
+                meetsGuideline(androidTapTargetGuideline),
+              );
+              await expectLater(tester, meetsGuideline(textContrastGuideline));
+              handle.dispose();
+            }
             // Scroll through the whole page so lower sections lay out too.
             final scrollables = find.byType(Scrollable);
             if (scrollables.evaluate().isNotEmpty) {
