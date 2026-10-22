@@ -1,0 +1,5 @@
+/* Permission prompts. */
+"NSCameraUsageDescription" = "يستخدم Mamily الكاميرا لمسح رمز QR للربط، وفي مكالمات الفيديو التي تختار الرد عليها.";
+"NSMicrophoneUsageDescription" = "يستخدم Mamily الميكروفون فقط أثناء مكالمة تختار الرد عليها.";
+"NSLocationWhenInUseUsageDescription" = "يمكن لعائلتك رؤية مكان هذا الهاتف ليعرفوا أنك وصلت بأمان. يمكنك دائمًا معرفة متى تتم مشاركة الموقع.";
+"NSLocationAlwaysAndWhenInUseUsageDescription" = "أثناء رحلة تبدؤها، يواصل Mamily مشاركة موقع هذا الهاتف مع عائلتك حتى تصل. يُظهر iPhone مؤشر موقع أزرق أثناء ذلك.";

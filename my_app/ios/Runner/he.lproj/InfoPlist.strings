@@ -1,0 +1,5 @@
+/* Permission prompts. */
+"NSCameraUsageDescription" = "‏Mamily משתמשת במצלמה כדי לסרוק קוד QR לחיבור, ובשיחות וידאו שבחרת לענות להן.";
+"NSMicrophoneUsageDescription" = "‏Mamily משתמשת במיקרופון רק במהלך שיחה שבחרת לענות לה.";
+"NSLocationWhenInUseUsageDescription" = "המשפחה שלך יכולה לראות איפה הטלפון הזה, כדי לדעת שהגעת בשלום. תמיד אפשר לראות מתי המיקום משותף.";
+"NSLocationAlwaysAndWhenInUseUsageDescription" = "במהלך נסיעה שהתחלת, ‏Mamily ממשיכה לשתף את מיקום הטלפון עם המשפחה עד ההגעה ליעד. ה-iPhone מציג סימון מיקום כחול בזמן הזה.";

@@ -1,0 +1,5 @@
+/* Permission prompts. Keep in step with Info.plist (the fallback). */
+"NSCameraUsageDescription" = "Mamily uses the camera to scan a pairing QR code, and for video calls you choose to answer.";
+"NSMicrophoneUsageDescription" = "Mamily uses the microphone only during a call you choose to answer.";
+"NSLocationWhenInUseUsageDescription" = "Your family can see where this phone is, so they know you got there safely. You can always see when it's shared.";
+"NSLocationAlwaysAndWhenInUseUsageDescription" = "During a trip you start, Mamily keeps sharing this phone's location with your family until you arrive. iPhone shows a blue location indicator while it does.";

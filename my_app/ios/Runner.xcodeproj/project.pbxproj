@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		04B54E1965A635B73ADFDE80 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 811666736E63664F56400D7E /* InfoPlist.strings */; };
 		0CE1F9AA0C66A5D07CC67E3C /* RoutineActivityAttributes.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24645CFC3DF43B943A1B557F /* RoutineActivityAttributes.swift */; };
 		0F91E797BA8AA1808BE12385 /* ActivityMonitorExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F8EA6AF6DC85AE3CA70D388 /* ActivityMonitorExtension.swift */; };
 		1498D2341E8E89220040F4C2 /* GeneratedPluginRegistrant.m in Sources */ = {isa = PBXBuildFile; fileRef = 1498D2331E8E89220040F4C2 /* GeneratedPluginRegistrant.m */; };
@@ -100,6 +101,8 @@
 		3905135C2D9238907F87F06D /* LiveActivityBridge.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = LiveActivityBridge.swift; sourceTree = "<group>"; };
 		3A3A96F9FF838B14C9D05035 /* en */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Localizable.strings; sourceTree = "<group>"; };
 		3B3967151E833CAA004F5970 /* AppFrameworkInfo.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = AppFrameworkInfo.plist; path = Flutter/AppFrameworkInfo.plist; sourceTree = "<group>"; };
+		422A81C603417355733B8C8D /* he */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.strings; name = he; path = he.lproj/InfoPlist.strings; sourceTree = "<group>"; };
+		42B7EE1FBF1E254CCE628AE5 /* en */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		55979D5703C6CA7B0A97999F /* RoutineLiveActivity.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = RoutineLiveActivity.swift; sourceTree = "<group>"; };
 		5B0A128D62069074665F0409 /* Pods-RunnerTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-RunnerTests.debug.xcconfig"; path = "Target Support Files/Pods-RunnerTests/Pods-RunnerTests.debug.xcconfig"; sourceTree = "<group>"; };
 		7151485A88916A889FCF2EB1 /* MamilyWidgetBundle.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = MamilyWidgetBundle.swift; sourceTree = "<group>"; };
@@ -127,6 +130,7 @@
 		CB7113C199D722776AFCE2BC /* Info.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		D1CCC0FE975C80E396DC8785 /* WidgetExtension.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = Flutter/WidgetExtension.xcconfig; sourceTree = "<group>"; };
 		D996F8EA28CE4BC203FF9DA1 /* MamilyActivityMonitor.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = MamilyActivityMonitor.appex; sourceTree = BUILT_PRODUCTS_DIR; };
+		DD7DDE74773FABC5446FF60A /* ar */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.strings; name = ar; path = ar.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		E292E245F8E6D40057489BF4 /* Pods-RunnerTests.profile.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-RunnerTests.profile.xcconfig"; path = "Target Support Files/Pods-RunnerTests/Pods-RunnerTests.profile.xcconfig"; sourceTree = "<group>"; };
 		F83CD4EB678219571CB6E51C /* Pods_RunnerTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_RunnerTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		F89BF013D612EBB8A9CEFBD1 /* he */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.strings; name = he; path = he.lproj/Localizable.strings; sourceTree = "<group>"; };
@@ -285,6 +289,7 @@
 				3905135C2D9238907F87F06D /* LiveActivityBridge.swift */,
 				35113C7B44EEA3534EDFEBB3 /* Runner.entitlements */,
 				2C07DD5C3A9F575A61E1E844 /* DeviceRulesBridge.swift */,
+				811666736E63664F56400D7E /* InfoPlist.strings */,
 			);
 			path = Runner;
 			sourceTree = "<group>";
@@ -444,6 +449,7 @@
 				3B3967161E833CAA004F5970 /* AppFrameworkInfo.plist in Resources */,
 				97C146FE1CF9000F007C117D /* Assets.xcassets in Resources */,
 				97C146FC1CF9000F007C117D /* Main.storyboard in Resources */,
+				04B54E1965A635B73ADFDE80 /* InfoPlist.strings in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -651,6 +657,16 @@
 				F89BF013D612EBB8A9CEFBD1 /* he */,
 			);
 			name = Localizable.strings;
+			sourceTree = "<group>";
+		};
+		811666736E63664F56400D7E /* InfoPlist.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				42B7EE1FBF1E254CCE628AE5 /* en */,
+				DD7DDE74773FABC5446FF60A /* ar */,
+				422A81C603417355733B8C8D /* he */,
+			);
+			name = InfoPlist.strings;
 			sourceTree = "<group>";
 		};
 		97C146FA1CF9000F007C117D /* Main.storyboard */ = {
