@@ -30,7 +30,18 @@
 	<key>NSSupportsLiveActivities</key>
 	<true/>
 	<key>NSCameraUsageDescription</key>
-	<string>Mamily uses the camera only to scan the pairing QR code a parent shows you.</string>
+	<string>Mamily uses the camera to scan a pairing QR code, and for video calls you choose to answer.</string>
+	<key>NSMicrophoneUsageDescription</key>
+	<string>Mamily uses the microphone only during a call you choose to answer.</string>
+	<key>NSLocationWhenInUseUsageDescription</key>
+	<string>Your family can see where this phone is, so they know you got there safely. You can always see when it's shared.</string>
+	<key>NSLocationAlwaysAndWhenInUseUsageDescription</key>
+	<string>During a trip you start, Mamily keeps sharing this phone's location with your family until you arrive. iPhone shows a blue location indicator while it does.</string>
+	<key>UIBackgroundModes</key>
+	<array>
+		<string>location</string>
+		<string>remote-notification</string>
+	</array>
 	<key>CFBundlePackageType</key>
 	<string>APPL</string>
 	<key>CFBundleShortVersionString</key>

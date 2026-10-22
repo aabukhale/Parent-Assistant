@@ -341,25 +341,32 @@ Future<List<AppRef>?> pickChildApps(
   required String childName,
   required List<AppRef> selected,
   required List<AppRef> exclude,
+  required List<String> childPlatforms,
 }) async {
   final l = context.l10n;
-  if (defaultTargetPlatform == TargetPlatform.iOS) {
-    final picked = await ref.read(nativeEnforcementProvider).pickApps();
-    if (picked == null) {
-      if (context.mounted) {
-        showResultSnack(context, l.rulesIosPickOnPhone(childName));
+  // Decided by the *child's* phones, not the phone the parent is holding:
+  // Android apps come from the list the child's phone reported; iPhone apps
+  // can only be chosen with Apple's picker on the child's own iPhone.
+  if (!childPlatforms.contains('android')) {
+    if (childPlatforms.contains('ios') &&
+        defaultTargetPlatform == TargetPlatform.iOS) {
+      final picked = await ref.read(nativeEnforcementProvider).pickApps();
+      if (picked != null) {
+        return [
+          ...selected.where((a) => a.platform != 'ios'),
+          for (final p in picked)
+            AppRef(
+              platform: 'ios',
+              id: p['id'] ?? '',
+              name: p['name'] ?? 'iPhone app',
+            ),
+        ];
       }
-      return null;
     }
-    return [
-      ...selected.where((a) => a.platform != 'ios'),
-      for (final p in picked)
-        AppRef(
-          platform: 'ios',
-          id: p['id'] ?? '',
-          name: p['name'] ?? 'iPhone app',
-        ),
-    ];
+    if (context.mounted) {
+      showResultSnack(context, l.rulesIosPickOnPhone(childName));
+    }
+    return null;
   }
 
   final inventory = await ref.read(deviceRulesRepositoryProvider).apps(childId);

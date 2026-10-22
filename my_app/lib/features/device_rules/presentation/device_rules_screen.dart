@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -37,6 +39,28 @@ class _DeviceRulesScreenState extends ConsumerState<DeviceRulesScreen> {
   DeviceRules? _draft;
   int? _draftBase;
   bool _busy = false;
+
+  /// While a phone hasn't confirmed yet, look again every 10 s so the
+  /// parent sees "Rules are on" without pulling to refresh.
+  Timer? _poll;
+
+  @override
+  void initState() {
+    super.initState();
+    _poll = Timer.periodic(const Duration(seconds: 10), (_) {
+      final s = ref.read(deviceRulesProvider(widget.childId)).valueOrNull;
+      if (!mounted || s == null) return;
+      if (s.devices.any((d) => d.state == 'waiting_for_device')) {
+        ref.invalidate(deviceRulesProvider(widget.childId));
+      }
+    });
+  }
+
+  @override
+  void dispose() {
+    _poll?.cancel();
+    super.dispose();
+  }
 
   DeviceRulesRepository get _repo => ref.read(deviceRulesRepositoryProvider);
 
@@ -296,6 +320,9 @@ class _DeviceRulesScreenState extends ConsumerState<DeviceRulesScreen> {
                             childName: widget.childName,
                             selected: rules.blockedApps,
                             exclude: rules.allowedApps,
+                            childPlatforms: [
+                              for (final d in s.devices) ?d.platform,
+                            ],
                           );
                           if (picked != null) {
                             _edit(s, (r) => r.copyWith(blockedApps: picked));
@@ -315,6 +342,9 @@ class _DeviceRulesScreenState extends ConsumerState<DeviceRulesScreen> {
                             childName: widget.childName,
                             selected: rules.allowedApps,
                             exclude: rules.blockedApps,
+                            childPlatforms: [
+                              for (final d in s.devices) ?d.platform,
+                            ],
                           );
                           if (picked != null) {
                             _edit(s, (r) => r.copyWith(allowedApps: picked));
