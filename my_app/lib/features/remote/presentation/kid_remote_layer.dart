@@ -6,6 +6,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
+import '../../../app/deep_links.dart';
 import '../../../core/design_system.dart';
 import '../../../core/localization/l10n.dart';
 import '../../kid/presentation/kid_feedback.dart';
@@ -168,8 +169,10 @@ class _KidRemoteLayerState extends ConsumerState<KidRemoteLayer>
         : s.kind == 'voice_call'
         ? l.kidRemoteVoiceBody
         : l.kidRemoteHelpBody(name);
+    final navContext = rootNavigatorKey.currentContext;
+    if (navContext == null) return;
     final accept = await showModalBottomSheet<bool>(
-      context: context,
+      context: navContext,
       isDismissible: false,
       enableDrag: false,
       builder: (sheet) => SafeArea(
@@ -227,7 +230,9 @@ class _KidRemoteLayerState extends ConsumerState<KidRemoteLayer>
   }
 
   Future<void> _openCall(RemoteSession s) async {
-    await Navigator.of(context).push(
+    final nav = rootNavigatorKey.currentState;
+    if (nav == null) return;
+    await nav.push(
       MaterialPageRoute<void>(
         fullscreenDialog: true,
         builder: (_) => CallScreen(

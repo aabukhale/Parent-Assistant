@@ -19,6 +19,7 @@ import 'features/auth/data/child_auth_repository.dart';
 import 'features/auth/presentation/auth_gate.dart';
 import 'features/auth/presentation/pairing_screen.dart';
 import 'features/notifications/push/push_service.dart';
+import 'features/remote/presentation/kid_remote_layer.dart';
 import 'features/surfaces/live_activity.dart';
 import 'features/surfaces/surface_sync.dart';
 
@@ -137,8 +138,12 @@ class _MamilyAppState extends ConsumerState<MamilyApp> {
       supportedLocales: AppLocalizations.supportedLocales,
       // Text grows up to 200% (WCAG 1.4.4). Beyond that the largest iOS
       // accessibility sizes broke words letter by letter on phone widths.
-      builder: (context, child) =>
-          MediaQuery.withClampedTextScaling(maxScaleFactor: 2, child: child!),
+      builder: (context, child) => MediaQuery.withClampedTextScaling(
+        maxScaleFactor: 2,
+        // A child's remote-help banner (with Stop) sits above the navigator,
+        // so it stays visible on every screen, not only the tab shell.
+        child: isChild ? KidRemoteLayer(child: child!) : child!,
+      ),
       home: const AuthGate(),
     );
   }

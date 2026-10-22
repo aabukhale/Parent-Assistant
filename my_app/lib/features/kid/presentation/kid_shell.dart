@@ -167,57 +167,52 @@ class _KidShellState extends ConsumerState<KidShell> {
 
     return Theme(
       data: AppTheme.kid,
-      child: KidRemoteLayer(
-        child: Scaffold(
-          body: IndexedStack(
-            index: index.clamp(0, 2),
-            children: [
-              MyDayScreen(
-                onOpenRewards: () => go(1),
-                onOpenTogether: () => go(2),
-              ),
-              const KidRewardsScreen(),
-              const KidFamilyScreen(),
-            ],
-          ),
-          // Tab bars stay usable at large text sizes, like the system tab bar.
-          // Every destination has an icon *and* a word.
-          bottomNavigationBar: MediaQuery.withClampedTextScaling(
-            maxScaleFactor: 1.3,
-            child: NavigationBar(
-              selectedIndex: index.clamp(0, 2),
-              onDestinationSelected: go,
-              height: 76,
-              labelBehavior: NavigationDestinationLabelBehavior.alwaysShow,
-              destinations: [
-                NavigationDestination(
-                  icon: const Icon(Icons.wb_sunny_outlined, size: 28),
-                  selectedIcon: const Icon(Icons.wb_sunny_rounded, size: 28),
-                  label: l.kidTabToday,
-                ),
-                NavigationDestination(
-                  icon: const Icon(Icons.card_giftcard_outlined, size: 28),
-                  selectedIcon: const Icon(
-                    Icons.card_giftcard_rounded,
-                    size: 28,
-                  ),
-                  label: l.kidTabRewards,
-                ),
-                NavigationDestination(
-                  icon: Badge(
-                    isLabelVisible: unread > 0,
-                    label: Text('$unread'),
-                    child: const Icon(Icons.diversity_3_outlined, size: 28),
-                  ),
-                  selectedIcon: Badge(
-                    isLabelVisible: unread > 0,
-                    label: Text('$unread'),
-                    child: const Icon(Icons.diversity_3_rounded, size: 28),
-                  ),
-                  label: l.kidTabFamily,
-                ),
-              ],
+      child: Scaffold(
+        body: IndexedStack(
+          index: index.clamp(0, 2),
+          children: [
+            MyDayScreen(
+              onOpenRewards: () => go(1),
+              onOpenTogether: () => go(2),
             ),
+            const KidRewardsScreen(),
+            const KidFamilyScreen(),
+          ],
+        ),
+        // Tab bars stay usable at large text sizes, like the system tab bar.
+        // Every destination has an icon *and* a word.
+        bottomNavigationBar: MediaQuery.withClampedTextScaling(
+          maxScaleFactor: 1.3,
+          child: NavigationBar(
+            selectedIndex: index.clamp(0, 2),
+            onDestinationSelected: go,
+            height: 76,
+            labelBehavior: NavigationDestinationLabelBehavior.alwaysShow,
+            destinations: [
+              NavigationDestination(
+                icon: const Icon(Icons.wb_sunny_outlined, size: 28),
+                selectedIcon: const Icon(Icons.wb_sunny_rounded, size: 28),
+                label: l.kidTabToday,
+              ),
+              NavigationDestination(
+                icon: const Icon(Icons.card_giftcard_outlined, size: 28),
+                selectedIcon: const Icon(Icons.card_giftcard_rounded, size: 28),
+                label: l.kidTabRewards,
+              ),
+              NavigationDestination(
+                icon: Badge(
+                  isLabelVisible: unread > 0,
+                  label: Text('$unread'),
+                  child: const Icon(Icons.diversity_3_outlined, size: 28),
+                ),
+                selectedIcon: Badge(
+                  isLabelVisible: unread > 0,
+                  label: Text('$unread'),
+                  child: const Icon(Icons.diversity_3_rounded, size: 28),
+                ),
+                label: l.kidTabFamily,
+              ),
+            ],
           ),
         ),
       ),
