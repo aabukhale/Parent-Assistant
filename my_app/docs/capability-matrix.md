@@ -64,7 +64,7 @@ run; "docs" means only the documentation was checked.
 | Control actions inside Mamily | Yes — parent "points" at a control; child's app highlights it and the child taps (guided assistance). No input injection. | Same |
 | Control other apps / system settings | **Not available** (only via AccessibilityService, excluded by policy) | Not available on iOS |
 | Video/voice call | WebRTC (`flutter_webrtc`), camera/mic runtime permission, visible in-call UI | Same; `NSCameraUsageDescription`, `NSMicrophoneUsageDescription` |
-| Infrastructure | STUN works on simple NATs; reliable calls need a **TURN server with time-limited credentials** (`TURN_URLS`, `TURN_SHARED_SECRET`) — not configured | Same |
+| Infrastructure | STUN works on simple NATs; reliable calls need a **TURN server with time-limited credentials** (`MAMILY_TURN_URLS`, `MAMILY_TURN_SHARED_SECRET`) — not configured | Same |
 | Verified | Emulator child: consent sheet, snapshots + pointer, Stop; voice + video calls connected to the iOS simulator on one host (no TURN); mic/camera released on end | Simulator parent: same calls (no camera on simulator); a CoreAudio RPC-timeout crash seen once after repeated calls — re-check on a real iPhone. Whole-screen share (MediaProjection/ReplayKit) not built |
 
 ## Push

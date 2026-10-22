@@ -215,7 +215,7 @@ API 35 emulator `mamily_api35` provisioned with
   accepting Chrome's first-run terms on the emulator, which I did not do on
   your behalf.
 - **Calls across real networks**: only verified on one host (emulator +
-  simulator). Without TURN (`TURN_URLS`, `TURN_SHARED_SECRET`) calls behind
+  simulator). Without TURN (`MAMILY_TURN_URLS`, `MAMILY_TURN_SHARED_SECRET`) calls behind
   symmetric NAT/CGNAT will fail; the UI says so while connecting.
 - **iOS simulator CoreAudio crash**: after several calls in a row the
   simulator aborted in `AURemoteIO::Initialize` (RPC timeout inside WebRTC's
@@ -229,12 +229,41 @@ Omar: 1-min daily screen-time rule (was none), device rules v13+ (YouTube /
 Gmail / example.com history), location sharing on, "School" safe place,
 Dana's contact phone, family emergency number 100.
 
+### Later the same session (all verified, all committed)
+- Tests: device-rules / safety / remote repositories and models, rules
+  screen honest-state + polling, child Help (a tap never sends, a hold
+  sends once and says when no push was delivered), layout stress test
+  (5 screens × en/ar/he × 1x/2x text × phone/tablet = 60 cases).
+  `flutter test` → 593 passed; analyze clean.
+- Real-backend journeys on an ISOLATED backend (throwaway SQLite,
+  `DB_DATABASE=… php artisan serve --port=8101`, never the dev DB):
+  `integration_test/safety_flows_test.dart` 3/3 (extra time 20→10 adds
+  exactly 10 and a 2nd approval is 409; pause-now reaches the simulator
+  which reports `permission_needed`, never active; remote help needs the
+  child's Accept, parent End clears the banner, access log has both) and
+  `family_flows_test.dart` 4/4 again.
+- Bugs found by those runs and fixed: KidShell used `ref` after dispose;
+  the Phone rules device pill overflowed 142–222 px on a 360 px phone;
+  Android uploaded launcher/permission-dialog time as screen time (child
+  saw "used up" while the phone correctly kept apps open) — upload now
+  uses the enforcement set; 109 bogus usage rows from this emulator's
+  testing were removed from the dev DB (Omar, launcher/permission dialog).
+- Child hub tiles grouped into Safety and phone / Day to day / Wellbeing /
+  More. Language picker shows native names (العربية, עברית, English).
+  iOS permission prompts localized (ar/he InfoPlist.strings; iOS uses
+  the phone's system language for these, not the in-app language).
+- Release builds: Android `app-release.apk` 121 MB (debug-signed — no
+  release keystore; split per ABI/AAB would shrink it) installed on the
+  device-owner emulator: Gmail/YouTube stay suspended after the update
+  (R8 kept the receivers/channel), no ANR. iOS `--release --no-codesign`
+  builds (41 MB, widget + monitor extension embedded); not signed/run.
+- Screenshots: `docs/screenshots/2026-10-23/` (Arabic hub sections, phone
+  rules empty state, largest accessibility text).
+- The dev DB demo password for demo.parent@mamily.test no longer matches
+  the seeder's; I did not reset it. Visual checks used the isolated DB.
+
 ### Still to do
-1. Widget tests for the new parent/child screens and repositories;
-   real-backend integration journeys (extra time, restriction, remote revoke).
-2. Regroup child hub tiles into sections (`hubSection*` strings exist);
-   remaining older parent-screen redesign gaps.
-3. Release builds (Android APK/AAB, iOS) and visual checks: tablet,
-   ar/he RTL, largest text, TalkBack/VoiceOver, empty/error/offline states;
-   screenshots.
-4. Docs: API reference for the new endpoints; Info.plist string localization.
+1. Hebrew on-device screenshots, TalkBack/VoiceOver pass, tablet on a
+   real tablet simulator (layout covered by the stress test only).
+2. Background-isolate push → native rules channel (needs Firebase first).
+3. Everything in "Not verified / blocked" above.
