@@ -128,6 +128,35 @@ class SafetyCentreScreen extends ConsumerWidget {
                   icon: Icons.badge_rounded,
                   message: l.safetyChildSees,
                 ),
+                for (final me in s.caregivers.where((m) => m.isMe)) ...[
+                  SectionHeader(
+                    title: l.safetyMyPhone,
+                    subtitle: l.safetyMyPhoneHint,
+                    padding: const EdgeInsets.only(
+                      top: AppSpacing.xl,
+                      bottom: AppSpacing.md,
+                    ),
+                  ),
+                  AppListTile(
+                    leading: IconBadge(
+                      icon: Icons.phone_rounded,
+                      tone: (me.contactPhone ?? '').isEmpty
+                          ? AppTone.warning
+                          : AppTone.success,
+                    ),
+                    title: (me.contactPhone ?? '').isEmpty
+                        ? l.safetyMyPhoneMissing
+                        : me.contactPhone!,
+                    titleMaxLines: 3,
+                    onTap: () => editText(
+                      l.safetyMyPhone,
+                      me.contactPhone,
+                      '+972 50 000 0000',
+                      repo.setMyContactPhone,
+                      keyboard: TextInputType.phone,
+                    ),
+                  ),
+                ],
                 SectionHeader(
                   title: l.safetyContacts,
                   padding: const EdgeInsets.only(

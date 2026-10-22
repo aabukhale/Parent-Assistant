@@ -303,6 +303,9 @@ class SafetyRepository {
         },
       );
 
+  Future<void> setMyContactPhone(String? phone) =>
+      _client.put('$_f/my-contact', body: {'contact_phone': phone});
+
   Future<void> saveContact(Map<String, dynamic> body, {String? id}) =>
       id == null
       ? _client.post('$_f/emergency-contacts', body: body)

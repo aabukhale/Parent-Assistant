@@ -2973,5 +2973,8 @@
   "kidSetupBody": "A grown-up needs to finish these steps on this phone.",
   "kidSetupScreenTime": "Allow Screen Time for Mamily",
   "kidSetupUsage": "Allow usage access",
-  "kidSetupAlarms": "Allow exact times (Alarms & reminders)"
+  "kidSetupAlarms": "Allow exact times (Alarms & reminders)",
+  "safetyMyPhone": "Your number for the children",
+  "safetyMyPhoneHint": "Shown on “Call my parent” in your children’s app.",
+  "safetyMyPhoneMissing": "Add your number so your children can call you from Mamily."
 }

@@ -2970,5 +2970,8 @@
   "kidSetupBody": "מבוגר צריך להשלים את השלבים האלה בטלפון הזה.",
   "kidSetupScreenTime": "לאשר ל-Mamily „זמן מסך”",
   "kidSetupUsage": "לאשר גישה לנתוני שימוש",
-  "kidSetupAlarms": "לאשר זמנים מדויקים (התראות ותזכורות)"
+  "kidSetupAlarms": "לאשר זמנים מדויקים (התראות ותזכורות)",
+  "safetyMyPhone": "המספר שלך בשביל הילדים",
+  "safetyMyPhoneHint": "מוצג ב„להתקשר להורה” באפליקציה של הילדים.",
+  "safetyMyPhoneMissing": "הוסיפו מספר כדי שהילדים יוכלו להתקשר מ-Mamily."
 }

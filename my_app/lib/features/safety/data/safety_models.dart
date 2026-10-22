@@ -335,8 +335,12 @@ class Caregiver {
     required this.childScope,
     required this.childIds,
     required this.permissions,
+    this.contactPhone,
+    this.isMe = false,
   });
 
+  final String? contactPhone;
+  final bool isMe;
   final String memberId;
   final String userId;
   final String name;
@@ -359,6 +363,8 @@ class Caregiver {
     childScope: j['child_scope'] as String? ?? 'all',
     childIds: (j['child_ids'] as List?)?.cast<String>() ?? const [],
     permissions: (j['permissions'] as List?)?.cast<String>() ?? const [],
+    contactPhone: j['contact_phone'] as String?,
+    isMe: j['is_me'] as bool? ?? false,
   );
 }
 

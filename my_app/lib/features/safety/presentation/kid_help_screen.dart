@@ -1,5 +1,6 @@
 import 'dart:async';
 
+import 'package:battery_plus/battery_plus.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -47,6 +48,13 @@ class _KidHelpScreenState extends ConsumerState<KidHelpScreen> {
   Timer? _poll;
 
   @override
+  void initState() {
+    super.initState();
+    // Phone numbers may have changed since the cache was filled.
+    Future.microtask(() => ref.invalidate(kidSafetyCentreProvider));
+  }
+
+  @override
   void dispose() {
     _poll?.cancel();
     super.dispose();
@@ -60,9 +68,13 @@ class _KidHelpScreenState extends ConsumerState<KidHelpScreen> {
       timeout: const Duration(seconds: 6),
     );
     try {
+      int? battery;
+      try {
+        battery = await Battery().batteryLevel;
+      } catch (_) {}
       final alert = await ref
           .read(kidSafetyRepositoryProvider)
-          .raiseHelp(clientId: _clientId!, at: fix);
+          .raiseHelp(clientId: _clientId!, at: fix, batteryPct: battery);
       if (!mounted) return;
       setState(() {
         _alert = alert;
