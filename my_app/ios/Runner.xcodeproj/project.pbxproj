@@ -8,13 +8,16 @@
 
 /* Begin PBXBuildFile section */
 		0CE1F9AA0C66A5D07CC67E3C /* RoutineActivityAttributes.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24645CFC3DF43B943A1B557F /* RoutineActivityAttributes.swift */; };
+		0F91E797BA8AA1808BE12385 /* ActivityMonitorExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F8EA6AF6DC85AE3CA70D388 /* ActivityMonitorExtension.swift */; };
 		1498D2341E8E89220040F4C2 /* GeneratedPluginRegistrant.m in Sources */ = {isa = PBXBuildFile; fileRef = 1498D2331E8E89220040F4C2 /* GeneratedPluginRegistrant.m */; };
 		21DD20C7D4F65A8779709BA2 /* Pods_Runner.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 962016E229B6844F4CF9322C /* Pods_Runner.framework */; };
 		2535F025AFA103E7D5668CDC /* Pods_RunnerTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F83CD4EB678219571CB6E51C /* Pods_RunnerTests.framework */; };
 		2E302812F993541A3D29AA25 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 3F4D39389723D02AF925C117 /* Localizable.strings */; };
 		331C808B294A63AB00263BE5 /* RunnerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 331C807B294A618700263BE5 /* RunnerTests.swift */; };
+		3950A5EB881BF06B6B0C5EF1 /* MamilyRules.swift in Sources */ = {isa = PBXBuildFile; fileRef = 163E845AD008674AB934BFA1 /* MamilyRules.swift */; };
 		3B3967161E833CAA004F5970 /* AppFrameworkInfo.plist in Resources */ = {isa = PBXBuildFile; fileRef = 3B3967151E833CAA004F5970 /* AppFrameworkInfo.plist */; };
 		4AE8834D7ABD589945F53C97 /* Localizable.stringsdict in Resources */ = {isa = PBXBuildFile; fileRef = BE404D0A857720C32CE5F806 /* Localizable.stringsdict */; };
+		4FCFAAFCAE3E65F2CA562875 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AF9E7ACFE30E1D7E9E11FD68 /* Foundation.framework */; };
 		66A70B6837DE73DDD6E9E8BE /* LiveActivityBridge.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3905135C2D9238907F87F06D /* LiveActivityBridge.swift */; };
 		6D5777434C2CD1CBB05C5887 /* MamilyWidgetBundle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7151485A88916A889FCF2EB1 /* MamilyWidgetBundle.swift */; };
 		74858FAF1ED2DC5600515810 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 74858FAE1ED2DC5600515810 /* AppDelegate.swift */; };
@@ -24,9 +27,12 @@
 		97C146FC1CF9000F007C117D /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 97C146FA1CF9000F007C117D /* Main.storyboard */; };
 		97C146FE1CF9000F007C117D /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 97C146FD1CF9000F007C117D /* Assets.xcassets */; };
 		97C147011CF9000F007C117D /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 97C146FF1CF9000F007C117D /* LaunchScreen.storyboard */; };
+		A07280F097CB8DC6789A0238 /* MamilyActivityMonitor.appex in Embed Foundation Extensions */ = {isa = PBXBuildFile; fileRef = D996F8EA28CE4BC203FF9DA1 /* MamilyActivityMonitor.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
+		A8B8DEEE073919CBE8D7E212 /* MamilyRules.swift in Sources */ = {isa = PBXBuildFile; fileRef = 163E845AD008674AB934BFA1 /* MamilyRules.swift */; };
 		C559794EDECF805DD3FB487F /* FamilyPulseWidget.appex in Embed Foundation Extensions */ = {isa = PBXBuildFile; fileRef = 7CBD01659DB290D2EE8B2BF6 /* FamilyPulseWidget.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
 		D52A242936D87D9D970CAF32 /* RoutineActivityAttributes.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24645CFC3DF43B943A1B557F /* RoutineActivityAttributes.swift */; };
 		E395E3890C8E8CF44272D420 /* FamilyPulseWidget.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7C4E755DD7DD046D30C2DD25 /* FamilyPulseWidget.swift */; };
+		E8F05D23391367AFC6963569 /* DeviceRulesBridge.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C07DD5C3A9F575A61E1E844 /* DeviceRulesBridge.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -36,6 +42,13 @@
 			proxyType = 1;
 			remoteGlobalIDString = 97C146ED1CF9000F007C117D;
 			remoteInfo = Runner;
+		};
+		8632F1F3E6FBFE6E23371E53 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 97C146E61CF9000F007C117D /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 6BB04FB63F8C3770EF377A03;
+			remoteInfo = MamilyActivityMonitor;
 		};
 		D32AC4315B694FD5E5324A65 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
@@ -64,6 +77,7 @@
 			dstSubfolderSpec = 13;
 			files = (
 				C559794EDECF805DD3FB487F /* FamilyPulseWidget.appex in Embed Foundation Extensions */,
+				A07280F097CB8DC6789A0238 /* MamilyActivityMonitor.appex in Embed Foundation Extensions */,
 			);
 			name = "Embed Foundation Extensions";
 			runOnlyForDeploymentPostprocessing = 0;
@@ -76,8 +90,10 @@
 		0E14A0F2458530149EBFA8BF /* Pods-Runner.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Runner.release.xcconfig"; path = "Target Support Files/Pods-Runner/Pods-Runner.release.xcconfig"; sourceTree = "<group>"; };
 		1498D2321E8E86230040F4C2 /* GeneratedPluginRegistrant.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = GeneratedPluginRegistrant.h; sourceTree = "<group>"; };
 		1498D2331E8E89220040F4C2 /* GeneratedPluginRegistrant.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GeneratedPluginRegistrant.m; sourceTree = "<group>"; };
+		163E845AD008674AB934BFA1 /* MamilyRules.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = MamilyRules.swift; sourceTree = "<group>"; };
 		1F8E3CF51B049F31353C4739 /* ar */ = {isa = PBXFileReference; includeInIndex = 1; name = ar; path = ar.lproj/Localizable.stringsdict; sourceTree = "<group>"; };
 		24645CFC3DF43B943A1B557F /* RoutineActivityAttributes.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = RoutineActivityAttributes.swift; sourceTree = "<group>"; };
+		2C07DD5C3A9F575A61E1E844 /* DeviceRulesBridge.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = DeviceRulesBridge.swift; sourceTree = "<group>"; };
 		331C807B294A618700263BE5 /* RunnerTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RunnerTests.swift; sourceTree = "<group>"; };
 		331C8081294A63A400263BE5 /* RunnerTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = RunnerTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		35113C7B44EEA3534EDFEBB3 /* Runner.entitlements */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.entitlements; path = Runner.entitlements; sourceTree = "<group>"; };
@@ -93,6 +109,9 @@
 		7AFA3C8E1D35360C0083082E /* Release.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; name = Release.xcconfig; path = Flutter/Release.xcconfig; sourceTree = "<group>"; };
 		7C4E755DD7DD046D30C2DD25 /* FamilyPulseWidget.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = FamilyPulseWidget.swift; sourceTree = "<group>"; };
 		7CBD01659DB290D2EE8B2BF6 /* FamilyPulseWidget.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = FamilyPulseWidget.appex; sourceTree = BUILT_PRODUCTS_DIR; };
+		8F8EA6AF6DC85AE3CA70D388 /* ActivityMonitorExtension.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = ActivityMonitorExtension.swift; sourceTree = "<group>"; };
+		941C1EE24341A4713EAB25DA /* MamilyActivityMonitor.entitlements */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.entitlements; path = MamilyActivityMonitor.entitlements; sourceTree = "<group>"; };
+		94E5DCC9342AEC362BF2D090 /* Info.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		962016E229B6844F4CF9322C /* Pods_Runner.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Runner.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		9740EEB21CF90195004384FC /* Debug.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; name = Debug.xcconfig; path = Flutter/Debug.xcconfig; sourceTree = "<group>"; };
 		9740EEB31CF90195004384FC /* Generated.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; name = Generated.xcconfig; path = Flutter/Generated.xcconfig; sourceTree = "<group>"; };
@@ -107,6 +126,7 @@
 		C833D7E8861DEBCC5968E2CD /* en */ = {isa = PBXFileReference; includeInIndex = 1; name = en; path = en.lproj/Localizable.stringsdict; sourceTree = "<group>"; };
 		CB7113C199D722776AFCE2BC /* Info.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		D1CCC0FE975C80E396DC8785 /* WidgetExtension.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = Flutter/WidgetExtension.xcconfig; sourceTree = "<group>"; };
+		D996F8EA28CE4BC203FF9DA1 /* MamilyActivityMonitor.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = MamilyActivityMonitor.appex; sourceTree = BUILT_PRODUCTS_DIR; };
 		E292E245F8E6D40057489BF4 /* Pods-RunnerTests.profile.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-RunnerTests.profile.xcconfig"; path = "Target Support Files/Pods-RunnerTests/Pods-RunnerTests.profile.xcconfig"; sourceTree = "<group>"; };
 		F83CD4EB678219571CB6E51C /* Pods_RunnerTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_RunnerTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		F89BF013D612EBB8A9CEFBD1 /* he */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.strings; name = he; path = he.lproj/Localizable.strings; sourceTree = "<group>"; };
@@ -136,6 +156,14 @@
 			buildActionMask = 2147483647;
 			files = (
 				2535F025AFA103E7D5668CDC /* Pods_RunnerTests.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		DC28B9BF1F5A277BB0D0EE1F /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				4FCFAAFCAE3E65F2CA562875 /* Foundation.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -187,9 +215,21 @@
 			isa = PBXGroup;
 			children = (
 				24645CFC3DF43B943A1B557F /* RoutineActivityAttributes.swift */,
+				163E845AD008674AB934BFA1 /* MamilyRules.swift */,
 			);
 			name = Shared;
 			path = Shared;
+			sourceTree = "<group>";
+		};
+		92B8F412D1073BD457F84278 /* MamilyActivityMonitor */ = {
+			isa = PBXGroup;
+			children = (
+				8F8EA6AF6DC85AE3CA70D388 /* ActivityMonitorExtension.swift */,
+				94E5DCC9342AEC362BF2D090 /* Info.plist */,
+				941C1EE24341A4713EAB25DA /* MamilyActivityMonitor.entitlements */,
+			);
+			name = MamilyActivityMonitor;
+			path = MamilyActivityMonitor;
 			sourceTree = "<group>";
 		};
 		9740EEB11CF90186004384FC /* Flutter */ = {
@@ -215,6 +255,7 @@
 				47E8D533CAAC26AD7261E668 /* Frameworks */,
 				653BB7BAB0E8ED15724FADB2 /* FamilyPulseWidget */,
 				747480F88FFE07FD5E239828 /* Shared */,
+				92B8F412D1073BD457F84278 /* MamilyActivityMonitor */,
 			);
 			sourceTree = "<group>";
 		};
@@ -224,6 +265,7 @@
 				97C146EE1CF9000F007C117D /* Runner.app */,
 				331C8081294A63A400263BE5 /* RunnerTests.xctest */,
 				7CBD01659DB290D2EE8B2BF6 /* FamilyPulseWidget.appex */,
+				D996F8EA28CE4BC203FF9DA1 /* MamilyActivityMonitor.appex */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -242,6 +284,7 @@
 				74858FAD1ED2DC5600515810 /* Runner-Bridging-Header.h */,
 				3905135C2D9238907F87F06D /* LiveActivityBridge.swift */,
 				35113C7B44EEA3534EDFEBB3 /* Runner.entitlements */,
+				2C07DD5C3A9F575A61E1E844 /* DeviceRulesBridge.swift */,
 			);
 			path = Runner;
 			sourceTree = "<group>";
@@ -282,6 +325,23 @@
 			productReference = 331C8081294A63A400263BE5 /* RunnerTests.xctest */;
 			productType = "com.apple.product-type.bundle.unit-test";
 		};
+		6BB04FB63F8C3770EF377A03 /* MamilyActivityMonitor */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 196B3943F769B305193B5E02 /* Build configuration list for PBXNativeTarget "MamilyActivityMonitor" */;
+			buildPhases = (
+				35C388B0635C3AF6295E21EF /* Sources */,
+				DC28B9BF1F5A277BB0D0EE1F /* Frameworks */,
+				B70A08459F695EDAA7CC73E1 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = MamilyActivityMonitor;
+			productName = MamilyActivityMonitor;
+			productReference = D996F8EA28CE4BC203FF9DA1 /* MamilyActivityMonitor.appex */;
+			productType = "com.apple.product-type.app-extension";
+		};
 		97C146ED1CF9000F007C117D /* Runner */ = {
 			isa = PBXNativeTarget;
 			buildConfigurationList = 97C147051CF9000F007C117D /* Build configuration list for PBXNativeTarget "Runner" */;
@@ -301,6 +361,7 @@
 			);
 			dependencies = (
 				96D0616BB610999A3D373152 /* PBXTargetDependency */,
+				35EA6269FBAE1D4FDB0F7C20 /* PBXTargetDependency */,
 			);
 			name = Runner;
 			productName = Runner;
@@ -362,6 +423,7 @@
 				97C146ED1CF9000F007C117D /* Runner */,
 				331C8080294A63A400263BE5 /* RunnerTests */,
 				D7F4EE72CC3383194FE84BAE /* FamilyPulseWidget */,
+				6BB04FB63F8C3770EF377A03 /* MamilyActivityMonitor */,
 			);
 		};
 /* End PBXProject section */
@@ -391,6 +453,13 @@
 			files = (
 				2E302812F993541A3D29AA25 /* Localizable.strings in Resources */,
 				4AE8834D7ABD589945F53C97 /* Localizable.stringsdict in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		B70A08459F695EDAA7CC73E1 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -517,6 +586,15 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		35C388B0635C3AF6295E21EF /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				0F91E797BA8AA1808BE12385 /* ActivityMonitorExtension.swift in Sources */,
+				A8B8DEEE073919CBE8D7E212 /* MamilyRules.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		5415122B072AAA0DF9592CA8 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -537,6 +615,8 @@
 				7884E8682EC3CC0700C636F2 /* SceneDelegate.swift in Sources */,
 				0CE1F9AA0C66A5D07CC67E3C /* RoutineActivityAttributes.swift in Sources */,
 				66A70B6837DE73DDD6E9E8BE /* LiveActivityBridge.swift in Sources */,
+				E8F05D23391367AFC6963569 /* DeviceRulesBridge.swift in Sources */,
+				3950A5EB881BF06B6B0C5EF1 /* MamilyRules.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -547,6 +627,12 @@
 			isa = PBXTargetDependency;
 			target = 97C146ED1CF9000F007C117D /* Runner */;
 			targetProxy = 331C8085294A63A400263BE5 /* PBXContainerItemProxy */;
+		};
+		35EA6269FBAE1D4FDB0F7C20 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			name = MamilyActivityMonitor;
+			target = 6BB04FB63F8C3770EF377A03 /* MamilyActivityMonitor */;
+			targetProxy = 8632F1F3E6FBFE6E23371E53 /* PBXContainerItemProxy */;
 		};
 		96D0616BB610999A3D373152 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
@@ -722,6 +808,31 @@
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Runner.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/Runner";
+			};
+			name = Profile;
+		};
+		3A619E6DFEAA7971D262257E /* Profile */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				APPLICATION_EXTENSION_API_ONLY = YES;
+				CLANG_ENABLE_OBJC_WEAK = NO;
+				CODE_SIGN_ENTITLEMENTS = MamilyActivityMonitor/MamilyActivityMonitor.entitlements;
+				CODE_SIGN_STYLE = Automatic;
+				GENERATE_INFOPLIST_FILE = NO;
+				INFOPLIST_FILE = MamilyActivityMonitor/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 16.0;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@executable_path/../../Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = com.example.myApp.ActivityMonitor;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = iphoneos;
+				SKIP_INSTALL = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				VALIDATE_PRODUCT = YES;
 			};
 			name = Profile;
 		};
@@ -983,9 +1094,68 @@
 			};
 			name = Release;
 		};
+		C32A320FABC58EE5AD83D3C8 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				APPLICATION_EXTENSION_API_ONLY = YES;
+				CLANG_ENABLE_OBJC_WEAK = NO;
+				CODE_SIGN_ENTITLEMENTS = MamilyActivityMonitor/MamilyActivityMonitor.entitlements;
+				CODE_SIGN_STYLE = Automatic;
+				GENERATE_INFOPLIST_FILE = NO;
+				INFOPLIST_FILE = MamilyActivityMonitor/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 16.0;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@executable_path/../../Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = com.example.myApp.ActivityMonitor;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = iphoneos;
+				SKIP_INSTALL = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		D5588CFA4397245D82C13F61 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				APPLICATION_EXTENSION_API_ONLY = YES;
+				CLANG_ENABLE_OBJC_WEAK = NO;
+				CODE_SIGN_ENTITLEMENTS = MamilyActivityMonitor/MamilyActivityMonitor.entitlements;
+				CODE_SIGN_STYLE = Automatic;
+				GENERATE_INFOPLIST_FILE = NO;
+				INFOPLIST_FILE = MamilyActivityMonitor/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 16.0;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@executable_path/../../Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = com.example.myApp.ActivityMonitor;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = iphoneos;
+				SKIP_INSTALL = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
+		196B3943F769B305193B5E02 /* Build configuration list for PBXNativeTarget "MamilyActivityMonitor" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				C32A320FABC58EE5AD83D3C8 /* Release */,
+				D5588CFA4397245D82C13F61 /* Debug */,
+				3A619E6DFEAA7971D262257E /* Profile */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
 		331C8087294A63A400263BE5 /* Build configuration list for PBXNativeTarget "RunnerTests" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (

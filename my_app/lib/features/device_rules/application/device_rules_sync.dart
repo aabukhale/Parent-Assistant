@@ -220,3 +220,10 @@ final deviceRulesSyncProvider = Provider<DeviceRulesSync>((ref) {
 final deviceEnforcementActiveProvider = FutureProvider.autoDispose<bool>(
   (ref) => ref.watch(nativeEnforcementProvider).enforcementActive(),
 );
+
+/// What this phone can enforce right now (for setup prompts on the child's
+/// phone). Refreshed after a setup step.
+final deviceCapabilitiesProvider =
+    FutureProvider.autoDispose<Map<String, String>>(
+      (ref) => ref.watch(nativeEnforcementProvider).capabilities(),
+    );

@@ -38,10 +38,16 @@ class WelcomeScreen extends StatelessWidget {
                     colors: [c.brand.background, c.warning.background],
                   ),
                 ),
-                child: const Stack(
+                child: Stack(
                   alignment: Alignment.center,
                   children: [
-                    Text('👨‍👩‍👧‍👦', style: TextStyle(fontSize: 88)),
+                    ExcludeSemantics(
+                      child: Icon(
+                        Icons.family_restroom_rounded,
+                        size: 96,
+                        color: c.brand.foreground,
+                      ),
+                    ),
                     PositionedDirectional(
                       top: 20,
                       start: 20,

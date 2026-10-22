@@ -1,3 +1,4 @@
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
@@ -349,12 +350,48 @@ class _GrownUps extends ConsumerWidget {
     final c = context.mamily;
     final locked =
         ref.watch(deviceEnforcementActiveProvider).valueOrNull ?? false;
+    final caps = ref.watch(deviceCapabilitiesProvider).valueOrNull ?? const {};
+    final native = ref.read(nativeEnforcementProvider);
+    final setupSteps = <(String, String)>[
+      if (defaultTargetPlatform == TargetPlatform.iOS &&
+          caps['app_blocking'] == 'permission_needed')
+        (l.kidSetupScreenTime, 'family_controls'),
+      if (defaultTargetPlatform == TargetPlatform.android &&
+          caps['usage_reporting'] == 'permission_needed')
+        (l.kidSetupUsage, 'usage_access'),
+      if (defaultTargetPlatform == TargetPlatform.android &&
+          caps['app_blocking'] == 'available' &&
+          caps['exact_alarms'] == 'permission_needed')
+        (l.kidSetupAlarms, 'exact_alarms'),
+    ];
     final celebrate = ref.watch(celebrationsEnabledProvider);
     return KidCard(
       color: c.surfaceMuted,
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.stretch,
         children: [
+          if (setupSteps.isNotEmpty) ...[
+            Text(l.kidSetupTitle, style: context.type.titleSmall),
+            Text(
+              l.kidSetupBody,
+              style: context.type.bodySmall?.copyWith(color: c.ink2),
+            ),
+            const SizedBox(height: AppSpacing.sm),
+            for (final (label, what) in setupSteps)
+              Padding(
+                padding: const EdgeInsets.only(bottom: AppSpacing.sm),
+                child: OutlinedButton.icon(
+                  icon: const Icon(Icons.admin_panel_settings_rounded),
+                  label: Text(label),
+                  onPressed: () async {
+                    await native.openSetup(what);
+                    ref.invalidate(deviceCapabilitiesProvider);
+                    ref.read(deviceRulesSyncProvider).sync();
+                  },
+                ),
+              ),
+            const Divider(),
+          ],
           SwitchListTile(
             contentPadding: EdgeInsets.zero,
             value: celebrate,

@@ -31,8 +31,8 @@
   "authHaveAccount": "כבר יש לי חשבון",
   "authOr": "או",
   "authBiometricUnavailable": "כניסה מהירה בטביעת אצבע עדיין לא זמינה",
-  "authLoginTitle": "טוב לראותך שוב 👋",
-  "authRegisterTitle": "נתחיל את המסע 👨‍👩‍👧",
+  "authLoginTitle": "טוב לראותך שוב",
+  "authRegisterTitle": "בואו נתחיל עם המשפחה",
   "authFieldName": "שם פרטי",
   "authFieldNameHint": "הזן את שמך",
   "authFieldLastName": "שם משפחה (רשות)",
@@ -63,7 +63,7 @@
   "languageHebrew": "עברית",
   "languageEnglish": "אנגלית",
   "childrenTitle": "הילדים שלי",
-  "childrenSubtitle": "עקוב וסייע להתפתחות הילדים ❤️",
+  "childrenSubtitle": "עקבו ותמכו בהתפתחות הילדים",
   "childrenCountLabel": "{count, plural, =0{אין ילדים} one{ילד אחד} two{שני ילדים} other{{count} ילדים}}",
   "@childrenCountLabel": {
     "placeholders": {
@@ -554,7 +554,7 @@
       }
     }
   },
-  "homeGreeting": "שלום {name} 👋",
+  "homeGreeting": "שלום {name}",
   "@homeGreeting": {
     "placeholders": {
       "name": {
@@ -2370,7 +2370,7 @@
   "rulesBlockedApps": "תמיד מושהות",
   "rulesAllowedApps": "תמיד מותרות",
   "rulesAllowedAppsBody": "עובדות גם בזמן בית ספר, שיעורים, שינה והשהיות.",
-  "rulesAppCount": "{count} אפליקציות",
+  "rulesAppCount": "{count, plural, =0{אין אפליקציות} =1{אפליקציה אחת} other{{count} אפליקציות}}",
   "@rulesAppCount": {
     "placeholders": {
       "count": {
@@ -2965,5 +2965,10 @@
       }
     }
   },
-  "inboxOpenSafety": "לפתוח"
+  "inboxOpenSafety": "לפתוח",
+  "kidSetupTitle": "הגדרת כללי הטלפון",
+  "kidSetupBody": "מבוגר צריך להשלים את השלבים האלה בטלפון הזה.",
+  "kidSetupScreenTime": "לאשר ל-Mamily „זמן מסך”",
+  "kidSetupUsage": "לאשר גישה לנתוני שימוש",
+  "kidSetupAlarms": "לאשר זמנים מדויקים (התראות ותזכורות)"
 }

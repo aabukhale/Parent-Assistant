@@ -93,8 +93,14 @@ class _PairingScreenState extends ConsumerState<PairingScreen> {
                   AppSpacing.xl,
                 ),
                 children: [
-                  const Center(
-                    child: Text('🧒', style: TextStyle(fontSize: 64)),
+                  Center(
+                    child: ExcludeSemantics(
+                      child: Icon(
+                        Icons.group_add_rounded,
+                        size: 64,
+                        color: context.mamily.brand.foreground,
+                      ),
+                    ),
                   ),
                   const SizedBox(height: AppSpacing.md),
                   Semantics(

@@ -35,7 +35,10 @@ class ChildrenScreen extends ConsumerWidget {
               label: Text(l.childrenAdd),
             )
           : null,
-      body: AppContentFrame(
+      // Tab root without an app bar: keep the title below the status bar /
+      // Dynamic Island (AppContentFrame only keeps bottom/side insets).
+      body: SafeArea(
+        bottom: false,
         child: AppContentFrame(
           maxWidth: 860,
           child: state.when(

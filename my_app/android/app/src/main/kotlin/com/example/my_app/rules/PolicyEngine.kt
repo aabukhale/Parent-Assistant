@@ -89,6 +89,9 @@ class PolicyEngine(private val ctx: Context) {
             // Mamily never offers a whole-device lock (lockNow only blanks the
             // screen and the child unlocks it again) — reported honestly.
             "device_lock" to "unsupported",
+            // Not sent to the server's capability list (filtered there); used
+            // on the phone to offer the "Alarms & reminders" setup step.
+            "exact_alarms" to if (exactAlarmsAllowed()) "available" else "permission_needed",
         )
     }
 
@@ -281,8 +284,11 @@ class PolicyEngine(private val ctx: Context) {
 
     // ---- inventory & usage ---------------------------------------------------
 
-    fun installedApps(): List<Map<String, String>> = launchablePackages()
-        .filter { it != ctx.packageName }
+    /** Apps a parent can choose. Essentials are left out: they're never paused. */
+    fun installedApps(): List<Map<String, String>> {
+        val essentials = essentialPackages()
+        return launchablePackages()
+            .filter { it != ctx.packageName && it !in essentials }
         .mapNotNull { pkg ->
             try {
                 val ai = pm.getApplicationInfo(pkg, 0)
@@ -291,7 +297,8 @@ class PolicyEngine(private val ctx: Context) {
                 null
             }
         }
-        .sortedBy { it["name"]?.lowercase() }
+            .sortedBy { it["name"]?.lowercase() }
+    }
 
     /** Foreground sessions per app since [fromMs], for /child/usage. */
     fun usageSince(fromMs: Long): List<Map<String, Any?>> {

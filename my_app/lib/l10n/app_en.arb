@@ -34,8 +34,8 @@
   "authHaveAccount": "I already have an account",
   "authOr": "or",
   "authBiometricUnavailable": "Fast biometric sign-in isn't available yet",
-  "authLoginTitle": "Welcome back 👋",
-  "authRegisterTitle": "Let's begin our journey 👨‍👩‍👧",
+  "authLoginTitle": "Welcome back",
+  "authRegisterTitle": "Let’s get your family started",
   "authFieldName": "First name",
   "authFieldNameHint": "Enter your name",
   "authFieldLastName": "Last name (optional)",
@@ -66,7 +66,7 @@
   "languageHebrew": "Hebrew",
   "languageEnglish": "English",
   "childrenTitle": "My children",
-  "childrenSubtitle": "Follow and support your children's development ❤️",
+  "childrenSubtitle": "Follow and support your children’s development",
   "childrenCountLabel": "{count, plural, =0{No children} =1{1 child} other{{count} children}}",
   "@childrenCountLabel": {
     "placeholders": {
@@ -557,7 +557,7 @@
       }
     }
   },
-  "homeGreeting": "Hi {name} 👋",
+  "homeGreeting": "Hi {name}",
   "@homeGreeting": {
     "placeholders": {
       "name": {
@@ -2373,7 +2373,7 @@
   "rulesBlockedApps": "Always paused",
   "rulesAllowedApps": "Always allowed",
   "rulesAllowedAppsBody": "Still work during school, homework, bedtime and pauses.",
-  "rulesAppCount": "{count} apps",
+  "rulesAppCount": "{count, plural, =0{no apps} =1{1 app} other{{count} apps}}",
   "@rulesAppCount": {
     "placeholders": {
       "count": {
@@ -2968,5 +2968,10 @@
       }
     }
   },
-  "inboxOpenSafety": "Open"
+  "inboxOpenSafety": "Open",
+  "kidSetupTitle": "Phone rules setup",
+  "kidSetupBody": "A grown-up needs to finish these steps on this phone.",
+  "kidSetupScreenTime": "Allow Screen Time for Mamily",
+  "kidSetupUsage": "Allow usage access",
+  "kidSetupAlarms": "Allow exact times (Alarms & reminders)"
 }

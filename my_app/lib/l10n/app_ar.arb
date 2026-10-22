@@ -31,8 +31,8 @@
   "authHaveAccount": "لدي حساب بالفعل",
   "authOr": "أو",
   "authBiometricUnavailable": "الدخول السريع بالبصمة غير متاح بعد",
-  "authLoginTitle": "مرحبًا بعودتك 👋",
-  "authRegisterTitle": "لنبدأ رحلتنا 👨‍👩‍👧",
+  "authLoginTitle": "مرحبًا بعودتك",
+  "authRegisterTitle": "لنبدأ مع عائلتك",
   "authFieldName": "الاسم",
   "authFieldNameHint": "أدخل اسمك",
   "authFieldLastName": "اسم العائلة (اختياري)",
@@ -63,7 +63,7 @@
   "languageHebrew": "العبرية",
   "languageEnglish": "الإنجليزية",
   "childrenTitle": "أطفالي",
-  "childrenSubtitle": "تابع واهتم بتطور أطفالك ❤️",
+  "childrenSubtitle": "تابع واهتم بتطور أطفالك",
   "childrenCountLabel": "{count, plural, =0{لا يوجد أطفال} =1{طفل واحد} =2{طفلان} few{{count} أطفال} many{{count} طفلًا} other{{count} طفل}}",
   "@childrenCountLabel": {
     "placeholders": {
@@ -554,7 +554,7 @@
       }
     }
   },
-  "homeGreeting": "مرحبًا {name} 👋",
+  "homeGreeting": "مرحبًا {name}",
   "@homeGreeting": {
     "placeholders": {
       "name": {
@@ -2370,7 +2370,7 @@
   "rulesBlockedApps": "متوقفة دائماً",
   "rulesAllowedApps": "مسموح بها دائماً",
   "rulesAllowedAppsBody": "تعمل حتى خلال المدرسة والواجبات والنوم والإيقاف.",
-  "rulesAppCount": "{count} تطبيقات",
+  "rulesAppCount": "{count, plural, =0{لا تطبيقات} =1{تطبيق واحد} =2{تطبيقان} few{{count} تطبيقات} many{{count} تطبيقاً} other{{count} تطبيق}}",
   "@rulesAppCount": {
     "placeholders": {
       "count": {
@@ -2965,5 +2965,10 @@
       }
     }
   },
-  "inboxOpenSafety": "فتح"
+  "inboxOpenSafety": "فتح",
+  "kidSetupTitle": "إعداد قواعد الهاتف",
+  "kidSetupBody": "يحتاج شخص بالغ إلى إكمال هذه الخطوات على هذا الهاتف.",
+  "kidSetupScreenTime": "السماح لـMamily باستخدام «مدة استخدام الجهاز»",
+  "kidSetupUsage": "السماح بالوصول إلى بيانات الاستخدام",
+  "kidSetupAlarms": "السماح بالأوقات الدقيقة (المنبهات والتذكيرات)"
 }
