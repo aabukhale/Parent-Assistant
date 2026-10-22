@@ -102,6 +102,18 @@ class ChildAuthRepository {
     TargetPlatform.android => 'android',
     _ => 'web',
   };
+
+  /// After losing the session: was this install unpaired by a parent
+  /// (`revoked`), still paired (`active`, e.g. the token only expired), or
+  /// unknown? Unauthenticated; proven by the device id + this install's id.
+  Future<String> deviceStatus(String deviceId) async {
+    final installId = await _storage.readOrCreateInstallId();
+    final env = await _client.post(
+      '/child-auth/device-status',
+      body: {'device_id': deviceId, 'install_id_hash': 'child_$installId'},
+    );
+    return env.dataMap['state'] as String? ?? 'unknown';
+  }
 }
 
 final childAuthRepositoryProvider = Provider<ChildAuthRepository>(

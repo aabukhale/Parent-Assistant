@@ -328,8 +328,9 @@ Future<bool> showAgreementEditor(
         in existing?.items ?? const <({String section, String text})>[])
       (section: i.section, text: TextEditingController(text: i.text)),
   ];
-  if (rows.isEmpty)
+  if (rows.isEmpty) {
     rows.add((section: 'devices', text: TextEditingController()));
+  }
 
   final saved = await showModalBottomSheet<bool>(
     context: context,
@@ -424,8 +425,9 @@ Future<bool> showAgreementEditor(
                           );
                       if (sheet.mounted) Navigator.of(sheet).pop(true);
                     } on ApiException catch (e) {
-                      if (sheet.mounted)
+                      if (sheet.mounted) {
                         showResultSnack(sheet, e.localizedMessage(l));
+                      }
                     }
                   },
                   child: Text(l.commonSave),

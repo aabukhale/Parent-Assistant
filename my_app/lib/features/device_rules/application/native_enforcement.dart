@@ -93,9 +93,11 @@ class NativeEnforcement {
 
   /// Removes every restriction Mamily applied. Only called when the backend
   /// revoked this install (unpaired) — never by a child action.
-  Future<void> clear() async {
+  /// [release] also gives up Android device-owner status so the family can
+  /// uninstall Mamily normally.
+  Future<void> clear({bool release = false}) async {
     try {
-      await _ch.invokeMethod<void>('clear');
+      await _ch.invokeMethod<void>('clear', {'release': release});
     } catch (_) {}
   }
 

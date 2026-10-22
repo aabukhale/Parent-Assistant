@@ -21,9 +21,7 @@ void main() {
     }
   });
 
-  testWidgets('the picker announces localized names, not keys', (
-    tester,
-  ) async {
+  testWidgets('the picker announces localized names, not keys', (tester) async {
     final handle = tester.ensureSemantics();
     String? picked;
     await tester.pumpWidget(

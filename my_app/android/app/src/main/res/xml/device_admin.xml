@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Mamily uses device-owner app suspension and Chrome managed configuration;
+     no legacy device-admin policies (wipe, password, lock) are requested. -->
+<device-admin>
+    <uses-policies />
+</device-admin>

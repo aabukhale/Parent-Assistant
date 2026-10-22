@@ -6,6 +6,7 @@ import '../../../core/providers.dart';
 import '../../../core/storage/secure_token_storage.dart';
 import '../../../core/session/session_cleanup.dart';
 import '../data/auth_repository.dart';
+import '../../device_rules/application/device_rules_sync.dart';
 import '../data/child_auth_repository.dart';
 import '../data/auth_requests.dart';
 import '../data/models/auth_session.dart';
@@ -58,6 +59,9 @@ class AuthController extends Notifier<AuthState> {
       // 401: token gone. 403: the token is the wrong kind for the endpoint
       // (e.g. a tampered session-kind flag) — never trust it, wipe it.
       if (e.isUnauthorized || e.kind == ApiErrorKind.forbidden) {
+        if (kind == ChildAuthRepository.sessionKind) {
+          await _releaseRulesIfUnpaired();
+        }
         await _storage.clearSession();
         await ref.read(sessionCleanupProvider).run();
         state = AuthState(
@@ -202,6 +206,8 @@ class AuthController extends Notifier<AuthState> {
     if (lang != null) {
       ref.read(localeControllerProvider.notifier).setLanguageCode(lang);
     }
+    final deviceId = session.deviceId;
+    if (deviceId != null) _storage.writeChildDeviceId(deviceId);
     state = AuthState(
       phase: AuthPhase.authenticated,
       childSession: session,
@@ -258,7 +264,25 @@ class AuthController extends Notifier<AuthState> {
     return -1;
   }
 
+  /// A child phone lost its session. Device-level rules are lifted only if
+  /// the backend confirms a parent unpaired this install — an expired token
+  /// or a network problem never removes them.
+  Future<void> _releaseRulesIfUnpaired() async {
+    final deviceId = await _storage.readChildDeviceId();
+    if (deviceId == null) return;
+    try {
+      final status = await _childRepo.deviceStatus(deviceId);
+      if (status == 'revoked') {
+        await ref.read(nativeEnforcementProvider).clear(release: true);
+        await _storage.deleteChildDeviceId();
+      }
+    } catch (_) {
+      // Offline: keep enforcing; checked again on the next 401 / start.
+    }
+  }
+
   void _onUnauthorizedSignal() {
+    if (state.isChild) _releaseRulesIfUnpaired();
     if (state.phase == AuthPhase.authenticated) {
       ref.read(sessionCleanupProvider).run();
       state = AuthState(

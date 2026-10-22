@@ -34,6 +34,16 @@ class FakeSecureTokenStorage implements SecureTokenStorage {
   Future<bool> hasToken() async => (_token ?? '').isNotEmpty;
 
   bool _celebrations = true;
+  String? _childDevice;
+
+  @override
+  Future<String?> readChildDeviceId() async => _childDevice;
+
+  @override
+  Future<void> writeChildDeviceId(String id) async => _childDevice = id;
+
+  @override
+  Future<void> deleteChildDeviceId() async => _childDevice = null;
 
   @override
   Future<bool> readCelebrations() async => _celebrations;

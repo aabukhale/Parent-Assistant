@@ -28,6 +28,7 @@ class SecureTokenStorage {
   static const _sessionKindKey = 'mamily.session.kind';
   static const _childSlotKey = 'mamily.child.parked_token';
   static const _celebrationsKey = 'mamily.ui.celebrations';
+  static const _childDeviceKey = 'mamily.child.device_id';
 
   Future<String?> readToken() => _storage.read(key: _tokenKey);
 
@@ -96,6 +97,16 @@ class SecureTokenStorage {
       _storage.write(key: _childSlotKey, value: token);
 
   Future<void> deleteParkedChildToken() => _storage.delete(key: _childSlotKey);
+
+  /// The paired install's device id. Kept after a 401 on purpose: the phone
+  /// needs it to ask whether it was unpaired (device-level rules are only
+  /// lifted then). Removed once that question is settled.
+  Future<String?> readChildDeviceId() => _storage.read(key: _childDeviceKey);
+
+  Future<void> writeChildDeviceId(String id) =>
+      _storage.write(key: _childDeviceKey, value: id);
+
+  Future<void> deleteChildDeviceId() => _storage.delete(key: _childDeviceKey);
 
   /// Wipe the auth token, session kind and family selection. Called on logout
   /// and on a hard 401. The UI locale preference, the install id and a parked

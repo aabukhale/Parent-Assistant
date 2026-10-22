@@ -6,6 +6,7 @@ import android.provider.Settings
 import io.flutter.embedding.android.FlutterActivity
 import io.flutter.embedding.engine.FlutterEngine
 import io.flutter.plugin.common.MethodChannel
+import com.example.my_app.rules.DeviceRulesChannel
 
 class MainActivity : FlutterActivity() {
 
@@ -21,6 +22,7 @@ class MainActivity : FlutterActivity() {
 
     override fun configureFlutterEngine(flutterEngine: FlutterEngine) {
         super.configureFlutterEngine(flutterEngine)
+        DeviceRulesChannel.register(this, flutterEngine.dartExecutor.binaryMessenger)
 
         // Floating Family Pulse card — see SurfaceSync in lib/features/surfaces.
         MethodChannel(flutterEngine.dartExecutor.binaryMessenger, "mamily/overlay")
