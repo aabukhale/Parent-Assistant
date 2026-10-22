@@ -137,22 +137,104 @@ Capability matrix: `docs/capability-matrix.md`. Backend progress: `mamily/docs/P
   checklist, remote help/call screens. Linked from the child hub.
 - `flutter analyze` → 2 infos; `flutter test` → 489 passed.
 
-### NOT done yet (next concrete actions, in order)
-1. Native: Android `mamily/device_rules` channel (DeviceAdminReceiver,
-   setPackagesSuspended engine, Chrome managed config, UsageStats,
-   installed apps, alarms/boot) — today the channel is missing, so every
-   capability honestly reports "unsupported". iOS Family Controls plugin
-   + DeviceActivity extension. Manifest/Info.plist: location (+background
-   during journeys), camera/mic, foreground service type location.
-2. Deep links `/parent/remote/{id}`, `/parent/safety`, `/parent/family-map`
-   in `lib/app/deep_links.dart`; inbox rendering of help_alert /
-   safety_checkin / journey_overdue; urgent card on parent Today;
-   urgent toggle + new categories in notification settings; push data
-   signals `sync_rules` / `remote_session` → DeviceRulesSync / remote poll.
-3. Clear native enforcement on 401 revocation (main.dart listener).
-4. Regroup child hub tiles into sections (strings exist: hubSection*).
-5. Tests for new widgets/repositories; integration journeys (extra time,
-   restriction, remote revoke); emulator + simulator screenshots
-   (RTL/large text); migrate the normal dev DB (back it up first).
-6. Docs: API reference for new endpoints, external setup list (Firebase,
-   APNs, TURN, Family Controls distribution entitlement, OSM tile provider).
+### Next actions (as of 2026-10-21; superseded by the next session below)
+Native channels, deep links, push signals, revoke-clears-rules: done and
+verified in the 2026-10-22/23 session.
+
+## Session 2026-10-22/23 — native enforcement, location, calls (verified on devices)
+
+Setup: backend `php artisan serve --port=8100` with `PHP_CLI_SERVER_WORKERS=6`
+(port 8000 belongs to another local project; single-worker serve timed out
+policy fetches). Parent = iPhone 17 Pro simulator
+(`--dart-define=API_BASE_URL=http://127.0.0.1:8100/api/v1`), child = Android
+API 35 emulator `mamily_api35` provisioned with
+`adb shell dpm set-device-owner com.example.my_app/.rules.MamilyDeviceAdminReceiver`
+(`API_BASE_URL=http://10.0.2.2:8100/api/v1`). No personal device was enrolled.
+
+### Verified (observed on the devices, not just compiled)
+- **Android app blocking journey**: parent picks Gmail from the child's
+  reported app list → review sheet (what changes, which phones, iPhone
+  limitation) → v13 saved → phone receives, `setPackagesSuspended` →
+  launching Gmail shows the system "app paused" dialog with Mamily's
+  support message → parent sees "Rules are on — confirmed by the phone".
+  Unblock restores the app; parent waits ("Waiting for the phone") until
+  the phone confirms the removal.
+- **Expiry offline**: 5-min pause ended with the emulator offline; exact
+  alarm re-evaluated within 1 s (inexact alarms were ~2.5 min late →
+  `SCHEDULE_EXACT_ALARM` setup step, `timing=approximate` reported otherwise).
+- **Reboot**: indefinite pause survived reboot (BOOT_COMPLETED re-evaluates).
+- **Offline/reconnect**: release made while the phone was offline was
+  applied on reconnect; the app opens offline from a cached child session.
+- **Unpair**: parent unpairs → phone's device-status check returns
+  `revoked` → all suspensions lifted, device owner released (`dpm list-owners`
+  → none). A 401 alone never clears rules (could be a server glitch).
+- **Limits**: 1-min daily allowance paused non-essential apps (dialer, SMS,
+  settings, launcher stayed usable); usage counts raw UsageStats events
+  including the open session, excluding essentials; next check is scheduled
+  at the run-out time. Extra-time request → parent approves a different
+  amount (5 min) → apps unpause → re-pause on expiry while the child is
+  still in the app.
+- **Location**: explanation sheet → OS prompt → 5 m fix with battery on the
+  parent map; safe-place arrive/leave notifications; journey with
+  auto-arrival (announced once); revoked permission → parent sees
+  "permission missing".
+- **SOS**: press-and-hold → sent to Dana; with no push configured the child
+  is told the notification couldn't be sent and offered Call Dana /
+  emergency number; parent acknowledges → child sees "Dana saw your
+  message"; pick-me-up appears first on the parent Today as a red card.
+- **Remote help**: consent sheet → banner with Stop on every child screen →
+  parent sees Mamily-only snapshots and points; Stop (child) and End (parent)
+  both end at once; signals deleted; access log entries.
+- **Calls (WebRTC)**: voice and video between the iOS simulator (parent,
+  offerer) and the Android emulator (child). ICE checking → connected in
+  ~0.4 s (host candidates; STUN only, no TURN). Child mic/camera start only
+  after Answer + OS permission and are released on End from either side
+  (`dumpsys audio` rec start/stop, `dumpsys media.camera` no clients). The
+  parent saw the emulator's virtual camera; the simulator has no camera so
+  the child saw black (expected). Unanswered call → "No answer" after the
+  request timeout.
+  Bugs found and fixed while verifying: Laravel TrimStrings stripped the
+  SDP's trailing CRLF (every offer rejected: "SessionDescription is NULL");
+  overlapping 800 ms polls handled the same offer twice; a child reading the
+  camera prompt for >45 s hit the idle timeout (engine now heartbeats from
+  the start and only hands signals to a fully set-up peer connection);
+  white video made the call overlays unreadable (scrims).
+
+### Not verified / blocked (exact reasons)
+- **iOS Family Controls enforcement**: code, entitlement and the
+  `MamilyActivityMonitor` extension build and install on the simulator, but
+  `AuthorizationCenter` needs a real child device signed into a Family
+  Sharing child account, a development team, and (for TestFlight/App Store)
+  Apple's Family Controls distribution approval. Not run.
+- **Real push** (FCM/APNs): no `google-services.json`, `GoogleService-Info.plist`
+  or APNs key. Data-only `sync_rules`/`remote_session` handling is wired in
+  the foreground; background delivery to the native rules channel is not
+  possible from Firebase's background isolate as built (the channel lives on
+  the main engine) — the phone catches up on next open/alarm instead.
+- **Chrome blocked page**: managed config is written, but checking it needs
+  accepting Chrome's first-run terms on the emulator, which I did not do on
+  your behalf.
+- **Calls across real networks**: only verified on one host (emulator +
+  simulator). Without TURN (`TURN_URLS`, `TURN_SHARED_SECRET`) calls behind
+  symmetric NAT/CGNAT will fail; the UI says so while connecting.
+- **iOS simulator CoreAudio crash**: after several calls in a row the
+  simulator aborted in `AURemoteIO::Initialize` (RPC timeout inside WebRTC's
+  audio unit setup, not Mamily code). The server ended the orphaned session
+  as `idle`. Re-check on a real iPhone.
+- **Debug-build ANR** on the emulator under heavy CPU (merged platform/UI
+  thread); re-check with a release build.
+
+### Demo data changed on the normal dev DB (restore before real use)
+Omar: 1-min daily screen-time rule (was none), device rules v13+ (YouTube /
+Gmail / example.com history), location sharing on, "School" safe place,
+Dana's contact phone, family emergency number 100.
+
+### Still to do
+1. Widget tests for the new parent/child screens and repositories;
+   real-backend integration journeys (extra time, restriction, remote revoke).
+2. Regroup child hub tiles into sections (`hubSection*` strings exist);
+   remaining older parent-screen redesign gaps.
+3. Release builds (Android APK/AAB, iOS) and visual checks: tablet,
+   ar/he RTL, largest text, TalkBack/VoiceOver, empty/error/offline states;
+   screenshots.
+4. Docs: API reference for the new endpoints; Info.plist string localization.

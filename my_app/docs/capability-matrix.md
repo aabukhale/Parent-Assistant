@@ -41,7 +41,7 @@ run; "docs" means only the documentation was checked.
 | Extra-time requests | Request/approve flow works; on-device effect only where enforcement exists | Extends limit locally once received | Re-registers threshold event with new limit |
 | Usage data for parent review | UsageStats per-app foreground time **can be uploaded** (with disclosure) | Same | **Usage data cannot leave the device**: only `DeviceActivityReport` extension can render it, on that device. Remote parent review of iOS usage = unavailable; shown as "Usage stays on the child's iPhone". |
 | Offline | Rules cached; enforcement keeps running | Cached rule set + alarms, survives reboot (BOOT_COMPLETED) | Schedules & shields persist in the OS |
-| Verified | docs | emulator (see PROGRESS) | docs + simulator build only (Family Controls needs a real device and signing) |
+| Verified | docs (capabilities report "unsupported" without device owner — seen on emulator) | **API 35 emulator, 2026-10-22/23**: block/unblock, restrict now + expiry offline (exact alarm ≤1 s), daily allowance + extra time, reboot, offline/reconnect, unpair releases owner. Allow-only schedules and per-app limits run through the same engine but were not exercised individually. Chrome blocked page **not** checked (first-run terms). | Builds + installs on simulator with the monitor extension; **enforcement not run** (needs real child device, Family Sharing child account, team signing; distribution needs Apple approval) |
 
 ## Location & safety
 
@@ -53,7 +53,7 @@ run; "docs" means only the documentation was checked.
 | Battery level | `BatteryManager` | `UIDevice.batteryLevel` |
 | SOS / help | In-app action → backend → push to selected caregivers; local fallback: dial parent / emergency number | Same |
 | Guarantee | None — OS can delay/kill background work; UI says "last seen" with timestamp, never "live" | Same |
-| Verified | docs | docs |
+| Verified | Emulator: when-in-use fix, battery, safe-place arrive/leave, journey auto-arrival, revoked permission shows as 'permission missing'. Background location not requested/verified. | Simulator: when-in-use permission flow builds; simulated location only |
 
 ## Remote help & calls
 
@@ -65,6 +65,7 @@ run; "docs" means only the documentation was checked.
 | Control other apps / system settings | **Not available** (only via AccessibilityService, excluded by policy) | Not available on iOS |
 | Video/voice call | WebRTC (`flutter_webrtc`), camera/mic runtime permission, visible in-call UI | Same; `NSCameraUsageDescription`, `NSMicrophoneUsageDescription` |
 | Infrastructure | STUN works on simple NATs; reliable calls need a **TURN server with time-limited credentials** (`TURN_URLS`, `TURN_SHARED_SECRET`) — not configured | Same |
+| Verified | Emulator child: consent sheet, snapshots + pointer, Stop; voice + video calls connected to the iOS simulator on one host (no TURN); mic/camera released on end | Simulator parent: same calls (no camera on simulator); a CoreAudio RPC-timeout crash seen once after repeated calls — re-check on a real iPhone. Whole-screen share (MediaProjection/ReplayKit) not built |
 
 ## Push
 
