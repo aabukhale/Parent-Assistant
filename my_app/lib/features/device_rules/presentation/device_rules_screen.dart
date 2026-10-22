@@ -473,9 +473,12 @@ class DeviceStatusSection extends StatelessWidget {
                             style: context.type.titleSmall,
                           ),
                         ),
-                        StatusPill(label: t.title, tone: t.tone, icon: t.icon),
                       ],
                     ),
+                    // Under the name, not beside it: a long state in Arabic
+                    // or at large text sizes must wrap, not run off-screen.
+                    const SizedBox(height: AppSpacing.sm),
+                    StatusPill(label: t.title, tone: t.tone, icon: t.icon),
                     const SizedBox(height: AppSpacing.sm),
                     Text(t.body, style: context.type.bodyMedium),
                     Theme(
