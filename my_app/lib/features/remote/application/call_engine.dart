@@ -108,8 +108,13 @@ class CallEngine extends ChangeNotifier {
     _poll = Timer.periodic(const Duration(milliseconds: 800), (_) => _tick());
   }
 
+  bool _ticking = false;
+
   Future<void> _tick() async {
-    if (_disposed) return;
+    // A slow request or setRemoteDescription must not let the next tick
+    // re-handle the same offer.
+    if (_disposed || _ticking) return;
+    _ticking = true;
     try {
       final r = await repo.poll(sessionId, _after);
       if (!r.session.isActive) {
@@ -119,11 +124,22 @@ class CallEngine extends ChangeNotifier {
       }
       for (final s in r.signals) {
         _after = s.id;
-        await _handle(s);
+        try {
+          await _handle(s);
+        } catch (_) {
+          // An offer/answer the phone can't use means no call: say so
+          // instead of showing "Connecting…" forever. A bad ICE candidate
+          // is harmless, others may still work.
+          if (s.type == 'offer' || s.type == 'answer') {
+            _set(CallPhase.failed);
+          }
+        }
       }
     } catch (_) {
       // Transient network error: keep polling; the server's idle timeout
       // ends the session if this side really disappeared.
+    } finally {
+      _ticking = false;
     }
   }
 
