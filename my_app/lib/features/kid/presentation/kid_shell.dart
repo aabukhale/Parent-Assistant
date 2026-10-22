@@ -71,15 +71,19 @@ class _KidShellState extends ConsumerState<KidShell> {
     ref.read(deviceRulesSyncProvider).sync();
     final reporter = ref.read(locationReporterProvider);
     await reporter.refresh();
+    // The shell can be gone by now (sign-out, unpair): stop touching ref.
+    if (!mounted) return;
     final journey = await ref
         .read(kidJourneyProvider.future)
         .catchError((_) => null);
+    if (!mounted) return;
     if (journey != null && journey.isLive) {
       reporter.startJourneyTracking();
     } else {
       reporter.stopJourneyTracking();
     }
     try {
+      if (!mounted) return;
       final s = await ref.read(kidLocationSettingsProvider.future);
       if (s.sharing && !s.informed && mounted) {
         await showLocationExplainSheet(context, ref);

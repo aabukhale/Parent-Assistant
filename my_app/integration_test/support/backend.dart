@@ -195,6 +195,82 @@ class ParentApi {
       (await dio.delete<dynamic>(
         '$_f/children/$childId/devices/$deviceId',
       )).statusCode!;
+
+  // ---- screen time ---------------------------------------------------------
+
+  Future<Map<String, dynamic>> screenTimeRules(String childId) async => _data(
+    await dio.get<dynamic>('$_f/children/$childId/screen-time-rules'),
+  ).cast<String, dynamic>();
+
+  /// [minutes] null turns the daily limit off (the API keeps a disabled
+  /// rule; a limit value is still required).
+  Future<void> setDailyLimit(String childId, int? minutes) async {
+    final r = await dio.put<dynamic>(
+      '$_f/children/$childId/screen-time-rules',
+      data: {
+        'default': {
+          'daily_limit_minutes': minutes ?? 60,
+          'is_enabled': minutes != null,
+        },
+      },
+    );
+    if (r.statusCode != 200) {
+      throw StateError('screen-time-rules → ${r.statusCode}: ${r.data}');
+    }
+  }
+
+  Future<Map<String, dynamic>> screenTimeSummary(String childId) async => _data(
+    await dio.get<dynamic>('$_f/children/$childId/screen-time/summary'),
+  );
+
+  Future<List<Map<String, dynamic>>> pendingScreenTimeRequests() async => _list(
+    await dio.get<dynamic>(
+      '$_f/screen-time-requests',
+      queryParameters: {'status': 'pending'},
+    ),
+  );
+
+  Future<int> approveScreenTime(String id, {int? minutes}) async =>
+      (await dio.post<dynamic>(
+        '$_f/screen-time-requests/$id/approve',
+        data: {'minutes': ?minutes},
+      )).statusCode!;
+
+  // ---- device rules --------------------------------------------------------
+
+  Future<Map<String, dynamic>> deviceRules(String childId) async =>
+      _data(await dio.get<dynamic>('$_f/children/$childId/device-rules'));
+
+  Future<Map<String, dynamic>> restrictNow(String childId) async => _data(
+    await dio.post<dynamic>(
+      '$_f/children/$childId/device-rules/restrict-now',
+      data: {'minutes': null},
+    ),
+  );
+
+  Future<void> release(String childId) =>
+      dio.post<dynamic>('$_f/children/$childId/device-rules/release');
+
+  // ---- remote help ---------------------------------------------------------
+
+  Future<Map<String, dynamic>> requestRemote(
+    String childId,
+    String kind,
+  ) async => _data(
+    await dio.post<dynamic>(
+      '$_f/children/$childId/remote-sessions',
+      data: {'kind': kind},
+    ),
+  );
+
+  Future<Map<String, dynamic>> remoteSession(String id) async =>
+      _data(await dio.get<dynamic>('$_f/remote-sessions/$id'));
+
+  Future<Map<String, dynamic>> endRemote(String id) async =>
+      _data(await dio.post<dynamic>('$_f/remote-sessions/$id/end'));
+
+  Future<List<Map<String, dynamic>>> accessLog() async =>
+      _list(await dio.get<dynamic>('$_f/access-log'));
 }
 
 /// A child install paired through the API only (no UI), for access checks.
