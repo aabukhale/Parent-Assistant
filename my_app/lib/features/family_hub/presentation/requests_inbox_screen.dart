@@ -8,6 +8,7 @@ import '../../kid/presentation/kid_widgets.dart';
 import '../application/hub_actions.dart';
 import '../application/hub_providers.dart';
 import '../data/hub_models.dart';
+import '../../safety/presentation/parent_safety_screen.dart';
 import 'hub_widgets.dart';
 
 /// One inbox for everything waiting on a parent: finished tasks and
@@ -392,8 +393,69 @@ class _InboxItemCardState extends ConsumerState<InboxItemCard> {
     return ok ? minutes : null;
   }
 
+  /// Help requests, "pick me up / call me" and late check-ins: shown first,
+  /// in red, with one action — open the Safety screen (map, call, reply).
+  Widget? _urgent(BuildContext context) {
+    final l = context.l10n;
+    final name = item.childName ?? '';
+    final String? text = switch (item.kind) {
+      'help_alert' => l.inboxHelpAlert(name),
+      'safety_checkin' =>
+        item.detail['checkin_kind'] == 'call_me'
+            ? l.inboxCallMe(name)
+            : l.inboxPickMeUp(name),
+      'journey_overdue' => l.inboxJourneyOverdue(name, item.title),
+      _ => null,
+    };
+    if (text == null) return null;
+    return AppCard(
+      tone: AppTone.danger,
+      onTap: () => Navigator.of(context).push(
+        MaterialPageRoute<void>(builder: (_) => const ParentSafetyScreen()),
+      ),
+      semanticLabel: text,
+      child: Row(
+        children: [
+          Icon(
+            item.kind == 'help_alert'
+                ? Icons.sos_rounded
+                : Icons.priority_high_rounded,
+            color: context.mamily.danger.foreground,
+            size: 32,
+          ),
+          const SizedBox(width: AppSpacing.md),
+          Expanded(
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text(text, style: context.type.titleMedium),
+                if (item.createdAt != null)
+                  Text(
+                    relativeTime(context, item.createdAt!),
+                    style: context.type.bodySmall,
+                  ),
+              ],
+            ),
+          ),
+          Text(
+            l.inboxOpenSafety,
+            style: context.type.labelLarge?.copyWith(
+              color: context.mamily.danger.foreground,
+            ),
+          ),
+          Icon(
+            Icons.chevron_right_rounded,
+            color: context.mamily.danger.foreground,
+          ),
+        ],
+      ),
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
+    final urgent = _urgent(context);
+    if (urgent != null) return urgent;
     final l = context.l10n;
     final c = context.mamily;
     final (kindLabel, icon, tone) = _kind(l);

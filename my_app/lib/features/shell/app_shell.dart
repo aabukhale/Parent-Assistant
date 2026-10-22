@@ -20,6 +20,9 @@ import '../family_hub/presentation/today_screen.dart';
 import '../notifications/application/notifications_controller.dart';
 import '../notifications/presentation/inbox_screen.dart';
 import '../notifications/push/push_service.dart';
+import '../remote/presentation/parent_remote_screen.dart';
+import '../safety/presentation/family_map_screen.dart';
+import '../safety/presentation/parent_safety_screen.dart';
 import '../surfaces/surface_sync.dart';
 import '../tasks/presentation/task_detail_screen.dart';
 
@@ -93,6 +96,12 @@ class _AppShellState extends ConsumerState<AppShell> {
         push(const PlannerScreen());
       case 'recap':
         push(const RecapScreen());
+      case 'safety':
+        push(const ParentSafetyScreen());
+      case 'family-map':
+        push(const FamilyMapScreen());
+      case 'remote' when s.length >= 3:
+        push(ParentRemoteScreen(sessionId: s[2]));
       case 'challenges' when s.length >= 3:
         push(ChallengeDetailScreen(challengeId: s[2]));
       case 'challenges':

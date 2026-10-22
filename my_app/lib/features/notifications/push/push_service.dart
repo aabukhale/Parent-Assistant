@@ -39,6 +39,9 @@ const _channels = <String, String>{
   'screen_time': 'Screen time',
   'planner': 'Family planner',
   'devices': 'Devices',
+  'safety': 'Safety and help (urgent)',
+  'location': 'Arrivals and check-ins',
+  'remote': 'Help and call requests',
 };
 
 /// Push notifications via FCM (Android + iOS/APNs through Firebase), with
@@ -126,7 +129,9 @@ class PushService {
           AndroidNotificationChannel(
             'mamily_${e.key}',
             e.value,
-            importance: Importance.high,
+            // Urgent alerts use the highest importance; Do Not Disturb still
+            // applies unless the person allows this channel to override it.
+            importance: e.key == 'safety' ? Importance.max : Importance.high,
           ),
         );
       }
@@ -219,6 +224,14 @@ class PushService {
   }
 
   Future<void> _onForegroundMessage(RemoteMessage m) async {
+    // Data-only "something changed" signals: re-read state from the API.
+    // A push is only a hint — nothing is assumed applied until the phone
+    // reports it.
+    final signal = m.data['signal'] as String?;
+    if (signal != null) {
+      onSignal?.call(signal);
+      return;
+    }
     _ref.invalidate(unreadCountProvider);
     final n = m.notification;
     if (n == null) return;
@@ -241,6 +254,10 @@ class PushService {
       payload: m.data['route'] as String?,
     );
   }
+
+  /// Set by the child shell: 'sync_rules' → device rules sync,
+  /// 'remote_session' → remote-session refresh.
+  void Function(String signal)? onSignal;
 
   void _stashRoute(String? route) {
     if (route == null || route.isEmpty) return;

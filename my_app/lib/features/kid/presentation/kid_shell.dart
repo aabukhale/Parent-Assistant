@@ -6,6 +6,7 @@ import '../../../core/design_system.dart';
 import '../../../core/localization/l10n.dart';
 import '../../notifications/application/notifications_controller.dart';
 import '../../notifications/presentation/inbox_screen.dart';
+import '../../notifications/push/push_service.dart';
 import '../application/kid_providers.dart';
 import '../data/kid_models.dart';
 import '../data/kid_repository.dart';
@@ -49,6 +50,14 @@ class _KidShellState extends ConsumerState<KidShell> {
         _backgroundWork();
       },
     );
+    ref.read(pushServiceProvider).onSignal = (signal) {
+      switch (signal) {
+        case 'sync_rules':
+          ref.read(deviceRulesSyncProvider).sync();
+        case 'remote_session':
+          ref.read(kidRemoteProvider.notifier).refresh();
+      }
+    };
     WidgetsBinding.instance.addPostFrameCallback((_) {
       DeepLinks.consumePending(ref);
       _backgroundWork();
