@@ -312,13 +312,16 @@ class PolicyEngine(private val ctx: Context) {
         val open = mutableMapOf<String, Long>()
         val out = mutableListOf<Map<String, Any?>>()
         val e = UsageEvents.Event()
-        // Same definition of "screen time" as enforcement: calls, messages,
-        // settings, the home screen and Mamily itself don't count.
+        // Same definition of "screen time" as enforcement: only apps the
+        // child can open from the launcher, minus calls, messages, settings,
+        // the home screen and Mamily itself. System dialogs (permission
+        // prompts, installers) never count.
         val skip = essentialPackages()
+        val counted = launchablePackages()
         while (events.hasNextEvent()) {
             events.getNextEvent(e)
             val pkg = e.packageName ?: continue
-            if (pkg in skip) continue
+            if (pkg in skip || pkg !in counted) continue
             when (e.eventType) {
                 UsageEvents.Event.ACTIVITY_RESUMED -> open.putIfAbsent(pkg, e.timeStamp)
                 UsageEvents.Event.ACTIVITY_PAUSED, UsageEvents.Event.ACTIVITY_STOPPED -> {
@@ -523,8 +526,12 @@ class PolicyEngine(private val ctx: Context) {
             (ctx.getSystemService(Context.TELECOM_SERVICE) as TelecomManager).defaultDialerPackage?.let { out += it }
         } catch (_: Exception) {}
         Telephony.Sms.getDefaultSmsPackage(ctx)?.let { out += it }
+        // Every home app, not just "the" default: with flags 0 the resolver
+        // can answer with the system chooser instead of the launcher.
         val home = Intent(Intent.ACTION_MAIN).addCategory(Intent.CATEGORY_HOME)
-        pm.resolveActivity(home, 0)?.activityInfo?.packageName?.let { out += it }
+        @Suppress("DEPRECATION")
+        pm.queryIntentActivities(home, PackageManager.MATCH_DEFAULT_ONLY)
+            .mapNotNullTo(out) { it.activityInfo?.packageName }
         return out
     }
 
