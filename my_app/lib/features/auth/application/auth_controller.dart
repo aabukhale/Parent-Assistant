@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import '../../../core/errors/api_exception.dart';
@@ -68,9 +70,28 @@ class AuthController extends Notifier<AuthState> {
           phase: AuthPhase.unauthenticated,
           hasParkedChild: parked,
         );
+      } else if (kind == ChildAuthRepository.sessionKind &&
+          (e.kind == ApiErrorKind.network || e.kind == ApiErrorKind.timeout) &&
+          await _offlineChildSession()) {
+        // Opened offline: the child app works from its caches, help/call
+        // numbers stay reachable, and the phone keeps enforcing its rules.
       } else {
         state = AuthState(phase: AuthPhase.restoreFailed, restoreError: e);
       }
+    }
+  }
+
+  Future<bool> _offlineChildSession() async {
+    final cached = await _storage.readChildSessionCache();
+    if (cached == null) return false;
+    try {
+      _applyChildSession(
+        ChildSession.fromJson(jsonDecode(cached) as Map<String, dynamic>),
+        hasParkedChild: false,
+      );
+      return true;
+    } catch (_) {
+      return false;
     }
   }
 
@@ -208,6 +229,7 @@ class AuthController extends Notifier<AuthState> {
     }
     final deviceId = session.deviceId;
     if (deviceId != null) _storage.writeChildDeviceId(deviceId);
+    _storage.writeChildSessionCache(jsonEncode(session.toJson()));
     state = AuthState(
       phase: AuthPhase.authenticated,
       childSession: session,

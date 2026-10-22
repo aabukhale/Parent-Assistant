@@ -136,6 +136,8 @@ class PolicyEngine(private val ctx: Context) {
         val allowanceToday = allowanceMinutes(policy, now)
 
         val target = mutableSetOf<String>()
+        // Earliest moment a limit could run out with continuous use → next check.
+        var soonestRunOutMs = Long.MAX_VALUE
         target += blocked
         if (blockListedScheduleActive(policy, now)) target += blocked
         if (restrictAll) target += (launchable - allowed)
@@ -149,18 +151,21 @@ class PolicyEngine(private val ctx: Context) {
                 val app = l.optJSONObject("app")
                 if (app != null && app.optString("platform") == "android") {
                     val pkg = app.optString("id")
-                    if ((usage[pkg] ?: 0L) >= minutes * 60_000L) target += pkg
+                    val left = minutes * 60_000L - (usage[pkg] ?: 0L)
+                    if (left <= 0) target += pkg else soonestRunOutMs = minOf(soonestRunOutMs, left)
                 } else if (l.has("category")) {
                     val cat = l.optString("category")
                     val members = launchable.filter { categoryOf(it) == cat }
                     val used = members.sumOf { usage[it] ?: 0L }
-                    if (used >= minutes * 60_000L) target += members
+                    val left = minutes * 60_000L - used
+                    if (left <= 0) target += members else soonestRunOutMs = minOf(soonestRunOutMs, left)
                 }
             }
             // Total daily allowance (+ approved extra time).
             if (allowanceToday != null) {
                 val total = launchable.filter { it !in essentials && it !in allowed }.sumOf { usage[it] ?: 0L }
-                if (total >= allowanceToday * 60_000L) target += (launchable - allowed)
+                val left = allowanceToday * 60_000L - total
+                if (left <= 0) target += (launchable - allowed) else soonestRunOutMs = minOf(soonestRunOutMs, left)
             }
         } else if (limitsInPlay > 0 || allowanceToday != null) {
             results += mapOf("rule" to "app_limits", "state" to "permission_needed")
@@ -189,7 +194,10 @@ class PolicyEngine(private val ctx: Context) {
         if (web != null) results += web
 
         prefs.edit().putInt(KEY_APPLIED_VERSION, version).putLong(KEY_EVALUATED_AT, System.currentTimeMillis()).apply()
-        scheduleNext(policy, now, usage != null && (limitsInPlay > 0 || allowanceToday != null))
+        scheduleNext(
+            policy, now, usage != null && (limitsInPlay > 0 || allowanceToday != null),
+            if (soonestRunOutMs == Long.MAX_VALUE) null else soonestRunOutMs,
+        )
 
         android.util.Log.i(
             "MamilyRules",
@@ -290,14 +298,20 @@ class PolicyEngine(private val ctx: Context) {
         if (!hasUsageAccess()) return emptyList()
         val usm = ctx.getSystemService(Context.USAGE_STATS_SERVICE) as UsageStatsManager
         val now = System.currentTimeMillis()
-        val events = usm.queryEvents(maxOf(fromMs, now - 2 * 86_400_000L), now)
+        // Re-read a few hours before the last upload so a session that was
+        // still open then is captured whole; the server ignores duplicates
+        // (client_event_id = package + start time).
+        val events = usm.queryEvents(maxOf(fromMs - 6 * 3_600_000L, now - 2 * 86_400_000L), now)
         val open = mutableMapOf<String, Long>()
         val out = mutableListOf<Map<String, Any?>>()
         val e = UsageEvents.Event()
+        // Same definition of "screen time" as enforcement: calls, messages,
+        // settings, the home screen and Mamily itself don't count.
+        val skip = essentialPackages()
         while (events.hasNextEvent()) {
             events.getNextEvent(e)
             val pkg = e.packageName ?: continue
-            if (pkg == ctx.packageName) continue
+            if (pkg in skip) continue
             when (e.eventType) {
                 UsageEvents.Event.ACTIVITY_RESUMED -> open.putIfAbsent(pkg, e.timeStamp)
                 UsageEvents.Event.ACTIVITY_PAUSED, UsageEvents.Event.ACTIVITY_STOPPED -> {
@@ -334,11 +348,33 @@ class PolicyEngine(private val ctx: Context) {
         )
     }
 
+    /**
+     * Foreground time per app since local midnight, from raw usage events so
+     * the app that is open *right now* counts too (aggregated stats only add a
+     * session once it ends, so a child staying in one app would never hit the
+     * limit).
+     */
     private fun usageToday(now: ZonedDateTime): Map<String, Long> {
         val usm = ctx.getSystemService(Context.USAGE_STATS_SERVICE) as UsageStatsManager
         val start = now.toLocalDate().atStartOfDay(now.zone).toInstant().toEpochMilli()
-        return usm.queryAndAggregateUsageStats(start, System.currentTimeMillis())
-            .mapValues { it.value.totalTimeInForeground }
+        val end = System.currentTimeMillis()
+        val events = usm.queryEvents(start, end)
+        val open = mutableMapOf<String, Long>()
+        val total = mutableMapOf<String, Long>()
+        val e = UsageEvents.Event()
+        while (events.hasNextEvent()) {
+            events.getNextEvent(e)
+            val pkg = e.packageName ?: continue
+            when (e.eventType) {
+                UsageEvents.Event.ACTIVITY_RESUMED -> open.putIfAbsent(pkg, e.timeStamp)
+                UsageEvents.Event.ACTIVITY_PAUSED, UsageEvents.Event.ACTIVITY_STOPPED -> {
+                    val from = open.remove(pkg) ?: continue
+                    total[pkg] = (total[pkg] ?: 0L) + (e.timeStamp - from)
+                }
+            }
+        }
+        for ((pkg, from) in open) total[pkg] = (total[pkg] ?: 0L) + (end - from)
+        return total
     }
 
     // ---- policy evaluation ---------------------------------------------------
@@ -416,7 +452,7 @@ class PolicyEngine(private val ctx: Context) {
 
     // ---- alarms ------------------------------------------------------------
 
-    private fun scheduleNext(p: JSONObject, now: ZonedDateTime, pollUsage: Boolean) {
+    private fun scheduleNext(p: JSONObject, now: ZonedDateTime, pollUsage: Boolean, runOutMs: Long?) {
         val candidates = mutableListOf<ZonedDateTime>()
         candidates += now.toLocalDate().plusDays(1).atStartOfDay(now.zone)
         p.optJSONObject("restrict_now")?.optString("until")?.takeIf { it.isNotEmpty() && it != "null" }?.let {
@@ -435,6 +471,9 @@ class PolicyEngine(private val ctx: Context) {
             }
         }
         if (pollUsage) candidates += now.plusMinutes(5)
+        // Usage only grows while an app is open, so this is the earliest a
+        // limit can be reached; check again right then (plus 5 s).
+        if (runOutMs != null) candidates += now.plusNanos((runOutMs + 5_000L) * 1_000_000L)
         val next = candidates.filter { it.isAfter(now) }.minOrNull() ?: return
         val am = ctx.getSystemService(Context.ALARM_SERVICE) as AlarmManager
         val at = next.toInstant().toEpochMilli() + 1_000

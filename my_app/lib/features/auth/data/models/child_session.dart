@@ -36,6 +36,24 @@ class ChildSession {
 
   bool can(String ability) => abilities.contains(ability);
 
+  /// Same shape as the API payload, so [fromJson] can read it back (used
+  /// to open the child app offline with the last known session).
+  Map<String, dynamic> toJson() => {
+    'child': {
+      'id': childId,
+      'name': name,
+      'age': age,
+      'avatar_key': avatarKey,
+      'avatar_color': avatarColor,
+      'preferred_language': preferredLanguage,
+    },
+    'family': {'id': familyId, 'name': familyName, 'timezone': timezone},
+    'device': deviceId == null
+        ? null
+        : {'id': deviceId, 'device_mode': deviceMode},
+    'abilities': abilities,
+  };
+
   factory ChildSession.fromJson(Map<String, dynamic> json) {
     final child = (json['child'] as Map?)?.cast<String, dynamic>() ?? const {};
     final family =

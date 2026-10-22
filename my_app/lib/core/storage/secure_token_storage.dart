@@ -29,6 +29,7 @@ class SecureTokenStorage {
   static const _childSlotKey = 'mamily.child.parked_token';
   static const _celebrationsKey = 'mamily.ui.celebrations';
   static const _childDeviceKey = 'mamily.child.device_id';
+  static const _childSessionCacheKey = 'mamily.child.session_cache';
 
   Future<String?> readToken() => _storage.read(key: _tokenKey);
 
@@ -108,6 +109,14 @@ class SecureTokenStorage {
 
   Future<void> deleteChildDeviceId() => _storage.delete(key: _childDeviceKey);
 
+  /// Last known child session (names, ids — no secrets), so a child phone
+  /// opens offline. Cleared with the session.
+  Future<String?> readChildSessionCache() =>
+      _storage.read(key: _childSessionCacheKey);
+
+  Future<void> writeChildSessionCache(String json) =>
+      _storage.write(key: _childSessionCacheKey, value: json);
+
   /// Wipe the auth token, session kind and family selection. Called on logout
   /// and on a hard 401. The UI locale preference, the install id and a parked
   /// child session are intentionally kept (see [clearEverything]).
@@ -115,6 +124,7 @@ class SecureTokenStorage {
     await _storage.delete(key: _tokenKey);
     await _storage.delete(key: _sessionKindKey);
     await _storage.delete(key: _activeFamilyKey);
+    await _storage.delete(key: _childSessionCacheKey);
   }
 
   /// Full sign-out of this install: also forgets a parked child session.

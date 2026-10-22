@@ -35,6 +35,14 @@ class FakeSecureTokenStorage implements SecureTokenStorage {
 
   bool _celebrations = true;
   String? _childDevice;
+  String? _childSessionCache;
+
+  @override
+  Future<String?> readChildSessionCache() async => _childSessionCache;
+
+  @override
+  Future<void> writeChildSessionCache(String json) async =>
+      _childSessionCache = json;
 
   @override
   Future<String?> readChildDeviceId() async => _childDevice;

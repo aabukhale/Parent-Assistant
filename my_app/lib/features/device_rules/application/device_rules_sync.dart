@@ -9,6 +9,7 @@ import '../../../core/errors/api_exception.dart';
 import '../../../core/providers.dart';
 import '../../../core/util/client_id.dart';
 import '../../auth/application/auth_controller.dart';
+import '../../kid/application/kid_providers.dart';
 import 'native_enforcement.dart';
 
 /// Child device: keeps the phone's enforcement in step with the parent's
@@ -25,7 +26,17 @@ import 'native_enforcement.dart';
 /// native layer says so. The cached policy lets enforcement keep working
 /// (and expiring exceptions keep expiring) without connectivity.
 class DeviceRulesSync {
-  DeviceRulesSync(this._client, this._cache, this._scope, this._native);
+  DeviceRulesSync(
+    this._client,
+    this._cache,
+    this._scope,
+    this._native, {
+    this.onUsageUploaded,
+  });
+
+  /// Lets the child's screen-time view refresh once fresh usage is on the
+  /// server (otherwise "minutes left" lags behind what the phone enforces).
+  final void Function()? onUsageUploaded;
 
   final ApiClient _client;
   final OfflineCache _cache;
@@ -199,6 +210,7 @@ final deviceRulesSyncProvider = Provider<DeviceRulesSync>((ref) {
     ref.watch(offlineCacheProvider),
     'child_$childId',
     ref.watch(nativeEnforcementProvider),
+    onUsageUploaded: () => ref.invalidate(kidScreenTimeProvider),
   );
   ref.onDispose(sync.stop);
   return sync;
