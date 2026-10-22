@@ -49,6 +49,10 @@ class CallEngine extends ChangeNotifier {
   Future<void> start() async {
     await localRenderer.initialize();
     await remoteRenderer.initialize();
+    // Keep the session alive while the OS permission prompt is open: a
+    // child reading it for a minute must not hit the server idle timeout.
+    // Signals stay unread until the peer connection exists.
+    _poll = Timer.periodic(const Duration(milliseconds: 800), (_) => _tick());
     try {
       _local = await navigator.mediaDevices.getUserMedia({
         'audio': true,
@@ -59,22 +63,27 @@ class CallEngine extends ChangeNotifier {
       await hangUp();
       return;
     }
+    if (_disposed || phase == CallPhase.ended) {
+      // The other side hung up while the permission prompt was open.
+      await _stopMedia();
+      return;
+    }
     cameraOn = video;
     localRenderer.srcObject = _local;
 
+    final RTCPeerConnection pc;
     try {
       final ice = await repo.ice(sessionId);
       relayConfigured = ice.relayConfigured;
-      _pc = await createPeerConnection({
+      pc = await createPeerConnection({
         'iceServers': ice.servers,
         'sdpSemantics': 'unified-plan',
       });
     } catch (_) {
       _set(CallPhase.failed);
-      await _stopMedia();
+      await hangUp();
       return;
     }
-    final pc = _pc!;
     for (final t in _local!.getTracks()) {
       await pc.addTrack(t, _local!);
     }
@@ -96,6 +105,8 @@ class CallEngine extends ChangeNotifier {
       }
     };
 
+    // Only now may the poll loop hand signals to the connection.
+    _pc = pc;
     _set(CallPhase.connecting);
     if (isOfferer) {
       final offer = await pc.createOffer();
@@ -105,7 +116,6 @@ class CallEngine extends ChangeNotifier {
         'type': offer.type,
       });
     }
-    _poll = Timer.periodic(const Duration(milliseconds: 800), (_) => _tick());
   }
 
   bool _ticking = false;
@@ -122,6 +132,7 @@ class CallEngine extends ChangeNotifier {
         await _finish();
         return;
       }
+      if (_pc == null) return;
       for (final s in r.signals) {
         _after = s.id;
         try {

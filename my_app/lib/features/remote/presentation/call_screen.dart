@@ -97,6 +97,24 @@ class _CallScreenState extends State<CallScreen> {
                     color: Colors.white.withValues(alpha: 0.6),
                   ),
                 ),
+              // Bright video must not wash out the name, status and button
+              // labels: dark scrims behind the top and bottom overlays.
+              if (widget.session.isVideo) ...[
+                const Positioned(
+                  top: 0,
+                  left: 0,
+                  right: 0,
+                  height: 200,
+                  child: _Scrim(begin: Alignment.topCenter),
+                ),
+                const Positioned(
+                  bottom: 0,
+                  left: 0,
+                  right: 0,
+                  height: 220,
+                  child: _Scrim(begin: Alignment.bottomCenter),
+                ),
+              ],
               Positioned(
                 top: AppSpacing.lg,
                 left: AppSpacing.lg,
@@ -257,5 +275,24 @@ class _RoundButton extends StatelessWidget {
       const SizedBox(height: AppSpacing.xs),
       Text(label, style: const TextStyle(color: Colors.white, fontSize: 13)),
     ],
+  );
+}
+
+class _Scrim extends StatelessWidget {
+  const _Scrim({required this.begin});
+
+  final Alignment begin;
+
+  @override
+  Widget build(BuildContext context) => IgnorePointer(
+    child: DecoratedBox(
+      decoration: BoxDecoration(
+        gradient: LinearGradient(
+          begin: begin,
+          end: -begin,
+          colors: const [Color(0xB3000000), Color(0x00000000)],
+        ),
+      ),
+    ),
   );
 }
