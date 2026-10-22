@@ -373,11 +373,47 @@ class _ChildHubScreenState extends ConsumerState<ChildHubScreen> {
                         onTap: () => _open(const DevelopmentReportScreen()),
                       ),
                     ];
-                    return Wrap(
-                      spacing: AppSpacing.md,
-                      runSpacing: AppSpacing.md,
+                    // Grouped so the safety tools aren't lost among
+                    // eighteen equal tiles.
+                    final sections = [
+                      (l.hubSectionSafety, [0, 1, 2, 3, 14, 15, 16]),
+                      (l.hubSectionDaily, [6, 7, 8, 9, 10]),
+                      (l.hubSectionWellbeing, [11, 12, 13]),
+                      (l.hubSectionMore, [4, 5, 17]),
+                    ];
+                    assert(
+                      sections.expand((x) => x.$2).toSet().length ==
+                          tiles.length,
+                      'every hub tile belongs to exactly one section',
+                    );
+                    return Column(
+                      crossAxisAlignment: CrossAxisAlignment.stretch,
                       children: [
-                        for (final t in tiles) SizedBox(width: w, child: t),
+                        for (final (title, items) in sections) ...[
+                          Padding(
+                            padding: const EdgeInsets.only(
+                              top: AppSpacing.md,
+                              bottom: AppSpacing.sm,
+                            ),
+                            child: Semantics(
+                              header: true,
+                              child: Text(
+                                title,
+                                style: context.type.titleSmall?.copyWith(
+                                  color: context.mamily.ink2,
+                                ),
+                              ),
+                            ),
+                          ),
+                          Wrap(
+                            spacing: AppSpacing.md,
+                            runSpacing: AppSpacing.md,
+                            children: [
+                              for (final i in items)
+                                SizedBox(width: w, child: tiles[i]),
+                            ],
+                          ),
+                        ],
                       ],
                     );
                   },
