@@ -68,7 +68,9 @@ class LocationReporter {
         LocationPermission.always => 'always',
         LocationPermission.whileInUse => 'while_in_use',
         LocationPermission.deniedForever => 'denied',
-        LocationPermission.denied => 'not_determined',
+        // Android can't tell "never asked" from "refused/revoked": either
+        // way this phone isn't sharing, so the parent sees "permission off".
+        LocationPermission.denied => 'denied',
         LocationPermission.unableToDetermine => 'not_determined',
       };
     } catch (_) {
@@ -187,7 +189,17 @@ class LocationReporter {
   /// Compare a fix with the safe places and send arrive/leave transitions.
   /// Fixes less accurate than the place radius are ignored to avoid false
   /// "left home" alerts.
-  Future<void> _evaluatePlaces(GeoPoint fix, DateTime at) async {
+  Future<void> _evaluatePlaces(GeoPoint fix, DateTime at) {
+    // One at a time: two fixes arriving together must not both report the
+    // same arrival.
+    final run = _placeChain.then((_) => _evaluatePlacesNow(fix, at));
+    _placeChain = run.catchError((_) {});
+    return run;
+  }
+
+  Future<void> _placeChain = Future.value();
+
+  Future<void> _evaluatePlacesNow(GeoPoint fix, DateTime at) async {
     if (_places.isEmpty) return;
     final inside = await _loadInside();
     final next = <String>{};
