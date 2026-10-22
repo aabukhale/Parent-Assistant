@@ -194,6 +194,8 @@ class AccountScreen extends ConsumerWidget {
     FamilyRole.caregiver => l.profileRoleCaregiver,
   };
 
+  static const _endonyms = {'ar': 'العربية', 'he': 'עברית', 'en': 'English'};
+
   String _languageName(AppLocalizations l, Locale locale) =>
       switch (locale.languageCode) {
         'ar' => l.languageArabic,
@@ -214,7 +216,15 @@ class AccountScreen extends ConsumerWidget {
           children: [
             for (final loc in AppLocales.supported)
               ListTile(
-                title: Text(_languageName(l, loc)),
+                // Each language in its own script, so someone who landed in
+                // a language they can't read can still find theirs.
+                title: Text(
+                  _endonyms[loc.languageCode] ?? loc.languageCode,
+                  textDirection: loc.languageCode == 'en'
+                      ? TextDirection.ltr
+                      : TextDirection.rtl,
+                ),
+                subtitle: Text(_languageName(l, loc)),
                 trailing: loc.languageCode == current.languageCode
                     ? const Icon(Icons.check_rounded)
                     : null,
