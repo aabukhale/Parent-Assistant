@@ -515,10 +515,13 @@ class _RoutineFormScreenState extends ConsumerState<RoutineFormScreen> {
               ],
             ),
           ),
-          onReorderItem: (from, to) => setState(() {
-            final item = _steps.removeAt(from);
-            _steps.insert(to, item);
-          }),
+          onReorder: (from, to) {
+            final newIndex = to > from ? to - 1 : to;
+            setState(() {
+              final item = _steps.removeAt(from);
+              _steps.insert(newIndex, item);
+            });
+          },
           children: [
             for (var i = 0; i < _steps.length; i++)
               Padding(

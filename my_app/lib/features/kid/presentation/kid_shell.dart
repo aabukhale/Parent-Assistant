@@ -59,10 +59,16 @@ class _KidShellState extends ConsumerState<KidShell> {
       }
     };
     WidgetsBinding.instance.addPostFrameCallback((_) {
-      DeepLinks.consumePending(ref);
-      _backgroundWork();
-      ref.read(deviceRulesSyncProvider).startPeriodic();
-    });
+    if (!mounted) return;
+
+    DeepLinks.consumePending(ref);
+
+    // Register the child's FCM token after login.
+    ref.read(pushServiceProvider).registerCurrentSession();
+
+    _backgroundWork();
+    ref.read(deviceRulesSyncProvider).startPeriodic();
+  });
   }
 
   /// Rules sync, location (only if shared) and the one-time explanation

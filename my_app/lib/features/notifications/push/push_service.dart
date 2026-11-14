@@ -111,6 +111,11 @@ class PushService {
             requestAlertPermission: false,
             requestBadgePermission: false,
             requestSoundPermission: false,
+            defaultPresentAlert: true,
+            defaultPresentBanner: true,
+            defaultPresentList: true,
+            defaultPresentSound: true,
+            defaultPresentBadge: true,
           ),
         ),
         onDidReceiveNotificationResponse: (r) => _openRoute(r.payload),
@@ -165,8 +170,25 @@ class PushService {
           .resolvePlatformSpecificImplementation<
             AndroidFlutterLocalNotificationsPlugin
           >();
-      if (android == null) return true;
-      return await android.requestNotificationsPermission() ?? false;
+      if (android != null) {
+        return await android.requestNotificationsPermission() ?? false;
+      }
+
+      final ios = _local
+          .resolvePlatformSpecificImplementation<
+            IOSFlutterLocalNotificationsPlugin
+          >();
+
+      if (ios != null) {
+        return await ios.requestPermissions(
+              alert: true,
+              badge: true,
+              sound: true,
+            ) ??
+            false;
+      }
+
+      return false;
     } catch (_) {
       return false;
     }
@@ -252,6 +274,31 @@ class PushService {
         ),
       ),
       payload: m.data['route'] as String?,
+    );
+  }
+
+  /// Display a newly received inbox item as a local iOS banner.
+  Future<void> showLocalInboxNotification({
+    required String id,
+    required String title,
+    required String body,
+    String? route,
+  }) async {
+    if (defaultTargetPlatform != TargetPlatform.iOS) return;
+
+    await _local.show(
+      id: id.hashCode & 0x7fffffff,
+      title: title,
+      body: body,
+      notificationDetails: const NotificationDetails(
+        iOS: DarwinNotificationDetails(
+          presentAlert: true,
+          presentBanner: true,
+          presentList: true,
+          presentSound: true,
+        ),
+      ),
+      payload: route,
     );
   }
 

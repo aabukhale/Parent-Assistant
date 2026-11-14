@@ -683,7 +683,7 @@ class _ScreenTimeStatus extends ConsumerWidget {
       headline = null;
       icon = Icons.timer_rounded;
     }
-    if (headline == null && pending == null) return const SizedBox.shrink();
+    // Keep the extra-time request action visible even without a screen-time limit.
 
     return Padding(
       padding: const EdgeInsets.only(bottom: AppSpacing.lg),

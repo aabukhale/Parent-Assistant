@@ -1,5 +1,6 @@
 import 'dart:async';
 
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
@@ -19,6 +20,7 @@ import '../family_hub/presentation/requests_inbox_screen.dart';
 import '../family_hub/presentation/today_screen.dart';
 import '../notifications/application/notifications_controller.dart';
 import '../notifications/presentation/inbox_screen.dart';
+import '../notifications/data/notifications_repository.dart';
 import '../notifications/push/push_service.dart';
 import '../remote/presentation/parent_remote_screen.dart';
 import '../safety/presentation/family_map_screen.dart';
@@ -40,13 +42,103 @@ class AppShell extends ConsumerStatefulWidget {
 
 class _AppShellState extends ConsumerState<AppShell> {
   late final AppLifecycleListener _lifecycle;
+  Timer? _notificationTimer;
+  final Set<String> _seenNotificationIds = {};
+  bool _notificationsInitialized = false;
+  bool _checkingNotifications = false;
+
+  Future<void> _checkNewNotifications() async {
+    if (defaultTargetPlatform != TargetPlatform.iOS) return;
+    if (_checkingNotifications || !mounted) return;
+
+    _checkingNotifications = true;
+
+    try {
+      final result = await ref.read(notificationsRepositoryProvider).page();
+
+      if (!mounted) return;
+
+      final notifications = result.items;
+
+      if (!_notificationsInitialized) {
+        _seenNotificationIds.addAll(notifications.map((n) => n.id));
+        _notificationsInitialized = true;
+        return;
+      }
+
+      final newNotifications = notifications
+          .where((n) => !_seenNotificationIds.contains(n.id))
+          .toList();
+
+      _seenNotificationIds.addAll(notifications.map((n) => n.id));
+
+      for (final notification in newNotifications.reversed) {
+        await ref.read(pushServiceProvider).showLocalInboxNotification(
+          id: notification.id,
+          title: notification.title,
+          body: notification.body,
+          route: notification.route,
+        );
+      }
+    } catch (e) {
+      debugPrint('Inbox notification polling failed: ${e.runtimeType}');
+    } finally {
+      _checkingNotifications = false;
+    }
+  }
+
+  void _startNotificationPolling() {
+    _notificationTimer?.cancel();
+    _notificationTimer = Timer.periodic(
+      const Duration(seconds: 15),
+      (_) => _refreshNotifications(),
+    );
+  }
+
+  void _stopNotificationPolling() {
+    _notificationTimer?.cancel();
+    _notificationTimer = null;
+  }
+
+  void _refreshNotifications() {
+    if (!mounted) return;
+
+    unawaited(_checkNewNotifications());
+
+    ref.invalidate(familyInboxProvider(null));
+    ref.invalidate(unreadCountProvider);
+
+    // Refresh the inbox only when its provider is being observed.
+    if (ref.exists(inboxControllerProvider)) {
+      ref.invalidate(inboxControllerProvider);
+    }
+  }
 
   @override
   void initState() {
     super.initState();
     DeepLinks.parentOpener = _openParentRoute;
-    _lifecycle = AppLifecycleListener(onResume: _refreshAll);
+    _lifecycle = AppLifecycleListener(
+      onResume: () {
+        _refreshAll();
+        _refreshNotifications();
+        _startNotificationPolling();
+      },
+      onPause: _stopNotificationPolling,
+      onHide: _stopNotificationPolling,
+    );
+    _startNotificationPolling();
     WidgetsBinding.instance.addPostFrameCallback((_) async {
+      await _checkNewNotifications();
+      if (!mounted) return;
+
+      if (defaultTargetPlatform == TargetPlatform.iOS) {
+        await ref
+            .read(pushServiceProvider)
+            .requestLocalNotificationPermission();
+      }
+
+      if (!mounted) return;
       await DeepLinks.consumePending(ref);
       await ref.read(pushServiceProvider).registerCurrentSession();
       await ref.read(surfaceSyncProvider).refresh();
@@ -55,6 +147,7 @@ class _AppShellState extends ConsumerState<AppShell> {
 
   @override
   void dispose() {
+    _stopNotificationPolling();
     _lifecycle.dispose();
     if (DeepLinks.parentOpener == _openParentRoute) {
       DeepLinks.parentOpener = null;

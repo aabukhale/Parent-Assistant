@@ -47,7 +47,13 @@ Future<void> askForMoreTime(BuildContext context, WidgetRef ref) async {
     ),
   );
   final why = reason.text.trim();
-  reason.dispose();
+
+  // Let the bottom-sheet closing animation finish before disposal.
+  Future<void>.delayed(
+    const Duration(milliseconds: 400),
+    reason.dispose,
+  );
+
   if (!ok || !context.mounted) return;
   try {
     await ref
