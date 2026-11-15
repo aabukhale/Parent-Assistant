@@ -44,6 +44,48 @@ const _channels = <String, String>{
   'remote': 'Help and call requests',
 };
 
+/// The parts of Firebase Messaging the app uses. A seam so the token
+/// lifecycle (permission → APNs → FCM token → backend, logout cleanup) can be
+/// tested without Firebase.
+abstract class PushMessaging {
+  Future<AuthorizationStatus> authorizationStatus();
+  Future<AuthorizationStatus> requestPermission();
+
+  /// iOS only: the APNs device token. FCM cannot issue a token before iOS
+  /// has handed one to the app (needs the aps-environment entitlement and a
+  /// provisioning profile with Push Notifications).
+  Future<String?> apnsToken();
+  Future<String?> token();
+  Future<void> deleteToken();
+  Stream<String> get onTokenRefresh;
+}
+
+class FirebasePushMessaging implements PushMessaging {
+  const FirebasePushMessaging();
+
+  FirebaseMessaging get _m => FirebaseMessaging.instance;
+
+  @override
+  Future<AuthorizationStatus> authorizationStatus() async =>
+      (await _m.getNotificationSettings()).authorizationStatus;
+
+  @override
+  Future<AuthorizationStatus> requestPermission() async =>
+      (await _m.requestPermission()).authorizationStatus;
+
+  @override
+  Future<String?> apnsToken() => _m.getAPNSToken();
+
+  @override
+  Future<String?> token() => _m.getToken();
+
+  @override
+  Future<void> deleteToken() => _m.deleteToken();
+
+  @override
+  Stream<String> get onTokenRefresh => _m.onTokenRefresh;
+}
+
 /// Push notifications via FCM (Android + iOS/APNs through Firebase), with
 /// local notifications for foreground display.
 ///
@@ -54,18 +96,46 @@ const _channels = <String, String>{
 /// * Tapping a notification goes through the role-checked [DeepLinks] router
 ///   (foreground, background and terminated launches).
 class PushService {
-  PushService(this._ref);
+  PushService(this._ref)
+    : _messaging = const FirebasePushMessaging(),
+      _platformOverride = null;
+
+  /// Tests: Firebase is "ready" with [messaging] standing in for it.
+  @visibleForTesting
+  PushService.withMessaging(
+    this._ref,
+    PushMessaging messaging, {
+    TargetPlatform? platform,
+    this.apnsWait = const Duration(milliseconds: 1),
+  }) : _messaging = messaging,
+       _platformOverride = platform,
+       _firebaseReady = true;
 
   final Ref _ref;
+  final PushMessaging _messaging;
+  final TargetPlatform? _platformOverride;
   final _local = FlutterLocalNotificationsPlugin();
   bool _firebaseReady = false;
   StreamSubscription<String>? _tokenSub;
+  Future<void>? _registering;
+
+  /// How long to wait between checks for the iOS APNs token (10 checks).
+  @visibleForTesting
+  Duration apnsWait = const Duration(seconds: 1);
 
   final availability = ValueNotifier<PushAvailability>(
     PushAvailability.notConfigured,
   );
 
+  /// True once this install's token was accepted by the backend for the
+  /// current session, i.e. the server can reach this phone by push. While
+  /// false, the parent shell's inbox polling shows new items as local
+  /// banners instead (foreground only).
+  final delivering = ValueNotifier<bool>(false);
+
   bool get isConfigured => _firebaseReady;
+
+  TargetPlatform get _platform => _platformOverride ?? defaultTargetPlatform;
 
   Future<void> initialize() async {
     await _initLocal();
@@ -73,14 +143,14 @@ class PushService {
       await Firebase.initializeApp();
       _firebaseReady = true;
     } catch (e) {
-      // Missing platform config: push stays off, everything else works.
+      // Missing platform config (e.g. GoogleService-Info.plist not in the
+      // app bundle): push stays off, everything else works.
       debugPrint('Push disabled: Firebase not configured (${e.runtimeType}).');
       availability.value = PushAvailability.notConfigured;
       return;
     }
 
-    final settings = await FirebaseMessaging.instance.getNotificationSettings();
-    availability.value = _map(settings.authorizationStatus);
+    await refreshAvailability();
 
     // iOS: show banners while the app is open too (we also keep the inbox).
     await FirebaseMessaging.instance
@@ -97,9 +167,31 @@ class PushService {
     final initial = await FirebaseMessaging.instance.getInitialMessage();
     if (initial != null) _stashRoute(initial.data['route'] as String?);
 
-    _tokenSub = FirebaseMessaging.instance.onTokenRefresh.listen(
-      (t) => _sendTokenToBackend(t),
-    );
+    listenForTokenRefresh();
+  }
+
+  /// FCM rotates tokens, and on iOS issues the first one only after APNs
+  /// registration completes: every new token goes to the backend.
+  @visibleForTesting
+  void listenForTokenRefresh() {
+    _tokenSub?.cancel();
+    _tokenSub = _messaging.onTokenRefresh.listen((t) {
+      if (availability.value == PushAvailability.granted) {
+        _sendTokenToBackend(t);
+      }
+    });
+  }
+
+  /// Re-read the OS permission. It can change outside this service: in
+  /// Settings, or through another permission prompt (local notifications).
+  Future<PushAvailability> refreshAvailability() async {
+    if (!_firebaseReady) return availability.value;
+    try {
+      availability.value = _map(await _messaging.authorizationStatus());
+    } catch (e) {
+      debugPrint('Push permission unknown: ${e.runtimeType}');
+    }
+    return availability.value;
   }
 
   Future<void> _initLocal() async {
@@ -148,14 +240,19 @@ class PushService {
   /// Ask the OS for permission. Call only after explaining why.
   Future<PushAvailability> requestPermission() async {
     if (!_firebaseReady) return PushAvailability.notConfigured;
-    final s = await FirebaseMessaging.instance.requestPermission();
-    availability.value = _map(s.authorizationStatus);
+    availability.value = _map(await _messaging.requestPermission());
     if (availability.value == PushAvailability.granted) {
-      await _local
-          .resolvePlatformSpecificImplementation<
-            AndroidFlutterLocalNotificationsPlugin
-          >()
-          ?.requestNotificationsPermission();
+      if (_platform == TargetPlatform.android) {
+        try {
+          await _local
+              .resolvePlatformSpecificImplementation<
+                AndroidFlutterLocalNotificationsPlugin
+              >()
+              ?.requestNotificationsPermission();
+        } catch (_) {
+          // Local notifications unavailable: remote pushes still work.
+        }
+      }
       await registerCurrentSession();
     }
     return availability.value;
@@ -194,17 +291,36 @@ class PushService {
     }
   }
 
-  /// Bind this install's FCM token to whoever is signed in now.
-  Future<void> registerCurrentSession() async {
-    if (!_firebaseReady || availability.value != PushAvailability.granted) {
-      return;
-    }
+  /// Bind this install's FCM token to whoever is signed in now. Concurrent
+  /// calls (shell start + permission grant) share one registration.
+  Future<void> registerCurrentSession() =>
+      _registering ??= _register().whenComplete(() => _registering = null);
+
+  Future<void> _register() async {
+    if (!_firebaseReady) return;
+    if (await refreshAvailability() != PushAvailability.granted) return;
     try {
-      final token = await FirebaseMessaging.instance.getToken();
+      if (_platform == TargetPlatform.iOS && !await _waitForApnsToken()) {
+        // No APNs token yet: missing aps-environment entitlement / push
+        // provisioning, or iOS is still registering. onTokenRefresh sends
+        // the FCM token once it exists.
+        debugPrint('Push: APNs token not available yet.');
+        return;
+      }
+      final token = await _messaging.token();
       if (token != null) await _sendTokenToBackend(token);
     } catch (e) {
       debugPrint('Push token unavailable: ${e.runtimeType}');
     }
+  }
+
+  Future<bool> _waitForApnsToken() async {
+    for (var i = 0; i < 10; i++) {
+      final apns = await _messaging.apnsToken();
+      if (apns != null && apns.isNotEmpty) return true;
+      await Future<void>.delayed(apnsWait);
+    }
+    return false;
   }
 
   Future<void> _sendTokenToBackend(String token) async {
@@ -212,6 +328,7 @@ class PushService {
     try {
       if (auth.isChild) {
         await _ref.read(childAuthRepositoryProvider).updatePushToken(token);
+        delivering.value = true;
       } else if (auth.isAuthenticated && auth.activeMembership != null) {
         final installId = await _ref
             .read(secureStorageProvider)
@@ -222,7 +339,7 @@ class PushService {
               auth.activeMembership!.familyId,
               DeviceRegisterInput(
                 name: currentDeviceLabel(),
-                platform: defaultTargetPlatform == TargetPlatform.iOS
+                platform: _platform == TargetPlatform.iOS
                     ? DevicePlatform.ios
                     : DevicePlatform.android,
                 deviceMode: DeviceMode.familyShared,
@@ -230,6 +347,7 @@ class PushService {
                 pushToken: token,
               ),
             );
+        delivering.value = true;
       }
     } catch (e) {
       debugPrint('Push token registration failed: ${e.runtimeType}');
@@ -238,10 +356,16 @@ class PushService {
 
   /// Logout / revoke: stop pushes to this install immediately (the backend
   /// also clears its copy) and remove anything already shown.
+  /// The next session gets a fresh token, so nothing addressed to the
+  /// previous person can arrive (the backend also drops a token as soon as
+  /// another device row claims it).
   Future<void> onSessionEnded() async {
+    delivering.value = false;
     try {
       await _local.cancelAll();
-      if (_firebaseReady) await FirebaseMessaging.instance.deleteToken();
+    } catch (_) {}
+    try {
+      if (_firebaseReady) await _messaging.deleteToken();
     } catch (_) {}
   }
 
@@ -303,7 +427,8 @@ class PushService {
   }
 
   /// Set by the child shell: 'sync_rules' → device rules sync,
-  /// 'remote_session' → remote-session refresh.
+  /// 'remote_session' → remote-session refresh, 'sync_profile' → re-read the
+  /// child session (e.g. a parent changed the child's language).
   void Function(String signal)? onSignal;
 
   void _stashRoute(String? route) {
@@ -325,6 +450,8 @@ class PushService {
 
   void dispose() {
     _tokenSub?.cancel();
+    availability.dispose();
+    delivering.dispose();
   }
 }
 

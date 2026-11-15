@@ -16,6 +16,7 @@ class ChildSession {
     this.avatarKey,
     this.avatarColor,
     this.preferredLanguage,
+    this.effectiveLanguage,
     this.deviceId,
     this.deviceMode,
     this.abilities = const [],
@@ -27,6 +28,13 @@ class ChildSession {
   final String? avatarKey;
   final String? avatarColor;
   final String? preferredLanguage;
+
+  /// The language a parent chose for this child (else the family's). The
+  /// child app follows it and offers no way to change it.
+  final String? effectiveLanguage;
+
+  /// [effectiveLanguage], or the child's own setting from older servers.
+  String? get language => effectiveLanguage ?? preferredLanguage;
   final String familyId;
   final String familyName;
   final String timezone;
@@ -46,6 +54,7 @@ class ChildSession {
       'avatar_key': avatarKey,
       'avatar_color': avatarColor,
       'preferred_language': preferredLanguage,
+      'effective_language': effectiveLanguage,
     },
     'family': {'id': familyId, 'name': familyName, 'timezone': timezone},
     'device': deviceId == null
@@ -66,6 +75,7 @@ class ChildSession {
       avatarKey: child['avatar_key'] as String?,
       avatarColor: child['avatar_color'] as String?,
       preferredLanguage: child['preferred_language'] as String?,
+      effectiveLanguage: child['effective_language'] as String?,
       familyId: family['id'] as String,
       familyName: family['name'] as String? ?? '',
       timezone: family['timezone'] as String? ?? 'UTC',

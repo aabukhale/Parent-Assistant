@@ -72,13 +72,19 @@ class _AppShellState extends ConsumerState<AppShell> {
 
       _seenNotificationIds.addAll(notifications.map((n) => n.id));
 
+      // Real push already shows these (and in the background too): the
+      // polled banners are only a fallback while push can't reach us.
+      if (ref.read(pushServiceProvider).delivering.value) return;
+
       for (final notification in newNotifications.reversed) {
-        await ref.read(pushServiceProvider).showLocalInboxNotification(
-          id: notification.id,
-          title: notification.title,
-          body: notification.body,
-          route: notification.route,
-        );
+        await ref
+            .read(pushServiceProvider)
+            .showLocalInboxNotification(
+              id: notification.id,
+              title: notification.title,
+              body: notification.body,
+              route: notification.route,
+            );
       }
     } catch (e) {
       debugPrint('Inbox notification polling failed: ${e.runtimeType}');
@@ -133,9 +139,16 @@ class _AppShellState extends ConsumerState<AppShell> {
       if (!mounted) return;
 
       if (defaultTargetPlatform == TargetPlatform.iOS) {
-        await ref
-            .read(pushServiceProvider)
-            .requestLocalNotificationPermission();
+        final push = ref.read(pushServiceProvider);
+        if (!push.isConfigured) {
+          // No Firebase in this build: allow the polled local banners.
+          await push.requestLocalNotificationPermission();
+        } else if (await push.refreshAvailability() ==
+            PushAvailability.notDetermined) {
+          // One OS prompt that covers remote pushes (and registers the
+          // token with the backend when granted).
+          await push.requestPermission();
+        }
       }
 
       if (!mounted) return;

@@ -20,6 +20,15 @@ enum AuthPhase {
   authenticated,
 }
 
+/// Why this install's child session ended without the child signing out.
+enum ChildSessionEnd {
+  /// A parent unpaired the phone (the backend confirmed it).
+  revoked,
+
+  /// The session expired or was otherwise invalidated.
+  expired,
+}
+
 @immutable
 class AuthState {
   const AuthState({
@@ -29,7 +38,13 @@ class AuthState {
     this.activeMembershipId,
     this.restoreError,
     this.hasParkedChild = false,
+    this.childSessionEnd,
   });
+
+  /// Set on the signed-out state right after a child session ended on its
+  /// own (shown once on the "I'm a child" entry so the child knows to ask a
+  /// parent for a new code).
+  final ChildSessionEnd? childSessionEnd;
 
   final AuthPhase phase;
 

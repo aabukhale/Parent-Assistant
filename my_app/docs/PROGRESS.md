@@ -267,3 +267,54 @@ Dana's contact phone, family emergency number 100.
    real tablet simulator (layout covered by the stress test only).
 2. Background-isolate push → native rules channel (needs Firebase first).
 3. Everything in "Not verified / blocked" above.
+
+## Session 2026-11-15 — iOS push, single-scan pairing, per-child language
+
+Branch `feature/push-pairing-child-language` (both repos), based on
+`origin/demo` (Anwar's "Notifications" commits 2da756e / edd99ca kept).
+Details and remaining Apple/Firebase steps: `docs/ios-push.md`.
+
+### iOS push
+Root causes: `GoogleService-Info.plist` not in the Runner target (Firebase
+never started on iOS); `aps-environment` removed from `Runner.entitlements`;
+no paid team (Personal Team can't do push); token registration read a stale
+permission; child side never asked for permission; FCM token requested before
+the APNs token. All fixed in code; signing set to team `9826A535WG`; scheme
+name repaired. Anwar's inbox polling kept as a fallback without duplicate
+banners once push works.
+
+### Single-scan pairing
+The double scan: a `mamily://pair` link that cold-started the app (camera
+scan) was dropped while auth was restoring, so the child had to scan again
+in-app; a warm link also needed an extra tap. Now the code is held until
+auth settles and redeemed automatically. The parent sheet polls the code and
+shows "Paired!" with the device name. Session survives restarts (token renews
+when < 30 days left); unpair/expiry are explained on the role chooser.
+
+### Per-child language
+Parents set it from the child hub ("App language"; family default or ar/he/en).
+Server: `effective_language` (child → family → app default), parent-only, sync
+signal to that child's phones. App: applied at pairing, restored on restart
+(also offline, from the cached session), re-read on resume / `sync_profile`,
+never stored as the device's own language (a parent on a shared phone keeps
+theirs). Child notifications already use the child's language server-side.
+
+### Results
+- `flutter analyze` → 1 info (pre-existing `onReorder` in Anwar's change)
+- `flutter test` → 621 passed (593 before + 28 new)
+- `flutter build ios --simulator --debug` ✓ (plist in bundle; simulated
+  entitlements: `9826A535WG.com.example.myApp`, aps-environment, app group,
+  family controls); `flutter build ios --release --no-codesign` ✓;
+  `flutter build apk --debug` ✓
+- Simulator (iPhone 17 Pro, isolated backend on a throwaway SQLite, :8101):
+  Firebase initialised on iOS (no "Push disabled" log); cold start via the
+  QR link → paired straight into Sara, Hebrew RTL, no tap; notification prompt
+  → Allow → APNs + FCM token issued and stored by the backend
+  (`has_push_token: true`); parent switched Sara to Arabic → app switched on
+  resume, Omar unchanged; full restart → still Sara, Arabic, no scan; parent
+  unpaired → role chooser with "a parent unpaired this phone" notice.
+  A later `simctl openurl` replay of the used code timed out in the simulator
+  (tooling), so used-code replay is covered by tests only.
+- NOT verified: real APNs delivery to a phone (needs APNs key in Firebase,
+  the FCM service account on the sending backend, and an explicit App ID —
+  `docs/ios-push.md` §3).

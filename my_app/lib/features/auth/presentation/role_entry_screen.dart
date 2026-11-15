@@ -4,6 +4,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import '../../../core/design_system.dart';
 import '../../../core/localization/l10n.dart';
 import '../application/auth_controller.dart';
+import '../application/auth_state.dart';
 import 'pairing_screen.dart';
 import 'welcome_screen.dart';
 
@@ -20,6 +21,9 @@ class RoleEntryScreen extends ConsumerWidget {
     final c = context.mamily;
     final hasParked = ref.watch(
       authControllerProvider.select((s) => s.hasParkedChild),
+    );
+    final ended = ref.watch(
+      authControllerProvider.select((s) => s.childSessionEnd),
     );
 
     return Scaffold(
@@ -50,6 +54,15 @@ class RoleEntryScreen extends ConsumerWidget {
                 textAlign: TextAlign.center,
                 style: context.type.bodyLarge?.copyWith(color: c.ink2),
               ),
+              if (ended != null) ...[
+                const SizedBox(height: AppSpacing.lg),
+                NoticeBanner(
+                  tone: AppTone.warning,
+                  message: ended == ChildSessionEnd.revoked
+                      ? l.childSessionEndedRevoked
+                      : l.childSessionEndedExpired,
+                ),
+              ],
               const SizedBox(height: AppSpacing.xxl),
               _RoleCard(
                 icon: Icons.family_restroom_rounded,

@@ -232,6 +232,7 @@ class PairingCode {
     this.code,
     this.qrPayload,
     this.usedAt,
+    this.usedDeviceName,
   });
 
   final String id;
@@ -246,6 +247,23 @@ class PairingCode {
   final DateTime? expiresAt;
   final DateTime? usedAt;
 
+  /// The phone that redeemed it (state == used).
+  final String? usedDeviceName;
+
+  bool get isUsed => state == 'used';
+
+  /// Merge a status poll (which never carries the code) into this one.
+  PairingCode withStatus(PairingCode status) => PairingCode(
+    id: id,
+    code: code,
+    qrPayload: qrPayload,
+    state: status.state,
+    deviceMode: deviceMode,
+    expiresAt: expiresAt,
+    usedAt: status.usedAt,
+    usedDeviceName: status.usedDeviceName,
+  );
+
   factory PairingCode.fromJson(Map<String, dynamic> j) => PairingCode(
     id: j['id'] as String,
     code: j['code'] as String?,
@@ -254,6 +272,7 @@ class PairingCode {
     deviceMode: j['device_mode'] as String? ?? 'child_dedicated',
     expiresAt: _date(j['expires_at']),
     usedAt: _date(j['used_at']),
+    usedDeviceName: j['used_device_name'] as String?,
   );
 }
 

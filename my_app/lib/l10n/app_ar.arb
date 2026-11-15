@@ -2973,5 +2973,62 @@
   "kidSetupAlarms": "السماح بالأوقات الدقيقة (المنبهات والتذكيرات)",
   "safetyMyPhone": "رقمك للأطفال",
   "safetyMyPhoneHint": "يظهر في «اتصل بأحد والديّ» في تطبيق أطفالك.",
-  "safetyMyPhoneMissing": "أضف رقمك ليتمكن أطفالك من الاتصال بك من Mamily."
+  "safetyMyPhoneMissing": "أضف رقمك ليتمكن أطفالك من الاتصال بك من Mamily.",
+  "pairJoining": "جارٍ الانضمام إلى عائلتك…",
+  "pairAlreadySignedIn": "هذا الهاتف مسجَّل الدخول بالفعل. للتبديل إلى طفل آخر، يجب على أحد الوالدين إلغاء ربطه أولًا.",
+  "pairWaitingForChild": "بانتظار هاتف {name}…",
+  "@pairWaitingForChild": {
+    "placeholders": {
+      "name": {
+        "type": "String"
+      }
+    }
+  },
+  "pairSuccessTitle": "تم الربط!",
+  "pairSuccessBody": "تم تسجيل دخول {name} على {device}.",
+  "@pairSuccessBody": {
+    "placeholders": {
+      "name": {
+        "type": "String"
+      },
+      "device": {
+        "type": "String"
+      }
+    }
+  },
+  "pairSuccessBodyNoDevice": "تم تسجيل دخول {name} على الهاتف.",
+  "@pairSuccessBodyNoDevice": {
+    "placeholders": {
+      "name": {
+        "type": "String"
+      }
+    }
+  },
+  "childSessionEndedRevoked": "ألغى أحد الوالدين ربط هذا الهاتف. اطلب رمزًا جديدًا للانضمام مجددًا.",
+  "childSessionEndedExpired": "تم تسجيل خروجك. اطلب من أحد الوالدين رمزًا جديدًا للانضمام مجددًا.",
+  "childLanguageTitle": "لغة التطبيق",
+  "childLanguageHint": "يظهر تطبيق Mamily لدى {name} بهذه اللغة. لا تتغير لغتك ولا لغة باقي الأطفال.",
+  "@childLanguageHint": {
+    "placeholders": {
+      "name": {
+        "type": "String"
+      }
+    }
+  },
+  "childLanguageFamilyDefault": "لغة العائلة ({language})",
+  "@childLanguageFamilyDefault": {
+    "placeholders": {
+      "language": {
+        "type": "String"
+      }
+    }
+  },
+  "childLanguageSaved": "تم الحفظ. سيتغيّر هاتف {name} فورًا، أو عند فتحه في المرة القادمة.",
+  "@childLanguageSaved": {
+    "placeholders": {
+      "name": {
+        "type": "String"
+      }
+    }
+  }
 }

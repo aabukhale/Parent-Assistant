@@ -11,6 +11,10 @@ import '../application/hub_providers.dart';
 import '../data/hub_models.dart';
 import '../data/hub_repository.dart';
 
+/// How often the open sheet asks whether the child's phone used the code.
+@visibleForTesting
+Duration pairingStatusPollInterval = const Duration(seconds: 3);
+
 /// Shows a fresh single-use pairing code + QR for a child, with a live
 /// countdown. Creating a new code cancels the previous one server-side.
 Future<void> showPairingSheet(
@@ -42,6 +46,8 @@ class _PairingSheetState extends ConsumerState<_PairingSheet> {
   bool _busy = false;
   String _mode = 'child_dedicated';
   Timer? _tick;
+  Timer? _poll;
+  bool _polling = false;
 
   @override
   void initState() {
@@ -50,11 +56,37 @@ class _PairingSheetState extends ConsumerState<_PairingSheet> {
     _tick = Timer.periodic(const Duration(seconds: 1), (_) {
       if (mounted) setState(() {});
     });
+    // The parent sees the moment the child's single scan worked.
+    _poll = Timer.periodic(pairingStatusPollInterval, (_) => _checkStatus());
+  }
+
+  Future<void> _checkStatus() async {
+    final code = _code;
+    if (_polling || code == null || code.state != 'active') return;
+    final remaining = code.expiresAt?.difference(DateTime.now());
+    if (remaining != null && remaining.isNegative) return;
+    _polling = true;
+    try {
+      final status = await ref
+          .read(hubRepositoryProvider)
+          .pairingCodeStatus(widget.childId, code.id);
+      if (!mounted || _code?.id != code.id) return;
+      setState(() => _code = code.withStatus(status));
+      if (status.isUsed) {
+        _poll?.cancel();
+        ref.invalidate(childDevicesProvider(widget.childId));
+      }
+    } catch (_) {
+      // Offline for a moment: the next tick tries again.
+    } finally {
+      _polling = false;
+    }
   }
 
   @override
   void dispose() {
     _tick?.cancel();
+    _poll?.cancel();
     // Leaving the sheet without using the code cancels it (best effort).
     final code = _code;
     if (code != null && code.state == 'active') {
@@ -138,7 +170,44 @@ class _PairingSheetState extends ConsumerState<_PairingSheet> {
               ErrorRetryView(error: _error!, onRetry: _create)
             else if (code == null || _busy)
               const SizedBox(height: 240, child: LoadingView())
-            else if (expired) ...[
+            else if (code.isUsed) ...[
+              Center(
+                child: Icon(
+                  Icons.check_circle_rounded,
+                  size: 72,
+                  color: c.tone(AppTone.success).foreground,
+                ),
+              ),
+              const SizedBox(height: AppSpacing.md),
+              Semantics(
+                liveRegion: true,
+                child: Column(
+                  children: [
+                    Text(
+                      l.pairSuccessTitle,
+                      style: context.type.headlineSmall,
+                      textAlign: TextAlign.center,
+                    ),
+                    const SizedBox(height: AppSpacing.sm),
+                    Text(
+                      code.usedDeviceName == null
+                          ? l.pairSuccessBodyNoDevice(widget.childName)
+                          : l.pairSuccessBody(
+                              widget.childName,
+                              code.usedDeviceName!,
+                            ),
+                      style: context.type.bodyLarge?.copyWith(color: c.ink2),
+                      textAlign: TextAlign.center,
+                    ),
+                  ],
+                ),
+              ),
+              const SizedBox(height: AppSpacing.xl),
+              FilledButton(
+                onPressed: () => Navigator.of(context).pop(),
+                child: Text(l.commonDone),
+              ),
+            ] else if (expired) ...[
               NoticeBanner(tone: AppTone.warning, message: l.pairExpired),
               const SizedBox(height: AppSpacing.lg),
               FilledButton(onPressed: _create, child: Text(l.pairNewCode)),
@@ -176,6 +245,12 @@ class _PairingSheetState extends ConsumerState<_PairingSheet> {
                 ),
               ),
               const SizedBox(height: AppSpacing.sm),
+              Text(
+                l.pairWaitingForChild(widget.childName),
+                textAlign: TextAlign.center,
+                style: context.type.bodyMedium,
+              ),
+              const SizedBox(height: AppSpacing.xs),
               Text(
                 l.pairExpiresIn((remaining!.inSeconds / 60).ceil()),
                 textAlign: TextAlign.center,

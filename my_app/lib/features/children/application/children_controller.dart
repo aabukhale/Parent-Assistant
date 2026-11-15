@@ -146,6 +146,19 @@ class ChildrenController extends AsyncNotifier<ChildrenListState> {
     return child;
   }
 
+  Future<Child> setChildLanguage(String childId, String? languageCode) async {
+    final familyId = _familyId;
+    if (familyId == null) {
+      throw StateError('No active family');
+    }
+    final child = await ref
+        .read(childrenRepositoryProvider)
+        .setLanguage(familyId, childId, languageCode);
+    ref.invalidate(childDetailProvider(childId));
+    await refresh();
+    return child;
+  }
+
   Future<void> deleteChild(String childId) async {
     final familyId = _familyId;
     if (familyId == null) return;

@@ -2976,5 +2976,62 @@
   "kidSetupAlarms": "Allow exact times (Alarms & reminders)",
   "safetyMyPhone": "Your number for the children",
   "safetyMyPhoneHint": "Shown on “Call my parent” in your children’s app.",
-  "safetyMyPhoneMissing": "Add your number so your children can call you from Mamily."
+  "safetyMyPhoneMissing": "Add your number so your children can call you from Mamily.",
+  "pairJoining": "Joining your family…",
+  "pairAlreadySignedIn": "This phone is already signed in. To switch to another child, a parent needs to unpair it first.",
+  "pairWaitingForChild": "Waiting for {name}'s phone…",
+  "@pairWaitingForChild": {
+    "placeholders": {
+      "name": {
+        "type": "String"
+      }
+    }
+  },
+  "pairSuccessTitle": "Paired!",
+  "pairSuccessBody": "{name} is now signed in on {device}.",
+  "@pairSuccessBody": {
+    "placeholders": {
+      "name": {
+        "type": "String"
+      },
+      "device": {
+        "type": "String"
+      }
+    }
+  },
+  "pairSuccessBodyNoDevice": "{name} is now signed in on their phone.",
+  "@pairSuccessBodyNoDevice": {
+    "placeholders": {
+      "name": {
+        "type": "String"
+      }
+    }
+  },
+  "childSessionEndedRevoked": "A parent unpaired this phone. Ask them for a new code to join again.",
+  "childSessionEndedExpired": "You were signed out. Ask a parent for a new code to join again.",
+  "childLanguageTitle": "App language",
+  "childLanguageHint": "{name}'s Mamily app is shown in this language. Your language and other children's languages don't change.",
+  "@childLanguageHint": {
+    "placeholders": {
+      "name": {
+        "type": "String"
+      }
+    }
+  },
+  "childLanguageFamilyDefault": "Family default ({language})",
+  "@childLanguageFamilyDefault": {
+    "placeholders": {
+      "language": {
+        "type": "String"
+      }
+    }
+  },
+  "childLanguageSaved": "Saved. {name}'s phone switches right away, or the next time it's opened.",
+  "@childLanguageSaved": {
+    "placeholders": {
+      "name": {
+        "type": "String"
+      }
+    }
+  }
 }

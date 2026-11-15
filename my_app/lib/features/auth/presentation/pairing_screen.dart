@@ -13,9 +13,14 @@ import '../data/child_auth_repository.dart';
 /// Child joins the family: type the parent's code, scan their QR, or arrive
 /// here from a `mamily://pair?code=…` link (prefilled).
 class PairingScreen extends ConsumerStatefulWidget {
-  const PairingScreen({super.key, this.initialCode});
+  const PairingScreen({super.key, this.initialCode, this.autoSubmit = false});
 
   final String? initialCode;
+
+  /// Redeem [initialCode] right away. Used when the child scanned the
+  /// parent's QR with the phone's camera (a `mamily://pair` link): that scan
+  /// is the only step — no second scan, no extra tap.
+  final bool autoSubmit;
 
   @override
   ConsumerState<PairingScreen> createState() => _PairingScreenState();
@@ -25,6 +30,20 @@ class _PairingScreenState extends ConsumerState<PairingScreen> {
   late final _code = TextEditingController(text: widget.initialCode ?? '');
   bool _busy = false;
   String? _error;
+
+  @override
+  void initState() {
+    super.initState();
+    final code = widget.initialCode;
+    if (widget.autoSubmit &&
+        code != null &&
+        normalizePairingCode(code) != null) {
+      _busy = true;
+      WidgetsBinding.instance.addPostFrameCallback((_) {
+        if (mounted) _pair();
+      });
+    }
+  }
 
   @override
   void dispose() {
@@ -149,12 +168,19 @@ class _PairingScreenState extends ConsumerState<PairingScreen> {
                   FilledButton(
                     onPressed: _busy ? null : () => _pair(),
                     child: _busy
-                        ? const SizedBox.square(
-                            dimension: 22,
-                            child: CircularProgressIndicator(
-                              strokeWidth: 2.5,
-                              color: Colors.white,
-                            ),
+                        ? Row(
+                            mainAxisSize: MainAxisSize.min,
+                            children: [
+                              const SizedBox.square(
+                                dimension: 22,
+                                child: CircularProgressIndicator(
+                                  strokeWidth: 2.5,
+                                  color: Colors.white,
+                                ),
+                              ),
+                              const SizedBox(width: AppSpacing.md),
+                              Flexible(child: Text(l.pairJoining)),
+                            ],
                           )
                         : Text(l.pairButton),
                   ),

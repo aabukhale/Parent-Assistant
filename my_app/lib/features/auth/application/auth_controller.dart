@@ -35,6 +35,13 @@ class AuthController extends Notifier<AuthState> {
       unauthorizedSignalProvider,
       (_, _) => _onUnauthorizedSignal(),
     );
+    // Leaving a child session (logout, unpair, expiry, parent stepping in):
+    // the UI goes back to the device's own language, not the child's.
+    listenSelf((prev, next) {
+      if ((prev?.isChild ?? false) && !next.isChild) {
+        ref.read(localeControllerProvider.notifier).restoreDeviceLocale();
+      }
+    });
     Future.microtask(_restore);
     return const AuthState.restoring();
   }
@@ -61,14 +68,18 @@ class AuthController extends Notifier<AuthState> {
       // 401: token gone. 403: the token is the wrong kind for the endpoint
       // (e.g. a tampered session-kind flag) — never trust it, wipe it.
       if (e.isUnauthorized || e.kind == ApiErrorKind.forbidden) {
+        ChildSessionEnd? ended;
         if (kind == ChildAuthRepository.sessionKind) {
-          await _releaseRulesIfUnpaired();
+          ended = await _releaseRulesIfUnpaired() == 'revoked'
+              ? ChildSessionEnd.revoked
+              : ChildSessionEnd.expired;
         }
         await _storage.clearSession();
         await ref.read(sessionCleanupProvider).run();
         state = AuthState(
           phase: AuthPhase.unauthenticated,
           hasParkedChild: parked,
+          childSessionEnd: ended,
         );
       } else if (kind == ChildAuthRepository.sessionKind &&
           (e.kind == ApiErrorKind.network || e.kind == ApiErrorKind.timeout) &&
@@ -223,10 +234,11 @@ class AuthController extends Notifier<AuthState> {
     ChildSession session, {
     required bool hasParkedChild,
   }) {
-    final lang = session.preferredLanguage;
-    if (lang != null) {
-      ref.read(localeControllerProvider.notifier).setLanguageCode(lang);
-    }
+    // Applied at pairing, on every restore (also offline, from the cache)
+    // and whenever the session is re-read after a parent changed it.
+    ref
+        .read(localeControllerProvider.notifier)
+        .applyChildLanguage(session.language);
     final deviceId = session.deviceId;
     if (deviceId != null) _storage.writeChildDeviceId(deviceId);
     _storage.writeChildSessionCache(jsonEncode(session.toJson()));
@@ -289,28 +301,46 @@ class AuthController extends Notifier<AuthState> {
   /// A child phone lost its session. Device-level rules are lifted only if
   /// the backend confirms a parent unpaired this install — an expired token
   /// or a network problem never removes them.
-  Future<void> _releaseRulesIfUnpaired() async {
+  /// Returns the backend's verdict for this install (`revoked`, `active`,
+  /// `unknown`) or null when it couldn't be asked.
+  Future<String?> _releaseRulesIfUnpaired() async {
     final deviceId = await _storage.readChildDeviceId();
-    if (deviceId == null) return;
+    if (deviceId == null) return null;
     try {
       final status = await _childRepo.deviceStatus(deviceId);
       if (status == 'revoked') {
         await ref.read(nativeEnforcementProvider).clear(release: true);
         await _storage.deleteChildDeviceId();
       }
+      return status;
     } catch (_) {
       // Offline: keep enforcing; checked again on the next 401 / start.
+      return null;
     }
   }
 
   void _onUnauthorizedSignal() {
-    if (state.isChild) _releaseRulesIfUnpaired();
+    final wasChild = state.isChild;
     if (state.phase == AuthPhase.authenticated) {
       ref.read(sessionCleanupProvider).run();
       state = AuthState(
         phase: AuthPhase.unauthenticated,
         hasParkedChild: state.hasParkedChild,
+        childSessionEnd: wasChild ? ChildSessionEnd.expired : null,
       );
+    }
+    if (wasChild) {
+      _releaseRulesIfUnpaired().then((status) {
+        if (status == 'revoked' &&
+            state.phase == AuthPhase.unauthenticated &&
+            state.childSessionEnd != null) {
+          state = AuthState(
+            phase: AuthPhase.unauthenticated,
+            hasParkedChild: state.hasParkedChild,
+            childSessionEnd: ChildSessionEnd.revoked,
+          );
+        }
+      });
     }
   }
 }

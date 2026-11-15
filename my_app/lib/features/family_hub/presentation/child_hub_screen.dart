@@ -27,6 +27,7 @@ import '../../safety/presentation/family_map_screen.dart';
 import '../../safety/presentation/parent_safety_screen.dart';
 import 'child_sections.dart';
 import 'pairing_sheet.dart';
+import '../../children/presentation/child_language.dart';
 import 'hub_widgets.dart';
 import 'praise_sheet.dart';
 import 'requests_inbox_screen.dart';
@@ -372,6 +373,17 @@ class _ChildHubScreenState extends ConsumerState<ChildHubScreen> {
                         title: l.hubReport,
                         onTap: () => _open(const DevelopmentReportScreen()),
                       ),
+                      NavTile(
+                        icon: Icons.translate_rounded,
+                        tone: AppTone.neutral,
+                        title: l.childLanguageTitle,
+                        subtitle: childLanguageSummary(l, child),
+                        // Only parents who manage children may change it
+                        // (the server enforces the same rule).
+                        onTap: perms.canManageChildren
+                            ? () => showChildLanguagePicker(context, ref, child)
+                            : null,
+                      ),
                     ];
                     // Grouped so the safety tools aren't lost among
                     // eighteen equal tiles.
@@ -379,7 +391,7 @@ class _ChildHubScreenState extends ConsumerState<ChildHubScreen> {
                       (l.hubSectionSafety, [0, 1, 2, 3, 14, 15, 16]),
                       (l.hubSectionDaily, [6, 7, 8, 9, 10]),
                       (l.hubSectionWellbeing, [11, 12, 13]),
-                      (l.hubSectionMore, [4, 5, 17]),
+                      (l.hubSectionMore, [4, 5, 17, 18]),
                     ];
                     assert(
                       sections.expand((x) => x.$2).toSet().length ==

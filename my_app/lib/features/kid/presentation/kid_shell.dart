@@ -4,6 +4,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import '../../../app/deep_links.dart';
 import '../../../core/design_system.dart';
 import '../../../core/localization/l10n.dart';
+import '../../auth/application/auth_controller.dart';
 import '../../notifications/application/notifications_controller.dart';
 import '../../notifications/presentation/inbox_screen.dart';
 import '../../notifications/push/push_service.dart';
@@ -44,6 +45,9 @@ class _KidShellState extends ConsumerState<KidShell> {
     DeepLinks.kidOpener = _openKidRoute;
     _lifecycle = AppLifecycleListener(
       onResume: () {
+        // Picks up a language (or name/avatar) a parent changed while the
+        // phone could not be reached by push.
+        _refreshProfile();
         ref.read(kidActionsProvider).refreshAll();
         ref.invalidate(unreadCountProvider);
         ref.invalidate(kidJourneyProvider);
@@ -56,19 +60,39 @@ class _KidShellState extends ConsumerState<KidShell> {
           ref.read(deviceRulesSyncProvider).sync();
         case 'remote_session':
           ref.read(kidRemoteProvider.notifier).refresh();
+        case 'sync_profile':
+          _refreshProfile();
       }
     };
     WidgetsBinding.instance.addPostFrameCallback((_) {
-    if (!mounted) return;
+      if (!mounted) return;
 
-    DeepLinks.consumePending(ref);
+      DeepLinks.consumePending(ref);
+      _enablePush();
+      _backgroundWork();
+      ref.read(deviceRulesSyncProvider).startPeriodic();
+    });
+  }
 
-    // Register the child's FCM token after login.
-    ref.read(pushServiceProvider).registerCurrentSession();
+  /// Right after pairing (a parent is usually holding the phone) ask once
+  /// for notification permission, then bind this install's token to the
+  /// child session.
+  Future<void> _enablePush() async {
+    final push = ref.read(pushServiceProvider);
+    if (await push.refreshAvailability() == PushAvailability.notDetermined) {
+      if (!mounted) return;
+      await push.requestPermission();
+    } else {
+      await push.registerCurrentSession();
+    }
+  }
 
-    _backgroundWork();
-    ref.read(deviceRulesSyncProvider).startPeriodic();
-  });
+  Future<void> _refreshProfile() async {
+    try {
+      await ref.read(authControllerProvider.notifier).refreshSession();
+    } catch (_) {
+      // Offline: keep the cached session (and its language).
+    }
   }
 
   /// Rules sync, location (only if shared) and the one-time explanation

@@ -2973,5 +2973,62 @@
   "kidSetupAlarms": "לאשר זמנים מדויקים (התראות ותזכורות)",
   "safetyMyPhone": "המספר שלך בשביל הילדים",
   "safetyMyPhoneHint": "מוצג ב„להתקשר להורה” באפליקציה של הילדים.",
-  "safetyMyPhoneMissing": "הוסיפו מספר כדי שהילדים יוכלו להתקשר מ-Mamily."
+  "safetyMyPhoneMissing": "הוסיפו מספר כדי שהילדים יוכלו להתקשר מ-Mamily.",
+  "pairJoining": "מצטרפים למשפחה…",
+  "pairAlreadySignedIn": "הטלפון הזה כבר מחובר. כדי לעבור לילד או ילדה אחרים, הורה צריך קודם לנתק אותו.",
+  "pairWaitingForChild": "מחכים לטלפון של {name}…",
+  "@pairWaitingForChild": {
+    "placeholders": {
+      "name": {
+        "type": "String"
+      }
+    }
+  },
+  "pairSuccessTitle": "החיבור הצליח!",
+  "pairSuccessBody": "{name} מחובר/ת עכשיו במכשיר {device}.",
+  "@pairSuccessBody": {
+    "placeholders": {
+      "name": {
+        "type": "String"
+      },
+      "device": {
+        "type": "String"
+      }
+    }
+  },
+  "pairSuccessBodyNoDevice": "{name} מחובר/ת עכשיו בטלפון.",
+  "@pairSuccessBodyNoDevice": {
+    "placeholders": {
+      "name": {
+        "type": "String"
+      }
+    }
+  },
+  "childSessionEndedRevoked": "הורה ניתק את הטלפון הזה. אפשר לבקש קוד חדש כדי להצטרף שוב.",
+  "childSessionEndedExpired": "התנתקת. אפשר לבקש מהורה קוד חדש כדי להצטרף שוב.",
+  "childLanguageTitle": "שפת האפליקציה",
+  "childLanguageHint": "האפליקציה של {name} מוצגת בשפה הזו. השפה שלך והשפה של שאר הילדים לא משתנות.",
+  "@childLanguageHint": {
+    "placeholders": {
+      "name": {
+        "type": "String"
+      }
+    }
+  },
+  "childLanguageFamilyDefault": "ברירת המחדל של המשפחה ({language})",
+  "@childLanguageFamilyDefault": {
+    "placeholders": {
+      "language": {
+        "type": "String"
+      }
+    }
+  },
+  "childLanguageSaved": "נשמר. הטלפון של {name} יתעדכן מיד, או בפעם הבאה שיפתחו אותו.",
+  "@childLanguageSaved": {
+    "placeholders": {
+      "name": {
+        "type": "String"
+      }
+    }
+  }
 }

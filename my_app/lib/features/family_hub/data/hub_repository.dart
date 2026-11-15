@@ -363,6 +363,14 @@ class HubRepository {
     )).dataMap,
   );
 
+  /// State of one code (polled while the parent shows it).
+  Future<PairingCode> pairingCodeStatus(String childId, String codeId) async =>
+      PairingCode.fromJson(
+        (await _client.get(
+          '$_f/children/$childId/pairing-codes/$codeId',
+        )).dataMap,
+      );
+
   Future<void> revokePairingCode(String childId, String codeId) =>
       _client.delete('$_f/children/$childId/pairing-codes/$codeId');
 
