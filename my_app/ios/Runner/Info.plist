@@ -7,13 +7,19 @@
 	<key>CFBundleDevelopmentRegion</key>
 	<string>$(DEVELOPMENT_LANGUAGE)</string>
 	<key>CFBundleDisplayName</key>
-	<string>My App</string>
+	<string>Mamily</string>
 	<key>CFBundleExecutable</key>
 	<string>$(EXECUTABLE_NAME)</string>
 	<key>CFBundleIdentifier</key>
 	<string>$(PRODUCT_BUNDLE_IDENTIFIER)</string>
 	<key>CFBundleInfoDictionaryVersion</key>
 	<string>6.0</string>
+	<key>CFBundleLocalizations</key>
+	<array>
+		<string>en</string>
+		<string>ar</string>
+		<string>he</string>
+	</array>
 	<key>CFBundleName</key>
 	<string>my_app</string>
 	<key>CFBundlePackageType</key>
@@ -22,9 +28,32 @@
 	<string>$(FLUTTER_BUILD_NAME)</string>
 	<key>CFBundleSignature</key>
 	<string>????</string>
+	<key>CFBundleURLTypes</key>
+	<array>
+		<dict>
+			<key>CFBundleURLName</key>
+			<string>com.mamily.app</string>
+			<key>CFBundleURLSchemes</key>
+			<array>
+				<string>mamily</string>
+			</array>
+		</dict>
+	</array>
 	<key>CFBundleVersion</key>
 	<string>$(FLUTTER_BUILD_NUMBER)</string>
 	<key>LSRequiresIPhoneOS</key>
+	<true/>
+	<key>NSCameraUsageDescription</key>
+	<string>Mamily uses the camera to scan a pairing QR code, and for video calls you choose to answer.</string>
+	<key>NSLocalNetworkUsageDescription</key>
+	<string>Mamily connects to your family’s Mamily server on this network, for example to finish joining after you scan a pairing code.</string>
+	<key>NSLocationAlwaysAndWhenInUseUsageDescription</key>
+	<string>During a trip you start, Mamily keeps sharing this phone's location with your family until you arrive. iPhone shows a blue location indicator while it does.</string>
+	<key>NSLocationWhenInUseUsageDescription</key>
+	<string>Your family can see where this phone is, so they know you got there safely. You can always see when it's shared.</string>
+	<key>NSMicrophoneUsageDescription</key>
+	<string>Mamily uses the microphone only during a call you choose to answer.</string>
+	<key>NSSupportsLiveActivities</key>
 	<true/>
 	<key>UIApplicationSceneManifest</key>
 	<dict>
@@ -49,6 +78,11 @@
 	</dict>
 	<key>UIApplicationSupportsIndirectInputEvents</key>
 	<true/>
+	<key>UIBackgroundModes</key>
+	<array>
+		<string>location</string>
+		<string>remote-notification</string>
+	</array>
 	<key>UILaunchStoryboardName</key>
 	<string>LaunchScreen</string>
 	<key>UIMainStoryboardFile</key>

@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 
 import '../../../core/localization/l10n.dart';
-import '../../../core/theme/app_colors.dart';
+import '../../../core/design_system.dart';
 import '../data/models/learning_goal.dart';
 
 String goalStatusLabel(AppLocalizations l, LearningGoalStatus s) => switch (s) {
@@ -18,11 +18,18 @@ String goalMetricLabel(AppLocalizations l, LearningGoalMetric m) => switch (m) {
   LearningGoalMetric.percent => l.lgMetricPercent,
 };
 
-Color goalStatusColor(LearningGoalStatus s) => switch (s) {
-  LearningGoalStatus.active => AppColors.teal,
-  LearningGoalStatus.paused => AppColors.amber,
-  LearningGoalStatus.achieved => const Color(0xFF57C77A),
-  LearningGoalStatus.archived => AppColors.textMuted,
+AppTone goalStatusTone(LearningGoalStatus s) => switch (s) {
+  LearningGoalStatus.active => AppTone.accent,
+  LearningGoalStatus.paused => AppTone.warning,
+  LearningGoalStatus.achieved => AppTone.success,
+  LearningGoalStatus.archived => AppTone.neutral,
+};
+
+IconData goalStatusIcon(LearningGoalStatus s) => switch (s) {
+  LearningGoalStatus.active => Icons.play_circle_outline_rounded,
+  LearningGoalStatus.paused => Icons.pause_circle_outline_rounded,
+  LearningGoalStatus.achieved => Icons.emoji_events_outlined,
+  LearningGoalStatus.archived => Icons.archive_outlined,
 };
 
 /// `12` for whole numbers, `12.5` otherwise — matches the backend `decimal:2`
@@ -66,51 +73,35 @@ class GoalStatusChip extends StatelessWidget {
   final LearningGoalStatus status;
 
   @override
-  Widget build(BuildContext context) {
-    final color = goalStatusColor(status);
-    return Container(
-      padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 4),
-      decoration: BoxDecoration(
-        color: color.withValues(alpha: 0.15),
-        borderRadius: BorderRadius.circular(10),
-      ),
-      child: Text(
-        goalStatusLabel(context.l10n, status),
-        style: TextStyle(
-          color: color,
-          fontSize: 11,
-          fontWeight: FontWeight.bold,
-        ),
-      ),
-    );
-  }
+  Widget build(BuildContext context) => StatusPill(
+    label: goalStatusLabel(context.l10n, status),
+    tone: goalStatusTone(status),
+    icon: goalStatusIcon(status),
+  );
 }
 
-/// A thin progress bar driven only by [LearningGoal.progressFraction].
+/// Progress driven only by [LearningGoal.progressFraction].
 class GoalProgressBar extends StatelessWidget {
   const GoalProgressBar({super.key, required this.goal});
   final LearningGoal goal;
 
   @override
   Widget build(BuildContext context) {
+    final c = context.mamily;
     final pct = goal.progressPercentage;
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        ClipRRect(
-          borderRadius: BorderRadius.circular(8),
-          child: LinearProgressIndicator(
-            value: goal.progressFraction,
-            minHeight: 8,
-            backgroundColor: const Color(0xFFECEEF4),
-            valueColor: AlwaysStoppedAnimation(goalStatusColor(goal.status)),
-          ),
+        ProgressBar(
+          value: goal.progressFraction,
+          color: c.tone(goalStatusTone(goal.status)).foreground,
+          semanticsLabel: goal.title,
         ),
         if (pct != null) ...[
-          const SizedBox(height: 6),
+          const SizedBox(height: AppSpacing.xs),
           Text(
             '${formatGoalNumber(pct)}%',
-            style: const TextStyle(color: AppColors.textMuted, fontSize: 12),
+            style: context.type.bodySmall?.copyWith(color: c.ink2),
           ),
         ],
       ],

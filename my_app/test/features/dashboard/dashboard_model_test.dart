@@ -6,6 +6,27 @@ import 'package:my_app/features/dashboard/data/models/parent_dashboard.dart';
 import '../../support/fixtures.dart';
 
 void main() {
+  group('ScreenTimeToday.fromJson', () {
+    test('not_reported means usage is unknown, not zero', () {
+      final t = ScreenTimeToday.fromJson({
+        'used_minutes': 0,
+        'usage_state': 'not_reported',
+      });
+      expect(t.measured, isFalse);
+    });
+
+    test('measured, or an older server without the field, is measured', () {
+      expect(
+        ScreenTimeToday.fromJson({
+          'used_minutes': 40,
+          'usage_state': 'measured',
+        }).measured,
+        isTrue,
+      );
+      expect(ScreenTimeToday.fromJson({'used_minutes': 40}).measured, isTrue);
+    });
+  });
+
   group('ChildSummary.fromJson', () {
     test('parses a fully-populated digest', () {
       final s = ChildSummary.fromJson(

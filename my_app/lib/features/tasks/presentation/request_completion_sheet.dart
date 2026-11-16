@@ -3,7 +3,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import '../../../core/errors/api_exception.dart';
 import '../../../core/localization/l10n.dart';
-import '../../../core/theme/app_colors.dart';
+import '../../../core/design_system.dart';
 import '../../../widgets/primary_button.dart';
 import '../../auth/presentation/auth_form_widgets.dart';
 import '../application/completions_controller.dart';
@@ -17,10 +17,7 @@ Future<bool?> showRequestCompletionSheet(BuildContext context, String taskId) {
   return showModalBottomSheet<bool>(
     context: context,
     isScrollControlled: true,
-    backgroundColor: AppColors.background,
-    shape: const RoundedRectangleBorder(
-      borderRadius: BorderRadius.vertical(top: Radius.circular(24)),
-    ),
+    showDragHandle: true,
     builder: (_) => Padding(
       padding: EdgeInsets.only(
         bottom: MediaQuery.of(context).viewInsets.bottom,
@@ -107,90 +104,43 @@ class _RequestFormState extends ConsumerState<_RequestForm> {
     final l = context.l10n;
     return SafeArea(
       child: SingleChildScrollView(
-        padding: const EdgeInsets.fromLTRB(22, 16, 22, 22),
+        padding: const EdgeInsets.fromLTRB(
+          AppSpacing.xl,
+          0,
+          AppSpacing.xl,
+          AppSpacing.xl,
+        ),
         child: Column(
           mainAxisSize: MainAxisSize.min,
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: [
-            Center(
-              child: Container(
-                width: 40,
-                height: 4,
-                decoration: BoxDecoration(
-                  color: AppColors.border,
-                  borderRadius: BorderRadius.circular(2),
-                ),
-              ),
-            ),
-            const SizedBox(height: 16),
-            Text(
-              l.completionRequestTitle,
-              style: const TextStyle(
-                color: AppColors.navy,
-                fontSize: 18,
-                fontWeight: FontWeight.bold,
-              ),
-            ),
-            const SizedBox(height: 6),
+            Text(l.completionRequestTitle, style: context.type.titleLarge),
+            const SizedBox(height: AppSpacing.xs),
             Text(
               l.completionOnBehalfNote,
-              style: const TextStyle(
-                color: AppColors.textMuted,
-                fontSize: 12,
-                height: 1.4,
+              style: context.type.bodyMedium?.copyWith(
+                color: context.mamily.ink2,
               ),
             ),
-            const SizedBox(height: 16),
+            const SizedBox(height: AppSpacing.md),
             if (_formError != null) AuthFormErrorBanner(message: _formError!),
-            Text(
-              l.completionFieldDate,
-              style: const TextStyle(
-                color: AppColors.navy,
-                fontWeight: FontWeight.bold,
-              ),
-            ),
-            const SizedBox(height: 8),
-            InkWell(
+            FormSectionLabel(l.completionFieldDate),
+            PickerField(
+              icon: Icons.event_available_outlined,
+              label: l.completionFieldDate,
+              value: formatTaskDate(context, _date),
               onTap: _pickDate,
-              borderRadius: BorderRadius.circular(16),
-              child: Container(
-                padding: const EdgeInsets.symmetric(
-                  horizontal: 14,
-                  vertical: 15,
-                ),
-                decoration: BoxDecoration(
-                  color: Colors.white,
-                  borderRadius: BorderRadius.circular(16),
-                  border: Border.all(color: AppColors.border),
-                ),
-                child: Row(
-                  children: [
-                    const Icon(
-                      Icons.event_available_outlined,
-                      color: Color(0xFF8E98AC),
-                      size: 20,
-                    ),
-                    const SizedBox(width: 10),
-                    Text(
-                      formatTaskDate(context, _date),
-                      style: const TextStyle(color: AppColors.navy),
-                    ),
-                  ],
-                ),
-              ),
             ),
             AuthFieldError(messages: _fieldErrors['occurrence_date']),
-            const SizedBox(height: 20),
+            const SizedBox(height: AppSpacing.xl),
             PrimaryButton(
               text: l.completionRequest,
               onPressed: _submitting ? null : _submit,
             ),
             if (_submitting)
               const Padding(
-                padding: EdgeInsets.only(top: 14),
-                child: Center(
-                  child: CircularProgressIndicator(color: AppColors.coral),
-                ),
+                padding: EdgeInsets.only(top: AppSpacing.md),
+                child: Center(child: CircularProgressIndicator()),
               ),
           ],
         ),

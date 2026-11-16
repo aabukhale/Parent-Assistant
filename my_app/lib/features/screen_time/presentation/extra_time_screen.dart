@@ -3,8 +3,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import '../../../core/errors/api_exception.dart';
 import '../../../core/localization/l10n.dart';
-import '../../../core/theme/app_colors.dart';
-import '../../../core/widgets/state_views.dart';
+import '../../../core/design_system.dart';
 import '../../dashboard/presentation/dashboard_widgets.dart';
 import '../../family/application/permissions_controller.dart';
 import '../../family/data/models/family_permission.dart';
@@ -42,91 +41,59 @@ class _ExtraTimeScreenState extends ConsumerState<ExtraTimeScreen> {
     final async = ref.watch(overridesControllerProvider);
 
     return Scaffold(
-      backgroundColor: AppColors.background,
-      appBar: AppBar(
-        title: Text(
-          l.stExtraTime,
-          style: const TextStyle(
-            color: AppColors.navy,
-            fontWeight: FontWeight.bold,
-          ),
-        ),
-      ),
-      body: SafeArea(
+      appBar: AppBar(title: Text(l.stExtraTime)),
+      body: AppContentFrame(
         child: RefreshIndicator(
           onRefresh: ref.read(overridesControllerProvider.notifier).refresh,
           child: ListView(
-            padding: const EdgeInsets.fromLTRB(20, 16, 20, 40),
+            padding: const EdgeInsets.fromLTRB(
+              AppSpacing.lg,
+              AppSpacing.sm,
+              AppSpacing.lg,
+              AppSpacing.xxxl,
+            ),
             children: [
               if (canGrant) ...[
-                Text(
-                  l.stExtraHowMuch,
-                  style: const TextStyle(
-                    color: AppColors.navy,
-                    fontSize: 16,
-                    fontWeight: FontWeight.bold,
-                  ),
-                ),
-                const SizedBox(height: 10),
-                Wrap(
-                  spacing: 8,
-                  children: [
+                Text(l.stExtraHowMuch, style: context.type.titleSmall),
+                const SizedBox(height: AppSpacing.sm),
+                ChoiceChipBar<int>(
+                  options: {
                     for (final m in [15, 30, 45, 60, 90])
-                      ChoiceChip(
-                        label: Text('$m'),
-                        selected: _minutes == m,
-                        onSelected: (_) => setState(() => _minutes = m),
-                      ),
-                  ],
+                      m: formatDurationMinutes(context, m),
+                  },
+                  selected: _minutes,
+                  onSelected: (m) => setState(() => _minutes = m),
                 ),
-                const SizedBox(height: 12),
+                const SizedBox(height: AppSpacing.md),
                 TextField(
                   controller: _reason,
-                  decoration: InputDecoration(
-                    labelText: l.stExtraReason,
-                    border: const OutlineInputBorder(),
-                  ),
+                  decoration: InputDecoration(labelText: l.stExtraReason),
                 ),
-                const SizedBox(height: 12),
+                const SizedBox(height: AppSpacing.md),
                 SizedBox(
                   width: double.infinity,
-                  height: 48,
-                  child: ElevatedButton(
+                  child: FilledButton(
                     onPressed: _submitting ? null : _grant,
-                    style: ElevatedButton.styleFrom(
-                      backgroundColor: AppColors.coral,
-                      foregroundColor: Colors.white,
-                    ),
                     child: _submitting
-                        ? const SizedBox(
+                        ? SizedBox(
                             width: 18,
                             height: 18,
                             child: CircularProgressIndicator(
                               strokeWidth: 2,
-                              color: Colors.white,
+                              color: context.mamily.onAction,
                             ),
                           )
                         : Text(l.stExtraGrant),
                   ),
                 ),
-                const SizedBox(height: 24),
+                const SizedBox(height: AppSpacing.xxl),
               ],
-              Text(
-                l.stExtraHistory,
-                style: const TextStyle(
-                  color: AppColors.navy,
-                  fontSize: 16,
-                  fontWeight: FontWeight.bold,
-                ),
-              ),
-              const SizedBox(height: 10),
+              SectionHeader(title: l.stExtraHistory),
               async.when(
                 skipLoadingOnReload: true,
                 loading: () => const Padding(
-                  padding: EdgeInsets.all(20),
-                  child: Center(
-                    child: CircularProgressIndicator(color: AppColors.coral),
-                  ),
+                  padding: EdgeInsets.all(AppSpacing.xl),
+                  child: Center(child: CircularProgressIndicator()),
                 ),
                 error: (e, _) => ErrorRetryView(
                   error: e,
@@ -139,7 +106,9 @@ class _ExtraTimeScreenState extends ConsumerState<ExtraTimeScreen> {
                         padding: const EdgeInsets.symmetric(vertical: 16),
                         child: Text(
                           l.stExtraHistoryEmpty,
-                          style: const TextStyle(color: AppColors.textMuted),
+                          style: context.type.bodyMedium?.copyWith(
+                            color: context.mamily.ink2,
+                          ),
                         ),
                       )
                     : Column(
@@ -218,21 +187,18 @@ class _OverrideTile extends StatelessWidget {
   Widget build(BuildContext context) {
     final l = context.l10n;
     final o = data;
-    return Container(
-      margin: const EdgeInsets.only(bottom: 8),
-      padding: const EdgeInsets.all(14),
-      decoration: BoxDecoration(
-        color: Colors.white,
-        borderRadius: BorderRadius.circular(16),
-      ),
+    return AppCard(
+      margin: const EdgeInsets.only(bottom: AppSpacing.sm),
       child: Row(
         children: [
-          Icon(
-            o.isRevoked ? Icons.timer_off_outlined : Icons.more_time_rounded,
-            color: o.isRevoked ? AppColors.textMuted : const Color(0xFF57C77A),
-            size: 20,
+          IconBadge(
+            icon: o.isRevoked
+                ? Icons.timer_off_outlined
+                : Icons.more_time_rounded,
+            tone: o.isRevoked ? AppTone.neutral : AppTone.success,
+            size: 40,
           ),
-          const SizedBox(width: 10),
+          const SizedBox(width: AppSpacing.md),
           Expanded(
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
@@ -243,25 +209,23 @@ class _OverrideTile extends StatelessWidget {
                       : l.stExtraGrantedLabel(
                           formatDurationMinutes(context, o.additionalMinutes),
                         ),
-                  style: TextStyle(
-                    color: o.isRevoked ? AppColors.textMuted : AppColors.navy,
-                    fontWeight: FontWeight.bold,
-                    fontSize: 13,
+                  style: context.type.labelLarge?.copyWith(
+                    color: o.isRevoked
+                        ? context.mamily.ink2
+                        : context.mamily.ink,
                   ),
                 ),
                 Text(
                   o.isFromReward ? l.stExtraFromReward : l.stExtraFromParent,
-                  style: const TextStyle(
-                    color: AppColors.textMuted,
-                    fontSize: 11,
+                  style: context.type.bodySmall?.copyWith(
+                    color: context.mamily.ink2,
                   ),
                 ),
                 if ((o.reason ?? '').isNotEmpty)
                   Text(
                     o.reason!,
-                    style: const TextStyle(
-                      color: AppColors.textMuted,
-                      fontSize: 11,
+                    style: context.type.bodySmall?.copyWith(
+                      color: context.mamily.ink2,
                     ),
                   ),
               ],

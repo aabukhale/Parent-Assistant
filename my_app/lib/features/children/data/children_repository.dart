@@ -54,6 +54,21 @@ class ChildrenRepository {
     return Child.fromJson(envelope.dataMap);
   }
 
+  /// Set (or clear, with null → family default) one child's app language.
+  /// Only `preferred_language` is sent, so nothing else on the profile and
+  /// no other child changes.
+  Future<Child> setLanguage(
+    String familyId,
+    String childId,
+    String? languageCode,
+  ) async {
+    final envelope = await _client.patch(
+      '/families/$familyId/children/$childId',
+      body: {'preferred_language': languageCode},
+    );
+    return Child.fromJson(envelope.dataMap);
+  }
+
   Future<void> delete(String familyId, String childId) async {
     await _client.delete('/families/$familyId/children/$childId');
   }

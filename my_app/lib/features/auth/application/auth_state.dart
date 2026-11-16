@@ -2,6 +2,7 @@ import 'package:flutter/foundation.dart';
 
 import '../../../core/errors/api_exception.dart';
 import '../data/models/auth_session.dart';
+import '../data/models/child_session.dart';
 import '../data/models/family_membership.dart';
 
 enum AuthPhase {
@@ -19,17 +20,42 @@ enum AuthPhase {
   authenticated,
 }
 
+/// Why this install's child session ended without the child signing out.
+enum ChildSessionEnd {
+  /// A parent unpaired the phone (the backend confirmed it).
+  revoked,
+
+  /// The session expired or was otherwise invalidated.
+  expired,
+}
+
 @immutable
 class AuthState {
   const AuthState({
     required this.phase,
     this.session,
+    this.childSession,
     this.activeMembershipId,
     this.restoreError,
+    this.hasParkedChild = false,
+    this.childSessionEnd,
   });
 
+  /// Set on the signed-out state right after a child session ended on its
+  /// own (shown once on the "I'm a child" entry so the child knows to ask a
+  /// parent for a new code).
+  final ChildSessionEnd? childSessionEnd;
+
   final AuthPhase phase;
+
+  /// Parent / caregiver session (`/auth/me`). Null for a child device.
   final AuthSession? session;
+
+  /// Paired child session (`/child/me`). Null for a parent session.
+  final ChildSession? childSession;
+
+  /// A child session is parked on this install while a grown-up is signed in.
+  final bool hasParkedChild;
 
   /// Which `family_members` row is currently active. Null while a
   /// multi-family user has not chosen one yet.
@@ -40,8 +66,12 @@ class AuthState {
   const AuthState.restoring() : this(phase: AuthPhase.restoring);
   const AuthState.unauthenticated() : this(phase: AuthPhase.unauthenticated);
 
+  /// A parent/caregiver is signed in.
   bool get isAuthenticated =>
       phase == AuthPhase.authenticated && session != null;
+
+  /// A paired child is signed in on this device.
+  bool get isChild => phase == AuthPhase.authenticated && childSession != null;
 
   FamilyMembership? get activeMembership {
     final list = session?.memberships ?? const [];
@@ -63,11 +93,14 @@ class AuthState {
     AuthSession? session,
     String? activeMembershipId,
     ApiException? restoreError,
+    bool? hasParkedChild,
     bool clearActive = false,
     bool clearError = false,
   }) => AuthState(
     phase: phase ?? this.phase,
     session: session ?? this.session,
+    childSession: childSession,
+    hasParkedChild: hasParkedChild ?? this.hasParkedChild,
     activeMembershipId: clearActive
         ? null
         : (activeMembershipId ?? this.activeMembershipId),

@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "504806449277",
+    "project_id": "mamily-68729",
+    "storage_bucket": "mamily-68729.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:504806449277:android:72e69c0189c84766195114",
+        "android_client_info": {
+          "package_name": "com.example.my_app"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCJxmCfkQXZTuhF-IoXOTvmsrHBB3MZF9s"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

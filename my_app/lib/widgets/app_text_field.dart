@@ -1,5 +1,10 @@
 import 'package:flutter/material.dart';
 
+import '../core/design_system.dart';
+
+/// Labelled text field. The label sits above the input (always visible, also
+/// at large text sizes); styling comes from the theme. Text direction follows
+/// the app locale (no forced RTL), so English and Arabic/Hebrew both work.
 class AppTextField extends StatelessWidget {
   final String label;
   final String? hint;
@@ -8,6 +13,9 @@ class AppTextField extends StatelessWidget {
   final bool obscureText;
   final TextInputType keyboardType;
   final String? Function(String?)? validator;
+  final TextInputAction? textInputAction;
+  final Iterable<String>? autofillHints;
+  final ValueChanged<String>? onSubmitted;
 
   const AppTextField({
     super.key,
@@ -18,53 +26,32 @@ class AppTextField extends StatelessWidget {
     this.obscureText = false,
     this.keyboardType = TextInputType.text,
     this.validator,
+    this.textInputAction,
+    this.autofillHints,
+    this.onSubmitted,
   });
 
   @override
   Widget build(BuildContext context) {
+    final c = context.mamily;
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Text(
-          label,
-          style: const TextStyle(
-            color: Color(0xFF2E3B63),
-            fontSize: 15,
-            fontWeight: FontWeight.bold,
-          ),
-        ),
-        const SizedBox(height: 8),
-
+        Text(label, style: context.type.labelLarge),
+        const SizedBox(height: AppSpacing.sm),
         TextFormField(
           controller: controller,
           obscureText: obscureText,
           keyboardType: keyboardType,
           validator: validator,
-          textDirection: TextDirection.rtl,
+          textInputAction: textInputAction,
+          autofillHints: autofillHints,
+          onFieldSubmitted: onSubmitted,
           decoration: InputDecoration(
             hintText: hint,
-            hintStyle: const TextStyle(color: Color(0xFF9AA3B5)),
             prefixIcon: prefixIcon == null
                 ? null
-                : Icon(prefixIcon, color: const Color(0xFF8E98AC)),
-            filled: true,
-            fillColor: Colors.white,
-            contentPadding: const EdgeInsets.symmetric(
-              horizontal: 18,
-              vertical: 17,
-            ),
-            border: OutlineInputBorder(
-              borderRadius: BorderRadius.circular(18),
-              borderSide: const BorderSide(color: Color(0xFFE0E3EB)),
-            ),
-            enabledBorder: OutlineInputBorder(
-              borderRadius: BorderRadius.circular(18),
-              borderSide: const BorderSide(color: Color(0xFFE0E3EB)),
-            ),
-            focusedBorder: OutlineInputBorder(
-              borderRadius: BorderRadius.circular(18),
-              borderSide: const BorderSide(color: Color(0xFF62D9D4), width: 2),
-            ),
+                : Icon(prefixIcon, color: c.ink2),
           ),
         ),
       ],

@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>pulse.waiting %lld</key>
+	<dict>
+		<key>NSStringLocalizedFormatKey</key>
+		<string>%#@n@</string>
+		<key>n</key>
+		<dict>
+			<key>NSStringFormatSpecTypeKey</key>
+			<string>NSStringPluralRuleType</string>
+			<key>NSStringFormatValueTypeKey</key>
+			<string>lld</string>
+			<key>one</key>
+			<string>בקשה אחת מחכה לך</string>
+			<key>two</key>
+			<string>%lld בקשות מחכות לך</string>
+			<key>other</key>
+			<string>%lld בקשות מחכות לך</string>
+		</dict>
+	</dict>
+	<key>pulse.toReview %lld</key>
+	<dict>
+		<key>NSStringLocalizedFormatKey</key>
+		<string>%#@n@</string>
+		<key>n</key>
+		<dict>
+			<key>NSStringFormatSpecTypeKey</key>
+			<string>NSStringPluralRuleType</string>
+			<key>NSStringFormatValueTypeKey</key>
+			<string>lld</string>
+			<key>one</key>
+			<string>%lld לבדיקה</string>
+			<key>two</key>
+			<string>%lld לבדיקה</string>
+			<key>other</key>
+			<string>%lld לבדיקה</string>
+		</dict>
+	</dict>
+</dict>
+</plist>

@@ -3,8 +3,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import '../../../core/errors/api_exception.dart';
 import '../../../core/localization/l10n.dart';
-import '../../../core/theme/app_colors.dart';
-import '../../../core/widgets/state_views.dart';
+import '../../../core/design_system.dart';
 import '../../children/application/selected_child_controller.dart';
 import '../application/library_controller.dart';
 import '../data/models/article.dart';
@@ -25,17 +24,8 @@ class LibraryScreen extends ConsumerWidget {
     final hasChild = ref.watch(selectedChildProvider) != null;
 
     return Scaffold(
-      backgroundColor: AppColors.background,
-      appBar: AppBar(
-        title: Text(
-          l.libraryTitle,
-          style: const TextStyle(
-            color: AppColors.navy,
-            fontWeight: FontWeight.bold,
-          ),
-        ),
-      ),
-      body: SafeArea(
+      appBar: AppBar(title: Text(l.libraryTitle)),
+      body: AppContentFrame(
         child: RefreshIndicator(
           onRefresh: () async {
             ref.invalidate(libraryCategoriesProvider);
@@ -43,21 +33,24 @@ class LibraryScreen extends ConsumerWidget {
             await controller.refresh();
           },
           child: ListView(
-            padding: const EdgeInsets.fromLTRB(20, 12, 20, 40),
+            padding: const EdgeInsets.fromLTRB(
+              AppSpacing.lg,
+              AppSpacing.sm,
+              AppSpacing.lg,
+              AppSpacing.xxxl,
+            ),
             children: [
               const _CategoryChips(),
               if (hasChild) ...[
-                const SizedBox(height: 8),
+                const SizedBox(height: AppSpacing.sm),
                 const _Recommendations(),
               ],
-              const SizedBox(height: 12),
+              const SizedBox(height: AppSpacing.md),
               async.when(
                 skipLoadingOnReload: true,
                 loading: () => const Padding(
                   padding: EdgeInsets.all(28),
-                  child: Center(
-                    child: CircularProgressIndicator(color: AppColors.coral),
-                  ),
+                  child: Center(child: CircularProgressIndicator()),
                 ),
                 error: (e, _) =>
                     ErrorRetryView(error: e, onRetry: controller.refresh),
@@ -67,7 +60,9 @@ class LibraryScreen extends ConsumerWidget {
                         child: Center(
                           child: Text(
                             l.libraryEmpty,
-                            style: const TextStyle(color: AppColors.textMuted),
+                            style: context.type.bodyMedium?.copyWith(
+                              color: context.mamily.ink2,
+                            ),
                           ),
                         ),
                       )
@@ -79,9 +74,7 @@ class LibraryScreen extends ConsumerWidget {
                             Padding(
                               padding: const EdgeInsets.only(top: 4),
                               child: state.loadingMore
-                                  ? const CircularProgressIndicator(
-                                      color: AppColors.coral,
-                                    )
+                                  ? const CircularProgressIndicator()
                                   : OutlinedButton(
                                       onPressed: () => _loadMore(context, ref),
                                       child: Text(l.libraryLoadMore),
@@ -130,7 +123,7 @@ class _CategoryChips extends ConsumerWidget {
                   ref.read(libraryCategoryFilterProvider.notifier).state = null,
             ),
             for (final cat in cats) ...[
-              const SizedBox(width: 8),
+              const SizedBox(width: AppSpacing.sm),
               ChoiceChip(
                 label: Text(cat.name),
                 selected: selected == cat.key,
@@ -161,57 +154,46 @@ class _Recommendations extends ConsumerWidget {
           : Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                const SizedBox(height: 14),
-                Text(
-                  l.libraryRecommendedTitle,
-                  style: const TextStyle(
-                    color: AppColors.navy,
-                    fontSize: 15,
-                    fontWeight: FontWeight.bold,
-                  ),
-                ),
-                const SizedBox(height: 8),
+                const SizedBox(height: AppSpacing.md),
+                Text(l.libraryRecommendedTitle, style: context.type.titleSmall),
+                const SizedBox(height: AppSpacing.sm),
                 SizedBox(
-                  height: 110,
+                  height: 132,
                   child: ListView.separated(
                     scrollDirection: Axis.horizontal,
                     itemCount: articles.length,
-                    separatorBuilder: (_, _) => const SizedBox(width: 10),
+                    separatorBuilder: (_, _) =>
+                        const SizedBox(width: AppSpacing.sm),
                     itemBuilder: (_, i) {
                       final a = articles[i];
-                      return GestureDetector(
-                        onTap: () => Navigator.of(context).push(
-                          MaterialPageRoute(
-                            builder: (_) => ArticleDetailsScreen(slug: a.slug),
-                          ),
-                        ),
-                        child: Container(
-                          width: 200,
-                          padding: const EdgeInsets.all(14),
-                          decoration: BoxDecoration(
-                            color: AppColors.navy,
-                            borderRadius: BorderRadius.circular(18),
+                      return SizedBox(
+                        width: 220,
+                        child: AppCard(
+                          tone: AppTone.info,
+                          onTap: () => Navigator.of(context).push(
+                            MaterialPageRoute(
+                              builder: (_) =>
+                                  ArticleDetailsScreen(slug: a.slug),
+                            ),
                           ),
                           child: Column(
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
-                              Text(
-                                a.title,
-                                maxLines: 3,
-                                overflow: TextOverflow.ellipsis,
-                                style: const TextStyle(
-                                  color: Colors.white,
-                                  fontWeight: FontWeight.bold,
-                                  fontSize: 13,
+                              Expanded(
+                                child: Text(
+                                  a.title,
+                                  maxLines: 3,
+                                  overflow: TextOverflow.ellipsis,
+                                  style: context.type.titleSmall,
                                 ),
                               ),
-                              const Spacer(),
                               if (a.categories.isNotEmpty)
                                 Text(
                                   a.categories.first.name,
-                                  style: const TextStyle(
-                                    color: Color(0xFFD8DDEC),
-                                    fontSize: 10,
+                                  maxLines: 1,
+                                  overflow: TextOverflow.ellipsis,
+                                  style: context.type.labelMedium?.copyWith(
+                                    color: context.mamily.info.foreground,
                                   ),
                                 ),
                             ],
@@ -240,44 +222,28 @@ class _ArticleCard extends StatelessWidget {
           builder: (_) => ArticleDetailsScreen(slug: article.slug),
         ),
       ),
-      child: Container(
-        margin: const EdgeInsets.only(bottom: 12),
-        padding: const EdgeInsets.all(16),
-        decoration: BoxDecoration(
-          color: Colors.white,
-          borderRadius: BorderRadius.circular(20),
-        ),
+      child: AppCard(
+        margin: const EdgeInsets.only(bottom: AppSpacing.sm),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             if (article.categories.isNotEmpty)
               Text(
                 article.categories.map((c) => c.name).join(' · '),
-                style: const TextStyle(
-                  color: AppColors.coral,
-                  fontSize: 11,
-                  fontWeight: FontWeight.bold,
+                style: context.type.labelMedium?.copyWith(
+                  color: context.mamily.actionText,
                 ),
               ),
-            const SizedBox(height: 4),
-            Text(
-              article.title,
-              style: const TextStyle(
-                color: AppColors.navy,
-                fontWeight: FontWeight.bold,
-                fontSize: 15,
-              ),
-            ),
+            const SizedBox(height: AppSpacing.xs),
+            Text(article.title, style: context.type.titleSmall),
             if ((article.excerpt ?? '').isNotEmpty) ...[
-              const SizedBox(height: 6),
+              const SizedBox(height: AppSpacing.xs),
               Text(
                 article.excerpt!,
                 maxLines: 2,
                 overflow: TextOverflow.ellipsis,
-                style: const TextStyle(
-                  color: AppColors.textMuted,
-                  fontSize: 12,
-                  height: 1.4,
+                style: context.type.bodySmall?.copyWith(
+                  color: context.mamily.ink2,
                 ),
               ),
             ],

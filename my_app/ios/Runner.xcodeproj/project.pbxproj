@@ -7,16 +7,34 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		E6ED4618309A8B4A00CAB8A7 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = E6ED4617309A8B4A00CAB8A7 /* GoogleService-Info.plist */; };
+		04B54E1965A635B73ADFDE80 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 811666736E63664F56400D7E /* InfoPlist.strings */; };
+		0CE1F9AA0C66A5D07CC67E3C /* RoutineActivityAttributes.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24645CFC3DF43B943A1B557F /* RoutineActivityAttributes.swift */; };
+		0F91E797BA8AA1808BE12385 /* ActivityMonitorExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F8EA6AF6DC85AE3CA70D388 /* ActivityMonitorExtension.swift */; };
 		1498D2341E8E89220040F4C2 /* GeneratedPluginRegistrant.m in Sources */ = {isa = PBXBuildFile; fileRef = 1498D2331E8E89220040F4C2 /* GeneratedPluginRegistrant.m */; };
 		21DD20C7D4F65A8779709BA2 /* Pods_Runner.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 962016E229B6844F4CF9322C /* Pods_Runner.framework */; };
 		2535F025AFA103E7D5668CDC /* Pods_RunnerTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F83CD4EB678219571CB6E51C /* Pods_RunnerTests.framework */; };
+		2E302812F993541A3D29AA25 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 3F4D39389723D02AF925C117 /* Localizable.strings */; };
 		331C808B294A63AB00263BE5 /* RunnerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 331C807B294A618700263BE5 /* RunnerTests.swift */; };
+		3950A5EB881BF06B6B0C5EF1 /* MamilyRules.swift in Sources */ = {isa = PBXBuildFile; fileRef = 163E845AD008674AB934BFA1 /* MamilyRules.swift */; };
 		3B3967161E833CAA004F5970 /* AppFrameworkInfo.plist in Resources */ = {isa = PBXBuildFile; fileRef = 3B3967151E833CAA004F5970 /* AppFrameworkInfo.plist */; };
+		4AE8834D7ABD589945F53C97 /* Localizable.stringsdict in Resources */ = {isa = PBXBuildFile; fileRef = BE404D0A857720C32CE5F806 /* Localizable.stringsdict */; };
+		4FCFAAFCAE3E65F2CA562875 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AF9E7ACFE30E1D7E9E11FD68 /* Foundation.framework */; };
+		66A70B6837DE73DDD6E9E8BE /* LiveActivityBridge.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3905135C2D9238907F87F06D /* LiveActivityBridge.swift */; };
+		6D5777434C2CD1CBB05C5887 /* MamilyWidgetBundle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7151485A88916A889FCF2EB1 /* MamilyWidgetBundle.swift */; };
 		74858FAF1ED2DC5600515810 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 74858FAE1ED2DC5600515810 /* AppDelegate.swift */; };
+		7827C876F38F70034E77A617 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AF9E7ACFE30E1D7E9E11FD68 /* Foundation.framework */; };
 		7884E8682EC3CC0700C636F2 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7884E8672EC3CC0400C636F2 /* SceneDelegate.swift */; };
+		94D8C872B49E76052D3DE9A0 /* RoutineLiveActivity.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55979D5703C6CA7B0A97999F /* RoutineLiveActivity.swift */; };
 		97C146FC1CF9000F007C117D /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 97C146FA1CF9000F007C117D /* Main.storyboard */; };
 		97C146FE1CF9000F007C117D /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 97C146FD1CF9000F007C117D /* Assets.xcassets */; };
 		97C147011CF9000F007C117D /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 97C146FF1CF9000F007C117D /* LaunchScreen.storyboard */; };
+		A07280F097CB8DC6789A0238 /* MamilyActivityMonitor.appex in Embed Foundation Extensions */ = {isa = PBXBuildFile; fileRef = D996F8EA28CE4BC203FF9DA1 /* MamilyActivityMonitor.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
+		A8B8DEEE073919CBE8D7E212 /* MamilyRules.swift in Sources */ = {isa = PBXBuildFile; fileRef = 163E845AD008674AB934BFA1 /* MamilyRules.swift */; };
+		C559794EDECF805DD3FB487F /* FamilyPulseWidget.appex in Embed Foundation Extensions */ = {isa = PBXBuildFile; fileRef = 7CBD01659DB290D2EE8B2BF6 /* FamilyPulseWidget.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
+		D52A242936D87D9D970CAF32 /* RoutineActivityAttributes.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24645CFC3DF43B943A1B557F /* RoutineActivityAttributes.swift */; };
+		E395E3890C8E8CF44272D420 /* FamilyPulseWidget.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7C4E755DD7DD046D30C2DD25 /* FamilyPulseWidget.swift */; };
+		E8F05D23391367AFC6963569 /* DeviceRulesBridge.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C07DD5C3A9F575A61E1E844 /* DeviceRulesBridge.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -26,6 +44,20 @@
 			proxyType = 1;
 			remoteGlobalIDString = 97C146ED1CF9000F007C117D;
 			remoteInfo = Runner;
+		};
+		8632F1F3E6FBFE6E23371E53 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 97C146E61CF9000F007C117D /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 6BB04FB63F8C3770EF377A03;
+			remoteInfo = MamilyActivityMonitor;
+		};
+		D32AC4315B694FD5E5324A65 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 97C146E61CF9000F007C117D /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = D7F4EE72CC3383194FE84BAE;
+			remoteInfo = FamilyPulseWidget;
 		};
 /* End PBXContainerItemProxy section */
 
@@ -40,22 +72,51 @@
 			name = "Embed Frameworks";
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		F4E25378DFDAFA9FD5E5EBD2 /* Embed Foundation Extensions */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 13;
+			files = (
+				C559794EDECF805DD3FB487F /* FamilyPulseWidget.appex in Embed Foundation Extensions */,
+				A07280F097CB8DC6789A0238 /* MamilyActivityMonitor.appex in Embed Foundation Extensions */,
+			);
+			name = "Embed Foundation Extensions";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		E6ED4617309A8B4A00CAB8A7 /* GoogleService-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		00DD616F18F1A322B3E39C97 /* Pods-Runner.profile.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Runner.profile.xcconfig"; path = "Target Support Files/Pods-Runner/Pods-Runner.profile.xcconfig"; sourceTree = "<group>"; };
 		09D833D3B3B0848FCA115C7F /* Pods-RunnerTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-RunnerTests.release.xcconfig"; path = "Target Support Files/Pods-RunnerTests/Pods-RunnerTests.release.xcconfig"; sourceTree = "<group>"; };
 		0E14A0F2458530149EBFA8BF /* Pods-Runner.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Runner.release.xcconfig"; path = "Target Support Files/Pods-Runner/Pods-Runner.release.xcconfig"; sourceTree = "<group>"; };
 		1498D2321E8E86230040F4C2 /* GeneratedPluginRegistrant.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = GeneratedPluginRegistrant.h; sourceTree = "<group>"; };
 		1498D2331E8E89220040F4C2 /* GeneratedPluginRegistrant.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GeneratedPluginRegistrant.m; sourceTree = "<group>"; };
+		163E845AD008674AB934BFA1 /* MamilyRules.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = MamilyRules.swift; sourceTree = "<group>"; };
+		1F8E3CF51B049F31353C4739 /* ar */ = {isa = PBXFileReference; includeInIndex = 1; name = ar; path = ar.lproj/Localizable.stringsdict; sourceTree = "<group>"; };
+		24645CFC3DF43B943A1B557F /* RoutineActivityAttributes.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = RoutineActivityAttributes.swift; sourceTree = "<group>"; };
+		2C07DD5C3A9F575A61E1E844 /* DeviceRulesBridge.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = DeviceRulesBridge.swift; sourceTree = "<group>"; };
 		331C807B294A618700263BE5 /* RunnerTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RunnerTests.swift; sourceTree = "<group>"; };
 		331C8081294A63A400263BE5 /* RunnerTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = RunnerTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		35113C7B44EEA3534EDFEBB3 /* Runner.entitlements */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.entitlements; path = Runner.entitlements; sourceTree = "<group>"; };
+		3905135C2D9238907F87F06D /* LiveActivityBridge.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = LiveActivityBridge.swift; sourceTree = "<group>"; };
+		3A3A96F9FF838B14C9D05035 /* en */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Localizable.strings; sourceTree = "<group>"; };
 		3B3967151E833CAA004F5970 /* AppFrameworkInfo.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = AppFrameworkInfo.plist; path = Flutter/AppFrameworkInfo.plist; sourceTree = "<group>"; };
+		422A81C603417355733B8C8D /* he */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.strings; name = he; path = he.lproj/InfoPlist.strings; sourceTree = "<group>"; };
+		42B7EE1FBF1E254CCE628AE5 /* en */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
+		55979D5703C6CA7B0A97999F /* RoutineLiveActivity.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = RoutineLiveActivity.swift; sourceTree = "<group>"; };
 		5B0A128D62069074665F0409 /* Pods-RunnerTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-RunnerTests.debug.xcconfig"; path = "Target Support Files/Pods-RunnerTests/Pods-RunnerTests.debug.xcconfig"; sourceTree = "<group>"; };
+		7151485A88916A889FCF2EB1 /* MamilyWidgetBundle.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = MamilyWidgetBundle.swift; sourceTree = "<group>"; };
 		74858FAD1ED2DC5600515810 /* Runner-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "Runner-Bridging-Header.h"; sourceTree = "<group>"; };
 		74858FAE1ED2DC5600515810 /* AppDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		7884E8672EC3CC0400C636F2 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
 		7AFA3C8E1D35360C0083082E /* Release.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; name = Release.xcconfig; path = Flutter/Release.xcconfig; sourceTree = "<group>"; };
+		7C4E755DD7DD046D30C2DD25 /* FamilyPulseWidget.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = FamilyPulseWidget.swift; sourceTree = "<group>"; };
+		7CBD01659DB290D2EE8B2BF6 /* FamilyPulseWidget.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = FamilyPulseWidget.appex; sourceTree = BUILT_PRODUCTS_DIR; };
+		8F8EA6AF6DC85AE3CA70D388 /* ActivityMonitorExtension.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = ActivityMonitorExtension.swift; sourceTree = "<group>"; };
+		941C1EE24341A4713EAB25DA /* MamilyActivityMonitor.entitlements */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.entitlements; path = MamilyActivityMonitor.entitlements; sourceTree = "<group>"; };
+		94E5DCC9342AEC362BF2D090 /* Info.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		962016E229B6844F4CF9322C /* Pods_Runner.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Runner.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		9740EEB21CF90195004384FC /* Debug.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; name = Debug.xcconfig; path = Flutter/Debug.xcconfig; sourceTree = "<group>"; };
 		9740EEB31CF90195004384FC /* Generated.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; name = Generated.xcconfig; path = Flutter/Generated.xcconfig; sourceTree = "<group>"; };
@@ -65,11 +126,29 @@
 		97C147001CF9000F007C117D /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		97C147021CF9000F007C117D /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		98A54FFD3537FC30FFDBFFEE /* Pods-Runner.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Runner.debug.xcconfig"; path = "Target Support Files/Pods-Runner/Pods-Runner.debug.xcconfig"; sourceTree = "<group>"; };
+		AF9E7ACFE30E1D7E9E11FD68 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS18.0.sdk/System/Library/Frameworks/Foundation.framework; sourceTree = DEVELOPER_DIR; };
+		C4B8EEE0D533D2FF4CDE5ED5 /* ar */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.strings; name = ar; path = ar.lproj/Localizable.strings; sourceTree = "<group>"; };
+		C833D7E8861DEBCC5968E2CD /* en */ = {isa = PBXFileReference; includeInIndex = 1; name = en; path = en.lproj/Localizable.stringsdict; sourceTree = "<group>"; };
+		CB7113C199D722776AFCE2BC /* Info.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		D1CCC0FE975C80E396DC8785 /* WidgetExtension.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = Flutter/WidgetExtension.xcconfig; sourceTree = "<group>"; };
+		D996F8EA28CE4BC203FF9DA1 /* MamilyActivityMonitor.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = MamilyActivityMonitor.appex; sourceTree = BUILT_PRODUCTS_DIR; };
+		DD7DDE74773FABC5446FF60A /* ar */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.strings; name = ar; path = ar.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		E292E245F8E6D40057489BF4 /* Pods-RunnerTests.profile.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-RunnerTests.profile.xcconfig"; path = "Target Support Files/Pods-RunnerTests/Pods-RunnerTests.profile.xcconfig"; sourceTree = "<group>"; };
 		F83CD4EB678219571CB6E51C /* Pods_RunnerTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_RunnerTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		F89BF013D612EBB8A9CEFBD1 /* he */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.strings; name = he; path = he.lproj/Localizable.strings; sourceTree = "<group>"; };
+		FD5CB00C0B6591B4C905EEFD /* he */ = {isa = PBXFileReference; includeInIndex = 1; name = he; path = he.lproj/Localizable.stringsdict; sourceTree = "<group>"; };
+		FE5918C2774A4C3ACEDB07D7 /* FamilyPulseWidget.entitlements */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.entitlements; path = FamilyPulseWidget.entitlements; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
+		18FF1F91BDC1720B88C69153 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				7827C876F38F70034E77A617 /* Foundation.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		97C146EB1CF9000F007C117D /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
@@ -83,6 +162,14 @@
 			buildActionMask = 2147483647;
 			files = (
 				2535F025AFA103E7D5668CDC /* Pods_RunnerTests.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		DC28B9BF1F5A277BB0D0EE1F /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				4FCFAAFCAE3E65F2CA562875 /* Foundation.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -102,8 +189,53 @@
 			children = (
 				962016E229B6844F4CF9322C /* Pods_Runner.framework */,
 				F83CD4EB678219571CB6E51C /* Pods_RunnerTests.framework */,
+				521B0CD1BB1D48606BB88AF3 /* iOS */,
 			);
 			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		521B0CD1BB1D48606BB88AF3 /* iOS */ = {
+			isa = PBXGroup;
+			children = (
+				AF9E7ACFE30E1D7E9E11FD68 /* Foundation.framework */,
+			);
+			name = iOS;
+			sourceTree = "<group>";
+		};
+		653BB7BAB0E8ED15724FADB2 /* FamilyPulseWidget */ = {
+			isa = PBXGroup;
+			children = (
+				7151485A88916A889FCF2EB1 /* MamilyWidgetBundle.swift */,
+				7C4E755DD7DD046D30C2DD25 /* FamilyPulseWidget.swift */,
+				55979D5703C6CA7B0A97999F /* RoutineLiveActivity.swift */,
+				CB7113C199D722776AFCE2BC /* Info.plist */,
+				FE5918C2774A4C3ACEDB07D7 /* FamilyPulseWidget.entitlements */,
+				3F4D39389723D02AF925C117 /* Localizable.strings */,
+				BE404D0A857720C32CE5F806 /* Localizable.stringsdict */,
+			);
+			name = FamilyPulseWidget;
+			path = FamilyPulseWidget;
+			sourceTree = "<group>";
+		};
+		747480F88FFE07FD5E239828 /* Shared */ = {
+			isa = PBXGroup;
+			children = (
+				24645CFC3DF43B943A1B557F /* RoutineActivityAttributes.swift */,
+				163E845AD008674AB934BFA1 /* MamilyRules.swift */,
+			);
+			name = Shared;
+			path = Shared;
+			sourceTree = "<group>";
+		};
+		92B8F412D1073BD457F84278 /* MamilyActivityMonitor */ = {
+			isa = PBXGroup;
+			children = (
+				8F8EA6AF6DC85AE3CA70D388 /* ActivityMonitorExtension.swift */,
+				94E5DCC9342AEC362BF2D090 /* Info.plist */,
+				941C1EE24341A4713EAB25DA /* MamilyActivityMonitor.entitlements */,
+			);
+			name = MamilyActivityMonitor;
+			path = MamilyActivityMonitor;
 			sourceTree = "<group>";
 		};
 		9740EEB11CF90186004384FC /* Flutter */ = {
@@ -113,6 +245,7 @@
 				9740EEB21CF90195004384FC /* Debug.xcconfig */,
 				7AFA3C8E1D35360C0083082E /* Release.xcconfig */,
 				9740EEB31CF90195004384FC /* Generated.xcconfig */,
+				D1CCC0FE975C80E396DC8785 /* WidgetExtension.xcconfig */,
 			);
 			name = Flutter;
 			sourceTree = "<group>";
@@ -126,6 +259,9 @@
 				331C8082294A63A400263BE5 /* RunnerTests */,
 				D93159DF17197BC778A1F44D /* Pods */,
 				47E8D533CAAC26AD7261E668 /* Frameworks */,
+				653BB7BAB0E8ED15724FADB2 /* FamilyPulseWidget */,
+				747480F88FFE07FD5E239828 /* Shared */,
+				92B8F412D1073BD457F84278 /* MamilyActivityMonitor */,
 			);
 			sourceTree = "<group>";
 		};
@@ -134,6 +270,8 @@
 			children = (
 				97C146EE1CF9000F007C117D /* Runner.app */,
 				331C8081294A63A400263BE5 /* RunnerTests.xctest */,
+				7CBD01659DB290D2EE8B2BF6 /* FamilyPulseWidget.appex */,
+				D996F8EA28CE4BC203FF9DA1 /* MamilyActivityMonitor.appex */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -145,11 +283,16 @@
 				97C146FD1CF9000F007C117D /* Assets.xcassets */,
 				97C146FF1CF9000F007C117D /* LaunchScreen.storyboard */,
 				97C147021CF9000F007C117D /* Info.plist */,
+				E6ED4617309A8B4A00CAB8A7 /* GoogleService-Info.plist */,
 				1498D2321E8E86230040F4C2 /* GeneratedPluginRegistrant.h */,
 				1498D2331E8E89220040F4C2 /* GeneratedPluginRegistrant.m */,
 				74858FAE1ED2DC5600515810 /* AppDelegate.swift */,
 				7884E8672EC3CC0400C636F2 /* SceneDelegate.swift */,
 				74858FAD1ED2DC5600515810 /* Runner-Bridging-Header.h */,
+				3905135C2D9238907F87F06D /* LiveActivityBridge.swift */,
+				35113C7B44EEA3534EDFEBB3 /* Runner.entitlements */,
+				2C07DD5C3A9F575A61E1E844 /* DeviceRulesBridge.swift */,
+				811666736E63664F56400D7E /* InfoPlist.strings */,
 			);
 			path = Runner;
 			sourceTree = "<group>";
@@ -190,6 +333,23 @@
 			productReference = 331C8081294A63A400263BE5 /* RunnerTests.xctest */;
 			productType = "com.apple.product-type.bundle.unit-test";
 		};
+		6BB04FB63F8C3770EF377A03 /* MamilyActivityMonitor */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 196B3943F769B305193B5E02 /* Build configuration list for PBXNativeTarget "MamilyActivityMonitor" */;
+			buildPhases = (
+				35C388B0635C3AF6295E21EF /* Sources */,
+				DC28B9BF1F5A277BB0D0EE1F /* Frameworks */,
+				B70A08459F695EDAA7CC73E1 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = MamilyActivityMonitor;
+			productName = MamilyActivityMonitor;
+			productReference = D996F8EA28CE4BC203FF9DA1 /* MamilyActivityMonitor.appex */;
+			productType = "com.apple.product-type.app-extension";
+		};
 		97C146ED1CF9000F007C117D /* Runner */ = {
 			isa = PBXNativeTarget;
 			buildConfigurationList = 97C147051CF9000F007C117D /* Build configuration list for PBXNativeTarget "Runner" */;
@@ -200,17 +360,38 @@
 				97C146EB1CF9000F007C117D /* Frameworks */,
 				97C146EC1CF9000F007C117D /* Resources */,
 				9705A1C41CF9048500538489 /* Embed Frameworks */,
+				F4E25378DFDAFA9FD5E5EBD2 /* Embed Foundation Extensions */,
 				3B06AD1E1E4923F5004D2608 /* Thin Binary */,
 				B3B8C878E965B0A49CA851C5 /* [CP] Embed Pods Frameworks */,
+				217F4E8150D35D77D64165EF /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
 			dependencies = (
+				96D0616BB610999A3D373152 /* PBXTargetDependency */,
+				35EA6269FBAE1D4FDB0F7C20 /* PBXTargetDependency */,
 			);
 			name = Runner;
 			productName = Runner;
 			productReference = 97C146EE1CF9000F007C117D /* Runner.app */;
 			productType = "com.apple.product-type.application";
+		};
+		D7F4EE72CC3383194FE84BAE /* FamilyPulseWidget */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 8071C7327D7F5D157C761D6E /* Build configuration list for PBXNativeTarget "FamilyPulseWidget" */;
+			buildPhases = (
+				5415122B072AAA0DF9592CA8 /* Sources */,
+				18FF1F91BDC1720B88C69153 /* Frameworks */,
+				A1F3DE5CCBD9E0E3C95147CA /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = FamilyPulseWidget;
+			productName = FamilyPulseWidget;
+			productReference = 7CBD01659DB290D2EE8B2BF6 /* FamilyPulseWidget.appex */;
+			productType = "com.apple.product-type.app-extension";
 		};
 /* End PBXNativeTarget section */
 
@@ -239,6 +420,8 @@
 			knownRegions = (
 				en,
 				Base,
+				ar,
+				he,
 			);
 			mainGroup = 97C146E51CF9000F007C117D;
 			productRefGroup = 97C146EF1CF9000F007C117D /* Products */;
@@ -247,6 +430,8 @@
 			targets = (
 				97C146ED1CF9000F007C117D /* Runner */,
 				331C8080294A63A400263BE5 /* RunnerTests */,
+				D7F4EE72CC3383194FE84BAE /* FamilyPulseWidget */,
+				6BB04FB63F8C3770EF377A03 /* MamilyActivityMonitor */,
 			);
 		};
 /* End PBXProject section */
@@ -265,8 +450,26 @@
 			files = (
 				97C147011CF9000F007C117D /* LaunchScreen.storyboard in Resources */,
 				3B3967161E833CAA004F5970 /* AppFrameworkInfo.plist in Resources */,
+				E6ED4618309A8B4A00CAB8A7 /* GoogleService-Info.plist in Resources */,
 				97C146FE1CF9000F007C117D /* Assets.xcassets in Resources */,
 				97C146FC1CF9000F007C117D /* Main.storyboard in Resources */,
+				04B54E1965A635B73ADFDE80 /* InfoPlist.strings in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		A1F3DE5CCBD9E0E3C95147CA /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				2E302812F993541A3D29AA25 /* Localizable.strings in Resources */,
+				4AE8834D7ABD589945F53C97 /* Localizable.stringsdict in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		B70A08459F695EDAA7CC73E1 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -293,6 +496,23 @@
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
 			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+		217F4E8150D35D77D64165EF /* [CP] Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-Runner/Pods-Runner-resources-${CONFIGURATION}-input-files.xcfilelist",
+			);
+			name = "[CP] Copy Pods Resources";
+			outputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-Runner/Pods-Runner-resources-${CONFIGURATION}-output-files.xcfilelist",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-Runner/Pods-Runner-resources.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
 		3B06AD1E1E4923F5004D2608 /* Thin Binary */ = {
@@ -376,6 +596,26 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		35C388B0635C3AF6295E21EF /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				0F91E797BA8AA1808BE12385 /* ActivityMonitorExtension.swift in Sources */,
+				A8B8DEEE073919CBE8D7E212 /* MamilyRules.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		5415122B072AAA0DF9592CA8 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				6D5777434C2CD1CBB05C5887 /* MamilyWidgetBundle.swift in Sources */,
+				E395E3890C8E8CF44272D420 /* FamilyPulseWidget.swift in Sources */,
+				94D8C872B49E76052D3DE9A0 /* RoutineLiveActivity.swift in Sources */,
+				D52A242936D87D9D970CAF32 /* RoutineActivityAttributes.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		97C146EA1CF9000F007C117D /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -383,6 +623,10 @@
 				74858FAF1ED2DC5600515810 /* AppDelegate.swift in Sources */,
 				1498D2341E8E89220040F4C2 /* GeneratedPluginRegistrant.m in Sources */,
 				7884E8682EC3CC0700C636F2 /* SceneDelegate.swift in Sources */,
+				0CE1F9AA0C66A5D07CC67E3C /* RoutineActivityAttributes.swift in Sources */,
+				66A70B6837DE73DDD6E9E8BE /* LiveActivityBridge.swift in Sources */,
+				E8F05D23391367AFC6963569 /* DeviceRulesBridge.swift in Sources */,
+				3950A5EB881BF06B6B0C5EF1 /* MamilyRules.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -394,9 +638,41 @@
 			target = 97C146ED1CF9000F007C117D /* Runner */;
 			targetProxy = 331C8085294A63A400263BE5 /* PBXContainerItemProxy */;
 		};
+		35EA6269FBAE1D4FDB0F7C20 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			name = MamilyActivityMonitor;
+			target = 6BB04FB63F8C3770EF377A03 /* MamilyActivityMonitor */;
+			targetProxy = 8632F1F3E6FBFE6E23371E53 /* PBXContainerItemProxy */;
+		};
+		96D0616BB610999A3D373152 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			name = FamilyPulseWidget;
+			target = D7F4EE72CC3383194FE84BAE /* FamilyPulseWidget */;
+			targetProxy = D32AC4315B694FD5E5324A65 /* PBXContainerItemProxy */;
+		};
 /* End PBXTargetDependency section */
 
 /* Begin PBXVariantGroup section */
+		3F4D39389723D02AF925C117 /* Localizable.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				3A3A96F9FF838B14C9D05035 /* en */,
+				C4B8EEE0D533D2FF4CDE5ED5 /* ar */,
+				F89BF013D612EBB8A9CEFBD1 /* he */,
+			);
+			name = Localizable.strings;
+			sourceTree = "<group>";
+		};
+		811666736E63664F56400D7E /* InfoPlist.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				42B7EE1FBF1E254CCE628AE5 /* en */,
+				DD7DDE74773FABC5446FF60A /* ar */,
+				422A81C603417355733B8C8D /* he */,
+			);
+			name = InfoPlist.strings;
+			sourceTree = "<group>";
+		};
 		97C146FA1CF9000F007C117D /* Main.storyboard */ = {
 			isa = PBXVariantGroup;
 			children = (
@@ -411,6 +687,16 @@
 				97C147001CF9000F007C117D /* Base */,
 			);
 			name = LaunchScreen.storyboard;
+			sourceTree = "<group>";
+		};
+		BE404D0A857720C32CE5F806 /* Localizable.stringsdict */ = {
+			isa = PBXVariantGroup;
+			children = (
+				C833D7E8861DEBCC5968E2CD /* en */,
+				1F8E3CF51B049F31353C4739 /* ar */,
+				FD5CB00C0B6591B4C905EEFD /* he */,
+			);
+			name = Localizable.stringsdict;
 			sourceTree = "<group>";
 		};
 /* End PBXVariantGroup section */
@@ -459,7 +745,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				SDKROOT = iphoneos;
 				SUPPORTED_PLATFORMS = iphoneos;
@@ -474,6 +760,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
+				CODE_SIGN_ENTITLEMENTS = Runner/Runner.entitlements;
 				CURRENT_PROJECT_VERSION = "$(FLUTTER_BUILD_NUMBER)";
 				ENABLE_BITCODE = NO;
 				INFOPLIST_FILE = Runner/Info.plist;
@@ -481,7 +768,13 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.example.myApp;
+				OTHER_LDFLAGS = (
+					"$(inherited)",
+					"-weak_framework",
+					ActivityKit,
+				);
+				DEVELOPMENT_TEAM = 9826A535WG;
+				PRODUCT_BUNDLE_IDENTIFIER = com.moazrazem.mamily;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_OBJC_BRIDGING_HEADER = "Runner/Runner-Bridging-Header.h";
 				SWIFT_VERSION = 5.0;
@@ -498,7 +791,8 @@
 				CURRENT_PROJECT_VERSION = 1;
 				GENERATE_INFOPLIST_FILE = YES;
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = com.example.myApp.RunnerTests;
+				DEVELOPMENT_TEAM = 9826A535WG;
+				PRODUCT_BUNDLE_IDENTIFIER = com.moazrazem.mamily.RunnerTests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
@@ -516,7 +810,8 @@
 				CURRENT_PROJECT_VERSION = 1;
 				GENERATE_INFOPLIST_FILE = YES;
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = com.example.myApp.RunnerTests;
+				DEVELOPMENT_TEAM = 9826A535WG;
+				PRODUCT_BUNDLE_IDENTIFIER = com.moazrazem.mamily.RunnerTests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Runner.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/Runner";
@@ -532,12 +827,135 @@
 				CURRENT_PROJECT_VERSION = 1;
 				GENERATE_INFOPLIST_FILE = YES;
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = com.example.myApp.RunnerTests;
+				DEVELOPMENT_TEAM = 9826A535WG;
+				PRODUCT_BUNDLE_IDENTIFIER = com.moazrazem.mamily.RunnerTests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Runner.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/Runner";
 			};
 			name = Profile;
+		};
+		3A619E6DFEAA7971D262257E /* Profile */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = D1CCC0FE975C80E396DC8785 /* WidgetExtension.xcconfig */;
+			buildSettings = {
+				APPLICATION_EXTENSION_API_ONLY = YES;
+				CLANG_ENABLE_OBJC_WEAK = NO;
+				CODE_SIGN_ENTITLEMENTS = MamilyActivityMonitor/MamilyActivityMonitor.entitlements;
+				CODE_SIGN_STYLE = Automatic;
+				GENERATE_INFOPLIST_FILE = NO;
+				INFOPLIST_FILE = MamilyActivityMonitor/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 16.0;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@executable_path/../../Frameworks",
+				);
+				DEVELOPMENT_TEAM = 9826A535WG;
+				PRODUCT_BUNDLE_IDENTIFIER = com.moazrazem.mamily.ActivityMonitor;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = iphoneos;
+				SKIP_INSTALL = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Profile;
+		};
+		3C699C86BDC59B26607DC7A3 /* Release */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = D1CCC0FE975C80E396DC8785 /* WidgetExtension.xcconfig */;
+			buildSettings = {
+				APPLICATION_EXTENSION_API_ONLY = YES;
+				CLANG_ENABLE_OBJC_WEAK = NO;
+				CODE_SIGN_ENTITLEMENTS = FamilyPulseWidget/FamilyPulseWidget.entitlements;
+				GENERATE_INFOPLIST_FILE = NO;
+				INFOPLIST_FILE = FamilyPulseWidget/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@executable_path/../../Frameworks",
+				);
+				OTHER_LDFLAGS = (
+					"$(inherited)",
+					"-weak_framework",
+					ActivityKit,
+				);
+				DEVELOPMENT_TEAM = 9826A535WG;
+				PRODUCT_BUNDLE_IDENTIFIER = com.moazrazem.mamily.FamilyPulseWidget;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = iphoneos;
+				SKIP_INSTALL = YES;
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		634CA51E87E907B70AD032DD /* Profile */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = D1CCC0FE975C80E396DC8785 /* WidgetExtension.xcconfig */;
+			buildSettings = {
+				APPLICATION_EXTENSION_API_ONLY = YES;
+				CLANG_ENABLE_OBJC_WEAK = NO;
+				CODE_SIGN_ENTITLEMENTS = FamilyPulseWidget/FamilyPulseWidget.entitlements;
+				GENERATE_INFOPLIST_FILE = NO;
+				INFOPLIST_FILE = FamilyPulseWidget/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@executable_path/../../Frameworks",
+				);
+				OTHER_LDFLAGS = (
+					"$(inherited)",
+					"-weak_framework",
+					ActivityKit,
+				);
+				DEVELOPMENT_TEAM = 9826A535WG;
+				PRODUCT_BUNDLE_IDENTIFIER = com.moazrazem.mamily.FamilyPulseWidget;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = iphoneos;
+				SKIP_INSTALL = YES;
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Profile;
+		};
+		73AD20B06E7EB20D91C34E3C /* Debug */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = D1CCC0FE975C80E396DC8785 /* WidgetExtension.xcconfig */;
+			buildSettings = {
+				APPLICATION_EXTENSION_API_ONLY = YES;
+				CLANG_ENABLE_OBJC_WEAK = NO;
+				CODE_SIGN_ENTITLEMENTS = FamilyPulseWidget/FamilyPulseWidget.entitlements;
+				GENERATE_INFOPLIST_FILE = NO;
+				INFOPLIST_FILE = FamilyPulseWidget/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@executable_path/../../Frameworks",
+				);
+				OTHER_LDFLAGS = (
+					"$(inherited)",
+					"-weak_framework",
+					ActivityKit,
+				);
+				DEVELOPMENT_TEAM = 9826A535WG;
+				PRODUCT_BUNDLE_IDENTIFIER = com.moazrazem.mamily.FamilyPulseWidget;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = iphoneos;
+				SKIP_INSTALL = YES;
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
 		};
 		97C147031CF9000F007C117D /* Debug */ = {
 			isa = XCBuildConfiguration;
@@ -588,7 +1006,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
 				MTL_ENABLE_DEBUG_INFO = YES;
 				ONLY_ACTIVE_ARCH = YES;
 				SDKROOT = iphoneos;
@@ -639,7 +1057,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				SDKROOT = iphoneos;
 				SUPPORTED_PLATFORMS = iphoneos;
@@ -656,6 +1074,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
+				CODE_SIGN_ENTITLEMENTS = Runner/Runner.entitlements;
 				CURRENT_PROJECT_VERSION = "$(FLUTTER_BUILD_NUMBER)";
 				ENABLE_BITCODE = NO;
 				INFOPLIST_FILE = Runner/Info.plist;
@@ -663,7 +1082,13 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.example.myApp;
+				OTHER_LDFLAGS = (
+					"$(inherited)",
+					"-weak_framework",
+					ActivityKit,
+				);
+				DEVELOPMENT_TEAM = 9826A535WG;
+				PRODUCT_BUNDLE_IDENTIFIER = com.moazrazem.mamily;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_OBJC_BRIDGING_HEADER = "Runner/Runner-Bridging-Header.h";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
@@ -678,6 +1103,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
+				CODE_SIGN_ENTITLEMENTS = Runner/Runner.entitlements;
 				CURRENT_PROJECT_VERSION = "$(FLUTTER_BUILD_NUMBER)";
 				ENABLE_BITCODE = NO;
 				INFOPLIST_FILE = Runner/Info.plist;
@@ -685,7 +1111,13 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.example.myApp;
+				OTHER_LDFLAGS = (
+					"$(inherited)",
+					"-weak_framework",
+					ActivityKit,
+				);
+				DEVELOPMENT_TEAM = 9826A535WG;
+				PRODUCT_BUNDLE_IDENTIFIER = com.moazrazem.mamily;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_OBJC_BRIDGING_HEADER = "Runner/Runner-Bridging-Header.h";
 				SWIFT_VERSION = 5.0;
@@ -693,15 +1125,88 @@
 			};
 			name = Release;
 		};
+		C32A320FABC58EE5AD83D3C8 /* Release */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = D1CCC0FE975C80E396DC8785 /* WidgetExtension.xcconfig */;
+			buildSettings = {
+				APPLICATION_EXTENSION_API_ONLY = YES;
+				CLANG_ENABLE_OBJC_WEAK = NO;
+				CODE_SIGN_ENTITLEMENTS = MamilyActivityMonitor/MamilyActivityMonitor.entitlements;
+				CODE_SIGN_STYLE = Automatic;
+				GENERATE_INFOPLIST_FILE = NO;
+				INFOPLIST_FILE = MamilyActivityMonitor/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 16.0;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@executable_path/../../Frameworks",
+				);
+				DEVELOPMENT_TEAM = 9826A535WG;
+				PRODUCT_BUNDLE_IDENTIFIER = com.moazrazem.mamily.ActivityMonitor;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = iphoneos;
+				SKIP_INSTALL = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		D5588CFA4397245D82C13F61 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = D1CCC0FE975C80E396DC8785 /* WidgetExtension.xcconfig */;
+			buildSettings = {
+				APPLICATION_EXTENSION_API_ONLY = YES;
+				CLANG_ENABLE_OBJC_WEAK = NO;
+				CODE_SIGN_ENTITLEMENTS = MamilyActivityMonitor/MamilyActivityMonitor.entitlements;
+				CODE_SIGN_STYLE = Automatic;
+				GENERATE_INFOPLIST_FILE = NO;
+				INFOPLIST_FILE = MamilyActivityMonitor/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 16.0;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@executable_path/../../Frameworks",
+				);
+				DEVELOPMENT_TEAM = 9826A535WG;
+				PRODUCT_BUNDLE_IDENTIFIER = com.moazrazem.mamily.ActivityMonitor;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = iphoneos;
+				SKIP_INSTALL = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
+		196B3943F769B305193B5E02 /* Build configuration list for PBXNativeTarget "MamilyActivityMonitor" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				C32A320FABC58EE5AD83D3C8 /* Release */,
+				D5588CFA4397245D82C13F61 /* Debug */,
+				3A619E6DFEAA7971D262257E /* Profile */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
 		331C8087294A63A400263BE5 /* Build configuration list for PBXNativeTarget "RunnerTests" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				331C8088294A63A400263BE5 /* Debug */,
 				331C8089294A63A400263BE5 /* Release */,
 				331C808A294A63A400263BE5 /* Profile */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		8071C7327D7F5D157C761D6E /* Build configuration list for PBXNativeTarget "FamilyPulseWidget" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				3C699C86BDC59B26607DC7A3 /* Release */,
+				73AD20B06E7EB20D91C34E3C /* Debug */,
+				634CA51E87E907B70AD032DD /* Profile */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;

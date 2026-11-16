@@ -3,8 +3,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import '../../../core/errors/api_exception.dart';
 import '../../../core/localization/l10n.dart';
-import '../../../core/theme/app_colors.dart';
-import '../../../core/widgets/state_views.dart';
+import '../../../core/design_system.dart';
 import '../../family/application/permissions_controller.dart';
 import '../../family/data/models/family_permission.dart';
 import '../application/content_controller.dart';
@@ -29,17 +28,8 @@ class ContentCatalogScreen extends ConsumerWidget {
         .hasPermission(FamilyPermission.manageContentPolicy);
 
     return Scaffold(
-      backgroundColor: AppColors.background,
-      appBar: AppBar(
-        title: Text(
-          l.contentCatalogTitle,
-          style: const TextStyle(
-            color: AppColors.navy,
-            fontWeight: FontWeight.bold,
-          ),
-        ),
-      ),
-      body: SafeArea(
+      appBar: AppBar(title: Text(l.contentCatalogTitle)),
+      body: AppContentFrame(
         child: RefreshIndicator(
           onRefresh: controller.refresh,
           child: async.when(
@@ -58,7 +48,12 @@ class ContentCatalogScreen extends ConsumerWidget {
                     onRefresh: controller.refresh,
                   )
                 : ListView(
-                    padding: const EdgeInsets.fromLTRB(20, 14, 20, 40),
+                    padding: const EdgeInsets.fromLTRB(
+                      AppSpacing.lg,
+                      AppSpacing.sm,
+                      AppSpacing.lg,
+                      AppSpacing.xxxl,
+                    ),
                     children: [
                       for (final item in state.items)
                         _CatalogTile(
@@ -72,11 +67,7 @@ class ContentCatalogScreen extends ConsumerWidget {
                         Padding(
                           padding: const EdgeInsets.only(top: 4),
                           child: state.loadingMore
-                              ? const Center(
-                                  child: CircularProgressIndicator(
-                                    color: AppColors.coral,
-                                  ),
-                                )
+                              ? const Center(child: CircularProgressIndicator())
                               : OutlinedButton(
                                   onPressed: () => _loadMore(context, ref),
                                   child: Text(l.libraryLoadMore),
@@ -136,13 +127,8 @@ class _CatalogTile extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final l = context.l10n;
-    return Container(
-      margin: const EdgeInsets.only(bottom: 10),
-      padding: const EdgeInsets.all(14),
-      decoration: BoxDecoration(
-        color: Colors.white,
-        borderRadius: BorderRadius.circular(16),
-      ),
+    return AppCard(
+      margin: const EdgeInsets.only(bottom: AppSpacing.sm),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
@@ -153,43 +139,35 @@ class _CatalogTile extends StatelessWidget {
                   item.title,
                   maxLines: 2,
                   overflow: TextOverflow.ellipsis,
-                  style: const TextStyle(
-                    color: AppColors.navy,
-                    fontWeight: FontWeight.bold,
-                    fontSize: 14,
-                  ),
+                  style: context.type.labelLarge,
                 ),
               ),
               if (decision == ContentDecision.block)
                 Text(
                   l.contentDecisionBlock,
-                  style: const TextStyle(
-                    color: AppColors.coral,
-                    fontSize: 11,
-                    fontWeight: FontWeight.bold,
+                  style: context.type.labelMedium?.copyWith(
+                    color: context.mamily.actionText,
                   ),
                 )
               else if (decision == ContentDecision.allow)
                 Text(
                   l.contentDecisionAllow,
-                  style: const TextStyle(
-                    color: Color(0xFF57C77A),
-                    fontSize: 11,
-                    fontWeight: FontWeight.bold,
+                  style: context.type.labelMedium?.copyWith(
+                    color: context.mamily.success.foreground,
                   ),
                 ),
             ],
           ),
-          const SizedBox(height: 4),
+          const SizedBox(height: AppSpacing.xs),
           Text(
             [
               if (item.provider != null) item.provider!.name,
               for (final c in item.categories) c.name,
             ].join(' · '),
-            style: const TextStyle(color: AppColors.textMuted, fontSize: 11),
+            style: context.type.bodySmall?.copyWith(color: context.mamily.ink2),
           ),
           if (onTapRule != null) ...[
-            const SizedBox(height: 8),
+            const SizedBox(height: AppSpacing.sm),
             Align(
               alignment: AlignmentDirectional.centerStart,
               child: TextButton.icon(
@@ -220,15 +198,8 @@ class _ItemRuleSheet extends StatelessWidget {
           mainAxisSize: MainAxisSize.min,
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Text(
-              item.title,
-              style: const TextStyle(
-                color: AppColors.navy,
-                fontWeight: FontWeight.bold,
-                fontSize: 15,
-              ),
-            ),
-            const SizedBox(height: 12),
+            Text(item.title, style: context.type.titleSmall),
+            const SizedBox(height: AppSpacing.md),
             _row(
               context,
               l.contentRuleBlockItem,

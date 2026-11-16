@@ -3,7 +3,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import '../../../core/errors/api_exception.dart';
 import '../../../core/localization/l10n.dart';
-import '../../../core/theme/app_colors.dart';
+import '../../../core/design_system.dart';
 import '../../children/application/selected_child_controller.dart';
 import '../../family/application/permissions_controller.dart';
 import '../../family/data/models/family_permission.dart';
@@ -34,7 +34,7 @@ class ChildSummarySection extends ConsumerWidget {
         context,
         Text(
           l.dashReportsRestricted,
-          style: const TextStyle(color: AppColors.textMuted, height: 1.5),
+          style: context.type.bodyMedium?.copyWith(color: context.mamily.ink2),
         ),
       );
     }
@@ -55,7 +55,7 @@ class ChildSummarySection extends ConsumerWidget {
             const Center(
               child: Padding(
                 padding: EdgeInsets.all(8),
-                child: CircularProgressIndicator(color: AppColors.coral),
+                child: CircularProgressIndicator(),
               ),
             ),
           ),
@@ -71,9 +71,8 @@ class ChildSummarySection extends ConsumerWidget {
                 children: [
                   Text(
                     message,
-                    style: const TextStyle(
-                      color: AppColors.textMuted,
-                      height: 1.5,
+                    style: context.type.bodyMedium?.copyWith(
+                      color: context.mamily.ink2,
                     ),
                   ),
                   if (kind != ApiErrorKind.forbidden)
@@ -94,29 +93,18 @@ class ChildSummarySection extends ConsumerWidget {
             children: [
               Align(
                 alignment: AlignmentDirectional.centerStart,
-                child: Text(
-                  l.dashTodayTitle,
-                  style: const TextStyle(
-                    color: AppColors.navy,
-                    fontSize: 16,
-                    fontWeight: FontWeight.bold,
-                  ),
-                ),
+                child: Text(l.dashTodayTitle, style: context.type.titleSmall),
               ),
-              const SizedBox(height: 12),
-              GridView.count(
-                crossAxisCount: 2,
-                shrinkWrap: true,
-                physics: const NeverScrollableScrollPhysics(),
-                mainAxisSpacing: 10,
-                crossAxisSpacing: 10,
-                childAspectRatio: 1.55,
-                children: [
+              const SizedBox(height: AppSpacing.md),
+              // Rows sized to their content (a fixed aspect ratio overflowed
+              // with longer values, Arabic text or large font sizes).
+              DashboardTileGrid(
+                tiles: [
                   DashboardStatTile(
                     label: l.dashPoints,
                     value: '${s.pointsBalance}',
                     icon: Icons.stars_rounded,
-                    color: AppColors.amber,
+                    tone: AppTone.warning,
                     onTap: () => _go(context, ref, const TasksScreen()),
                   ),
                   DashboardStatTile(
@@ -128,12 +116,14 @@ class ChildSummarySection extends ConsumerWidget {
                             ),
                           )
                         : l.dashScreenTimeToday,
-                    value: formatDurationMinutes(
-                      context,
-                      s.screenTimeToday.usedMinutes,
-                    ),
+                    value: s.screenTimeToday.measured
+                        ? formatDurationMinutes(
+                            context,
+                            s.screenTimeToday.usedMinutes,
+                          )
+                        : l.dashNotMeasured,
                     icon: Icons.phone_android_rounded,
-                    color: AppColors.coral,
+                    tone: AppTone.brand,
                   ),
                   DashboardStatTile(
                     label: l.dashLastSleep,
@@ -144,21 +134,21 @@ class ChildSummarySection extends ConsumerWidget {
                             s.lastSleep!.durationMinutes,
                           ),
                     icon: Icons.bedtime_rounded,
-                    color: const Color(0xFF9B8CC2),
+                    tone: AppTone.sleep,
                     onTap: () => _go(context, ref, const SleepScreen()),
                   ),
                   DashboardStatTile(
                     label: l.dashActiveTasks,
                     value: '${s.tasks.active}',
                     icon: Icons.checklist_rounded,
-                    color: AppColors.teal,
+                    tone: AppTone.accent,
                     onTap: () => _go(context, ref, const TasksScreen()),
                   ),
                   DashboardStatTile(
                     label: l.dashPendingApprovals,
                     value: '${s.tasks.pendingApproval}',
                     icon: Icons.pending_actions_rounded,
-                    color: AppColors.coral,
+                    tone: AppTone.brand,
                     onTap: () => _go(context, ref, const TasksScreen()),
                   ),
                   DashboardStatTile(
@@ -168,12 +158,12 @@ class ChildSummarySection extends ConsumerWidget {
                       s.learningGoals.achieved,
                     ),
                     icon: Icons.flag_rounded,
-                    color: const Color(0xFF57C77A),
+                    tone: AppTone.success,
                     onTap: () => _go(context, ref, const LearningGoalsScreen()),
                   ),
                 ],
               ),
-              const SizedBox(height: 12),
+              const SizedBox(height: AppSpacing.md),
               OutlinedButton.icon(
                 onPressed: () {
                   ref.read(selectedChildIdProvider.notifier).select(childId);
@@ -185,10 +175,6 @@ class ChildSummarySection extends ConsumerWidget {
                 },
                 icon: const Icon(Icons.bar_chart_rounded),
                 label: Text(l.dashOpenReport),
-                style: OutlinedButton.styleFrom(
-                  foregroundColor: AppColors.navy,
-                  minimumSize: const Size.fromHeight(46),
-                ),
               ),
             ],
           ),
@@ -202,25 +188,12 @@ class ChildSummarySection extends ConsumerWidget {
     Navigator.of(context).push(MaterialPageRoute(builder: (_) => screen));
   }
 
-  Widget _card(BuildContext context, Widget child) => Container(
-    width: double.infinity,
-    padding: const EdgeInsets.all(18),
-    decoration: BoxDecoration(
-      color: Colors.white,
-      borderRadius: BorderRadius.circular(22),
-    ),
+  Widget _card(BuildContext context, Widget child) => AppCard(
     child: Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Text(
-          context.l10n.dashTodayTitle,
-          style: const TextStyle(
-            color: AppColors.navy,
-            fontSize: 16,
-            fontWeight: FontWeight.bold,
-          ),
-        ),
-        const SizedBox(height: 12),
+        Text(context.l10n.dashTodayTitle, style: context.type.titleSmall),
+        const SizedBox(height: AppSpacing.md),
         child,
       ],
     ),

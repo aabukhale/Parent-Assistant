@@ -25,6 +25,11 @@ class SecureTokenStorage {
   static const _localeKey = 'mamily.ui.locale';
   static const _activeFamilyKey = 'mamily.family.active';
   static const _installIdKey = 'mamily.device.install_id';
+  static const _sessionKindKey = 'mamily.session.kind';
+  static const _childSlotKey = 'mamily.child.parked_token';
+  static const _celebrationsKey = 'mamily.ui.celebrations';
+  static const _childDeviceKey = 'mamily.child.device_id';
+  static const _childSessionCacheKey = 'mamily.child.session_cache';
 
   Future<String?> readToken() => _storage.read(key: _tokenKey);
 
@@ -36,6 +41,13 @@ class SecureTokenStorage {
   Future<bool> hasToken() async => (await readToken())?.isNotEmpty ?? false;
 
   Future<String?> readLocale() => _storage.read(key: _localeKey);
+
+  /// Device preference (not session data): survives sign-out like locale.
+  Future<bool> readCelebrations() async =>
+      (await _storage.read(key: _celebrationsKey)) != 'off';
+
+  Future<void> writeCelebrations(bool on) =>
+      _storage.write(key: _celebrationsKey, value: on ? 'on' : 'off');
 
   Future<void> writeLocale(String languageCode) =>
       _storage.write(key: _localeKey, value: languageCode);
@@ -67,10 +79,57 @@ class SecureTokenStorage {
     return generated;
   }
 
-  /// Wipe the auth token and family selection. Called on logout and on a hard
-  /// 401. The UI locale preference **and** the install id are intentionally kept.
+  /// Which kind of session the stored token belongs to (`parent` / `child`).
+  ///
+  /// This only decides which endpoint restores the session (`/auth/me` vs
+  /// `/child/me`). It grants nothing: the server checks the token itself, and
+  /// a token presented on the wrong side is refused (403) and wiped.
+  Future<String?> readSessionKind() => _storage.read(key: _sessionKindKey);
+
+  Future<void> writeSessionKind(String kind) =>
+      _storage.write(key: _sessionKindKey, value: kind);
+
+  /// A child session "parked" while a grown-up signs in on a shared device.
+  /// It stays a child-scoped token; restoring it needs no parent credentials
+  /// because it can never do more than the child could already do.
+  Future<String?> readParkedChildToken() => _storage.read(key: _childSlotKey);
+
+  Future<void> writeParkedChildToken(String token) =>
+      _storage.write(key: _childSlotKey, value: token);
+
+  Future<void> deleteParkedChildToken() => _storage.delete(key: _childSlotKey);
+
+  /// The paired install's device id. Kept after a 401 on purpose: the phone
+  /// needs it to ask whether it was unpaired (device-level rules are only
+  /// lifted then). Removed once that question is settled.
+  Future<String?> readChildDeviceId() => _storage.read(key: _childDeviceKey);
+
+  Future<void> writeChildDeviceId(String id) =>
+      _storage.write(key: _childDeviceKey, value: id);
+
+  Future<void> deleteChildDeviceId() => _storage.delete(key: _childDeviceKey);
+
+  /// Last known child session (names, ids — no secrets), so a child phone
+  /// opens offline. Cleared with the session.
+  Future<String?> readChildSessionCache() =>
+      _storage.read(key: _childSessionCacheKey);
+
+  Future<void> writeChildSessionCache(String json) =>
+      _storage.write(key: _childSessionCacheKey, value: json);
+
+  /// Wipe the auth token, session kind and family selection. Called on logout
+  /// and on a hard 401. The UI locale preference, the install id and a parked
+  /// child session are intentionally kept (see [clearEverything]).
   Future<void> clearSession() async {
     await _storage.delete(key: _tokenKey);
+    await _storage.delete(key: _sessionKindKey);
     await _storage.delete(key: _activeFamilyKey);
+    await _storage.delete(key: _childSessionCacheKey);
+  }
+
+  /// Full sign-out of this install: also forgets a parked child session.
+  Future<void> clearEverything() async {
+    await clearSession();
+    await deleteParkedChildToken();
   }
 }

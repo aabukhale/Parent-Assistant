@@ -23,6 +23,23 @@ class LocaleController extends Notifier<Locale> {
 
   Future<void> setLanguageCode(String code) =>
       setLocale(AppLocales.resolve(code));
+
+  /// A paired child's language, chosen by a parent for that child. Shown
+  /// while the child session is active but never stored as this device's
+  /// own language, so it can't leak into a parent's session on a shared
+  /// phone. (It is restored on restart from the cached child session.)
+  void applyChildLanguage(String? code) {
+    if (code == null) return;
+    final locale = AppLocales.resolve(code);
+    if (state != locale) state = locale;
+  }
+
+  /// Back to this device's own language (the last one a person picked here
+  /// or a parent account's language), e.g. after a child session ends.
+  Future<void> restoreDeviceLocale() async {
+    final stored = await ref.read(secureStorageProvider).readLocale();
+    state = AppLocales.resolve(stored);
+  }
 }
 
 final localeControllerProvider = NotifierProvider<LocaleController, Locale>(

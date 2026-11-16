@@ -3,8 +3,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import '../../../core/errors/api_exception.dart';
 import '../../../core/localization/l10n.dart';
-import '../../../core/theme/app_colors.dart';
-import '../../../core/widgets/state_views.dart';
+import '../../../core/design_system.dart';
 import '../../activities/presentation/child_activities_screen.dart';
 import '../../ai_parenting/ai_parenting_screen.dart';
 import '../../games/presentation/games_screen.dart';
@@ -37,19 +36,12 @@ class ChildDetailsScreen extends ConsumerWidget {
     final canManage = ref.watch(permissionsProvider).canManageChildren;
 
     return Scaffold(
-      backgroundColor: AppColors.background,
       appBar: AppBar(
-        title: Text(
-          async.valueOrNull?.name ?? '',
-          style: const TextStyle(
-            color: AppColors.navy,
-            fontWeight: FontWeight.bold,
-          ),
-        ),
+        title: Text(async.valueOrNull?.name ?? ''),
         actions: [
           if (canManage && async.hasValue) ...[
             IconButton(
-              icon: const Icon(Icons.edit_outlined, color: AppColors.navy),
+              icon: Icon(Icons.edit_outlined, color: context.mamily.ink),
               onPressed: () => Navigator.of(context).push(
                 MaterialPageRoute(
                   builder: (_) => ChildFormScreen(existing: async.requireValue),
@@ -57,16 +49,16 @@ class ChildDetailsScreen extends ConsumerWidget {
               ),
             ),
             IconButton(
-              icon: const Icon(
+              icon: Icon(
                 Icons.delete_outline_rounded,
-                color: AppColors.coral,
+                color: context.mamily.actionText,
               ),
               onPressed: () => _confirmDelete(context, ref, async.requireValue),
             ),
           ],
         ],
       ),
-      body: SafeArea(
+      body: AppContentFrame(
         child: async.when(
           loading: () => const LoadingView(),
           error: (e, _) => ErrorRetryView(
@@ -85,27 +77,14 @@ class ChildDetailsScreen extends ConsumerWidget {
     Child child,
   ) async {
     final l = context.l10n;
-    final ok = await showDialog<bool>(
-      context: context,
-      builder: (_) => AlertDialog(
-        title: Text(l.childDeleteConfirmTitle),
-        content: Text(l.childDeleteConfirmBody(child.name)),
-        actions: [
-          TextButton(
-            onPressed: () => Navigator.of(context).pop(false),
-            child: Text(l.commonCancel),
-          ),
-          TextButton(
-            onPressed: () => Navigator.of(context).pop(true),
-            child: Text(
-              l.childDeleteAction,
-              style: const TextStyle(color: AppColors.coral),
-            ),
-          ),
-        ],
-      ),
+    final ok = await confirmAction(
+      context,
+      title: l.childDeleteConfirmTitle,
+      body: l.childDeleteConfirmBody(child.name),
+      confirmLabel: l.childDeleteAction,
+      destructive: true,
     );
-    if (ok != true) return;
+    if (!ok) return;
     try {
       await ref.read(childrenControllerProvider.notifier).deleteChild(child.id);
       if (!context.mounted) return;
@@ -130,81 +109,72 @@ class _Body extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     final l = context.l10n;
     return SingleChildScrollView(
-      padding: const EdgeInsets.all(20),
+      padding: const EdgeInsets.fromLTRB(
+        AppSpacing.lg,
+        AppSpacing.sm,
+        AppSpacing.lg,
+        AppSpacing.xxxl,
+      ),
       child: Column(
         children: [
-          Container(
-            width: double.infinity,
-            padding: const EdgeInsets.all(24),
-            decoration: BoxDecoration(
-              color: AppColors.navy,
-              borderRadius: BorderRadius.circular(28),
-            ),
-            child: Column(
+          AppCard(
+            tone: AppTone.brand,
+            padding: const EdgeInsets.all(AppSpacing.xl),
+            child: Row(
               children: [
-                Container(
-                  width: 84,
-                  height: 84,
-                  decoration: BoxDecoration(
-                    color: _avatarColor(child.avatarColor),
-                    shape: BoxShape.circle,
-                  ),
-                  child: const Icon(
-                    Icons.face_rounded,
-                    size: 50,
-                    color: AppColors.coral,
-                  ),
+                ChildAvatar(
+                  name: child.name,
+                  avatarKey: child.avatarKey,
+                  colorHex: child.avatarColor,
+                  seed: child.id,
+                  size: 72,
                 ),
-                const SizedBox(height: 14),
-                Text(
-                  child.name,
-                  style: const TextStyle(
-                    color: Colors.white,
-                    fontSize: 24,
-                    fontWeight: FontWeight.bold,
-                  ),
-                ),
-                const SizedBox(height: 4),
-                Text(
-                  l.childAgeYears(child.age),
-                  style: const TextStyle(
-                    color: Color(0xFFD8DDEC),
-                    fontSize: 14,
+                const SizedBox(width: AppSpacing.lg),
+                Expanded(
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text(child.name, style: context.type.headlineMedium),
+                      Text(
+                        l.childAgeYears(child.age),
+                        style: context.type.bodyLarge?.copyWith(
+                          color: context.mamily.ink2,
+                        ),
+                      ),
+                    ],
                   ),
                 ),
               ],
             ),
           ),
-          const SizedBox(height: 22),
+          const SizedBox(height: AppSpacing.xl),
           _Section(
             title: l.childFieldInterests,
             child: child.interests.isEmpty
                 ? Text(
                     l.childDetailsInterestsEmpty,
-                    style: const TextStyle(color: AppColors.textMuted),
+                    style: context.type.bodyMedium?.copyWith(
+                      color: context.mamily.ink2,
+                    ),
                   )
                 : Wrap(
-                    spacing: 8,
-                    runSpacing: 8,
+                    spacing: AppSpacing.xs,
+                    runSpacing: AppSpacing.xs,
                     children: [
                       for (final i in child.interests)
-                        Chip(
-                          label: Text(i.name),
-                          backgroundColor: const Color(0xFFE4F4F3),
-                          side: BorderSide.none,
-                        ),
+                        StatusPill(label: i.name, tone: AppTone.accent),
                     ],
                   ),
           ),
-          const SizedBox(height: 16),
+          const SizedBox(height: AppSpacing.lg),
           ChildSummarySection(childId: child.id),
-          const SizedBox(height: 20),
+          const SizedBox(height: AppSpacing.xl),
           // Learning goals — connected (Phase 4). Selecting the child first
           // keeps the goal providers scoped to this child.
           _FeatureTile(
             icon: Icons.flag_rounded,
             title: l.lgTitle,
-            color: const Color(0xFF57C77A),
+            tone: AppTone.success,
             onTap: () {
               ref.read(selectedChildIdProvider.notifier).select(child.id);
               Navigator.of(context).push(
@@ -217,7 +187,7 @@ class _Body extends ConsumerWidget {
           _FeatureTile(
             icon: Icons.bedtime_rounded,
             title: l.sleepTitle,
-            color: const Color(0xFF9B8CC2),
+            tone: AppTone.sleep,
             onTap: () {
               ref.read(selectedChildIdProvider.notifier).select(child.id);
               Navigator.of(
@@ -229,7 +199,7 @@ class _Body extends ConsumerWidget {
           _FeatureTile(
             icon: Icons.smartphone_rounded,
             title: l.stTitle,
-            color: AppColors.coral,
+            tone: AppTone.brand,
             onTap: () {
               ref.read(selectedChildIdProvider.notifier).select(child.id);
               Navigator.of(context).push(
@@ -241,7 +211,7 @@ class _Body extends ConsumerWidget {
           _FeatureTile(
             icon: Icons.lock_outline_rounded,
             title: l.contentTitle,
-            color: AppColors.teal,
+            tone: AppTone.accent,
             onTap: () {
               ref.read(selectedChildIdProvider.notifier).select(child.id);
               Navigator.of(context).push(
@@ -254,7 +224,7 @@ class _Body extends ConsumerWidget {
           _FeatureTile(
             icon: Icons.bar_chart_rounded,
             title: l.dashReportTitle,
-            color: const Color(0xFF7C89B8),
+            tone: AppTone.info,
             onTap: () {
               ref.read(selectedChildIdProvider.notifier).select(child.id);
               Navigator.of(context).push(
@@ -267,7 +237,7 @@ class _Body extends ConsumerWidget {
           _FeatureTile(
             icon: Icons.restaurant_rounded,
             title: l.nutritionTitle,
-            color: AppColors.teal,
+            tone: AppTone.accent,
             builder: () => const NutritionScreen(),
           ),
           // Tasks & points — connected (Phase 6A); the rewards store (Phase 6B)
@@ -276,7 +246,7 @@ class _Body extends ConsumerWidget {
           _FeatureTile(
             icon: Icons.stars_rounded,
             title: l.tasksTitle,
-            color: AppColors.amber,
+            tone: AppTone.warning,
             onTap: () {
               ref.read(selectedChildIdProvider.notifier).select(child.id);
               Navigator.of(
@@ -288,7 +258,7 @@ class _Body extends ConsumerWidget {
           _FeatureTile(
             icon: Icons.directions_run_rounded,
             title: l.activitiesAssignedTitle,
-            color: const Color(0xFF57C77A),
+            tone: AppTone.success,
             onTap: () {
               ref.read(selectedChildIdProvider.notifier).select(child.id);
               Navigator.of(context).push(
@@ -302,7 +272,7 @@ class _Body extends ConsumerWidget {
           _FeatureTile(
             icon: Icons.sports_esports_rounded,
             title: l.gamesTitle,
-            color: const Color(0xFF7C89B8),
+            tone: AppTone.info,
             onTap: () {
               ref.read(selectedChildIdProvider.notifier).select(child.id);
               Navigator.of(
@@ -313,13 +283,13 @@ class _Body extends ConsumerWidget {
           _FeatureTile(
             icon: Icons.auto_awesome_rounded,
             title: l.aiCoachTitle,
-            color: AppColors.coral,
+            tone: AppTone.brand,
             builder: () => const AiParentingScreen(),
           ),
           _FeatureTile(
             icon: Icons.menu_book_rounded,
             title: l.libraryTitle,
-            color: AppColors.teal,
+            tone: AppTone.accent,
             onTap: () {
               ref.read(selectedChildIdProvider.notifier).select(child.id);
               Navigator.of(
@@ -337,62 +307,27 @@ class _FeatureTile extends StatelessWidget {
   const _FeatureTile({
     required this.icon,
     required this.title,
-    required this.color,
+    required this.tone,
     this.builder,
     this.onTap,
   }) : assert(builder != null || onTap != null);
 
   final IconData icon;
   final String title;
-  final Color color;
+  final AppTone tone;
   final Widget Function()? builder;
   final VoidCallback? onTap;
 
   @override
   Widget build(BuildContext context) {
-    return GestureDetector(
+    return AppListTile(
+      leading: IconBadge(icon: icon, tone: tone),
+      title: title,
       onTap:
           onTap ??
           () => Navigator.of(
             context,
           ).push(MaterialPageRoute(builder: (_) => builder!())),
-      child: Container(
-        margin: const EdgeInsets.only(bottom: 12),
-        padding: const EdgeInsets.all(16),
-        decoration: BoxDecoration(
-          color: Colors.white,
-          borderRadius: BorderRadius.circular(22),
-        ),
-        child: Row(
-          children: [
-            Container(
-              width: 50,
-              height: 50,
-              decoration: BoxDecoration(
-                color: color.withValues(alpha: 0.15),
-                borderRadius: BorderRadius.circular(16),
-              ),
-              child: Icon(icon, color: color),
-            ),
-            const SizedBox(width: 14),
-            Expanded(
-              child: Text(
-                title,
-                style: const TextStyle(
-                  color: AppColors.navy,
-                  fontSize: 16,
-                  fontWeight: FontWeight.bold,
-                ),
-              ),
-            ),
-            const Icon(
-              Icons.arrow_forward_ios_rounded,
-              size: 15,
-              color: Color(0xFF9AA3B5),
-            ),
-          ],
-        ),
-      ),
     );
   }
 }
@@ -404,36 +339,15 @@ class _Section extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      width: double.infinity,
-      padding: const EdgeInsets.all(18),
-      decoration: BoxDecoration(
-        color: Colors.white,
-        borderRadius: BorderRadius.circular(22),
-      ),
+    return AppCard(
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Text(
-            title,
-            style: const TextStyle(
-              color: AppColors.navy,
-              fontSize: 16,
-              fontWeight: FontWeight.bold,
-            ),
-          ),
-          const SizedBox(height: 12),
+          Text(title, style: context.type.titleSmall),
+          const SizedBox(height: AppSpacing.md),
           child,
         ],
       ),
     );
   }
-}
-
-Color _avatarColor(String? hex) {
-  if (hex == null || hex.isEmpty) return const Color(0xFFFFE4DF);
-  final cleaned = hex.replaceAll('#', '');
-  final value = int.tryParse(cleaned, radix: 16);
-  if (value == null) return const Color(0xFFFFE4DF);
-  return Color(cleaned.length <= 6 ? 0xFF000000 | value : value);
 }

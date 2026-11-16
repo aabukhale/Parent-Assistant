@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 
+/// Full-width secondary action, styled by the theme's OutlinedButton.
 class SecondaryButton extends StatelessWidget {
   final String text;
   final VoidCallback? onPressed;
@@ -16,28 +17,13 @@ class SecondaryButton extends StatelessWidget {
   Widget build(BuildContext context) {
     return SizedBox(
       width: double.infinity,
-      height: 58,
-      child: OutlinedButton(
-        onPressed: onPressed,
-        style: OutlinedButton.styleFrom(
-          foregroundColor: const Color(0xFF2E3B63),
-          backgroundColor: Colors.white,
-          side: const BorderSide(color: Color(0xFFDDE1EA), width: 2),
-          shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(28),
-          ),
-        ),
-        child: Row(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            if (icon != null) ...[Icon(icon), const SizedBox(width: 8)],
-            Text(
-              text,
-              style: const TextStyle(fontSize: 17, fontWeight: FontWeight.bold),
+      child: icon == null
+          ? OutlinedButton(onPressed: onPressed, child: Text(text))
+          : OutlinedButton.icon(
+              onPressed: onPressed,
+              icon: Icon(icon),
+              label: Text(text),
             ),
-          ],
-        ),
-      ),
     );
   }
 }

@@ -1,0 +1,344 @@
+# Mamily family-app overnight build — Flutter progress
+
+Branch: `feature/mamily-family-app` (from `origin/main` @ 63b31ce "activities",
+merged with `checkpoint/desktop-uncommitted-design-system` = uncommitted
+design-system work recovered from `~/Desktop/Parent-Assistant`).
+Backend progress: `~/Developer/mamily/docs/PROGRESS.md`.
+Feature preservation matrix: `docs/feature-matrix.md`.
+
+## Workspace decisions (2026-10-10)
+
+| Copy | State | Decision |
+|------|-------|----------|
+| `~/Developer/Parent-Assistant` (original) | `.git` had only `config` + `objects` (no HEAD/refs) — unusable | moved (not deleted) to `~/Developer/Parent-Assistant.broken-git-backup-20261010`; its tree is a strict subset of the Desktop copy |
+| `~/Developer/Parent-Assistant-local` | `feature/api-integration` @ 135ec96, only pod/xcode noise dirty | untouched |
+| `~/Desktop/Parent-Assistant` | 135ec96 + 22 uncommitted files (design-system foundation, Rubik font, tests) | recovered into branch `checkpoint/desktop-uncommitted-design-system` (7c463a4); original left untouched |
+| remote `main` 63b31ce | newest (children screen tweak, pods) | base of the feature branch |
+
+## Baseline (before any change)
+
+- `flutter analyze` → No issues found
+- `flutter test` → 449 passed
+- `dart format --set-exit-if-changed` → 1 file unformatted (`children_screen.dart`, from the upstream "activities" commit)
+
+## Plan
+
+1. Foundation: static Rubik weights app-wide, parent + child themes, role-aware session (parent/child), safe navigator + authorized deep links, offline cache keyed by session.
+2. Entry: "I'm a parent" / "I'm a child"; pairing by code / QR / `mamily://pair` link; password recovery.
+3. Child experience: My Day, routines, tasks, rewards + wish list + saving goal, challenges, messages, mood, requests, notifications, screen-time ask.
+4. Parent redesign: Today (Pulse + Needs-you + plan + recap), Inbox, Children hub with every existing per-child feature, Discover, Account (notifications, surfaces, devices).
+5. Notifications: FCM (guarded when unconfigured), local notifications, channels, permission UX, tap routing.
+6. OS surfaces: Android widget + optional overlay service; iOS WidgetKit + Live Activity.
+7. Tests, builds, screenshots, docs.
+
+## Phase log
+
+- [x] Workspace + baseline
+- [x] Foundation
+- [x] Entry + pairing
+- [x] Child experience
+- [x] Parent redesign
+- [x] Notifications (Dart; real push needs Firebase/APNs config)
+- [x] OS surfaces (Android widget + floating card; iOS widget + Live Activity)
+- [x] Verification + docs
+
+## Commands & results
+
+- `flutter analyze` → No issues found
+- `flutter test` → 486 passed (2026-10-11, after efdac90)
+- `flutter test integration_test -d <iOS simulator> --dart-define=API_BASE_URL=http://127.0.0.1:8000/api/v1`
+  → 1 passed (pair a child with a real code → "I did it!" → request appears
+  in the parent inbox). Needs the local backend running with
+  `php artisan mamily:demo-seed --fresh`.
+- `flutter build ios --simulator --debug` → ✓ (Xcode 27, arm64 simulator)
+- `flutter build apk --debug` (JDK 17) → ✓; `./gradlew :app:lintDebug` → 0 errors
+- `flutter build ios --release --no-codesign` → ✓ (incl. FamilyPulseWidget extension)
+- Simulator walkthrough (iPhone 17 Pro, local backend + `mamily:demo-seed`):
+  role entry, parent sign-in, Today, inbox approve/undo, Children, child hub,
+  Account, sign-out, pairing by `mamily://pair` link, My Day, Rewards,
+  Together, Me, shared-phone parent sign-in + hand-back, Arabic RTL, largest
+  accessibility text, home-screen widget (small/medium), routine Live
+  Activity (Dynamic Island + Lock Screen).
+
+## Blockers / external setup
+
+- No `google-services.json` / `GoogleService-Info.plist` / APNs key on this machine.
+- No Android system image/AVD installed: Android widget and floating card are
+  built and lint-clean but not run on a device.
+- Xcode 27 `lipo -verify_arch` accepts one arch only, which breaks Flutter's
+  universal simulator build; simulator builds exclude x86_64 (Apple Silicon).
+
+## Fixed after running the app (2026-10-11)
+
+iOS build (deployment target 15, arm64 simulator); `mamily://` scheme was not
+registered on either platform; missing iOS camera string (QR pairing crash);
+missing Android INTERNET/POST_NOTIFICATIONS; wrong password showed "session
+expired"; a mistyped parent password on a child's phone signed the child out;
+double RTL mirroring of arrows; white status-bar icons; nested deep links
+waited for a pop; undo snackbars never dismissed; child hub showed 0m for
+unmeasured screen time and overflowed; ProgressBar fill never drew; kid
+'I did it' took 3 taps; text broke letter-by-letter at the largest sizes;
+child screens pushed outside the shell lost the kid theme; default Flutter
+app icons.
+
+## Session 2026-10-12
+
+- Restyled every older parent screen onto the design system: tasks (list,
+  detail, form, points history, completion sheet, recurrence), rewards
+  (store, redemptions, form), learning goals (list, detail, form, progress
+  sheet), sleep (summary, form), screen time (summary, rules, extra time),
+  content controls + catalog, devices, activities (catalog, details, child
+  assignments, generator), library + article, games + details, reports
+  (family overview, child summary, development report), child details/form,
+  family picker, edit profile, nutrition/AI-coach placeholders. Zero
+  `AppColors`/hand-written `TextStyle`/raw hex left in feature code;
+  `AppColors` deleted. New shared components: AppListTile, IconBadge,
+  HeroMetricCard, ChoiceChipBar, FormSectionLabel, PickerField,
+  RadioOptionCard, ReadOnlyField, PermissionNotice; chip theme.
+- Fixed while restyling: colour-only status pills/chips (now tone + icon +
+  word, checkmarks back on filters), 18-34px touch targets (clear buttons,
+  colour swatches), icon buttons without tooltips, family overview had no
+  way back, overview showed 0m for unmeasured screen time, raw role enum in
+  the family picker, stacked confirm sheets on double tap. Removed dead
+  ProfileScreen/AppBottomNavigation/AppBackground.
+- AppContentFrame now applies SafeArea(top: false) (a restyle step had
+  dropped bottom/side insets on 38 screens; caught and fixed).
+- Icon picker announces localized names (en/ar/he), with tests.
+- Real-backend integration tests (backend on :8000; :8001 is a second
+  instance of the same app/DB and is not used): task approval pays once,
+  reward approval spends once, routine bonus pays once, role isolation and
+  unpair → 401 → role chooser. 4/4 pass (`flutter test
+  integration_test/family_flows_test.dart -d <sim> --dart-define=API_BASE_URL=http://127.0.0.1:8000/api/v1`).
+  The older child_flow_test (seed-dependent: it expected a task as Omar's
+  next step) was folded into it and removed.
+  Pairing is rate-limited to 5/min, 30/h per IP; the suite pairs ~3 times.
+
+## Still open
+
+- Android widget/floating card never run on a device (no emulator image).
+- Real push, signing, App Store/Play setup: needs Firebase files, APNs key,
+  team ID, and a real bundle/application id (still `com.example.*`).
+
+## Session 2026-10-21/22 — device rules, safety, remote help, child redesign
+
+Capability matrix: `docs/capability-matrix.md`. Backend progress: `mamily/docs/PROGRESS.md`.
+
+### Done (Flutter, Dart only)
+- Child: Today / Rewards / Family; all emoji → labelled Material icons;
+  Help page (press-and-hold SOS, call fallbacks, emergency number), quick
+  check-ins, journeys, location explanation, agreements, lessons, safety
+  card, celebrations toggle; remote layer (consent sheet, banner + Stop,
+  Mamily-only snapshots, pointer ring); WebRTC call screen.
+- Parent: Phone rules (per-device honest state, capabilities, pause now,
+  presets, schedules, app pickers, limits, websites, review-before-save,
+  history/undo), family map (OSM), safe places, safety screen (help alerts,
+  check-ins), safety centre (contacts, pickup, emergency number, urgent
+  recipients, caregiver child scope), access history, agreements, setup
+  checklist, remote help/call screens. Linked from the child hub.
+- `flutter analyze` → 2 infos; `flutter test` → 489 passed.
+
+### Next actions (as of 2026-10-21; superseded by the next session below)
+Native channels, deep links, push signals, revoke-clears-rules: done and
+verified in the 2026-10-22/23 session.
+
+## Session 2026-10-22/23 — native enforcement, location, calls (verified on devices)
+
+Setup: backend `php artisan serve --port=8100` with `PHP_CLI_SERVER_WORKERS=6`
+(port 8000 belongs to another local project; single-worker serve timed out
+policy fetches). Parent = iPhone 17 Pro simulator
+(`--dart-define=API_BASE_URL=http://127.0.0.1:8100/api/v1`), child = Android
+API 35 emulator `mamily_api35` provisioned with
+`adb shell dpm set-device-owner com.example.my_app/.rules.MamilyDeviceAdminReceiver`
+(`API_BASE_URL=http://10.0.2.2:8100/api/v1`). No personal device was enrolled.
+
+### Verified (observed on the devices, not just compiled)
+- **Android app blocking journey**: parent picks Gmail from the child's
+  reported app list → review sheet (what changes, which phones, iPhone
+  limitation) → v13 saved → phone receives, `setPackagesSuspended` →
+  launching Gmail shows the system "app paused" dialog with Mamily's
+  support message → parent sees "Rules are on — confirmed by the phone".
+  Unblock restores the app; parent waits ("Waiting for the phone") until
+  the phone confirms the removal.
+- **Expiry offline**: 5-min pause ended with the emulator offline; exact
+  alarm re-evaluated within 1 s (inexact alarms were ~2.5 min late →
+  `SCHEDULE_EXACT_ALARM` setup step, `timing=approximate` reported otherwise).
+- **Reboot**: indefinite pause survived reboot (BOOT_COMPLETED re-evaluates).
+- **Offline/reconnect**: release made while the phone was offline was
+  applied on reconnect; the app opens offline from a cached child session.
+- **Unpair**: parent unpairs → phone's device-status check returns
+  `revoked` → all suspensions lifted, device owner released (`dpm list-owners`
+  → none). A 401 alone never clears rules (could be a server glitch).
+- **Limits**: 1-min daily allowance paused non-essential apps (dialer, SMS,
+  settings, launcher stayed usable); usage counts raw UsageStats events
+  including the open session, excluding essentials; next check is scheduled
+  at the run-out time. Extra-time request → parent approves a different
+  amount (5 min) → apps unpause → re-pause on expiry while the child is
+  still in the app.
+- **Location**: explanation sheet → OS prompt → 5 m fix with battery on the
+  parent map; safe-place arrive/leave notifications; journey with
+  auto-arrival (announced once); revoked permission → parent sees
+  "permission missing".
+- **SOS**: press-and-hold → sent to Dana; with no push configured the child
+  is told the notification couldn't be sent and offered Call Dana /
+  emergency number; parent acknowledges → child sees "Dana saw your
+  message"; pick-me-up appears first on the parent Today as a red card.
+- **Remote help**: consent sheet → banner with Stop on every child screen →
+  parent sees Mamily-only snapshots and points; Stop (child) and End (parent)
+  both end at once; signals deleted; access log entries.
+- **Calls (WebRTC)**: voice and video between the iOS simulator (parent,
+  offerer) and the Android emulator (child). ICE checking → connected in
+  ~0.4 s (host candidates; STUN only, no TURN). Child mic/camera start only
+  after Answer + OS permission and are released on End from either side
+  (`dumpsys audio` rec start/stop, `dumpsys media.camera` no clients). The
+  parent saw the emulator's virtual camera; the simulator has no camera so
+  the child saw black (expected). Unanswered call → "No answer" after the
+  request timeout.
+  Bugs found and fixed while verifying: Laravel TrimStrings stripped the
+  SDP's trailing CRLF (every offer rejected: "SessionDescription is NULL");
+  overlapping 800 ms polls handled the same offer twice; a child reading the
+  camera prompt for >45 s hit the idle timeout (engine now heartbeats from
+  the start and only hands signals to a fully set-up peer connection);
+  white video made the call overlays unreadable (scrims).
+
+### Not verified / blocked (exact reasons)
+- **iOS Family Controls enforcement**: code, entitlement and the
+  `MamilyActivityMonitor` extension build and install on the simulator, but
+  `AuthorizationCenter` needs a real child device signed into a Family
+  Sharing child account, a development team, and (for TestFlight/App Store)
+  Apple's Family Controls distribution approval. Not run.
+- **Real push** (FCM/APNs): no `google-services.json`, `GoogleService-Info.plist`
+  or APNs key. Data-only `sync_rules`/`remote_session` handling is wired in
+  the foreground; background delivery to the native rules channel is not
+  possible from Firebase's background isolate as built (the channel lives on
+  the main engine) — the phone catches up on next open/alarm instead.
+- **Chrome blocked page**: managed config is written, but checking it needs
+  accepting Chrome's first-run terms on the emulator, which I did not do on
+  your behalf.
+- **Calls across real networks**: only verified on one host (emulator +
+  simulator). Without TURN (`MAMILY_TURN_URLS`, `MAMILY_TURN_SHARED_SECRET`) calls behind
+  symmetric NAT/CGNAT will fail; the UI says so while connecting.
+- **iOS simulator CoreAudio crash**: after several calls in a row the
+  simulator aborted in `AURemoteIO::Initialize` (RPC timeout inside WebRTC's
+  audio unit setup, not Mamily code). The server ended the orphaned session
+  as `idle`. Re-check on a real iPhone.
+- **Debug-build ANR** on the emulator under heavy CPU (merged platform/UI
+  thread); re-check with a release build.
+
+### Demo data changed on the normal dev DB (restore before real use)
+Omar: 1-min daily screen-time rule (was none), device rules v13+ (YouTube /
+Gmail / example.com history), location sharing on, "School" safe place,
+Dana's contact phone, family emergency number 100.
+
+### Later the same session (all verified, all committed)
+- Tests: device-rules / safety / remote repositories and models, rules
+  screen honest-state + polling, child Help (a tap never sends, a hold
+  sends once and says when no push was delivered), layout stress test
+  (5 screens × en/ar/he × 1x/2x text × phone/tablet = 60 cases).
+  `flutter test` → 593 passed; analyze clean.
+- Real-backend journeys on an ISOLATED backend (throwaway SQLite,
+  `DB_DATABASE=… php artisan serve --port=8101`, never the dev DB):
+  `integration_test/safety_flows_test.dart` 3/3 (extra time 20→10 adds
+  exactly 10 and a 2nd approval is 409; pause-now reaches the simulator
+  which reports `permission_needed`, never active; remote help needs the
+  child's Accept, parent End clears the banner, access log has both) and
+  `family_flows_test.dart` 4/4 again.
+- Bugs found by those runs and fixed: KidShell used `ref` after dispose;
+  the Phone rules device pill overflowed 142–222 px on a 360 px phone;
+  Android uploaded launcher/permission-dialog time as screen time (child
+  saw "used up" while the phone correctly kept apps open) — upload now
+  uses the enforcement set; 109 bogus usage rows from this emulator's
+  testing were removed from the dev DB (Omar, launcher/permission dialog).
+- Child hub tiles grouped into Safety and phone / Day to day / Wellbeing /
+  More. Language picker shows native names (العربية, עברית, English).
+  iOS permission prompts localized (ar/he InfoPlist.strings; iOS uses
+  the phone's system language for these, not the in-app language).
+- Release builds: Android `app-release.apk` 121 MB (debug-signed — no
+  release keystore; split per ABI/AAB would shrink it) installed on the
+  device-owner emulator: Gmail/YouTube stay suspended after the update
+  (R8 kept the receivers/channel), no ANR. iOS `--release --no-codesign`
+  builds (41 MB, widget + monitor extension embedded); not signed/run.
+- Screenshots: `docs/screenshots/2026-10-23/` (Arabic hub sections, phone
+  rules empty state, largest accessibility text).
+- The dev DB demo password for demo.parent@mamily.test no longer matches
+  the seeder's; I did not reset it. Visual checks used the isolated DB.
+
+### Still to do
+1. Hebrew on-device screenshots, TalkBack/VoiceOver pass, tablet on a
+   real tablet simulator (layout covered by the stress test only).
+2. Background-isolate push → native rules channel (needs Firebase first).
+3. Everything in "Not verified / blocked" above.
+
+## Session 2026-11-15 — iOS push, single-scan pairing, per-child language
+
+Branch `feature/push-pairing-child-language` (both repos), based on
+`origin/demo` (Anwar's "Notifications" commits 2da756e / edd99ca kept).
+Details and remaining Apple/Firebase steps: `docs/ios-push.md`.
+
+### iOS push
+Root causes: `GoogleService-Info.plist` not in the Runner target (Firebase
+never started on iOS); `aps-environment` removed from `Runner.entitlements`;
+no paid team (Personal Team can't do push); token registration read a stale
+permission; child side never asked for permission; FCM token requested before
+the APNs token. All fixed in code; signing set to team `9826A535WG`; scheme
+name repaired. Anwar's inbox polling kept as a fallback without duplicate
+banners once push works.
+
+### Single-scan pairing
+The double scan: a `mamily://pair` link that cold-started the app (camera
+scan) was dropped while auth was restoring, so the child had to scan again
+in-app; a warm link also needed an extra tap. Now the code is held until
+auth settles and redeemed automatically. The parent sheet polls the code and
+shows "Paired!" with the device name. Session survives restarts (token renews
+when < 30 days left); unpair/expiry are explained on the role chooser.
+
+### Per-child language
+Parents set it from the child hub ("App language"; family default or ar/he/en).
+Server: `effective_language` (child → family → app default), parent-only, sync
+signal to that child's phones. App: applied at pairing, restored on restart
+(also offline, from the cached session), re-read on resume / `sync_profile`,
+never stored as the device's own language (a parent on a shared phone keeps
+theirs). Child notifications already use the child's language server-side.
+
+### Results
+- `flutter analyze` → 1 info (pre-existing `onReorder` in Anwar's change)
+- `flutter test` → 621 passed (593 before + 28 new)
+- `flutter build ios --simulator --debug` ✓ (plist in bundle; simulated
+  entitlements: `9826A535WG.com.example.myApp`, aps-environment, app group,
+  family controls); `flutter build ios --release --no-codesign` ✓;
+  `flutter build apk --debug` ✓
+- Simulator (iPhone 17 Pro, isolated backend on a throwaway SQLite, :8101):
+  Firebase initialised on iOS (no "Push disabled" log); cold start via the
+  QR link → paired straight into Sara, Hebrew RTL, no tap; notification prompt
+  → Allow → APNs + FCM token issued and stored by the backend
+  (`has_push_token: true`); parent switched Sara to Arabic → app switched on
+  resume, Omar unchanged; full restart → still Sara, Arabic, no scan; parent
+  unpaired → role chooser with "a parent unpaired this phone" notice.
+  A later `simctl openurl` replay of the used code timed out in the simulator
+  (tooling), so used-code replay is covered by tests only.
+- NOT verified: real APNs delivery to a phone (needs APNs key in Firebase,
+  the FCM service account on the sending backend, and an explicit App ID —
+  `docs/ios-push.md` §3).
+
+## 2026-11-16 — Test pass of `feature/push-pairing-child-language`
+
+Isolated backend (throwaway SQLite, :8101, `mamily:demo-seed`, own queue
+worker); parent on the iPhone 17 Pro simulator, child on the iPad simulator.
+
+Found and fixed:
+- A child session found revoked/expired during a cold start left the phone in
+  the child's language (the app opens in the cached child language, and the
+  reset only ran on child → not-child, which a restore never passes through).
+  Now also reset when restore ends a child session. Regression test added.
+- After "Paired!", the children list / Today still said "No paired device"
+  (pairing refreshed the device list but not the family overview).
+
+Results: `flutter test` 622 passed; backend 310 passed; QR decoded to
+`mamily://pair?code=…` only; cold-start link → child home, no in-app tap
+(iPad and iPhone); parent sheet flipped to "Paired!"; restart and offline cold
+start keep session + language; typed code pairs; used and expired codes
+rejected (requests seen in the server log); unpair → notice; per-child
+languages and RTL/LTR, sibling and parent unchanged; child notification text
+in the child's language; a re-paired phone no longer targeted by the previous
+child's notifications. Not verified: real APNs/FCM delivery (no Apple account
+signed in to Xcode on this Mac, no FCM service account here), notification
+tap routing on screen, Android on a device (emulator ran out of memory).

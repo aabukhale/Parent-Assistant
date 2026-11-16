@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 
+/// Full-width primary action, styled by the theme's FilledButton.
 class PrimaryButton extends StatelessWidget {
   final String text;
   final VoidCallback? onPressed;
@@ -16,28 +17,13 @@ class PrimaryButton extends StatelessWidget {
   Widget build(BuildContext context) {
     return SizedBox(
       width: double.infinity,
-      height: 58,
-      child: ElevatedButton(
-        onPressed: onPressed,
-        style: ElevatedButton.styleFrom(
-          backgroundColor: const Color(0xFFFF624E),
-          foregroundColor: Colors.white,
-          elevation: 0,
-          shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(28),
-          ),
-        ),
-        child: Row(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            if (icon != null) ...[Icon(icon), const SizedBox(width: 8)],
-            Text(
-              text,
-              style: const TextStyle(fontSize: 17, fontWeight: FontWeight.bold),
+      child: icon == null
+          ? FilledButton(onPressed: onPressed, child: Text(text))
+          : FilledButton.icon(
+              onPressed: onPressed,
+              icon: Icon(icon),
+              label: Text(text),
             ),
-          ],
-        ),
-      ),
     );
   }
 }

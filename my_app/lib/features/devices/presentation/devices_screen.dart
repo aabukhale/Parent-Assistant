@@ -5,8 +5,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import '../../../core/errors/api_exception.dart';
 import '../../../core/localization/l10n.dart';
-import '../../../core/theme/app_colors.dart';
-import '../../../core/widgets/state_views.dart';
+import '../../../core/design_system.dart';
 import '../application/devices_controller.dart';
 import '../data/devices_repository.dart';
 import '../data/models/device.dart';
@@ -28,17 +27,8 @@ class DevicesScreen extends ConsumerWidget {
     final controller = ref.read(devicesControllerProvider.notifier);
 
     return Scaffold(
-      backgroundColor: AppColors.background,
-      appBar: AppBar(
-        title: Text(
-          l.devicesTitle,
-          style: const TextStyle(
-            color: AppColors.navy,
-            fontWeight: FontWeight.bold,
-          ),
-        ),
-      ),
-      body: SafeArea(
+      appBar: AppBar(title: Text(l.devicesTitle)),
+      body: AppContentFrame(
         child: RefreshIndicator(
           onRefresh: controller.refresh,
           child: async.when(
@@ -51,31 +41,19 @@ class DevicesScreen extends ConsumerWidget {
               ],
             ),
             data: (state) => ListView(
-              padding: const EdgeInsets.fromLTRB(20, 14, 20, 40),
+              padding: const EdgeInsets.fromLTRB(
+                AppSpacing.lg,
+                AppSpacing.sm,
+                AppSpacing.lg,
+                AppSpacing.xxxl,
+              ),
               children: [
-                Container(
-                  padding: const EdgeInsets.all(12),
-                  decoration: BoxDecoration(
-                    color: const Color(0xFFEFF1F8),
-                    borderRadius: BorderRadius.circular(14),
-                  ),
-                  child: Text(
-                    l.devicesNote,
-                    style: const TextStyle(
-                      color: AppColors.textMuted,
-                      fontSize: 11,
-                      height: 1.4,
-                    ),
-                  ),
-                ),
-                const SizedBox(height: 14),
+                NoticeBanner(tone: AppTone.info, message: l.devicesNote),
+                const SizedBox(height: AppSpacing.md),
                 if (state.isEmpty)
-                  Padding(
-                    padding: const EdgeInsets.symmetric(vertical: 20),
-                    child: Text(
-                      l.devicesEmpty,
-                      style: const TextStyle(color: AppColors.textMuted),
-                    ),
+                  EmptyView(
+                    icon: Icons.smartphone_rounded,
+                    message: l.devicesEmpty,
                   )
                 else
                   for (final d in state.devices)
@@ -86,25 +64,17 @@ class DevicesScreen extends ConsumerWidget {
                     ),
                 if (state.hasMore)
                   Padding(
-                    padding: const EdgeInsets.only(top: 4),
+                    padding: const EdgeInsets.only(top: AppSpacing.xs),
                     child: OutlinedButton(
                       onPressed: controller.loadMore,
                       child: Text(l.devicesLoadMore),
                     ),
                   ),
-                const SizedBox(height: 16),
-                SizedBox(
-                  width: double.infinity,
-                  height: 50,
-                  child: ElevatedButton.icon(
-                    onPressed: () => _register(context, ref),
-                    icon: const Icon(Icons.add),
-                    label: Text(l.devicesRegisterThis),
-                    style: ElevatedButton.styleFrom(
-                      backgroundColor: AppColors.coral,
-                      foregroundColor: Colors.white,
-                    ),
-                  ),
+                const SizedBox(height: AppSpacing.lg),
+                FilledButton.icon(
+                  onPressed: () => _register(context, ref),
+                  icon: const Icon(Icons.add_rounded),
+                  label: Text(l.devicesRegisterThis),
                 ),
               ],
             ),
@@ -162,27 +132,14 @@ class DevicesScreen extends ConsumerWidget {
   Future<void> _remove(BuildContext context, WidgetRef ref, Device d) async {
     final l = context.l10n;
     final messenger = ScaffoldMessenger.of(context);
-    final ok = await showDialog<bool>(
-      context: context,
-      builder: (_) => AlertDialog(
-        title: Text(l.devicesRemoveTitle),
-        content: Text(l.devicesRemoveBody(d.name)),
-        actions: [
-          TextButton(
-            onPressed: () => Navigator.of(context).pop(false),
-            child: Text(l.commonCancel),
-          ),
-          TextButton(
-            onPressed: () => Navigator.of(context).pop(true),
-            child: Text(
-              l.devicesRemoveAction,
-              style: const TextStyle(color: AppColors.coral),
-            ),
-          ),
-        ],
-      ),
+    final ok = await confirmAction(
+      context,
+      title: l.devicesRemoveTitle,
+      body: l.devicesRemoveBody(d.name),
+      confirmLabel: l.devicesRemoveAction,
+      destructive: true,
     );
-    if (ok != true) return;
+    if (!ok) return;
     try {
       await ref.read(devicesControllerProvider.notifier).remove(d.id);
       messenger.showSnackBar(SnackBar(content: Text(l.devicesRemoved)));
@@ -212,53 +169,46 @@ class _DeviceTile extends StatelessWidget {
       DeviceMode.familyShared => l.devicesModeFamilyShared,
       DeviceMode.unknown => '—',
     };
-    return Container(
-      margin: const EdgeInsets.only(bottom: 10),
-      padding: const EdgeInsets.all(14),
-      decoration: BoxDecoration(
-        color: Colors.white,
-        borderRadius: BorderRadius.circular(16),
-      ),
+    return AppCard(
+      margin: const EdgeInsets.only(bottom: AppSpacing.sm),
       child: Row(
         children: [
-          Icon(
-            d.platform == DevicePlatform.ios
+          IconBadge(
+            icon: d.platform == DevicePlatform.ios
                 ? Icons.phone_iphone_rounded
                 : d.platform == DevicePlatform.android
                 ? Icons.phone_android_rounded
                 : Icons.devices_rounded,
-            color: d.isActive ? AppColors.navy : AppColors.textMuted,
+            tone: d.isActive ? AppTone.info : AppTone.neutral,
+            size: 40,
           ),
-          const SizedBox(width: 12),
+          const SizedBox(width: AppSpacing.md),
           Expanded(
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Text(
                   d.name,
-                  style: TextStyle(
-                    color: d.isActive ? AppColors.navy : AppColors.textMuted,
-                    fontWeight: FontWeight.bold,
-                    fontSize: 14,
+                  style: context.type.labelLarge?.copyWith(
+                    color: d.isActive
+                        ? context.mamily.ink
+                        : context.mamily.ink2,
                   ),
                 ),
                 Text(
                   d.isActive
                       ? modeLabel
                       : '$modeLabel · ${l.devicesRevokedTag}',
-                  style: const TextStyle(
-                    color: AppColors.textMuted,
-                    fontSize: 11,
+                  style: context.type.bodySmall?.copyWith(
+                    color: context.mamily.ink2,
                   ),
                 ),
               ],
             ),
           ),
           PopupMenuButton<String>(
-            icon: const Icon(
-              Icons.more_vert_rounded,
-              color: AppColors.textMuted,
-            ),
+            tooltip: d.name,
+            icon: Icon(Icons.more_vert_rounded, color: context.mamily.ink2),
             onSelected: (v) => v == 'remove' ? onRemove() : onRevoke(),
             itemBuilder: (_) => [
               PopupMenuItem(
@@ -312,7 +262,7 @@ class _RegisterDialogState extends State<_RegisterDialog> {
             controller: _name,
             decoration: InputDecoration(labelText: l.devicesFieldName),
           ),
-          const SizedBox(height: 12),
+          const SizedBox(height: AppSpacing.md),
           SegmentedButton<DeviceMode>(
             segments: [
               ButtonSegment(

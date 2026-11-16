@@ -43,7 +43,9 @@ class Child {
     required this.status,
     this.gender,
     this.avatarColor,
+    this.avatarKey,
     this.preferredLanguage,
+    this.effectiveLanguage,
     this.contentAgeOverride,
     this.interests = const [],
   });
@@ -56,7 +58,15 @@ class Child {
   final ChildStatus status;
   final ChildGender? gender;
   final String? avatarColor;
+
+  /// Illustrated identity the child picked (see `ChildAvatars`).
+  final String? avatarKey;
+
+  /// Set by a parent for this child only; null = family default.
   final String? preferredLanguage;
+
+  /// What the child's app shows (own setting, else the family's).
+  final String? effectiveLanguage;
   final int? contentAgeOverride;
   final List<Interest> interests;
 
@@ -74,7 +84,11 @@ class Child {
       status: ChildStatus.fromString(json['status'] as String?),
       gender: ChildGender.fromString(json['gender'] as String?),
       avatarColor: json['avatar_color'] as String?,
+      avatarKey: json['avatar_key'] as String?,
       preferredLanguage: json['preferred_language'] as String?,
+      effectiveLanguage:
+          json['effective_language'] as String? ??
+          json['preferred_language'] as String?,
       contentAgeOverride: (json['content_age_override'] as num?)?.toInt(),
       interests: rawInterests
           .whereType<Map>()

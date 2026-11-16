@@ -3,8 +3,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import '../../../core/errors/api_exception.dart';
 import '../../../core/localization/l10n.dart';
-import '../../../core/theme/app_colors.dart';
-import '../../../core/widgets/state_views.dart';
+import '../../../core/design_system.dart';
 import '../application/games_controller.dart';
 import '../data/models/game.dart';
 import 'game_details_screen.dart';
@@ -23,17 +22,8 @@ class GamesScreen extends ConsumerWidget {
     final controller = ref.read(gamesCatalogControllerProvider.notifier);
 
     return Scaffold(
-      backgroundColor: AppColors.background,
-      appBar: AppBar(
-        title: Text(
-          l.gamesTitle,
-          style: const TextStyle(
-            color: AppColors.navy,
-            fontWeight: FontWeight.bold,
-          ),
-        ),
-      ),
-      body: SafeArea(
+      appBar: AppBar(title: Text(l.gamesTitle)),
+      body: AppContentFrame(
         child: RefreshIndicator(
           onRefresh: controller.refresh,
           child: async.when(
@@ -52,34 +42,24 @@ class GamesScreen extends ConsumerWidget {
                     onRefresh: controller.refresh,
                   )
                 : ListView(
-                    padding: const EdgeInsets.fromLTRB(20, 14, 20, 40),
+                    padding: const EdgeInsets.fromLTRB(
+                      AppSpacing.lg,
+                      AppSpacing.sm,
+                      AppSpacing.lg,
+                      AppSpacing.xxxl,
+                    ),
                     children: [
-                      Container(
-                        padding: const EdgeInsets.all(12),
-                        decoration: BoxDecoration(
-                          color: const Color(0xFFEFF1F8),
-                          borderRadius: BorderRadius.circular(14),
-                        ),
-                        child: Text(
-                          l.gamesPreviewNote,
-                          style: const TextStyle(
-                            color: AppColors.textMuted,
-                            fontSize: 11,
-                            height: 1.4,
-                          ),
-                        ),
+                      NoticeBanner(
+                        tone: AppTone.info,
+                        message: l.gamesPreviewNote,
                       ),
-                      const SizedBox(height: 14),
+                      const SizedBox(height: AppSpacing.md),
                       for (final game in state.games) _GameCard(game: game),
                       if (state.hasMore)
                         Padding(
                           padding: const EdgeInsets.only(top: 4),
                           child: state.loadingMore
-                              ? const Center(
-                                  child: CircularProgressIndicator(
-                                    color: AppColors.coral,
-                                  ),
-                                )
+                              ? const Center(child: CircularProgressIndicator())
                               : OutlinedButton(
                                   onPressed: () => _loadMore(context, ref),
                                   child: Text(l.libraryLoadMore),
@@ -127,28 +107,16 @@ class _GameCard extends StatelessWidget {
           builder: (_) => GameDetailsScreen(gameSlug: game.slug),
         ),
       ),
-      child: Container(
-        margin: const EdgeInsets.only(bottom: 10),
-        padding: const EdgeInsets.all(16),
-        decoration: BoxDecoration(
-          color: Colors.white,
-          borderRadius: BorderRadius.circular(20),
-        ),
+      child: AppCard(
+        margin: const EdgeInsets.only(bottom: AppSpacing.sm),
         child: Row(
           children: [
-            Container(
-              width: 52,
-              height: 52,
-              decoration: BoxDecoration(
-                color: const Color(0xFF7C89B8).withValues(alpha: 0.15),
-                borderRadius: BorderRadius.circular(16),
-              ),
-              child: const Icon(
-                Icons.sports_esports_rounded,
-                color: Color(0xFF7C89B8),
-              ),
+            IconBadge(
+              icon: Icons.sports_esports_rounded,
+              tone: AppTone.info,
+              size: 52,
             ),
-            const SizedBox(width: 14),
+            const SizedBox(width: AppSpacing.md),
             Expanded(
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
@@ -157,27 +125,22 @@ class _GameCard extends StatelessWidget {
                     game.title,
                     maxLines: 1,
                     overflow: TextOverflow.ellipsis,
-                    style: const TextStyle(
-                      color: AppColors.navy,
-                      fontWeight: FontWeight.bold,
-                      fontSize: 15,
-                    ),
+                    style: context.type.titleSmall,
                   ),
                   const SizedBox(height: 3),
                   Text(
                     gameTypeLabel(l, game.gameType),
-                    style: const TextStyle(
-                      color: AppColors.textMuted,
-                      fontSize: 12,
+                    style: context.type.bodySmall?.copyWith(
+                      color: context.mamily.ink2,
                     ),
                   ),
                 ],
               ),
             ),
-            const Icon(
+            Icon(
               Icons.chevron_right_rounded,
               size: 18,
-              color: Color(0xFF9AA3B5),
+              color: context.mamily.ink3,
             ),
           ],
         ),

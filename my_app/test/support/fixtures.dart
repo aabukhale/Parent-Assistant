@@ -275,6 +275,10 @@ class Fixtures {
     'manage_activities',
     'manage_devices',
     'view_reports',
+    'manage_routines',
+    'manage_challenges',
+    'manage_planner',
+    'manage_meals',
   ];
 
   static Map<String, dynamic> memberJson({

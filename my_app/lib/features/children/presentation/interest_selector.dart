@@ -3,7 +3,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import '../../../core/errors/api_exception.dart';
 import '../../../core/localization/l10n.dart';
-import '../../../core/theme/app_colors.dart';
+import '../../../core/design_system.dart';
 import '../data/models/interest.dart';
 
 /// Multi-select chips for the localized interests catalog. Selection is by
@@ -33,10 +33,7 @@ class InterestSelector extends StatelessWidget {
           child: SizedBox(
             width: 22,
             height: 22,
-            child: CircularProgressIndicator(
-              strokeWidth: 2,
-              color: AppColors.coral,
-            ),
+            child: CircularProgressIndicator(strokeWidth: 2),
           ),
         ),
       ),
@@ -47,24 +44,23 @@ class InterestSelector extends StatelessWidget {
               e is ApiException
                   ? e.localizedMessage(l)
                   : l.childValidationInterests,
-              style: const TextStyle(color: AppColors.coral, fontSize: 13),
+              style: context.type.bodyMedium?.copyWith(
+                color: context.mamily.actionText,
+              ),
             ),
           ),
           TextButton(onPressed: onRetry, child: Text(l.commonRetry)),
         ],
       ),
       data: (list) => Wrap(
-        spacing: 8,
-        runSpacing: 8,
+        spacing: AppSpacing.sm,
+        runSpacing: AppSpacing.sm,
         children: [
           for (final interest in list)
             FilterChip(
               label: Text(interest.name),
               selected: selected.contains(interest.id),
               onSelected: (_) => onToggle(interest),
-              selectedColor: AppColors.teal,
-              backgroundColor: Colors.white,
-              showCheckmark: false,
             ),
         ],
       ),

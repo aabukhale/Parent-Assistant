@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Widget picker preview (API 31+): sample content, never real data. -->
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/pulse_card_background"
+    android:orientation="vertical"
+    android:padding="14dp">
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/pulse_title"
+        android:textColor="@color/pulse_accent"
+        android:textSize="12sp"
+        android:textStyle="bold" />
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="2dp"
+        android:text="@string/pulse_preview_headline"
+        android:textColor="@color/pulse_ink"
+        android:textSize="16sp"
+        android:textStyle="bold" />
+
+    <TextView
+        style="@style/PulseChildRow"
+        android:text="@string/pulse_preview_child_1"
+        android:visibility="visible" />
+
+    <TextView
+        style="@style/PulseChildRow"
+        android:text="@string/pulse_preview_child_2"
+        android:visibility="visible" />
+
+    <!-- Spacer (FrameLayout: plain View isn't allowed in RemoteViews). -->
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1" />
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/pulse_updated_just_now"
+        android:textColor="@color/pulse_ink_muted"
+        android:textSize="11sp" />
+</LinearLayout>

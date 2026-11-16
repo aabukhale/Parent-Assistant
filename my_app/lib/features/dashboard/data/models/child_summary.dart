@@ -32,9 +32,15 @@ class ScreenTimeToday {
     required this.usedMinutes,
     required this.effectiveLimitMinutes,
     required this.remainingMinutes,
+    this.measured = true,
   });
 
   final int usedMinutes;
+
+  /// False when no device has ever reported usage (`usage_state:
+  /// not_reported`): [usedMinutes] is then unknown, not zero. Older servers
+  /// omit the field, which keeps the previous behaviour.
+  final bool measured;
   final int? effectiveLimitMinutes;
   final int? remainingMinutes;
 
@@ -46,6 +52,7 @@ class ScreenTimeToday {
         effectiveLimitMinutes: (json['effective_limit_minutes'] as num?)
             ?.round(),
         remainingMinutes: (json['remaining_minutes'] as num?)?.round(),
+        measured: json['usage_state'] != 'not_reported',
       );
 }
 

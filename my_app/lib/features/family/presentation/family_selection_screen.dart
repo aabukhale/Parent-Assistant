@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import '../../../core/localization/l10n.dart';
-import '../../../core/theme/app_colors.dart';
+import '../../../core/design_system.dart';
 import '../../auth/application/auth_controller.dart';
 import '../../auth/data/models/family_membership.dart';
 
@@ -27,34 +27,28 @@ class FamilySelectionScreen extends ConsumerWidget {
           ),
         ],
       ),
-      body: SafeArea(
-        child: ListView.separated(
-          padding: const EdgeInsets.all(20),
+      body: AppContentFrame(
+        child: ListView.builder(
+          padding: const EdgeInsets.fromLTRB(
+            AppSpacing.lg,
+            AppSpacing.sm,
+            AppSpacing.lg,
+            AppSpacing.xxxl,
+          ),
           itemCount: memberships.length,
-          separatorBuilder: (_, _) => const SizedBox(height: 12),
           itemBuilder: (context, i) {
             final m = memberships[i];
-            return ListTile(
-              tileColor: Colors.white,
-              shape: RoundedRectangleBorder(
-                borderRadius: BorderRadius.circular(18),
+            return AppListTile(
+              leading: const IconBadge(
+                icon: Icons.home_rounded,
+                tone: AppTone.accent,
               ),
-              leading: const CircleAvatar(
-                backgroundColor: AppColors.teal,
-                child: Icon(
-                  Icons.family_restroom_rounded,
-                  color: AppColors.navy,
-                ),
-              ),
-              title: Text(
-                m.family.name,
-                style: const TextStyle(
-                  fontWeight: FontWeight.bold,
-                  color: AppColors.navy,
-                ),
-              ),
-              subtitle: Text(m.role.name),
-              trailing: const Icon(Icons.arrow_forward_ios_rounded, size: 16),
+              title: m.family.name,
+              subtitle: switch (m.role) {
+                FamilyRole.owner => context.l10n.profileRoleOwner,
+                FamilyRole.parent => context.l10n.profileRoleParent,
+                FamilyRole.caregiver => context.l10n.profileRoleCaregiver,
+              },
               onTap: () => ref
                   .read(authControllerProvider.notifier)
                   .selectActiveFamily(m.id),

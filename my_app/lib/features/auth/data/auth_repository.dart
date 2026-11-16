@@ -16,6 +16,8 @@ import 'models/auth_user.dart';
 class AuthRepository {
   AuthRepository(this._client, this._storage);
 
+  static const sessionKind = 'parent';
+
   final ApiClient _client;
   final SecureTokenStorage _storage;
 
@@ -26,6 +28,7 @@ class AuthRepository {
       throw const ApiException(kind: ApiErrorKind.server);
     }
     await _storage.writeToken(token);
+    await _storage.writeSessionKind(sessionKind);
     return me();
   }
 
@@ -36,6 +39,7 @@ class AuthRepository {
       throw const ApiException(kind: ApiErrorKind.server);
     }
     await _storage.writeToken(token);
+    await _storage.writeSessionKind(sessionKind);
     return me();
   }
 
@@ -62,6 +66,28 @@ class AuthRepository {
   }
 
   Future<bool> hasStoredToken() => _storage.hasToken();
+
+  /// Ask for a 6-digit reset code by email. The backend answers the same way
+  /// whether or not the account exists.
+  Future<void> requestPasswordReset(String email) async {
+    await _client.post('/auth/forgot-password', body: {'email': email.trim()});
+  }
+
+  Future<void> resetPassword({
+    required String email,
+    required String code,
+    required String password,
+  }) async {
+    await _client.post(
+      '/auth/reset-password',
+      body: {
+        'email': email.trim(),
+        'code': code.trim(),
+        'password': password,
+        'password_confirmation': password,
+      },
+    );
+  }
 }
 
 final authRepositoryProvider = Provider<AuthRepository>(

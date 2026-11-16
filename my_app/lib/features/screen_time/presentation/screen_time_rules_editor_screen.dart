@@ -3,8 +3,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import '../../../core/errors/api_exception.dart';
 import '../../../core/localization/l10n.dart';
-import '../../../core/theme/app_colors.dart';
-import '../../../core/widgets/state_views.dart';
+import '../../../core/design_system.dart';
 import '../../family/application/permissions_controller.dart';
 import '../../family/data/models/family_permission.dart';
 import '../application/screen_time_controller.dart';
@@ -54,17 +53,8 @@ class _ScreenTimeRulesEditorScreenState
     final rules = ref.watch(screenTimeRulesProvider);
 
     return Scaffold(
-      backgroundColor: AppColors.background,
-      appBar: AppBar(
-        title: Text(
-          l.stEditRules,
-          style: const TextStyle(
-            color: AppColors.navy,
-            fontWeight: FontWeight.bold,
-          ),
-        ),
-      ),
-      body: SafeArea(
+      appBar: AppBar(title: Text(l.stEditRules)),
+      body: AppContentFrame(
         child: rules.when(
           loading: () => const LoadingView(),
           error: (e, _) => ErrorRetryView(
@@ -74,12 +64,19 @@ class _ScreenTimeRulesEditorScreenState
           data: (list) {
             _seed(list);
             return ListView(
-              padding: const EdgeInsets.fromLTRB(20, 16, 20, 40),
+              padding: const EdgeInsets.fromLTRB(
+                AppSpacing.lg,
+                AppSpacing.sm,
+                AppSpacing.lg,
+                AppSpacing.xxxl,
+              ),
               children: [
                 if (!canManage)
                   Text(
                     l.stEditNoPermission,
-                    style: const TextStyle(color: AppColors.textMuted),
+                    style: context.type.bodyMedium?.copyWith(
+                      color: context.mamily.ink2,
+                    ),
                   ),
                 SwitchListTile(
                   value: _defaultEnabled,
@@ -95,20 +92,13 @@ class _ScreenTimeRulesEditorScreenState
                   enabled: canManage && _defaultEnabled,
                   onChanged: (v) => setState(() => _defaultLimit = v),
                 ),
-                const SizedBox(height: 18),
-                Text(
-                  l.stWeekdayOverridesTitle,
-                  style: const TextStyle(
-                    color: AppColors.navy,
-                    fontWeight: FontWeight.bold,
-                  ),
-                ),
-                const SizedBox(height: 4),
+                const SizedBox(height: AppSpacing.lg),
+                Text(l.stWeekdayOverridesTitle, style: context.type.titleSmall),
+                const SizedBox(height: AppSpacing.xs),
                 Text(
                   l.stWeekdayOverridesHint,
-                  style: const TextStyle(
-                    color: AppColors.textMuted,
-                    fontSize: 12,
+                  style: context.type.bodySmall?.copyWith(
+                    color: context.mamily.ink2,
                   ),
                 ),
                 for (var day = 1; day <= 7; day++)
@@ -125,24 +115,19 @@ class _ScreenTimeRulesEditorScreenState
                     }),
                     onChanged: (v) => setState(() => _overrides[day] = v),
                   ),
-                const SizedBox(height: 20),
+                const SizedBox(height: AppSpacing.xl),
                 if (canManage)
                   SizedBox(
                     width: double.infinity,
-                    height: 50,
-                    child: ElevatedButton(
+                    child: FilledButton(
                       onPressed: _saving ? null : _save,
-                      style: ElevatedButton.styleFrom(
-                        backgroundColor: AppColors.coral,
-                        foregroundColor: Colors.white,
-                      ),
                       child: _saving
-                          ? const SizedBox(
+                          ? SizedBox(
                               width: 18,
                               height: 18,
                               child: CircularProgressIndicator(
                                 strokeWidth: 2,
-                                color: Colors.white,
+                                color: context.mamily.onAction,
                               ),
                             )
                           : Text(l.commonSave),
@@ -213,7 +198,7 @@ class _LimitRow extends StatelessWidget {
         children: [
           Text(
             '$label — ${l.stMinutesValue(minutes)}',
-            style: const TextStyle(color: AppColors.navy),
+            style: context.type.bodyMedium,
           ),
           Slider(
             value: minutes.toDouble().clamp(0, 1440),

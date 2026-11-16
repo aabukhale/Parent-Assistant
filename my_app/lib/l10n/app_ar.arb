@@ -1,8 +1,6 @@
 {
   "@@locale": "ar",
-
-  "appTitle": "مساعد الوالدين",
-
+  "appTitle": "Mamily",
   "commonRetry": "إعادة المحاولة",
   "commonCancel": "إلغاء",
   "commonSave": "حفظ",
@@ -10,13 +8,16 @@
   "commonLoading": "جارٍ التحميل…",
   "commonRefreshing": "جارٍ التحديث…",
   "commonEmpty": "لا توجد بيانات لعرضها",
+  "commonEdit": "تعديل",
+  "commonClear": "مسح",
+  "commonDelete": "حذف",
   "commonComingSoonTitle": "هذه الميزة غير متاحة بعد",
   "commonComingSoonBody": "نعمل على إتاحة هذه الميزة قريبًا.",
-
   "errorNetwork": "تعذّر الاتصال بالخادم. تحقّق من اتصالك بالإنترنت وحاول مجددًا.",
   "errorTimeout": "استغرق الطلب وقتًا طويلًا. حاول مجددًا.",
   "errorServer": "حدث خطأ غير متوقع في الخادم. حاول لاحقًا.",
   "errorUnauthorized": "انتهت الجلسة. يرجى تسجيل الدخول من جديد.",
+  "errorInvalidCredentials": "البريد الإلكتروني أو كلمة المرور غير صحيحة.",
   "errorForbidden": "ليست لديك صلاحية لتنفيذ هذا الإجراء.",
   "errorNotFound": "العنصر المطلوب غير موجود أو لا يمكن الوصول إليه.",
   "errorConflict": "تعذّر إتمام العملية بسبب تعارض في الحالة. تم تحديث البيانات.",
@@ -24,16 +25,14 @@
   "errorValidation": "تحقّق من الحقول المدخلة.",
   "errorUnavailable": "هذه الخدمة غير متاحة حاليًا.",
   "errorUnknown": "حدث خطأ ما. حاول مجددًا.",
-
   "authWelcomeTitle": "أهلًا بكم",
   "authWelcomeSubtitle": "مساعدك الذكي في رحلة التربية وتنظيم حياة أطفالك",
   "authCreateAccount": "إنشاء حساب جديد",
   "authHaveAccount": "لدي حساب بالفعل",
   "authOr": "أو",
   "authBiometricUnavailable": "الدخول السريع بالبصمة غير متاح بعد",
-
-  "authLoginTitle": "مرحبًا بعودتك 👋",
-  "authRegisterTitle": "لنبدأ رحلتنا 👨‍👩‍👧",
+  "authLoginTitle": "مرحبًا بعودتك",
+  "authRegisterTitle": "لنبدأ مع عائلتك",
   "authFieldName": "الاسم",
   "authFieldNameHint": "أدخل اسمك",
   "authFieldLastName": "اسم العائلة (اختياري)",
@@ -48,12 +47,10 @@
   "authRegisterAction": "إنشاء الحساب",
   "authLogout": "تسجيل الخروج",
   "authLogoutConfirm": "هل تريد تسجيل الخروج؟",
-
   "validationRequired": "هذا الحقل مطلوب",
   "validationEmail": "أدخل بريدًا إلكترونيًا صحيحًا",
   "validationPasswordShort": "كلمة المرور قصيرة جدًا (8 أحرف على الأقل)",
   "validationPasswordMismatch": "كلمتا المرور غير متطابقتين",
-
   "profileTitle": "حسابي",
   "profileEditTitle": "تعديل الملف الشخصي",
   "profileRoleOwner": "مالك العائلة",
@@ -65,18 +62,22 @@
   "languageArabic": "العربية",
   "languageHebrew": "العبرية",
   "languageEnglish": "الإنجليزية",
-
   "childrenTitle": "أطفالي",
-  "childrenSubtitle": "تابع واهتم بتطور أطفالك ❤️",
+  "childrenSubtitle": "تابع واهتم بتطور أطفالك",
   "childrenCountLabel": "{count, plural, =0{لا يوجد أطفال} =1{طفل واحد} =2{طفلان} few{{count} أطفال} many{{count} طفلًا} other{{count} طفل}}",
-  "@childrenCountLabel": { "placeholders": { "count": { "type": "int" } } },
+  "@childrenCountLabel": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
   "childrenAdd": "إضافة طفل",
   "childrenEmpty": "لم تتم إضافة أي طفل بعد",
   "childrenLoadMore": "تحميل المزيد",
   "childrenFilterActive": "النشطون",
   "childrenFilterArchived": "المؤرشفون",
   "childrenFilterAll": "الكل",
-
   "childAddTitle": "إضافة طفل",
   "childEditTitle": "تعديل بيانات الطفل",
   "childFieldName": "اسم الطفل",
@@ -90,22 +91,39 @@
   "childFieldInterests": "الاهتمامات",
   "childFieldAvatarColor": "لون البطاقة",
   "childAgeYears": "{age, plural, =0{أقل من سنة} =1{سنة واحدة} =2{سنتان} few{{age} سنوات} many{{age} سنة} other{{age} سنة}}",
-  "@childAgeYears": { "placeholders": { "age": { "type": "int" } } },
+  "@childAgeYears": {
+    "placeholders": {
+      "age": {
+        "type": "int"
+      }
+    }
+  },
   "childSave": "حفظ",
   "childCreated": "تمت إضافة الطفل",
   "childUpdated": "تم تحديث بيانات الطفل",
   "childDeleteAction": "حذف",
   "childDeleteConfirmTitle": "حذف الطفل؟",
   "childDeleteConfirmBody": "سيتم أرشفة ملف {name} ويمكن استعادته لاحقًا.",
-  "@childDeleteConfirmBody": { "placeholders": { "name": { "type": "String" } } },
+  "@childDeleteConfirmBody": {
+    "placeholders": {
+      "name": {
+        "type": "String"
+      }
+    }
+  },
   "childDeleted": "تم حذف الطفل",
   "childDetailsInterestsEmpty": "لا توجد اهتمامات محددة",
   "childValidationBirthDateRequired": "اختر تاريخ ميلاد الطفل",
   "childValidationInterests": "تعذّر تحميل قائمة الاهتمامات",
-
   "lgTitle": "أهداف التعلم",
   "lgSubtitle": "أهداف تعلم {name}",
-  "@lgSubtitle": { "placeholders": { "name": { "type": "String" } } },
+  "@lgSubtitle": {
+    "placeholders": {
+      "name": {
+        "type": "String"
+      }
+    }
+  },
   "lgEmpty": "لا توجد أهداف تعلم بعد",
   "lgAddGoal": "هدف جديد",
   "lgNewTitle": "هدف تعلم جديد",
@@ -139,7 +157,13 @@
   "lgArchive": "أرشفة",
   "lgArchiveConfirmTitle": "أرشفة الهدف؟",
   "lgArchiveConfirmBody": "لن يظهر «{title}» ضمن الأهداف النشطة.",
-  "@lgArchiveConfirmBody": { "placeholders": { "title": { "type": "String" } } },
+  "@lgArchiveConfirmBody": {
+    "placeholders": {
+      "title": {
+        "type": "String"
+      }
+    }
+  },
   "lgArchived": "تمت أرشفة الهدف",
   "lgStanding": "الوضع الحالي",
   "lgCurrent": "القيمة الحالية",
@@ -147,11 +171,29 @@
   "lgDone": "منجز",
   "lgNotDone": "غير منجز",
   "lgStartedOn": "البداية: {date}",
-  "@lgStartedOn": { "placeholders": { "date": { "type": "String" } } },
+  "@lgStartedOn": {
+    "placeholders": {
+      "date": {
+        "type": "String"
+      }
+    }
+  },
   "lgTargetOn": "المستهدف: {date}",
-  "@lgTargetOn": { "placeholders": { "date": { "type": "String" } } },
+  "@lgTargetOn": {
+    "placeholders": {
+      "date": {
+        "type": "String"
+      }
+    }
+  },
   "lgAchievedOn": "تحقّق في {date}",
-  "@lgAchievedOn": { "placeholders": { "date": { "type": "String" } } },
+  "@lgAchievedOn": {
+    "placeholders": {
+      "date": {
+        "type": "String"
+      }
+    }
+  },
   "lgHistoryTitle": "سجل التقدم",
   "lgHistoryEmpty": "لا توجد سجلات تقدم بعد",
   "lgRecord": "تسجيل تقدم",
@@ -163,9 +205,7 @@
   "lgProgressRecorded": "تم تسجيل التقدم",
   "lgValidationTarget": "أدخل قيمة مستهدفة",
   "lgValidationPercentRange": "يجب أن تكون النسبة بين 0 و100",
-
   "permLoadFailed": "تعذّر تحميل صلاحياتك. بعض الإجراءات مخفية حتى إعادة المحاولة.",
-
   "sleepTitle": "النوم",
   "sleepAverage": "متوسط النوم",
   "sleepPeriodWeekly": "أسبوعي",
@@ -182,11 +222,32 @@
   "sleepFieldWake": "وقت الاستيقاظ",
   "sleepNextDay": "اليوم التالي",
   "sleepDurationHm": "{hours}س {minutes}د",
-  "@sleepDurationHm": {"placeholders": {"hours": {"type": "int"}, "minutes": {"type": "int"}}},
+  "@sleepDurationHm": {
+    "placeholders": {
+      "hours": {
+        "type": "int"
+      },
+      "minutes": {
+        "type": "int"
+      }
+    }
+  },
   "sleepDurationH": "{hours}س",
-  "@sleepDurationH": {"placeholders": {"hours": {"type": "int"}}},
+  "@sleepDurationH": {
+    "placeholders": {
+      "hours": {
+        "type": "int"
+      }
+    }
+  },
   "sleepDurationM": "{minutes}د",
-  "@sleepDurationM": {"placeholders": {"minutes": {"type": "int"}}},
+  "@sleepDurationM": {
+    "placeholders": {
+      "minutes": {
+        "type": "int"
+      }
+    }
+  },
   "sleepSourceManual": "يدوي",
   "sleepSourceDevice": "من جهاز",
   "sleepSave": "حفظ",
@@ -199,7 +260,6 @@
   "sleepValidationRange": "يجب أن يكون وقت النوم قبل وقت الاستيقاظ",
   "sleepOverlap": "تتداخل هذه الفترة مع سجل نوم آخر لهذا الطفل. عدّل الأوقات وحاول مجددًا.",
   "sleepLoadMore": "عرض المزيد",
-
   "tasksTitle": "المهام والنقاط",
   "tasksPointsBalance": "رصيد النقاط",
   "tasksPointsUnit": "نقطة",
@@ -217,6 +277,27 @@
   "taskFieldDescription": "الوصف (اختياري)",
   "taskFieldPoints": "النقاط",
   "taskFieldCategory": "الفئة (اختياري)",
+  "taskFieldIcon": "الأيقونة",
+  "taskFieldIconHint": "ما يراه طفلك بجانب هذه المهمة",
+  "iconBed": "سرير",
+  "iconTooth": "فرشاة أسنان",
+  "iconShirt": "ملابس",
+  "iconBreakfast": "فطور",
+  "iconSnack": "وجبة خفيفة",
+  "iconBackpack": "حقيبة المدرسة",
+  "iconHands": "غسل اليدين",
+  "iconBook": "قراءة",
+  "iconBall": "رياضة",
+  "iconToys": "ترتيب الألعاب",
+  "iconBath": "استحمام",
+  "iconPajamas": "وقت النوم",
+  "iconMusic": "موسيقى",
+  "iconArt": "رسم وفن",
+  "iconPet": "رعاية الحيوان",
+  "iconPlant": "نباتات",
+  "iconKitchen": "مساعدة في المطبخ",
+  "iconWater": "شرب الماء",
+  "iconKindness": "لطف",
   "taskFieldDeadline": "الموعد النهائي (اختياري)",
   "taskFieldRecurrence": "التكرار",
   "recurrenceOneTime": "مرة واحدة",
@@ -236,13 +317,37 @@
   "recurrenceSummaryDaily": "يوميًا",
   "recurrenceSummaryOneTime": "مرة واحدة",
   "recurrenceSummaryOneTimeBy": "مرة واحدة قبل {date}",
-  "@recurrenceSummaryOneTimeBy": {"placeholders": {"date": {"type": "String"}}},
+  "@recurrenceSummaryOneTimeBy": {
+    "placeholders": {
+      "date": {
+        "type": "String"
+      }
+    }
+  },
   "recurrenceSummaryWeekly": "أسبوعيًا: {days}",
-  "@recurrenceSummaryWeekly": {"placeholders": {"days": {"type": "String"}}},
+  "@recurrenceSummaryWeekly": {
+    "placeholders": {
+      "days": {
+        "type": "String"
+      }
+    }
+  },
   "recurrenceSummaryCustomDates": "{count} تواريخ محددة",
-  "@recurrenceSummaryCustomDates": {"placeholders": {"count": {"type": "int"}}},
+  "@recurrenceSummaryCustomDates": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
   "recurrenceSummaryCustomInterval": "كل {days} يوم",
-  "@recurrenceSummaryCustomInterval": {"placeholders": {"days": {"type": "int"}}},
+  "@recurrenceSummaryCustomInterval": {
+    "placeholders": {
+      "days": {
+        "type": "int"
+      }
+    }
+  },
   "taskStatusActive": "نشطة",
   "taskStatusArchived": "مؤرشفة",
   "taskFilterAll": "الكل",
@@ -252,7 +357,13 @@
   "taskArchiveAction": "أرشفة",
   "taskArchiveConfirmTitle": "أرشفة المهمة؟",
   "taskArchiveConfirmBody": "لن تظهر «{title}» ضمن المهام النشطة.",
-  "@taskArchiveConfirmBody": {"placeholders": {"title": {"type": "String"}}},
+  "@taskArchiveConfirmBody": {
+    "placeholders": {
+      "title": {
+        "type": "String"
+      }
+    }
+  },
   "taskArchived": "تمت أرشفة المهمة",
   "taskDetailPointsLabel": "النقاط عند الإنجاز",
   "completionRequest": "تسجيل إنجاز",
@@ -274,9 +385,21 @@
   "completionReversed": "تم عكس النقاط",
   "completionReviewNote": "ملاحظة (اختياري)",
   "completionPointsAwarded": "+{points} نقطة",
-  "@completionPointsAwarded": {"placeholders": {"points": {"type": "int"}}},
+  "@completionPointsAwarded": {
+    "placeholders": {
+      "points": {
+        "type": "int"
+      }
+    }
+  },
   "completionOccurrence": "إنجاز بتاريخ {date}",
-  "@completionOccurrence": {"placeholders": {"date": {"type": "String"}}},
+  "@completionOccurrence": {
+    "placeholders": {
+      "date": {
+        "type": "String"
+      }
+    }
+  },
   "completionConflict": "تم تحديث حالة هذا الإنجاز بالفعل. تم تحديث البيانات.",
   "completionInvalidOccurrence": "هذا التاريخ ليس ضمن جدول تكرار المهمة.",
   "txnTypeTaskAward": "مكافأة مهمة",
@@ -290,7 +413,6 @@
   "recurrenceWeeklyNeedsDay": "اختر يومًا واحدًا على الأقل",
   "recurrenceCustomNeedsConfig": "أضف تواريخ محددة أو حدّد التكرار كل عدد أيام",
   "rewardsStorePhase6b": "متجر المكافآت (قريبًا)",
-
   "rewardsStoreTitle": "متجر المكافآت",
   "rewardsTabCatalog": "الكتالوج",
   "rewardsTabHistory": "طلبات الاستبدال",
@@ -317,15 +439,36 @@
   "rewardTypeLocked": "لا يمكن تغيير نوع المكافأة بعد الإنشاء",
   "rewardInactiveBadge": "معطّلة",
   "rewardCost": "{cost} نقطة",
-  "@rewardCost": {"placeholders": {"cost": {"type": "int"}}},
+  "@rewardCost": {
+    "placeholders": {
+      "cost": {
+        "type": "int"
+      }
+    }
+  },
   "rewardAffordCan": "متاحة الآن",
   "rewardAffordNeed": "تحتاج {points} نقطة إضافية",
-  "@rewardAffordNeed": {"placeholders": {"points": {"type": "int"}}},
+  "@rewardAffordNeed": {
+    "placeholders": {
+      "points": {
+        "type": "int"
+      }
+    }
+  },
   "rewardRequest": "طلب استبدال",
   "rewardRequestTitle": "طلب استبدال المكافأة",
   "rewardOnBehalfNote": "أنت تطلب هذا نيابةً عن الطفل (وضع الطفل الآمن غير متاح بعد).",
   "rewardRequestConfirm": "«{title}» مقابل {cost} نقطة",
-  "@rewardRequestConfirm": {"placeholders": {"title": {"type": "String"}, "cost": {"type": "int"}}},
+  "@rewardRequestConfirm": {
+    "placeholders": {
+      "title": {
+        "type": "String"
+      },
+      "cost": {
+        "type": "int"
+      }
+    }
+  },
   "rewardRequested": "تم إرسال طلب الاستبدال",
   "rewardSave": "حفظ",
   "rewardCreated": "تم إنشاء المكافأة",
@@ -333,7 +476,13 @@
   "rewardDeleteAction": "حذف",
   "rewardDeleteConfirmTitle": "حذف المكافأة؟",
   "rewardDeleteConfirmBody": "لن تظهر «{title}» في الكتالوج بعد الآن.",
-  "@rewardDeleteConfirmBody": {"placeholders": {"title": {"type": "String"}}},
+  "@rewardDeleteConfirmBody": {
+    "placeholders": {
+      "title": {
+        "type": "String"
+      }
+    }
+  },
   "rewardDeleted": "تم حذف المكافأة",
   "rewardGlobalReadOnly": "قوالب مامي للقراءة فقط",
   "redemptionStatusPending": "بانتظار المراجعة",
@@ -351,38 +500,99 @@
   "redemptionConflict": "تم تحديث حالة هذا الطلب بالفعل. تم تحديث البيانات.",
   "redemptionRewardUnavailable": "هذه المكافأة غير متاحة حاليًا.",
   "redemptionCostLabel": "{cost} نقطة",
-  "@redemptionCostLabel": {"placeholders": {"cost": {"type": "int"}}},
+  "@redemptionCostLabel": {
+    "placeholders": {
+      "cost": {
+        "type": "int"
+      }
+    }
+  },
   "screenTimeGranted": "+{minutes} دقيقة وقت شاشة (سياسة الخادم)",
-  "@screenTimeGranted": {"placeholders": {"minutes": {"type": "int"}}},
+  "@screenTimeGranted": {
+    "placeholders": {
+      "minutes": {
+        "type": "int"
+      }
+    }
+  },
   "screenTimeExpires": "تنتهي في {date}",
-  "@screenTimeExpires": {"placeholders": {"date": {"type": "String"}}},
+  "@screenTimeExpires": {
+    "placeholders": {
+      "date": {
+        "type": "String"
+      }
+    }
+  },
   "screenTimeRevoked": "أُلغيت إضافة وقت الشاشة",
   "screenTimePolicyNote": "هذه بيانات سياسة من الخادم فقط — لا تغيّر قيود الجهاز.",
   "rewardValidationCost": "أدخل تكلفة بين 1 و100000",
   "rewardValidationMinutes": "أدخل عدد دقائق بين 1 و600",
-
   "commonDurationM": "{minutes} د",
-  "@commonDurationM": { "placeholders": { "minutes": { "type": "int" } } },
+  "@commonDurationM": {
+    "placeholders": {
+      "minutes": {
+        "type": "int"
+      }
+    }
+  },
   "commonDurationH": "{hours} س",
-  "@commonDurationH": { "placeholders": { "hours": { "type": "int" } } },
+  "@commonDurationH": {
+    "placeholders": {
+      "hours": {
+        "type": "int"
+      }
+    }
+  },
   "commonDurationHm": "{hours} س {minutes} د",
-  "@commonDurationHm": { "placeholders": { "hours": { "type": "int" }, "minutes": { "type": "int" } } },
-
-  "homeGreeting": "مرحبًا {name} 👋",
-  "@homeGreeting": { "placeholders": { "name": { "type": "String" } } },
+  "@commonDurationHm": {
+    "placeholders": {
+      "hours": {
+        "type": "int"
+      },
+      "minutes": {
+        "type": "int"
+      }
+    }
+  },
+  "homeGreeting": "مرحبًا {name}",
+  "@homeGreeting": {
+    "placeholders": {
+      "name": {
+        "type": "String"
+      }
+    }
+  },
   "homeNoChildren": "أضِف طفلًا لتظهر لوحة معلوماته هنا",
   "homeChildrenCount": "{count, plural, =0{لا يوجد أطفال} =1{طفل واحد} =2{طفلان} few{{count} أطفال} many{{count} طفلًا} other{{count} طفل}}",
-  "@homeChildrenCount": { "placeholders": { "count": { "type": "int" } } },
-
+  "@homeChildrenCount": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
   "dashUnavailableShort": "غير متاح",
+  "dashNotMeasured": "غير مُقاس",
   "dashSectionNoData": "لا توجد بيانات لهذه الفترة",
   "dashTodayTitle": "اليوم",
   "dashPoints": "النقاط",
   "dashScreenTimeToday": "وقت الشاشة اليوم",
   "dashScreenTimeOfLimit": "من {limit}",
-  "@dashScreenTimeOfLimit": { "placeholders": { "limit": { "type": "String" } } },
+  "@dashScreenTimeOfLimit": {
+    "placeholders": {
+      "limit": {
+        "type": "String"
+      }
+    }
+  },
   "dashScreenTimeUsedOfLimit": "وقت الشاشة (الحد {limit})",
-  "@dashScreenTimeUsedOfLimit": { "placeholders": { "limit": { "type": "String" } } },
+  "@dashScreenTimeUsedOfLimit": {
+    "placeholders": {
+      "limit": {
+        "type": "String"
+      }
+    }
+  },
   "dashScreenTimeNoLimit": "لا يوجد حد محدد",
   "dashLastSleep": "آخر نوم",
   "dashNone": "لا شيء بعد",
@@ -390,18 +600,38 @@
   "dashPendingApprovals": "بانتظار الموافقة",
   "dashGoals": "أهداف التعلم",
   "dashGoalsValue": "{active} نشط · {achieved} مُنجَز",
-  "@dashGoalsValue": { "placeholders": { "active": { "type": "int" }, "achieved": { "type": "int" } } },
+  "@dashGoalsValue": {
+    "placeholders": {
+      "active": {
+        "type": "int"
+      },
+      "achieved": {
+        "type": "int"
+      }
+    }
+  },
   "dashOpenReport": "فتح تقرير التطور",
   "dashReportsRestricted": "تقارير التطور غير متاحة بصلاحياتك الحالية.",
-
   "dashReportTitle": "تقرير التطور",
   "dashReportFor": "عرض {name}",
-  "@dashReportFor": { "placeholders": { "name": { "type": "String" } } },
+  "@dashReportFor": {
+    "placeholders": {
+      "name": {
+        "type": "String"
+      }
+    }
+  },
   "dashNoChildSelected": "اختر طفلًا لعرض تقرير تطوّره",
   "dashPeriodWeekly": "أسبوعي",
   "dashPeriodMonthly": "شهري",
   "dashReportTimezone": "الأوقات معروضة بتوقيت {timezone}",
-  "@dashReportTimezone": { "placeholders": { "timezone": { "type": "String" } } },
+  "@dashReportTimezone": {
+    "placeholders": {
+      "timezone": {
+        "type": "String"
+      }
+    }
+  },
   "dashReportNoData": "لا يوجد نشاط كافٍ في هذه الفترة لإعداد تقرير بعد.",
   "dashSectionScreenTime": "وقت الشاشة",
   "dashScreenTimeTotal": "الإجمالي",
@@ -424,7 +654,6 @@
   "dashSectionPoints": "النقاط",
   "dashPointsNet": "صافي التغيّر",
   "dashPointsTransactions": "الحركات",
-
   "activitiesTitle": "الأنشطة",
   "activitiesCatalogTitle": "كتالوج الأنشطة",
   "activitiesCatalogEmpty": "لا توجد أنشطة متاحة بعد",
@@ -434,13 +663,40 @@
   "activitySourceAi": "ذكاء اصطناعي",
   "activitySourceFamily": "العائلة",
   "activityDurationMin": "{minutes} دقيقة",
-  "@activityDurationMin": { "placeholders": { "minutes": { "type": "int" } } },
+  "@activityDurationMin": {
+    "placeholders": {
+      "minutes": {
+        "type": "int"
+      }
+    }
+  },
   "activityAgeRange": "الأعمار {min}–{max}",
-  "@activityAgeRange": { "placeholders": { "min": { "type": "int" }, "max": { "type": "int" } } },
+  "@activityAgeRange": {
+    "placeholders": {
+      "min": {
+        "type": "int"
+      },
+      "max": {
+        "type": "int"
+      }
+    }
+  },
   "activityAgeMin": "من عمر {min}",
-  "@activityAgeMin": { "placeholders": { "min": { "type": "int" } } },
+  "@activityAgeMin": {
+    "placeholders": {
+      "min": {
+        "type": "int"
+      }
+    }
+  },
   "activityAgeMax": "حتى عمر {max}",
-  "@activityAgeMax": { "placeholders": { "max": { "type": "int" } } },
+  "@activityAgeMax": {
+    "placeholders": {
+      "max": {
+        "type": "int"
+      }
+    }
+  },
   "activityMaterials": "المواد",
   "activitySteps": "الخطوات",
   "activityAssignAction": "إسناد إلى الطفل",
@@ -452,7 +708,13 @@
   "activityFieldPointsHelp": "أي قيمة أكبر من 0 تجعل الإنجاز يحتاج موافقتك.",
   "activityFieldDueDate": "تاريخ الاستحقاق (اختياري)",
   "activityDueOn": "الاستحقاق {date}",
-  "@activityDueOn": { "placeholders": { "date": { "type": "String" } } },
+  "@activityDueOn": {
+    "placeholders": {
+      "date": {
+        "type": "String"
+      }
+    }
+  },
   "activityPointsInvalid": "أدخل قيمة بين 0 و100000",
   "activityAssignOnBehalfNote": "أنت تُسند وتُكمل نيابةً عن الطفل — وضع الطفل الآمن غير متاح بعد.",
   "activityGenerateTitle": "توليد نشاط",
@@ -461,7 +723,13 @@
   "activityGenerateCheckAgain": "تحقق مرة أخرى",
   "activityGenerateEmpty": "لم يُرجِع المزوّد أي أنشطة.",
   "activityGenerateNowAvailable": "{count, plural, =1{تم توليد نشاط واحد — أعد تحميل الكتالوج} =2{تم توليد نشاطين — أعد تحميل الكتالوج} few{تم توليد {count} أنشطة — أعد تحميل الكتالوج} many{تم توليد {count} نشاطًا — أعد تحميل الكتالوج} other{تم توليد {count} نشاط — أعد تحميل الكتالوج}}",
-  "@activityGenerateNowAvailable": { "placeholders": { "count": { "type": "int" } } },
+  "@activityGenerateNowAvailable": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
   "activityGenerateStill503": "لا يزال غير متاح — لا يوجد مزوّد ذكاء اصطناعي في الخادم.",
   "activitiesAssignedTitle": "الأنشطة المُسندة",
   "activitiesAssignedEmpty": "لم يُسند أي نشاط لهذا الطفل بعد",
@@ -469,15 +737,26 @@
   "activityStatusCompleted": "مكتمل",
   "activityStatusCancelled": "ملغى",
   "activityRewardPoints": "{points} نقطة عند الموافقة",
-  "@activityRewardPoints": { "placeholders": { "points": { "type": "int" } } },
+  "@activityRewardPoints": {
+    "placeholders": {
+      "points": {
+        "type": "int"
+      }
+    }
+  },
   "activityNoPoints": "بدون نقاط",
   "activityAwarded": "مُنحت {points}",
-  "@activityAwarded": { "placeholders": { "points": { "type": "int" } } },
+  "@activityAwarded": {
+    "placeholders": {
+      "points": {
+        "type": "int"
+      }
+    }
+  },
   "activityMarkDone": "تحديد كمنجَز",
   "activityCompletionRequested": "تم تسجيل الإنجاز",
   "activityConflict": "تعذّر التنفيذ — تغيّرت حالة النشاط. تم التحديث.",
   "activityOnBehalfNote": "بإدارة الوالد نيابةً عن الطفل.",
-
   "libraryTitle": "مكتبة الأهل",
   "libraryEmpty": "لا توجد مقالات هنا بعد",
   "libraryLoadMore": "عرض المزيد",
@@ -486,7 +765,6 @@
   "libraryAuthorStaff": "فريق مامِلي",
   "libraryAuthorSpecialist": "أخصائي",
   "libraryNoBody": "لا يوجد محتوى لهذه المقالة بعد.",
-
   "contentTitle": "التحكم بالمحتوى",
   "contentRulesTitle": "القواعد",
   "contentRulesEmpty": "لا توجد قواعد بعد — فلتر العمر أعلاه هو الضابط الوحيد الفعّال.",
@@ -496,7 +774,13 @@
   "contentAgeFilter": "فلتر ملاءمة العمر",
   "contentAgeFilterSub": "إخفاء المحتوى خارج نطاق عمر الطفل",
   "contentAgeFilterSubAge": "التصفية حسب عمر المحتوى {age}",
-  "@contentAgeFilterSubAge": { "placeholders": { "age": { "type": "int" } } },
+  "@contentAgeFilterSubAge": {
+    "placeholders": {
+      "age": {
+        "type": "int"
+      }
+    }
+  },
   "contentRuleCategory": "فئة",
   "contentRuleItem": "عنصر محتوى",
   "contentRuleExternalChannel": "قناة خارجية",
@@ -515,27 +799,62 @@
   "contentRuleBlockItem": "حجب هذا العنصر",
   "contentRuleAllowItem": "السماح بهذا العنصر",
   "contentRuleBlockCategory": "حجب فئة «{name}»",
-  "@contentRuleBlockCategory": { "placeholders": { "name": { "type": "String" } } },
+  "@contentRuleBlockCategory": {
+    "placeholders": {
+      "name": {
+        "type": "String"
+      }
+    }
+  },
   "contentRuleAllowCategory": "السماح بفئة «{name}»",
-  "@contentRuleAllowCategory": { "placeholders": { "name": { "type": "String" } } },
-
+  "@contentRuleAllowCategory": {
+    "placeholders": {
+      "name": {
+        "type": "String"
+      }
+    }
+  },
   "stTitle": "وقت الشاشة",
   "stEnforcementNote": "تعرض هذه الشاشة سياسة الخادم وتضبطها. أرقام الاستخدام من الخادم. التطبيق نفسه لا ينفّذ وقت الشاشة على الجهاز — يتطلب ذلك دعمًا أصليًا غير مُنشأ بعد.",
   "stUsedToday": "المستخدَم اليوم",
   "stOfLimit": "من {limit}",
-  "@stOfLimit": { "placeholders": { "limit": { "type": "String" } } },
+  "@stOfLimit": {
+    "placeholders": {
+      "limit": {
+        "type": "String"
+      }
+    }
+  },
   "stNoLimit": "لا يوجد حد مُعد",
   "stBonus": "يشمل {bonus} إضافية",
-  "@stBonus": { "placeholders": { "bonus": { "type": "String" } } },
+  "@stBonus": {
+    "placeholders": {
+      "bonus": {
+        "type": "String"
+      }
+    }
+  },
   "stNoUsageData": "لم يُبلَّغ عن أي استخدام لهذا الطفل بعد.",
   "stPerApp": "حسب التطبيق",
   "stDailyRule": "القاعدة اليومية",
   "stNoRule": "لا توجد قاعدة",
   "stRuleDisabled": "القاعدة معطّلة (بلا حد)",
   "stDailyLimitValue": "الحد اليومي {limit}",
-  "@stDailyLimitValue": { "placeholders": { "limit": { "type": "String" } } },
+  "@stDailyLimitValue": {
+    "placeholders": {
+      "limit": {
+        "type": "String"
+      }
+    }
+  },
   "stWeekdayOverrides": "{count, plural, =1{تجاوز ليوم واحد} =2{تجاوزان} few{{count} تجاوزات} many{{count} تجاوزًا} other{{count} تجاوز}}",
-  "@stWeekdayOverrides": { "placeholders": { "count": { "type": "int" } } },
+  "@stWeekdayOverrides": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
   "stEditRules": "تعديل القواعد",
   "stExtraTime": "وقت إضافي",
   "stExtraHowMuch": "كم من الوقت الإضافي؟",
@@ -548,7 +867,13 @@
   "stExtraRevoked": "تم إلغاء الوقت الإضافي",
   "stExtraRevokedLabel": "أُلغي",
   "stExtraGrantedLabel": "مُنحت {minutes}",
-  "@stExtraGrantedLabel": { "placeholders": { "minutes": { "type": "String" } } },
+  "@stExtraGrantedLabel": {
+    "placeholders": {
+      "minutes": {
+        "type": "String"
+      }
+    }
+  },
   "stExtraFromReward": "من استبدال مكافأة",
   "stExtraFromParent": "بمنح من الوالد",
   "stExtraRevokeAction": "إلغاء",
@@ -559,7 +884,13 @@
   "stWeekdayOverridesTitle": "تجاوزات لكل يوم",
   "stWeekdayOverridesHint": "فعّل يومًا لإعطائه حدًا خاصًا؛ وإلا فسيستخدم الافتراضي.",
   "stMinutesValue": "{minutes} دقيقة",
-  "@stMinutesValue": { "placeholders": { "minutes": { "type": "int" } } },
+  "@stMinutesValue": {
+    "placeholders": {
+      "minutes": {
+        "type": "int"
+      }
+    }
+  },
   "stRulesSaved": "تم حفظ قواعد وقت الشاشة",
   "stRulesInvalid": "تحقّق من قيم الحد (0–1440 دقيقة).",
   "stUsesDefault": "يستخدم الحد الافتراضي",
@@ -580,7 +911,13 @@
   "devicesReactivated": "تمت إعادة تفعيل الجهاز",
   "devicesRemoveTitle": "إزالة الجهاز؟",
   "devicesRemoveBody": "سيُزال «{name}». يمكن تسجيله مجددًا لاحقًا.",
-  "@devicesRemoveBody": { "placeholders": { "name": { "type": "String" } } },
+  "@devicesRemoveBody": {
+    "placeholders": {
+      "name": {
+        "type": "String"
+      }
+    }
+  },
   "devicesRemoveAction": "إزالة",
   "devicesRemoved": "تمت إزالة الجهاز",
   "devicesModeChildDedicated": "جهاز الطفل",
@@ -589,7 +926,6 @@
   "devicesRevoke": "إبطال",
   "devicesReactivate": "إعادة تفعيل",
   "devicesFieldName": "اسم الجهاز",
-
   "gamesTitle": "الألعاب",
   "gamesEmpty": "لا توجد ألعاب متاحة بعد",
   "gamesPreviewNote": "معاينة أبوية لكتالوج الألعاب. لا يمكن لعب الألعاب داخل التطبيق بعد — لا يوجد محرك ألعاب.",
@@ -606,16 +942,20 @@
   "gamesAttempts": "المحاولات",
   "gamesPlayTime": "وقت اللعب",
   "gamesMinutes": "{minutes} دقيقة",
-  "@gamesMinutes": { "placeholders": { "minutes": { "type": "int" } } },
+  "@gamesMinutes": {
+    "placeholders": {
+      "minutes": {
+        "type": "int"
+      }
+    }
+  },
   "gamesLastPlayed": "آخر لعب",
-
   "aiCoachTitle": "مساعد التربية",
   "aiCoachUnavailableTitle": "مساعد التربية بالذكاء الاصطناعي غير متاح بعد",
   "aiCoachUnavailableBody": "لا توجد خدمة إرشاد متصلة. عند توفّرها، ستمر أسئلتك وإجاباتها عبر الخادم — لا يُجاب على أي شيء محليًا.",
   "nutritionTitle": "التغذية",
   "nutritionUnavailableTitle": "تتبّع التغذية غير متاح بعد",
   "nutritionUnavailableBody": "لا توجد خدمة تغذية أو سجل وجبات أو تحليل صور متصلة. لن تُحفظ تفاصيل الوجبات أو الحساسية المُدخلة هنا في أي مكان، لذا لا يُتاح الإدخال.",
-
   "navHome": "الرئيسية",
   "navChildren": "أطفالي",
   "navActivities": "الأنشطة",
@@ -623,5 +963,2075 @@
   "navProfile": "حسابي",
   "familySelectTitle": "اختر العائلة",
   "noFamilyTitle": "لا توجد عائلة مرتبطة بحسابك",
-  "noFamilyBody": "تواصل مع مالك العائلة لإعادة إضافتك، أو سجّل الخروج."
+  "noFamilyBody": "تواصل مع مالك العائلة لإعادة إضافتك، أو سجّل الخروج.",
+  "roleEntryTitle": "أهلًا بك في Mamily",
+  "roleEntrySubtitle": "تطبيق واحد للعائلة كلها. من هنا؟",
+  "roleParent": "أنا ولي أمر",
+  "roleParentHint": "خطّط ووافق وشجّع عائلتك",
+  "roleChild": "أنا طفل",
+  "roleChildHint": "يومي وروتيني ومكافآتي",
+  "roleResumeChild": "العودة لوضع الطفل",
+  "roleChoiceNote": "حسابك هو ما يحدد ما يمكنك فعله — هذا الاختيار فقط يأخذك للطريق الصحيح.",
+  "pairTitle": "انضم إلى عائلتك",
+  "pairSubtitle": "اطلب من أحد والديك الرمز الظاهر على هاتفه، أو امسح رمز QR.",
+  "pairCodeLabel": "رمز الربط",
+  "pairCodeHint": "ABCD-EFGH",
+  "pairButton": "انضمام",
+  "pairScan": "مسح رمز QR",
+  "pairInvalid": "هذا الرمز لا يعمل. ربما انتهت صلاحيته — اطلب رمزًا جديدًا.",
+  "pairRetrying": "لا يمكن الوصول إلى Mamily بعد — نحاول مرة أخرى…",
+  "pairNetworkFailed": "تعذّر الاتصال بـ Mamily. تحقّق من الاتصال بالإنترنت ثم اضغط «انضمام» — لا داعي للمسح مرة أخرى.",
+  "pairLinkNoCode": "لم يحتوِ الرابط الممسوح على رمز صالح. اكتب الرمز الظاهر على هاتف ولي الأمر.",
+  "pairTooMany": "محاولات كثيرة. انتظر دقيقة وحاول مرة أخرى.",
+  "pairCameraDenied": "الوصول للكاميرا متوقف، لذا لا يمكن المسح. اكتب الرمز بدلًا من ذلك أو اسمح بالكاميرا من الإعدادات.",
+  "pairScanInstruction": "وجّه الكاميرا نحو رمز QR على هاتف ولي الأمر",
+  "kidTabMyDay": "يومي",
+  "kidTabRewards": "المكافآت",
+  "kidTabTogether": "معًا",
+  "kidTabMe": "أنا",
+  "kidGreetingMorning": "صباح الخير يا {name}!",
+  "@kidGreetingMorning": {
+    "placeholders": {
+      "name": {
+        "type": "String"
+      }
+    }
+  },
+  "kidGreetingAfternoon": "مساء النور يا {name}!",
+  "@kidGreetingAfternoon": {
+    "placeholders": {
+      "name": {
+        "type": "String"
+      }
+    }
+  },
+  "kidGreetingEvening": "مساء الخير يا {name}!",
+  "@kidGreetingEvening": {
+    "placeholders": {
+      "name": {
+        "type": "String"
+      }
+    }
+  },
+  "kidPoints": "{count, plural, =0{0 نقطة} =1{نقطة واحدة} =2{نقطتان} few{{count} نقاط} many{{count} نقطة} other{{count} نقطة}}",
+  "@kidPoints": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "kidNextStep": "خطوتك التالية",
+  "kidStartRoutine": "ابدأ",
+  "kidContinueRoutine": "تابع",
+  "kidIDidIt": "أنجزتها!",
+  "kidTryAgain": "حاول مجددًا",
+  "kidTodayPlan": "اليوم",
+  "kidNothingToday": "لا شيء مخطط اليوم. استمتع بوقتك!",
+  "kidAllDone": "أنهيت كل شيء اليوم. رائع!",
+  "kidStateTodo": "للقيام",
+  "kidStatePending": "بانتظار ولي الأمر",
+  "kidStateApproved": "تم!",
+  "kidStateRejected": "جرّب مرة أخرى",
+  "kidStateInProgress": "قيد التنفيذ",
+  "kidStateUpcoming": "قادم",
+  "kidStatePast": "سابقًا",
+  "kidTaskSentTitle": "أُرسلت!",
+  "kidTaskSent": "سيتحقق منها أحد والديك قريبًا. تصل النقاط بعد الموافقة.",
+  "kidConfirmDoneTitle": "هل أنهيت «{task}»؟",
+  "@kidConfirmDoneTitle": {
+    "placeholders": {
+      "task": {
+        "type": "String"
+      }
+    }
+  },
+  "kidConfirmDoneBody": "سنطلب من أحد والديك التحقق منها.",
+  "kidYesDone": "نعم، أنجزتها!",
+  "kidNotYet": "ليس بعد",
+  "kidParentNote": "ملاحظة من ولي أمرك: {note}",
+  "@kidParentNote": {
+    "placeholders": {
+      "note": {
+        "type": "String"
+      }
+    }
+  },
+  "kidPointsValue": "+{count}",
+  "@kidPointsValue": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "kidRoutineStepsLeft": "{count, plural, =0{أنهيت كل الخطوات} =1{بقيت خطوة واحدة} =2{بقيت خطوتان} few{بقيت {count} خطوات} many{بقيت {count} خطوة} other{بقيت {count} خطوة}}",
+  "@kidRoutineStepsLeft": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "kidRoutineCheer1": "بداية رائعة!",
+  "kidRoutineCheer2": "أنت تتقدم بسرعة!",
+  "kidRoutineCheer3": "اقتربت!",
+  "kidRoutineDone": "اكتمل الروتين!",
+  "kidRoutineBonusPending": "نقاط المكافأة بانتظار موافقة ولي الأمر.",
+  "kidRoutineNotToday": "هذا الروتين ليس اليوم.",
+  "kidRoutineFinishedToday": "انتهيت منه لليوم. أحسنت!",
+  "kidUndoStep": "تراجع",
+  "kidSavingFor": "أجمع من أجل",
+  "kidPointsToGo": "{count, plural, =0{يمكنك طلبها الآن!} =1{تبقّت نقطة واحدة} =2{تبقّت نقطتان} few{تبقّت {count} نقاط} many{تبقّت {count} نقطة} other{تبقّت {count} نقطة}}",
+  "@kidPointsToGo": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "kidChooseGoal": "أجمع لهذه",
+  "kidGoalChosen": "هدفي",
+  "kidAskForReward": "اطلبها",
+  "kidRequested": "تم الطلب",
+  "kidRewardAskTitle": "هل تطلب «{reward}»؟",
+  "@kidRewardAskTitle": {
+    "placeholders": {
+      "reward": {
+        "type": "String"
+      }
+    }
+  },
+  "kidRewardAskBody": "{count, plural, =1{تكلف نقطة واحدة.} =2{تكلف نقطتين.} few{تكلف {count} نقاط.} many{تكلف {count} نقطة.} other{تكلف {count} نقطة.}} لا تُخصم النقاط إلا إذا وافق ولي الأمر.",
+  "@kidRewardAskBody": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "kidRewardAsked": "أُرسل الطلب إلى ولي أمرك!",
+  "kidMyBalance": "نقاطي",
+  "kidPointsHistory": "سجل النقاط",
+  "kidNoRewards": "لا توجد مكافآت بعد. اقترح واحدة قد تضيفها عائلتك!",
+  "kidMyIdeas": "أفكاري للمكافآت",
+  "kidSuggestReward": "اقترح مكافأة",
+  "kidSuggestTitle": "ماذا تحب أن تحصل عليه؟",
+  "kidSuggestField": "فكرتي",
+  "kidSuggestNote": "لماذا ستكون مميزة (اختياري)",
+  "kidSuggestSend": "أرسل الفكرة",
+  "kidSuggestSent": "أُرسلت الفكرة! سيقرر ولي الأمر.",
+  "kidWithdraw": "سحب",
+  "kidChallenges": "تحديات العائلة",
+  "kidNoChallenges": "لا يوجد تحدٍّ عائلي الآن.",
+  "kidTogetherProgress": "{done} من {total} معًا",
+  "@kidTogetherProgress": {
+    "placeholders": {
+      "done": {
+        "type": "int"
+      },
+      "total": {
+        "type": "int"
+      }
+    }
+  },
+  "kidMyPart": "مساهمتي: {count}",
+  "@kidMyPart": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "kidAddProgress": "أضف تقدمًا",
+  "kidAddProgressAmount": "كم أنجزت؟",
+  "kidChallengeAchieved": "أنجزتموه معًا!",
+  "kidChallengeCountsAuto": "يُحتسب تلقائيًا عند إنجاز المهام أو الروتين.",
+  "kidMessages": "رسائل من العائلة",
+  "kidNoMessages": "لا توجد رسائل بعد.",
+  "kidReplyFrom": "ردّ {name}",
+  "@kidReplyFrom": {
+    "placeholders": {
+      "name": {
+        "type": "String"
+      }
+    }
+  },
+  "kidNoActivities": "لا توجد أنشطة من عائلتك الآن.",
+  "kidHowFeel": "كيف تشعر؟",
+  "kidFeelNote": "تريد أن تقول المزيد؟ (اختياري)",
+  "kidFeelShare": "شارك",
+  "kidFeelThanks": "شكرًا لمشاركتك. ستراها عائلتك.",
+  "kidFeelPrivacy": "عائلتك فقط ترى هذا.",
+  "moodGreat": "رائع",
+  "moodHappy": "سعيد",
+  "moodOkay": "لا بأس",
+  "moodTired": "متعب",
+  "moodSad": "حزين",
+  "moodWorried": "قلق",
+  "moodAngry": "غاضب",
+  "kidMyRequests": "طلباتي",
+  "kidWaiting": "بالانتظار",
+  "kidAnswered": "تم الرد",
+  "kidNoRequests": "لم تطلب شيئًا بعد.",
+  "explainTaskPending": "سيتحقق ولي الأمر من هذه المهمة قريبًا.",
+  "explainTaskApproved": "تمت الموافقة — النقاط لك!",
+  "explainTaskRejected": "ليس بعد — يمكنك المحاولة مجددًا.",
+  "explainTaskReversed": "ألغى ولي الأمر هذه، لذا استُرجعت نقاطها.",
+  "explainRewardPending": "سيقرر ولي أمرك قريبًا. لم تُستخدم أي نقاط بعد.",
+  "explainRewardApproved": "نعم! استمتع بمكافأتك.",
+  "explainRewardRejected": "ليس هذه المرة — نقاطك محفوظة.",
+  "explainRewardCancelled": "أُلغيت هذه المكافأة وعادت النقاط.",
+  "explainWishPending": "فكرتك بانتظار ولي الأمر.",
+  "explainWishApproved": "أصبحت فكرتك مكافأة!",
+  "explainWishDeclined": "لم تُضف هذه المرة.",
+  "explainWishWithdrawn": "سحبت هذه الفكرة.",
+  "explainScreenPending": "بانتظار رد ولي الأمر.",
+  "explainScreenApproved": "تمت الموافقة على وقت إضافي لليوم.",
+  "explainScreenDeclined": "ليس اليوم.",
+  "explainScreenCancelled": "ألغيت هذا الطلب.",
+  "explainRoutinePending": "نقاط المكافأة بانتظار موافقة ولي الأمر.",
+  "explainRoutineApproved": "تمت الموافقة على المكافأة — روتين رائع!",
+  "explainRoutineRejected": "لا مكافأة هذه المرة.",
+  "kidMoreTime": "اطلب وقت شاشة إضافي",
+  "kidMoreTimeHow": "كم دقيقة إضافية؟",
+  "kidMoreTimeWhy": "لماذا؟ (اختياري)",
+  "kidMoreTimeSend": "أرسل الطلب",
+  "kidMoreTimeWaiting": "طلبت {count} دقيقة — بانتظار الرد.",
+  "@kidMoreTimeWaiting": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "kidMinutes": "{count} د",
+  "@kidMinutes": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "kidScreenTodayLimit": "حد اليوم: {count} دقيقة",
+  "@kidScreenTodayLimit": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "kidScreenNoLimit": "لا يوجد حد لوقت الشاشة اليوم.",
+  "kidScreenNotMeasured": "هذا التطبيق لا يقيس وقت الشاشة ولا يقفله — يرسل الطلب فقط.",
+  "kidMyActivities": "أنشطتي",
+  "kidMyGoals": "أهدافي",
+  "kidNotifications": "الإشعارات",
+  "kidGrownUps": "للكبار",
+  "kidGrownUpsBody": "يمكن لولي الأمر تسجيل الدخول هنا بحسابه. يبقى وضع الطفل جاهزًا لوقت لاحق.",
+  "kidParentSignIn": "دخول ولي الأمر",
+  "kidSignOutDevice": "تسجيل الخروج من هذا الجهاز",
+  "kidSignOutConfirm": "ستحتاج رمزًا جديدًا من ولي الأمر للعودة.",
+  "kidActivityDone": "أنجزته",
+  "celebrateGreat": "رائع!",
+  "lastUpdated": "آخر تحديث {time}",
+  "@lastUpdated": {
+    "placeholders": {
+      "time": {
+        "type": "String"
+      }
+    }
+  },
+  "offlineShowingSaved": "أنت غير متصل — نعرض ما حُفظ {time}.",
+  "@offlineShowingSaved": {
+    "placeholders": {
+      "time": {
+        "type": "String"
+      }
+    }
+  },
+  "justNow": "الآن",
+  "minutesAgo": "{count, plural, =1{قبل دقيقة} =2{قبل دقيقتين} few{قبل {count} دقائق} many{قبل {count} دقيقة} other{قبل {count} دقيقة}}",
+  "@minutesAgo": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "hoursAgo": "{count, plural, =1{قبل ساعة} =2{قبل ساعتين} few{قبل {count} ساعات} many{قبل {count} ساعة} other{قبل {count} ساعة}}",
+  "@hoursAgo": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "daysAgo": "{count, plural, =1{أمس} =2{قبل يومين} few{قبل {count} أيام} many{قبل {count} يومًا} other{قبل {count} يوم}}",
+  "@daysAgo": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "commonConfirm": "تأكيد",
+  "commonUndo": "تراجع",
+  "commonSend": "إرسال",
+  "commonSeeAll": "عرض الكل",
+  "commonDone": "تم",
+  "commonOptional": "اختياري",
+  "commonBack": "رجوع",
+  "commonContinue": "متابعة",
+  "commonSignOut": "تسجيل الخروج",
+  "commonNew": "جديد",
+  "notifInboxTitle": "الإشعارات",
+  "notifMarkAllRead": "تعليم الكل كمقروء",
+  "notifEmptyTitle": "لا جديد",
+  "notifEmptyBody": "ستظهر هنا التحديثات عن المهام والمكافآت وخطط العائلة.",
+  "notifUnread": "غير مقروء",
+  "authForgotPassword": "نسيت كلمة المرور؟",
+  "resetTitle": "إعادة تعيين كلمة المرور",
+  "resetIntro": "أدخل بريد حسابك الإلكتروني. سنرسل رمزًا من 6 أرقام.",
+  "resetSendCode": "أرسل الرمز",
+  "resetCodeSent": "إذا كان هناك حساب بهذا البريد، فالرمز في الطريق. تنتهي صلاحيته خلال 30 دقيقة.",
+  "resetCodeLabel": "الرمز المكوّن من 6 أرقام",
+  "resetNewPassword": "كلمة مرور جديدة",
+  "resetSave": "حفظ كلمة المرور الجديدة",
+  "resetDone": "تم تحديث كلمة المرور. سجّل الدخول بكلمة المرور الجديدة — تم تسجيل الخروج من الأجهزة الأخرى.",
+  "resetInvalidCode": "الرمز خاطئ أو منتهي الصلاحية.",
+  "parentEntryTitle": "أهلًا بك يا ولي الأمر",
+  "parentEntrySubtitle": "سجّل الدخول لتخطيط اليوم والموافقة على الطلبات وتشجيع أطفالك.",
+  "authPasswordShow": "إظهار كلمة المرور",
+  "authPasswordHide": "إخفاء كلمة المرور",
+  "tabToday": "اليوم",
+  "tabChildren": "الأطفال",
+  "tabDiscover": "اكتشف",
+  "tabAccount": "الحساب",
+  "todayGreetingMorning": "صباح الخير يا {name}",
+  "@todayGreetingMorning": {
+    "placeholders": {
+      "name": {
+        "type": "String"
+      }
+    }
+  },
+  "todayGreetingAfternoon": "نهارك سعيد يا {name}",
+  "@todayGreetingAfternoon": {
+    "placeholders": {
+      "name": {
+        "type": "String"
+      }
+    }
+  },
+  "todayGreetingEvening": "مساء الخير يا {name}",
+  "@todayGreetingEvening": {
+    "placeholders": {
+      "name": {
+        "type": "String"
+      }
+    }
+  },
+  "todayNeedsYou": "بانتظارك",
+  "todayNeedsYouCount": "{count, plural, =0{لا شيء بالانتظار} =1{أمر واحد بانتظارك} =2{أمران بانتظارك} few{{count} أمور بانتظارك} many{{count} أمرًا بانتظارك} other{{count} أمر بانتظارك}}",
+  "@todayNeedsYouCount": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "todayAllClear": "كل شيء على ما يرام — لا شيء بانتظارك الآن.",
+  "todayFamilyPulse": "نبض العائلة",
+  "todayPlan": "خطة اليوم",
+  "todayNoPlan": "لا شيء مجدول اليوم.",
+  "todayNoChildren": "أضف طفلك الأول لتبدأوا تخطيط اليوم معًا.",
+  "todayAddChild": "إضافة طفل",
+  "todayQuickActions": "إجراءات سريعة",
+  "quickAddTask": "إضافة مهمة",
+  "quickSendPraise": "إرسال تشجيع",
+  "quickNewEvent": "تخطيط موعد",
+  "quickNewChallenge": "تحدٍّ جديد",
+  "quickPairDevice": "ربط جهاز",
+  "pulseTasks": "{done}/{total} مهام",
+  "@pulseTasks": {
+    "placeholders": {
+      "done": {
+        "type": "int"
+      },
+      "total": {
+        "type": "int"
+      }
+    }
+  },
+  "pulseNoTasksToday": "لا مهام اليوم",
+  "pulseToReview": "{count, plural, =1{واحدة للمراجعة} =2{اثنتان للمراجعة} few{{count} للمراجعة} many{{count} للمراجعة} other{{count} للمراجعة}}",
+  "@pulseToReview": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "pulseRoutineNow": "{title} قيد التنفيذ",
+  "@pulseRoutineNow": {
+    "placeholders": {
+      "title": {
+        "type": "String"
+      }
+    }
+  },
+  "pulseRoutineNext": "التالي: {title} الساعة {time}",
+  "@pulseRoutineNext": {
+    "placeholders": {
+      "title": {
+        "type": "String"
+      },
+      "time": {
+        "type": "String"
+      }
+    }
+  },
+  "pulseRoutineNextNoTime": "التالي: {title}",
+  "@pulseRoutineNextNoTime": {
+    "placeholders": {
+      "title": {
+        "type": "String"
+      }
+    }
+  },
+  "pulseCheckin": "يشعر بـ{mood} · {when}",
+  "@pulseCheckin": {
+    "placeholders": {
+      "mood": {
+        "type": "String"
+      },
+      "when": {
+        "type": "String"
+      }
+    }
+  },
+  "pulseNoCheckin": "لا مشاركة بعد",
+  "pulseDeviceFresh": "فُتح التطبيق {when}",
+  "@pulseDeviceFresh": {
+    "placeholders": {
+      "when": {
+        "type": "String"
+      }
+    }
+  },
+  "pulseDeviceStale": "آخر تواصل {when}",
+  "@pulseDeviceStale": {
+    "placeholders": {
+      "when": {
+        "type": "String"
+      }
+    }
+  },
+  "pulseDeviceOffline": "لا تواصل منذ {when}",
+  "@pulseDeviceOffline": {
+    "placeholders": {
+      "when": {
+        "type": "String"
+      }
+    }
+  },
+  "pulseDeviceUnknown": "لا جهاز مرتبط",
+  "pulseDeviceExplain": "آخر تواصل يعني أن تطبيق الطفل اتصل بـMamily. لا يُظهر فيمَ يُستخدم الجهاز.",
+  "pulseScreenNotReported": "وقت الشاشة غير مُقاس",
+  "pulseScreenMeasured": "{used} من {limit} د (مُبلَّغ)",
+  "@pulseScreenMeasured": {
+    "placeholders": {
+      "used": {
+        "type": "int"
+      },
+      "limit": {
+        "type": "int"
+      }
+    }
+  },
+  "pulseScreenMeasuredNoLimit": "{used} د مستخدمة (مُبلَّغ)",
+  "@pulseScreenMeasuredNoLimit": {
+    "placeholders": {
+      "used": {
+        "type": "int"
+      }
+    }
+  },
+  "pulseUpdated": "حُدّث {when}",
+  "@pulseUpdated": {
+    "placeholders": {
+      "when": {
+        "type": "String"
+      }
+    }
+  },
+  "inboxTitle": "الطلبات والموافقات",
+  "inboxEmpty": "لا شيء بالانتظار. عندما يُنهي أطفالك مهامهم أو يطلبون شيئًا، سيظهر هنا.",
+  "inboxAll": "الكل",
+  "inboxApprove": "موافقة",
+  "inboxDecline": "ليس الآن",
+  "inboxReply": "رد",
+  "inboxNoteOptional": "أضف ملاحظة لطفلك (اختياري)",
+  "inboxDeclineTitle": "ليس هذه المرة؟",
+  "inboxDeclineBody": "ملاحظة لطيفة تساعد طفلك على فهم ما يفعله بعد ذلك.",
+  "inboxApproved": "تمت الموافقة",
+  "inboxDeclined": "أُعيد مع ملاحظتك",
+  "inboxUndone": "تم التراجع",
+  "inboxNoPermission": "ليست لديك صلاحية للرد على هذا.",
+  "inboxKindTask": "مهمة منجزة",
+  "inboxKindActivity": "نشاط منجز",
+  "inboxKindReward": "طلب مكافأة",
+  "inboxKindWish": "فكرة مكافأة",
+  "inboxKindScreenTime": "وقت شاشة إضافي",
+  "inboxKindRoutine": "مكافأة روتين",
+  "inboxKindCheckin": "مشاركة شعور",
+  "inboxByChild": "أرسلها {name}",
+  "@inboxByChild": {
+    "placeholders": {
+      "name": {
+        "type": "String"
+      }
+    }
+  },
+  "inboxLoggedByParent": "سجّلها ولي أمر",
+  "inboxPointsCost": "تكلف {count} نقطة",
+  "@inboxPointsCost": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "inboxPointsEarn": "تمنح {count} نقطة",
+  "@inboxPointsEarn": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "inboxMinutesAsked": "طلب {count} دقيقة",
+  "@inboxMinutesAsked": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "inboxGrantMinutes": "كم دقيقة تمنح؟",
+  "inboxGrantNote": "يحفظ هذا رصيدًا لليوم. Mamily لا يستطيع قفل الجهاز أو قياسه.",
+  "inboxWishTitle": "حوّلها إلى مكافأة",
+  "inboxWishPoints": "النقاط المطلوبة",
+  "inboxWishName": "اسم المكافأة",
+  "inboxWishAdd": "إضافة المكافأة",
+  "inboxReplyTitle": "رد على {name}",
+  "@inboxReplyTitle": {
+    "placeholders": {
+      "name": {
+        "type": "String"
+      }
+    }
+  },
+  "inboxReplyHint": "بضع كلمات لطيفة…",
+  "inboxReplySent": "تم إرسال الرد",
+  "inboxCheckinNote": "هذه رسالة من طفلك، وليست قياسًا.",
+  "stickerHug": "عناق",
+  "stickerHeart": "حب",
+  "stickerHighFive": "كفّك",
+  "stickerProud": "فخور بك",
+  "stickerThinking": "أفكر فيك",
+  "stickerTalk": "لنتحدث",
+  "praiseTitle": "أرسل تشجيعًا إلى {name}",
+  "@praiseTitle": {
+    "placeholders": {
+      "name": {
+        "type": "String"
+      }
+    }
+  },
+  "praiseMessage": "رسالتك",
+  "praiseBadge": "أضف شارة",
+  "praiseFor": "على",
+  "praiseForNothing": "بلا سبب",
+  "praiseSent": "أُرسل التشجيع!",
+  "praiseSuggestion1": "فخور بك جدًا!",
+  "praiseSuggestion2": "عمل جماعي رائع اليوم!",
+  "praiseSuggestion3": "واصلت المحاولة — رائع!",
+  "hubSummary": "نظرة عامة",
+  "hubTasks": "المهام والنقاط",
+  "hubRoutines": "الروتين",
+  "hubRewards": "المكافآت",
+  "hubGoals": "أهداف التعلّم",
+  "hubActivities": "الأنشطة",
+  "hubSleep": "النوم",
+  "hubMeals": "الوجبات",
+  "hubScreenTime": "وقت الشاشة",
+  "hubContent": "التحكم بالمحتوى",
+  "hubCheckins": "المشاعر والتشجيع",
+  "hubDevices": "الأجهزة والربط",
+  "hubReport": "تقرير النمو",
+  "hubEditChild": "تعديل الملف",
+  "hubSections": "كل ما يخص {name}",
+  "@hubSections": {
+    "placeholders": {
+      "name": {
+        "type": "String"
+      }
+    }
+  },
+  "discoverTitle": "اكتشف",
+  "discoverSubtitle": "أفكار وخطط وأنشطة نفعلها معًا",
+  "discoverActivities": "الأنشطة",
+  "discoverActivitiesBody": "أفكار تناسب أطفالك",
+  "discoverLibrary": "مكتبة الوالدين",
+  "discoverLibraryBody": "مقالات قصيرة من مختصين",
+  "discoverGames": "الألعاب",
+  "discoverGamesBody": "استعرض ألعابًا تعليمية",
+  "discoverChallenges": "تحديات العائلة",
+  "discoverChallengesBody": "أهداف مشتركة تحققونها معًا",
+  "discoverPlanner": "مخطط العائلة",
+  "discoverPlannerBody": "الروتين والمواعيد والخطط",
+  "discoverRecap": "ملخص الأسبوع",
+  "discoverRecapBody": "ما أنجزته عائلتك هذا الأسبوع",
+  "discoverCoach": "مدرب التربية",
+  "discoverCoachBody": "قريبًا",
+  "accountTitle": "الحساب",
+  "accountProfile": "الملف الشخصي",
+  "accountLanguage": "اللغة",
+  "accountNotifications": "الإشعارات",
+  "accountSurfaces": "الأدوات والبطاقة العائمة",
+  "accountFamily": "أفراد العائلة",
+  "accountThisDevice": "هذا الجهاز",
+  "accountSwitchFamily": "تبديل العائلة",
+  "accountHandBack": "أعد الجهاز إلى {name}",
+  "@accountHandBack": {
+    "placeholders": {
+      "name": {
+        "type": "String"
+      }
+    }
+  },
+  "accountHandBackGeneric": "العودة لوضع الطفل",
+  "accountHandBackBody": "يسجّل خروجك ويعيد الجهاز لطفلك.",
+  "accountInbox": "صندوق الإشعارات",
+  "notifPrefsTitle": "الإشعارات",
+  "notifPermissionTitle": "اعرف فورًا عندما يحتاجك شيء",
+  "notifPermissionBody": "يُعلمك Mamily عند إنجاز مهمة أو طلب مكافأة أو اقتراب موعد. يبقى نص شاشة القفل عامًا ما لم تختر غير ذلك.",
+  "notifAllow": "السماح بالإشعارات",
+  "notifDenied": "الإشعارات متوقفة لـMamily. ما زال بإمكانك رؤية كل شيء في صندوق الإشعارات داخل التطبيق، أو تشغيلها من إعدادات الهاتف.",
+  "notifNotConfigured": "الإشعارات الفورية غير مُعدّة في هذا الإصدار بعد. صندوق الإشعارات داخل التطبيق يعمل.",
+  "notifEnabled": "الإشعارات مفعّلة على هذا الجهاز.",
+  "notifCategories": "ما الذي أُبلَّغ به",
+  "notifQuietHours": "ساعات الهدوء",
+  "notifQuietHoursBody": "تنتظر الإشعارات حتى تنتهي ساعات الهدوء. تصل مع ذلك إلى صندوقك.",
+  "notifQuietFrom": "من",
+  "notifQuietTo": "إلى",
+  "notifQuietOff": "متوقف",
+  "notifChildQuiet": "ساعات هدوء الأطفال",
+  "notifLockDetails": "إظهار التفاصيل على شاشة القفل",
+  "notifLockDetailsBody": "متوقف: «هناك ما ينتظر مراجعتك». مفعّل: الأسماء وعناوين المهام.",
+  "notifCatTasks": "المهام",
+  "notifCatApprovals": "الطلبات والموافقات",
+  "notifCatRewards": "المكافآت",
+  "notifCatRoutines": "الروتين",
+  "notifCatChallenges": "تحديات العائلة",
+  "notifCatEncouragement": "التشجيع",
+  "notifCatCheckins": "مشاركة المشاعر",
+  "notifCatScreenTime": "وقت الشاشة",
+  "notifCatPlanner": "مخطط العائلة",
+  "notifCatDevices": "الأجهزة",
+  "notifSaved": "تم الحفظ",
+  "surfacesTitle": "الأدوات والبطاقة العائمة",
+  "surfacesIntro": "اطّلع على حالة عائلتك دون فتح Mamily. يمكن لأي شخص قرب هاتفك رؤية هذه العناصر، لذا تعرض القليل افتراضيًا.",
+  "surfacesShowNames": "أسماء الأطفال",
+  "surfacesShowTasks": "عدد المهام",
+  "surfacesShowApprovals": "الموافقات المنتظرة",
+  "surfacesShowMood": "آخر شعور",
+  "surfacesShowPoints": "النقاط",
+  "surfacesShowRoutine": "تقدم الروتين",
+  "surfacesWidgetHow": "أضف أداة «نبض العائلة» من معرض الأدوات في الشاشة الرئيسية.",
+  "surfacesUpdatesHonest": "تتحدث الأدوات عند فتح Mamily وعندما يسمح النظام — وتعرض عمر بياناتها ولا تدّعي أنها مباشرة.",
+  "overlayTitle": "نبض العائلة العائم (أندرويد)",
+  "overlayBody": "بطاقة صغيرة يمكنك سحبها والضغط عليها لفتح Mamily، وتختفي أثناء فتح التطبيق. يحتاج Android إلى إذن «الظهور فوق التطبيقات الأخرى».",
+  "overlayGrant": "فتح إعدادات الإذن",
+  "overlayStart": "إظهار البطاقة العائمة",
+  "overlayStop": "إخفاء البطاقة العائمة",
+  "overlayDenied": "لم يُمنح الإذن. استخدم أداة الشاشة الرئيسية أو الإشعارات بدلًا من ذلك.",
+  "overlayIosNote": "على آيفون، استخدم أداة الشاشة الرئيسية. لا يسمح iOS ببطاقات عائمة فوق التطبيقات؛ ويمكن أن يظهر الروتين الجاري كنشاط مباشر.",
+  "pairTitleParent": "ربط جهاز {name}",
+  "@pairTitleParent": {
+    "placeholders": {
+      "name": {
+        "type": "String"
+      }
+    }
+  },
+  "pairHowTo": "على جهاز طفلك، افتح Mamily واضغط «أنا طفل»، ثم امسح هذا الرمز أو اكتبه.",
+  "pairExpiresIn": "ينتهي خلال {minutes} د · يعمل مرة واحدة",
+  "@pairExpiresIn": {
+    "placeholders": {
+      "minutes": {
+        "type": "int"
+      }
+    }
+  },
+  "pairExpired": "انتهت صلاحية هذا الرمز.",
+  "pairNewCode": "رمز جديد",
+  "pairRevoke": "إلغاء الرمز",
+  "pairCreate": "ربط جهاز",
+  "pairModeDedicated": "جهاز الطفل الخاص",
+  "pairModeShared": "جهاز عائلي مشترك",
+  "pairedDevices": "الأجهزة المرتبطة",
+  "pairedNone": "لا يوجد جهاز مرتبط بعد.",
+  "pairedActive": "مُسجّل الدخول",
+  "pairedInactive": "تم تسجيل الخروج",
+  "pairUnpair": "إلغاء الربط",
+  "pairUnpairConfirm": "إلغاء ربط {device}؟",
+  "@pairUnpairConfirm": {
+    "placeholders": {
+      "device": {
+        "type": "String"
+      }
+    }
+  },
+  "pairUnpairBody": "سيُسجَّل خروج الطفل من ذلك الجهاز فورًا.",
+  "pairUnpaired": "تم إلغاء الربط",
+  "routinesTitle": "الروتين",
+  "routinesEmpty": "الروتين يحوّل الأوقات المزدحمة إلى عادات هادئة خطوة بخطوة. ابدأ من قالب.",
+  "routinesNew": "روتين جديد",
+  "routineEdit": "تعديل الروتين",
+  "routineName": "الاسم",
+  "routineKindMorning": "الصباح",
+  "routineKindAfterSchool": "بعد المدرسة",
+  "routineKindBedtime": "وقت النوم",
+  "routineKindCustom": "أخرى",
+  "routineStartTime": "يبدأ الساعة",
+  "routineDays": "الأيام",
+  "routineSteps": "الخطوات",
+  "routineAddStep": "إضافة خطوة",
+  "routineStepHint": "مثال: تنظيف الأسنان",
+  "routineBonus": "نقاط مكافأة (تحتاج موافقتك)",
+  "routineReminder": "تذكير عند البدء",
+  "routinePaused": "متوقف مؤقتًا",
+  "routineActive": "فعّال",
+  "routineFromTemplate": "ابدأ من قالب",
+  "routineSaved": "تم حفظ الروتين",
+  "routineDelete": "حذف الروتين",
+  "routineDeleteBody": "يبقى السجل السابق محفوظًا.",
+  "routineTodayProgress": "اليوم: {done}/{total}",
+  "@routineTodayProgress": {
+    "placeholders": {
+      "done": {
+        "type": "int"
+      },
+      "total": {
+        "type": "int"
+      }
+    }
+  },
+  "routineNotToday": "غير مجدول اليوم",
+  "routineHistory": "السجل",
+  "routineStepsRequired": "أضف خطوة واحدة على الأقل.",
+  "weekdayShort1": "الإثنين",
+  "weekdayShort2": "الثلاثاء",
+  "weekdayShort3": "الأربعاء",
+  "weekdayShort4": "الخميس",
+  "weekdayShort5": "الجمعة",
+  "weekdayShort6": "السبت",
+  "weekdayShort7": "الأحد",
+  "challengesTitle": "تحديات العائلة",
+  "challengesEmpty": "ضع هدفًا مشتركًا — مثل قراءة 300 دقيقة معًا هذا الأسبوع — واحتفلوا عند تحقيقه.",
+  "challengeNew": "تحدٍّ جديد",
+  "challengeName": "اسم التحدي",
+  "challengeMetric": "ما الذي يُحتسب",
+  "challengeMetricTasks": "المهام المعتمدة",
+  "challengeMetricRoutines": "الروتين المكتمل",
+  "challengeMetricManual": "كمية مسجّلة (مثل الدقائق)",
+  "challengeTarget": "الهدف",
+  "challengeUnit": "الوحدة (اختياري)",
+  "challengeEnds": "ينتهي في",
+  "challengeReward": "نقاط المكافأة لكل طفل",
+  "challengeWho": "المشاركون",
+  "challengeStart": "ابدأ التحدي",
+  "challengeAward": "امنح المكافأة",
+  "challengeCancel": "إلغاء التحدي",
+  "challengeLog": "تسجيل تقدم",
+  "challengeStatusActive": "جارٍ",
+  "challengeStatusAchieved": "تحقق الهدف!",
+  "challengeStatusRewarded": "تمت المكافأة",
+  "challengeStatusEnded": "انتهى",
+  "challengeStatusCancelled": "أُلغي",
+  "challengeNoRanking": "الجميع يساهم في مجموع واحد مشترك — بلا ترتيب.",
+  "challengeDaysLeft": "{count, plural, =0{ينتهي اليوم} =1{بقي يوم} =2{بقي يومان} few{بقيت {count} أيام} many{بقي {count} يومًا} other{بقي {count} يوم}}",
+  "@challengeDaysLeft": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "plannerTitle": "مخطط العائلة",
+  "plannerEmptyDay": "لا شيء مخطط.",
+  "plannerNewEvent": "موعد جديد",
+  "plannerEventTitle": "ما الموعد؟",
+  "plannerDate": "التاريخ",
+  "plannerTime": "الوقت",
+  "plannerAllDay": "طوال اليوم",
+  "plannerLocation": "المكان (اختياري)",
+  "plannerRepeatWeekly": "تكرار كل أسبوع",
+  "plannerRemind": "تذكير",
+  "plannerRemindNone": "بلا تذكير",
+  "plannerRemindMinutes": "قبل {count} دقيقة",
+  "@plannerRemindMinutes": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "plannerForWho": "لـ",
+  "plannerEveryone": "العائلة كلها",
+  "plannerSaved": "أُضيف إلى المخطط",
+  "plannerDeleteEvent": "حذف الموعد",
+  "plannerTypeRoutine": "روتين",
+  "plannerTypeDeadline": "موعد مهمة",
+  "plannerTypeEvent": "موعد",
+  "plannerThisWeek": "هذا الأسبوع",
+  "plannerNextWeek": "الأسبوع القادم",
+  "recapTitle": "ملخص الأسبوع",
+  "recapRange": "{from} – {to}",
+  "@recapRange": {
+    "placeholders": {
+      "from": {
+        "type": "String"
+      },
+      "to": {
+        "type": "String"
+      }
+    }
+  },
+  "recapPrevious": "الأسبوع السابق",
+  "recapNext": "الأسبوع التالي",
+  "recapHighlights": "أبرز ما حدث",
+  "recapTasks": "مهام منجزة",
+  "recapRoutines": "روتين مكتمل",
+  "recapPointsEarned": "نقاط مكتسبة",
+  "recapPointsSpent": "نقاط مصروفة",
+  "recapRewards": "مكافآت",
+  "recapCheckins": "مشاركات",
+  "recapGoals": "تحديثات الأهداف",
+  "recapHonest": "مبني فقط على ما سُجّل في Mamily هذا الأسبوع.",
+  "mealsTitle": "الوجبات",
+  "mealsEmpty": "مذكرة وجبات بسيطة — ماذا أكل وكم. بلا صور ولا تحليل.",
+  "mealsAdd": "تسجيل وجبة",
+  "mealBreakfast": "الفطور",
+  "mealLunch": "الغداء",
+  "mealDinner": "العشاء",
+  "mealSnack": "وجبة خفيفة",
+  "mealWhat": "ماذا أكل",
+  "mealAppetite": "الكمية",
+  "appetiteAll": "كلها",
+  "appetiteMost": "معظمها",
+  "appetiteSome": "بعضها",
+  "appetiteLittle": "القليل",
+  "appetiteNone": "لا شيء",
+  "mealWhen": "متى",
+  "mealSaved": "تم تسجيل الوجبة",
+  "mealDeleted": "حُذفت الوجبة",
+  "checkinsTitle": "المشاعر والتشجيع",
+  "checkinsEmpty": "عندما يشارك {name} ما يشعر به، سيظهر هنا.",
+  "@checkinsEmpty": {
+    "placeholders": {
+      "name": {
+        "type": "String"
+      }
+    }
+  },
+  "praiseHistory": "التشجيع المُرسل",
+  "praiseNew": "إرسال تشجيع",
+  "previewAsChild": "معاينة يوم {name}",
+  "@previewAsChild": {
+    "placeholders": {
+      "name": {
+        "type": "String"
+      }
+    }
+  },
+  "previewNotice": "معاينة ولي الأمر — للقراءة فقط. الإجراءات معطّلة.",
+  "plannerRemindHour": "قبل ساعة",
+  "plannerRemindDay": "قبل يوم",
+  "plannerRemindAtStart": "عند البدء",
+  "discoverDashboard": "لوحة العائلة",
+  "discoverDashboardBody": "النقاط والنوم والأهداف بنظرة سريعة",
+  "kidTabToday": "اليوم",
+  "kidTabFamily": "العائلة",
+  "kidHelp": "مساعدة",
+  "kidHelpTitle": "اطلب المساعدة",
+  "kidHelpHold": "اضغط مطولاً للإرسال",
+  "kidHelpButton": "أحتاج مساعدة",
+  "kidHelpExplain": "تصل رسالة إلى عائلتك فوراً، مع مكان هذا الهاتف.",
+  "kidHelpSending": "جارٍ الإرسال…",
+  "kidHelpSentTo": "أُرسلت إلى {names}.",
+  "@kidHelpSentTo": {
+    "placeholders": {
+      "names": {
+        "type": "String"
+      }
+    }
+  },
+  "kidHelpWaiting": "بانتظار أن يراها أحد والديك.",
+  "kidHelpSeen": "رأى {name} رسالتك.",
+  "@kidHelpSeen": {
+    "placeholders": {
+      "name": {
+        "type": "String"
+      }
+    }
+  },
+  "kidHelpNoPush": "تعذّر إرسال الإشعار. اتصل بدلاً من ذلك.",
+  "kidHelpFailed": "لم تُرسل. تحقّق من الإنترنت، أو اتصل بدلاً من ذلك.",
+  "kidHelpTryAgain": "حاول مرة أخرى",
+  "kidHelpImOk": "أنا بخير الآن",
+  "kidCallPerson": "اتصل بـ{name}",
+  "@kidCallPerson": {
+    "placeholders": {
+      "name": {
+        "type": "String"
+      }
+    }
+  },
+  "kidEmergencyCall": "في خطر؟ اتصل بـ{number}",
+  "@kidEmergencyCall": {
+    "placeholders": {
+      "number": {
+        "type": "String"
+      }
+    }
+  },
+  "kidEmergencyNote": "Mamily لا يحلّ محلّ خدمات الطوارئ.",
+  "kidQuickTitle": "أخبر عائلتي",
+  "kidCheckArrived": "وصلت",
+  "kidCheckPickMeUp": "تعالوا خذوني",
+  "kidCheckCallMe": "اتصلوا بي",
+  "kidCheckOkay": "أنا بخير",
+  "kidCheckSent": "أُرسلت إلى عائلتك.",
+  "kidCheckSeen": "رآها {name}.",
+  "@kidCheckSeen": {
+    "placeholders": {
+      "name": {
+        "type": "String"
+      }
+    }
+  },
+  "kidCallMyParent": "اتصل بأحد والديّ",
+  "kidNoPhone": "لا يوجد رقم هاتف محفوظ بعد. اطلب من شخص بالغ إضافته.",
+  "kidJourneyStart": "سأذهب إلى مكان ما",
+  "kidJourneyWhere": "إلى أين تذهب؟",
+  "kidJourneyOther": "مكان آخر",
+  "kidJourneyName": "اسم المكان",
+  "kidJourneyWhen": "متى ستصل؟",
+  "kidJourneyInMinutes": "خلال {minutes} د",
+  "@kidJourneyInMinutes": {
+    "placeholders": {
+      "minutes": {
+        "type": "int"
+      }
+    }
+  },
+  "kidJourneyGo": "ابدأ",
+  "kidJourneyOnWay": "في الطريق إلى {place}",
+  "@kidJourneyOnWay": {
+    "placeholders": {
+      "place": {
+        "type": "String"
+      }
+    }
+  },
+  "kidJourneyExpected": "الوصول قبل {time}",
+  "@kidJourneyExpected": {
+    "placeholders": {
+      "time": {
+        "type": "String"
+      }
+    }
+  },
+  "kidJourneyOverdue": "عائلتك تنتظر أن تسمع منك.",
+  "kidJourneyMoreTime": "أحتاج وقتاً أطول",
+  "kidJourneyCancel": "إلغاء المشوار",
+  "kidJourneyShared": "يمكن لعائلتك أن ترى أنك في الطريق.",
+  "kidLocationTitle": "يمكن لعائلتك رؤية مكان هذا الهاتف",
+  "kidLocationBody": "هذا يساعدهم على معرفة أنك وصلت بأمان. عائلتك فقط يمكنها رؤيته.",
+  "kidLocationOk": "حسناً، فهمت",
+  "kidLocationOnBadge": "الموقع مُشارَك مع العائلة",
+  "kidPausedUntil": "معظم التطبيقات متوقفة حتى {time}.",
+  "@kidPausedUntil": {
+    "placeholders": {
+      "time": {
+        "type": "String"
+      }
+    }
+  },
+  "kidPausedNamed": "{name}: معظم التطبيقات متوقفة حتى {time}.",
+  "@kidPausedNamed": {
+    "placeholders": {
+      "name": {
+        "type": "String"
+      },
+      "time": {
+        "type": "String"
+      }
+    }
+  },
+  "kidPausedNow": "أوقف والدك التطبيقات مؤقتاً.",
+  "kidPausedStillOk": "ما زال بإمكانك الاتصال بعائلتك واستخدام Mamily.",
+  "kidAskMoreTime": "اطلب وقتاً إضافياً",
+  "kidWaitingParent": "بانتظار ردّ والدك.",
+  "kidTimeLeft": "تبقّى {minutes} دقيقة من وقت الشاشة اليوم",
+  "@kidTimeLeft": {
+    "placeholders": {
+      "minutes": {
+        "type": "int"
+      }
+    }
+  },
+  "kidTimeUsedUp": "انتهى وقت الشاشة لهذا اليوم.",
+  "kidTimeAgreement": "خطة وقت الشاشة لعائلتك: {minutes} دقيقة اليوم.",
+  "@kidTimeAgreement": {
+    "placeholders": {
+      "minutes": {
+        "type": "int"
+      }
+    }
+  },
+  "kidFamilyTalk": "تحدّث مع عائلتي",
+  "kidVideoCall": "مكالمة فيديو",
+  "kidAskHelpInApp": "اطلب المساعدة في Mamily",
+  "kidAgreements": "اتفاقاتنا",
+  "kidAgree": "أوافق",
+  "kidAgreed": "لقد وافقت",
+  "kidAgreementChanged": "تغيّر شيء ما. اقرأه مرة أخرى من فضلك.",
+  "kidAgreementsEmpty": "لا توجد اتفاقات بعد.",
+  "kidLessons": "ابقَ آمناً على الإنترنت",
+  "kidLessonFinish": "أنهيت",
+  "kidLessonNext": "التالي",
+  "kidLessonDoneBadge": "تم",
+  "kidSafetyCard": "بطاقة أماني",
+  "kidPickup": "من يأخذني",
+  "kidTrustedAdults": "أشخاص بالغون يمكنني الاتصال بهم",
+  "kidMyThings": "أشيائي",
+  "kidSignOutLocked": "قواعد والديك مفعّلة على هذا الهاتف. يجب على شخص بالغ إزالته من Mamily.",
+  "kidRemoteHelpAsk": "يريد {name} مساعدتك في Mamily",
+  "@kidRemoteHelpAsk": {
+    "placeholders": {
+      "name": {
+        "type": "String"
+      }
+    }
+  },
+  "kidRemoteHelpBody": "سيرى {name} شاشة Mamily لديك ويمكنه الإشارة إلى الأشياء. وليس تطبيقاتك الأخرى. يمكنك الإيقاف في أي وقت.",
+  "@kidRemoteHelpBody": {
+    "placeholders": {
+      "name": {
+        "type": "String"
+      }
+    }
+  },
+  "kidRemoteCallAsk": "{name} يتصل",
+  "@kidRemoteCallAsk": {
+    "placeholders": {
+      "name": {
+        "type": "String"
+      }
+    }
+  },
+  "kidRemoteVideoBody": "مكالمة فيديو. لا تعمل الكاميرا والميكروفون إلا إذا أجبت.",
+  "kidRemoteVoiceBody": "مكالمة صوتية. لا يعمل الميكروفون إلا إذا أجبت.",
+  "kidRemoteAccept": "نعم، موافق",
+  "kidRemoteAnswer": "ردّ",
+  "kidRemoteDecline": "ليس الآن",
+  "kidRemoteActive": "يستطيع {name} رؤية شاشة Mamily لديك",
+  "@kidRemoteActive": {
+    "placeholders": {
+      "name": {
+        "type": "String"
+      }
+    }
+  },
+  "kidRemoteStop": "إيقاف",
+  "kidRemoteEnded": "انتهت جلسة المساعدة.",
+  "kidRemoteLook": "انظر هنا",
+  "kidRemoteWaitingFor": "بانتظار {name}…",
+  "@kidRemoteWaitingFor": {
+    "placeholders": {
+      "name": {
+        "type": "String"
+      }
+    }
+  },
+  "kidCelebrations": "الاحتفالات",
+  "kidCelebrationsBody": "اعرض احتفالاً قصيراً عندما أُنهي شيئاً.",
+  "kidSettings": "الإعدادات",
+  "kidActivitiesTitle": "أنشطتي",
+  "lessonScamsTitle": "أجمل من أن يكون حقيقياً",
+  "lessonScams1": "عملات أو جوائز مجانية؟ غالباً ما تكون خدعة.",
+  "lessonScams2": "لا ترسل أبداً رمزاً أو كلمة مرور أو صورة لتربح شيئاً.",
+  "lessonScams3": "لست متأكداً؟ اسأل شخصاً بالغاً قبل أن تضغط.",
+  "lessonBullyingTitle": "إذا كان أحدهم لئيماً",
+  "lessonBullying1": "الرسائل اللئيمة ليست ذنبك.",
+  "lessonBullying2": "لا تردّ. التقط صورة للشاشة واحظره.",
+  "lessonBullying3": "أخبر شخصاً بالغاً تثق به. يمكنك استخدام «أخبر عائلتي».",
+  "lessonPasswordsTitle": "كلمات المرور سرّية",
+  "lessonPasswords1": "كلمة المرور مثل فرشاة الأسنان: لا تشاركها.",
+  "lessonPasswords2": "والداك فقط يمكنهما معرفتها. ليس الأصدقاء.",
+  "lessonPasswords3": "كلمات المرور الطويلة بكلمات تحبها قوية.",
+  "lessonPhotosTitle": "فكّر قبل أن تشارك",
+  "lessonPhotos1": "يمكن نسخ الصور ومشاركتها إلى الأبد.",
+  "lessonPhotos2": "لا تشارك صوراً تُظهر مدرستك أو عنوان منزلك.",
+  "lessonPhotos3": "طلب منك أحدهم صورة تشعر أنها غير صحيحة؟ قل لا وأخبر شخصاً بالغاً.",
+  "lessonStrangersTitle": "أشخاص لا تعرفهم",
+  "lessonStrangers1": "الناس على الإنترنت ليسوا دائماً من يقولون إنهم هم.",
+  "lessonStrangers2": "لا توافق أبداً على مقابلة شخص من الإنترنت بمفردك.",
+  "lessonStrangers3": "تشعر أن شيئاً غريباً؟ توقّف وأخبر عائلتك.",
+  "agreementSectionDevices": "الهواتف والشاشات",
+  "agreementSectionResponsibilities": "المسؤوليات",
+  "agreementSectionRewards": "المكافآت",
+  "kidPointsOf": "{count} من {total} نقطة",
+  "@kidPointsOf": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      },
+      "total": {
+        "type": "int"
+      }
+    }
+  },
+  "callEnd": "إنهاء المكالمة",
+  "callMute": "كتم الصوت",
+  "callUnmute": "إلغاء الكتم",
+  "callCameraOff": "إيقاف الكاميرا",
+  "callCameraOn": "تشغيل الكاميرا",
+  "callConnecting": "جارٍ الاتصال…",
+  "callConnected": "متصل",
+  "callEnded": "انتهت المكالمة",
+  "callFailed": "تعذّر إجراء الاتصال.",
+  "callPermission": "يحتاج Mamily إلى الميكروفون (والكاميرا للفيديو) لإجراء المكالمات. يمكنك السماح بذلك في الإعدادات.",
+  "callCameraLive": "الكاميرا تعمل",
+  "callMicLive": "الميكروفون يعمل",
+  "callRelayMissing": "قد لا تعمل المكالمات على بعض الشبكات: لم يتم إعداد خادم ترحيل للمكالمات بعد.",
+  "remoteHelpInMamily": "المساعدة في Mamily",
+  "remoteHelpExplain": "سترى شاشة Mamily لدى {name} ويمكنك الإشارة إلى الأزرار. لا يمكنك رؤية التطبيقات الأخرى أو التحكم بالهاتف. يجب أن يوافق {name} ويمكنه الإيقاف في أي وقت.",
+  "@remoteHelpExplain": {
+    "placeholders": {
+      "name": {
+        "type": "String"
+      }
+    }
+  },
+  "remoteVideoCall": "مكالمة فيديو",
+  "remoteVoiceCall": "مكالمة صوتية",
+  "remoteCallExplain": "سيرى {name} مكالمة واردة ويختار الرد. لا يُسجَّل شيء.",
+  "@remoteCallExplain": {
+    "placeholders": {
+      "name": {
+        "type": "String"
+      }
+    }
+  },
+  "remoteWaitingChild": "بانتظار موافقة {name}…",
+  "@remoteWaitingChild": {
+    "placeholders": {
+      "name": {
+        "type": "String"
+      }
+    }
+  },
+  "remoteDeclined": "قال {name}: ليس الآن.",
+  "@remoteDeclined": {
+    "placeholders": {
+      "name": {
+        "type": "String"
+      }
+    }
+  },
+  "remoteNoAnswer": "لا رد. يمكنك المحاولة لاحقاً.",
+  "remoteEnded": "انتهت الجلسة.",
+  "remoteEndedNotAllowed": "لم تعد هذه الجلسة مسموحة.",
+  "remoteTapToPoint": "اضغط على الصورة لتُري {name} أين يضغط.",
+  "@remoteTapToPoint": {
+    "placeholders": {
+      "name": {
+        "type": "String"
+      }
+    }
+  },
+  "remoteNoFrame": "بانتظار شاشة {name}…",
+  "@remoteNoFrame": {
+    "placeholders": {
+      "name": {
+        "type": "String"
+      }
+    }
+  },
+  "remoteFrameAge": "صورة منذ {seconds} ث",
+  "@remoteFrameAge": {
+    "placeholders": {
+      "seconds": {
+        "type": "int"
+      }
+    }
+  },
+  "remoteChildAsksHelp": "{name} يطلب المساعدة في Mamily",
+  "@remoteChildAsksHelp": {
+    "placeholders": {
+      "name": {
+        "type": "String"
+      }
+    }
+  },
+  "remoteChildCalling": "{name} يتصل",
+  "@remoteChildCalling": {
+    "placeholders": {
+      "name": {
+        "type": "String"
+      }
+    }
+  },
+  "remoteAccept": "قبول",
+  "remoteDecline": "رفض",
+  "remoteEnd": "إنهاء الجلسة",
+  "remoteNoDevice": "{name} غير مسجّل الدخول على أي هاتف الآن.",
+  "@remoteNoDevice": {
+    "placeholders": {
+      "name": {
+        "type": "String"
+      }
+    }
+  },
+  "remoteStart": "اطلب",
+  "remoteSectionTitle": "المساعدة والمكالمات",
+  "rulesTitle": "قواعد الهاتف",
+  "rulesOnPhones": "على هواتف {name}",
+  "@rulesOnPhones": {
+    "placeholders": {
+      "name": {
+        "type": "String"
+      }
+    }
+  },
+  "rulesStateActive": "القواعد مفعّلة",
+  "rulesStateActiveBody": "أكّدها الهاتف {when}.",
+  "@rulesStateActiveBody": {
+    "placeholders": {
+      "when": {
+        "type": "String"
+      }
+    }
+  },
+  "rulesStatePartial": "بعض القواعد مفعّلة",
+  "rulesStatePartialBody": "لا يستطيع هذا الهاتف تنفيذ كل ما حددته. انظر ما يمكنه فعله أدناه.",
+  "rulesStateWaiting": "بانتظار الهاتف",
+  "rulesStateWaitingBody": "سيستلم الهاتف القواعد الجديدة عند فتح Mamily في المرة القادمة مع اتصال بالإنترنت.",
+  "rulesStateOffline": "الهاتف غير متصل",
+  "rulesStateOfflineBody": "آخر اتصال {when}. تُطبَّق القواعد بعد عودة الاتصال.",
+  "@rulesStateOfflineBody": {
+    "placeholders": {
+      "when": {
+        "type": "String"
+      }
+    }
+  },
+  "rulesStatePermission": "يلزم إذن على الهاتف",
+  "rulesStatePermissionBody": "افتح Mamily على هاتف {name} واتبع الخطوات على الشاشة.",
+  "@rulesStatePermissionBody": {
+    "placeholders": {
+      "name": {
+        "type": "String"
+      }
+    }
+  },
+  "rulesStateUnsupported": "هذا الهاتف لا يستطيع حظر التطبيقات",
+  "rulesStateUnsupportedBody": "ستظهر قواعدك على شاشة «اليوم» لدى {name} كخطة العائلة. انظر «ما يستطيع هذا الهاتف فعله».",
+  "@rulesStateUnsupportedBody": {
+    "placeholders": {
+      "name": {
+        "type": "String"
+      }
+    }
+  },
+  "rulesStateNotConfirmed": "تعذّر التأكيد",
+  "rulesStateNotConfirmedBody": "لم يؤكّد الهاتف القواعد مؤخراً. افتح Mamily عليه للتحقق.",
+  "rulesStateNoRules": "لا توجد قواعد بعد",
+  "rulesStateNoRulesBody": "ابدأ بخطة جاهزة أدناه.",
+  "rulesNoDevice": "لم يُربط أي هاتف بعد",
+  "rulesNoDeviceBody": "اربط هاتف {name} لكي تصل إليه القواعد.",
+  "@rulesNoDeviceBody": {
+    "placeholders": {
+      "name": {
+        "type": "String"
+      }
+    }
+  },
+  "rulesCanDo": "ما يستطيع هذا الهاتف فعله",
+  "capAppBlocking": "إيقاف تطبيقات محددة",
+  "capAppLimits": "حدود يومية للتطبيقات",
+  "capSchedules": "أوقات المدرسة والواجبات والنوم",
+  "capWebFilter": "قواعد المواقع",
+  "capRestrictNow": "الإيقاف الآن",
+  "capUsage": "عرض استخدام التطبيقات لك",
+  "capDeviceLock": "قفل الهاتف بالكامل",
+  "capAvailable": "نعم",
+  "capPermission": "يحتاج إذناً على الهاتف",
+  "capSetup": "يحتاج إعداداً خاصاً للهاتف",
+  "capUnsupported": "غير ممكن على هذا الهاتف",
+  "capUnknown": "لم يُبلَّغ بعد",
+  "capSetupHelpAndroid": "يسمح أندرويد لتطبيق بإيقاف التطبيقات الأخرى فقط إذا تم إعداد الهاتف لذلك منذ البداية (إعادة ضبط المصنع مع Mamily كمدير للهاتف). حتى ذلك الحين يستطيع Mamily عرض القواعد والاستخدام لكن لا يستطيع فرضها.",
+  "capSetupHelpIos": "على آيفون، يوافق أحد الوالدين على وصول Mamily إلى «مدة استخدام الجهاز» على آيفون الطفل (المشاركة العائلية). يبقى الاستخدام على ذلك الآيفون ولا يمكن إرساله إليك.",
+  "rulesPauseTitle": "إيقاف التطبيقات الآن",
+  "rulesPauseBody": "تتوقف جميع التطبيقات ما عدا المكالمات ورسائل الطوارئ وMamily والتطبيقات المسموح بها دائماً.",
+  "rulesPause30": "30 د",
+  "rulesPause60": "ساعة",
+  "rulesPauseUntil": "حتى أوقفه",
+  "rulesPausedUntil": "متوقف حتى {time}",
+  "@rulesPausedUntil": {
+    "placeholders": {
+      "time": {
+        "type": "String"
+      }
+    }
+  },
+  "rulesPausedOpen": "متوقف حتى توقفه أنت",
+  "rulesPauseExpired": "انتهى الإيقاف المؤقت.",
+  "rulesRelease": "إنهاء الإيقاف",
+  "rulesPauseConfirm": "إيقاف تطبيقات {name} {duration}؟",
+  "@rulesPauseConfirm": {
+    "placeholders": {
+      "name": {
+        "type": "String"
+      },
+      "duration": {
+        "type": "String"
+      }
+    }
+  },
+  "rulesPresets": "خطط جاهزة",
+  "presetSchool": "المدرسة",
+  "presetSchoolBody": "التطبيقات المسموح بها فقط خلال ساعات المدرسة",
+  "presetHomework": "الواجبات",
+  "presetHomeworkBody": "وقت تركيز للواجبات",
+  "presetBedtime": "وقت النوم",
+  "presetBedtimeBody": "التطبيقات تستريح ليلاً",
+  "presetWeekend": "عطلة نهاية الأسبوع",
+  "presetWeekendBody": "وقت يومي مختلف",
+  "presetCustom": "مخصص",
+  "rulesExplainSchedule": "{dayList}، {start}–{end}: تعمل المكالمات وMamily والتطبيقات المسموح بها فقط.",
+  "@rulesExplainSchedule": {
+    "placeholders": {
+      "dayList": {
+        "type": "String"
+      },
+      "start": {
+        "type": "String"
+      },
+      "end": {
+        "type": "String"
+      }
+    }
+  },
+  "rulesExplainScheduleBlock": "{dayList}، {start}–{end}: لا يمكن فتح التطبيقات التي أوقفتها.",
+  "@rulesExplainScheduleBlock": {
+    "placeholders": {
+      "dayList": {
+        "type": "String"
+      },
+      "start": {
+        "type": "String"
+      },
+      "end": {
+        "type": "String"
+      }
+    }
+  },
+  "rulesExplainWeekend": "في {dayList}: {minutes} دقيقة من وقت الشاشة يومياً.",
+  "@rulesExplainWeekend": {
+    "placeholders": {
+      "dayList": {
+        "type": "String"
+      },
+      "minutes": {
+        "type": "int"
+      }
+    }
+  },
+  "rulesDays": "الأيام",
+  "rulesFrom": "من",
+  "rulesTo": "إلى",
+  "rulesMinutesPerDay": "دقائق يومياً",
+  "rulesSchedules": "الأوقات",
+  "rulesSchedulesEmpty": "لم تُحدَّد أوقات. استخدم خطة جاهزة أعلاه.",
+  "rulesApps": "التطبيقات",
+  "rulesBlockedApps": "متوقفة دائماً",
+  "rulesAllowedApps": "مسموح بها دائماً",
+  "rulesAllowedAppsBody": "تعمل حتى خلال المدرسة والواجبات والنوم والإيقاف.",
+  "rulesAppCount": "{count, plural, =0{لا تطبيقات} =1{تطبيق واحد} =2{تطبيقان} few{{count} تطبيقات} many{{count} تطبيقاً} other{{count} تطبيق}}",
+  "@rulesAppCount": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "rulesChooseApps": "اختر التطبيقات",
+  "rulesNoAppList": "لم يرسل هاتف {name} قائمة تطبيقاته بعد. افتح Mamily عليه مرة واحدة.",
+  "@rulesNoAppList": {
+    "placeholders": {
+      "name": {
+        "type": "String"
+      }
+    }
+  },
+  "rulesIosPickOnPhone": "تُختار تطبيقات الآيفون على آيفون {name}: سجّل الدخول كوالد هناك وافتح «قواعد الهاتف».",
+  "@rulesIosPickOnPhone": {
+    "placeholders": {
+      "name": {
+        "type": "String"
+      }
+    }
+  },
+  "rulesLimits": "الحدود اليومية",
+  "rulesLimitsEmpty": "لا توجد حدود لأنواع التطبيقات.",
+  "rulesAddLimit": "إضافة حد",
+  "rulesLimitLine": "{what}: {minutes} دقيقة يومياً",
+  "@rulesLimitLine": {
+    "placeholders": {
+      "what": {
+        "type": "String"
+      },
+      "minutes": {
+        "type": "int"
+      }
+    }
+  },
+  "catGames": "الألعاب",
+  "catSocial": "التواصل الاجتماعي",
+  "catVideo": "الفيديو",
+  "catBrowsers": "المتصفحات",
+  "catMessaging": "المراسلة",
+  "catEducation": "التعلّم",
+  "catOther": "تطبيقات أخرى",
+  "rulesWeb": "المواقع",
+  "rulesWebOff": "بلا قواعد للمواقع",
+  "rulesWebBlock": "حظر هذه المواقع",
+  "rulesWebOnly": "المواقع المعتمدة فقط",
+  "rulesWebAdd": "إضافة موقع",
+  "rulesWebHint": "example.com",
+  "rulesWebInvalid": "اكتب موقعاً مثل example.com",
+  "rulesWebNote": "يعمل في المتصفح الرئيسي للهاتف حيث يكون مدعوماً.",
+  "rulesReviewSave": "مراجعة وحفظ",
+  "rulesReviewTitle": "إليك ما سيتغيّر",
+  "rulesReviewApplies": "ينطبق على: {devices}",
+  "@rulesReviewApplies": {
+    "placeholders": {
+      "devices": {
+        "type": "String"
+      }
+    }
+  },
+  "rulesReviewAppliesNone": "لم يُربط أي هاتف بعد؛ ستنتظر القواعد حتى يُربط هاتف.",
+  "rulesReviewLimits": "{device} لا يستطيع: {what}",
+  "@rulesReviewLimits": {
+    "placeholders": {
+      "device": {
+        "type": "String"
+      },
+      "what": {
+        "type": "String"
+      }
+    }
+  },
+  "rulesReviewAfter": "تُطبَّق القواعد بعد تأكيد الهاتف. يمكنك التراجع لاحقاً.",
+  "rulesSaved": "تم الحفظ. بانتظار تأكيد الهاتف.",
+  "rulesConflict": "غيّر شخص آخر هذه القواعد. حمّلنا أحدث نسخة.",
+  "rulesChangeAddedBlocked": "إيقاف دائم: {name}",
+  "@rulesChangeAddedBlocked": {
+    "placeholders": {
+      "name": {
+        "type": "String"
+      }
+    }
+  },
+  "rulesChangeRemovedBlocked": "لم يعد متوقفاً: {name}",
+  "@rulesChangeRemovedBlocked": {
+    "placeholders": {
+      "name": {
+        "type": "String"
+      }
+    }
+  },
+  "rulesChangeAddedAllowed": "مسموح دائماً: {name}",
+  "@rulesChangeAddedAllowed": {
+    "placeholders": {
+      "name": {
+        "type": "String"
+      }
+    }
+  },
+  "rulesChangeRemovedAllowed": "لم يعد مسموحاً دائماً: {name}",
+  "@rulesChangeRemovedAllowed": {
+    "placeholders": {
+      "name": {
+        "type": "String"
+      }
+    }
+  },
+  "rulesChangeSchedule": "{name}: {start}–{end}",
+  "@rulesChangeSchedule": {
+    "placeholders": {
+      "name": {
+        "type": "String"
+      },
+      "start": {
+        "type": "String"
+      },
+      "end": {
+        "type": "String"
+      }
+    }
+  },
+  "rulesChangeScheduleRemoved": "أُزيل: {name}",
+  "@rulesChangeScheduleRemoved": {
+    "placeholders": {
+      "name": {
+        "type": "String"
+      }
+    }
+  },
+  "rulesChangeLimits": "تغيّرت الحدود اليومية",
+  "rulesChangeWeb": "تغيّرت قواعد المواقع",
+  "rulesHistory": "التغييرات",
+  "rulesHistoryBy": "{who} · {when}",
+  "@rulesHistoryBy": {
+    "placeholders": {
+      "who": {
+        "type": "String"
+      },
+      "when": {
+        "type": "String"
+      }
+    }
+  },
+  "rulesUndoTo": "العودة إلى هذا",
+  "rulesUndoConfirm": "العودة إلى القواعد من {when}؟ يبقى الإيقاف الجاري مفعّلاً.",
+  "@rulesUndoConfirm": {
+    "placeholders": {
+      "when": {
+        "type": "String"
+      }
+    }
+  },
+  "rulesUndone": "تمت استعادة القواعد السابقة.",
+  "rulesKindEdit": "تغيّرت القواعد",
+  "rulesKindPreset": "أُضيفت خطة",
+  "rulesKindRestrict": "إيقاف مؤقت",
+  "rulesKindRelease": "انتهى الإيقاف",
+  "rulesKindUndo": "تم التراجع",
+  "rulesKindExtra": "وقت إضافي",
+  "rulesKindAllowance": "تغيّر الوقت اليومي",
+  "rulesEssentials": "تبقى المكالمات ورسائل الطوارئ وMamily تعمل دائماً.",
+  "rulesNoPermission": "يمكن للوالدين ومقدّمي الرعاية المصرّح لهم فقط تغيير قواعد الهاتف.",
+  "everyDay": "كل يوم",
+  "mapTitle": "خريطة العائلة",
+  "mapLastSeen": "آخر ظهور {when}",
+  "@mapLastSeen": {
+    "placeholders": {
+      "when": {
+        "type": "String"
+      }
+    }
+  },
+  "mapAccuracy": "ضمن حوالي {meters} م",
+  "@mapAccuracy": {
+    "placeholders": {
+      "meters": {
+        "type": "String"
+      }
+    }
+  },
+  "mapBattery": "البطارية {pct}%",
+  "@mapBattery": {
+    "placeholders": {
+      "pct": {
+        "type": "int"
+      }
+    }
+  },
+  "mapBatteryCharging": "البطارية {pct}%، قيد الشحن",
+  "@mapBatteryCharging": {
+    "placeholders": {
+      "pct": {
+        "type": "int"
+      }
+    }
+  },
+  "mapLastContact": "آخر تواصل للهاتف {when}",
+  "@mapLastContact": {
+    "placeholders": {
+      "when": {
+        "type": "String"
+      }
+    }
+  },
+  "locFresh": "موقع حديث",
+  "locStale": "موقع أقدم",
+  "locSharingOff": "مشاركة الموقع متوقفة",
+  "locSharingOffBody": "فعّلها لترى مكان هاتف {name}. سيرى {name} أنه مُشارَك.",
+  "@locSharingOffBody": {
+    "placeholders": {
+      "name": {
+        "type": "String"
+      }
+    }
+  },
+  "locTurnOn": "تفعيل المشاركة",
+  "locTurnOff": "إيقاف المشاركة",
+  "locNoDevice": "لا يوجد هاتف مربوط",
+  "locPermission": "إذن الموقع متوقف على الهاتف",
+  "locPermissionBody": "على هاتف {name}، افتح Mamily واسمح بالوصول إلى الموقع.",
+  "@locPermissionBody": {
+    "placeholders": {
+      "name": {
+        "type": "String"
+      }
+    }
+  },
+  "locServicesOff": "الموقع مُطفأ على الهاتف",
+  "locOffline": "لم يتواصل الهاتف منذ يوم",
+  "locNoLocationYet": "لا يوجد موقع بعد",
+  "locNoLocationYetBody": "يظهر بعد أن يفتح {name} تطبيق Mamily مع السماح بالموقع.",
+  "@locNoLocationYetBody": {
+    "placeholders": {
+      "name": {
+        "type": "String"
+      }
+    }
+  },
+  "locNotLive": "هذا آخر موقع أرسله الهاتف، وليس عرضاً مباشراً.",
+  "locHistory": "في وقت سابق اليوم",
+  "locSharingChildSees": "يرى {name} «الموقع مُشارَك مع العائلة».",
+  "@locSharingChildSees": {
+    "placeholders": {
+      "name": {
+        "type": "String"
+      }
+    }
+  },
+  "placesTitle": "أماكن آمنة",
+  "placesEmpty": "أضف المنزل أو المدرسة لتصلك رسائل «وصل».",
+  "placeAdd": "إضافة مكان آمن",
+  "placeEdit": "تعديل المكان الآمن",
+  "placeName": "الاسم",
+  "placeKindHome": "المنزل",
+  "placeKindSchool": "المدرسة",
+  "placeKindOther": "آخر",
+  "placeTapMap": "اضغط على الخريطة لتحديد المكان",
+  "placeRadius": "حجم المنطقة: {meters} م",
+  "@placeRadius": {
+    "placeholders": {
+      "meters": {
+        "type": "String"
+      }
+    }
+  },
+  "placeNotifyArrive": "أخبرني عند الوصول",
+  "placeNotifyLeave": "أخبرني عند المغادرة",
+  "placeNoGuarantee": "تعتمد رسائل الوصول على إرسال الهاتف لموقعه، لذا قد تتأخر أو تُفقد.",
+  "placeUseMyLocation": "استخدم موقعي",
+  "journeysTitle": "في الطريق",
+  "journeyTo": "{name} ← {place}",
+  "@journeyTo": {
+    "placeholders": {
+      "name": {
+        "type": "String"
+      },
+      "place": {
+        "type": "String"
+      }
+    }
+  },
+  "journeyExpected": "الوصول المتوقع {time}",
+  "@journeyExpected": {
+    "placeholders": {
+      "time": {
+        "type": "String"
+      }
+    }
+  },
+  "journeyOverdue": "تأخر تسجيل الوصول منذ {time}",
+  "@journeyOverdue": {
+    "placeholders": {
+      "time": {
+        "type": "String"
+      }
+    }
+  },
+  "journeyOverdueHint": "هذا يعني فقط أن {name} لم يسجّل وصوله بعد. جرّب الاتصال.",
+  "@journeyOverdueHint": {
+    "placeholders": {
+      "name": {
+        "type": "String"
+      }
+    }
+  },
+  "safetyTitle": "الأمان",
+  "safetyHelpNow": "طلب {name} المساعدة",
+  "@safetyHelpNow": {
+    "placeholders": {
+      "name": {
+        "type": "String"
+      }
+    }
+  },
+  "safetyHelpSeen": "رأيتها",
+  "safetyHelpResolve": "تم الحل",
+  "safetyHelpSeenBy": "رآها {name}",
+  "@safetyHelpSeenBy": {
+    "placeholders": {
+      "name": {
+        "type": "String"
+      }
+    }
+  },
+  "safetyHelpCall": "اتصل بـ{name}",
+  "@safetyHelpCall": {
+    "placeholders": {
+      "name": {
+        "type": "String"
+      }
+    }
+  },
+  "safetyHelpLocation": "أين كان الهاتف",
+  "safetyNoAlerts": "لا توجد طلبات مساعدة مفتوحة.",
+  "safetyCheckins": "رسائل الاطمئنان",
+  "safetyCheckinLine": "{name}: {what}",
+  "@safetyCheckinLine": {
+    "placeholders": {
+      "name": {
+        "type": "String"
+      },
+      "what": {
+        "type": "String"
+      }
+    }
+  },
+  "safetyAck": "تم",
+  "safetyAcked": "تم الرد",
+  "safetyCentreTitle": "مركز الأمان",
+  "safetyContacts": "جهات اتصال موثوقة",
+  "safetyContactAdd": "إضافة جهة اتصال",
+  "safetyContactName": "الاسم",
+  "safetyContactPhone": "الهاتف",
+  "safetyContactRelation": "من هذا؟ (مثلاً الجدة)",
+  "safetyContactPickup": "يمكنه أخذ الأطفال",
+  "safetyPickup": "تعليمات الاصطحاب",
+  "safetyPickupHint": "من يصطحب ومتى، وكلمة السر إن كنتم تستخدمونها.",
+  "safetyEmergencyNumber": "رقم الطوارئ المحلي",
+  "safetyEmergencyHint": "مثلاً 112 أو 911 أو 100 أو 101",
+  "safetyChildSees": "يرى أطفالك هذه في بطاقة الأمان الخاصة بهم، حتى دون إنترنت.",
+  "safetyWhoGetsAlerts": "من يتلقى التنبيهات العاجلة",
+  "safetyWhoGetsAlertsBody": "طلبات المساعدة، «تعالوا خذوني»، «اتصلوا بي» وتأخّر تسجيل الوصول.",
+  "safetyCaregiverNeedsPermission": "يحتاج مقدّمو الرعاية أيضاً إلى صلاحية «الأمان».",
+  "safetyChildrenAll": "جميع الأطفال",
+  "safetyChildrenSome": "فقط: {names}",
+  "@safetyChildrenSome": {
+    "placeholders": {
+      "names": {
+        "type": "String"
+      }
+    }
+  },
+  "safetyEditAccess": "أي أطفال",
+  "accessHistory": "سجل الوصول",
+  "accessHistoryBody": "من اطّلع على المواقع أو غيّر القواعد أو ربط الهواتف أو بدأ جلسات مساعدة.",
+  "accessViewedLocation": "اطّلع {who} على موقع {child}",
+  "@accessViewedLocation": {
+    "placeholders": {
+      "who": {
+        "type": "String"
+      },
+      "child": {
+        "type": "String"
+      }
+    }
+  },
+  "accessViewedHistory": "اطّلع {who} على مواقع {child} السابقة",
+  "@accessViewedHistory": {
+    "placeholders": {
+      "who": {
+        "type": "String"
+      },
+      "child": {
+        "type": "String"
+      }
+    }
+  },
+  "accessRulesChanged": "غيّر {who} قواعد هاتف {child}",
+  "@accessRulesChanged": {
+    "placeholders": {
+      "who": {
+        "type": "String"
+      },
+      "child": {
+        "type": "String"
+      }
+    }
+  },
+  "accessRemoteStarted": "بدأت جلسة مساعدة مع {child}",
+  "@accessRemoteStarted": {
+    "placeholders": {
+      "child": {
+        "type": "String"
+      }
+    }
+  },
+  "accessRemoteEnded": "انتهت جلسة المساعدة مع {child}",
+  "@accessRemoteEnded": {
+    "placeholders": {
+      "child": {
+        "type": "String"
+      }
+    }
+  },
+  "accessRemoteRequested": "طلب {who} جلسة مع {child}",
+  "@accessRemoteRequested": {
+    "placeholders": {
+      "who": {
+        "type": "String"
+      },
+      "child": {
+        "type": "String"
+      }
+    }
+  },
+  "accessSharingOn": "فعّل {who} مشاركة موقع {child}",
+  "@accessSharingOn": {
+    "placeholders": {
+      "who": {
+        "type": "String"
+      },
+      "child": {
+        "type": "String"
+      }
+    }
+  },
+  "accessSharingOff": "أوقف {who} مشاركة موقع {child}",
+  "@accessSharingOff": {
+    "placeholders": {
+      "who": {
+        "type": "String"
+      },
+      "child": {
+        "type": "String"
+      }
+    }
+  },
+  "accessCaregiver": "غيّر {who} صلاحيات أحد مقدّمي الرعاية",
+  "@accessCaregiver": {
+    "placeholders": {
+      "who": {
+        "type": "String"
+      }
+    }
+  },
+  "accessOther": "{who}: {action}",
+  "@accessOther": {
+    "placeholders": {
+      "who": {
+        "type": "String"
+      },
+      "action": {
+        "type": "String"
+      }
+    }
+  },
+  "accessSystem": "Mamily",
+  "notifUrgentTitle": "التنبيهات العاجلة",
+  "notifUrgentBody": "تصل طلبات المساعدة و«تعالوا خذوني» و«اتصلوا بي» وتأخّر تسجيل الوصول فوراً، حتى في ساعات الهدوء. قد يُسكتها وضع «عدم الإزعاج» في هاتفك.",
+  "notifUrgentQuiet": "إرسال التنبيهات العاجلة خلال ساعات الهدوء",
+  "notifCatSafety": "الأمان والمساعدة",
+  "notifCatLocation": "الوصول ورسائل الاطمئنان",
+  "notifCatRemote": "طلبات المساعدة والمكالمات",
+  "setupTitle": "قائمة الإعداد",
+  "setupIntro": "ما هو جاهز على هاتف {name}، وما يحتاج خطوة بعد.",
+  "@setupIntro": {
+    "placeholders": {
+      "name": {
+        "type": "String"
+      }
+    }
+  },
+  "setupDone": "تم",
+  "setupTodo": "للقيام به",
+  "setupNotPossible": "غير ممكن على هذا الهاتف",
+  "setupLinked": "الهاتف مربوط بـMamily",
+  "setupLinkedHow": "اعرض رمز ربط وامسحه على هاتف الطفل.",
+  "setupLocationSharing": "مشاركة الموقع مفعّلة",
+  "setupLocationPermission": "الموقع مسموح على الهاتف",
+  "setupLocationPermissionHow": "افتح Mamily على الهاتف واضغط «موافق» عندما يسأل عن الموقع.",
+  "setupRulesEnforce": "يستطيع الهاتف إيقاف التطبيقات",
+  "setupUsage": "يمكن عرض استخدام التطبيقات لك",
+  "setupUsageHowAndroid": "على الهاتف: الإعدادات ← الوصول إلى الاستخدام ← Mamily ← سماح.",
+  "setupRulesConfirmed": "القواعد مؤكدة من الهاتف",
+  "setupContacts": "أُضيفت جهات اتصال موثوقة",
+  "setupPlaces": "أُضيف المنزل أو المدرسة",
+  "setupOpen": "فتح",
+  "agreementsTitle": "الاتفاقات",
+  "agreementsIntro": "دوّنوا ما اتفقتم عليه معاً. يستطيع {name} قراءته والضغط على «أوافق». لا يغيّر ذلك أي قاعدة للهاتف بحد ذاته.",
+  "@agreementsIntro": {
+    "placeholders": {
+      "name": {
+        "type": "String"
+      }
+    }
+  },
+  "agreementNew": "اتفاق جديد",
+  "agreementTitle": "العنوان",
+  "agreementAddItem": "إضافة سطر",
+  "agreementChildAgreed": "وافق {name}",
+  "@agreementChildAgreed": {
+    "placeholders": {
+      "name": {
+        "type": "String"
+      }
+    }
+  },
+  "agreementWaiting": "بانتظار أن يقرأه {name}",
+  "@agreementWaiting": {
+    "placeholders": {
+      "name": {
+        "type": "String"
+      }
+    }
+  },
+  "lessonsProgress": "دروس الأمان: أُنجز {done} من {total}",
+  "@lessonsProgress": {
+    "placeholders": {
+      "done": {
+        "type": "int"
+      },
+      "total": {
+        "type": "int"
+      }
+    }
+  },
+  "hubSectionSafety": "الأمان والهاتف",
+  "hubSectionDaily": "الحياة اليومية",
+  "hubSectionWellbeing": "الرفاه",
+  "hubSectionMore": "المزيد",
+  "hubLocation": "الموقع والأمان",
+  "hubPhoneRules": "قواعد الهاتف",
+  "hubHelpCalls": "المساعدة والمكالمات",
+  "hubAgreements": "الاتفاقات والدروس",
+  "hubSetup": "قائمة الإعداد",
+  "todayUrgent": "يحتاجك الآن",
+  "inboxHelpAlert": "طلب {name} المساعدة",
+  "@inboxHelpAlert": {
+    "placeholders": {
+      "name": {
+        "type": "String"
+      }
+    }
+  },
+  "inboxPickMeUp": "{name}: تعالوا خذوني",
+  "@inboxPickMeUp": {
+    "placeholders": {
+      "name": {
+        "type": "String"
+      }
+    }
+  },
+  "inboxCallMe": "{name}: اتصلوا بي",
+  "@inboxCallMe": {
+    "placeholders": {
+      "name": {
+        "type": "String"
+      }
+    }
+  },
+  "inboxJourneyOverdue": "لم يسجّل {name} وصوله إلى {place} بعد",
+  "@inboxJourneyOverdue": {
+    "placeholders": {
+      "name": {
+        "type": "String"
+      },
+      "place": {
+        "type": "String"
+      }
+    }
+  },
+  "inboxOpenSafety": "فتح",
+  "kidSetupTitle": "إعداد قواعد الهاتف",
+  "kidSetupBody": "يحتاج شخص بالغ إلى إكمال هذه الخطوات على هذا الهاتف.",
+  "kidSetupScreenTime": "السماح لـMamily باستخدام «مدة استخدام الجهاز»",
+  "kidSetupUsage": "السماح بالوصول إلى بيانات الاستخدام",
+  "kidSetupAlarms": "السماح بالأوقات الدقيقة (المنبهات والتذكيرات)",
+  "safetyMyPhone": "رقمك للأطفال",
+  "safetyMyPhoneHint": "يظهر في «اتصل بأحد والديّ» في تطبيق أطفالك.",
+  "safetyMyPhoneMissing": "أضف رقمك ليتمكن أطفالك من الاتصال بك من Mamily.",
+  "pairJoining": "جارٍ الانضمام إلى عائلتك…",
+  "pairAlreadySignedIn": "هذا الهاتف مسجَّل الدخول بالفعل. للتبديل إلى طفل آخر، يجب على أحد الوالدين إلغاء ربطه أولًا.",
+  "pairWaitingForChild": "بانتظار هاتف {name}…",
+  "@pairWaitingForChild": {
+    "placeholders": {
+      "name": {
+        "type": "String"
+      }
+    }
+  },
+  "pairSuccessTitle": "تم الربط!",
+  "pairSuccessBody": "تم تسجيل دخول {name} على {device}.",
+  "@pairSuccessBody": {
+    "placeholders": {
+      "name": {
+        "type": "String"
+      },
+      "device": {
+        "type": "String"
+      }
+    }
+  },
+  "pairSuccessBodyNoDevice": "تم تسجيل دخول {name} على الهاتف.",
+  "@pairSuccessBodyNoDevice": {
+    "placeholders": {
+      "name": {
+        "type": "String"
+      }
+    }
+  },
+  "childSessionEndedRevoked": "ألغى أحد الوالدين ربط هذا الهاتف. اطلب رمزًا جديدًا للانضمام مجددًا.",
+  "childSessionEndedExpired": "تم تسجيل خروجك. اطلب من أحد الوالدين رمزًا جديدًا للانضمام مجددًا.",
+  "childLanguageTitle": "لغة التطبيق",
+  "childLanguageHint": "يظهر تطبيق Mamily لدى {name} بهذه اللغة. لا تتغير لغتك ولا لغة باقي الأطفال.",
+  "@childLanguageHint": {
+    "placeholders": {
+      "name": {
+        "type": "String"
+      }
+    }
+  },
+  "childLanguageFamilyDefault": "لغة العائلة ({language})",
+  "@childLanguageFamilyDefault": {
+    "placeholders": {
+      "language": {
+        "type": "String"
+      }
+    }
+  },
+  "childLanguageSaved": "تم الحفظ. سيتغيّر هاتف {name} فورًا، أو عند فتحه في المرة القادمة.",
+  "@childLanguageSaved": {
+    "placeholders": {
+      "name": {
+        "type": "String"
+      }
+    }
+  }
 }

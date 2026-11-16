@@ -3,8 +3,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import '../../../core/errors/api_exception.dart';
 import '../../../core/localization/l10n.dart';
-import '../../../core/theme/app_colors.dart';
-import '../../../core/widgets/state_views.dart';
+import '../../../core/design_system.dart';
 import '../../family/application/permissions_controller.dart';
 import '../../family/data/models/family_permission.dart';
 import '../application/learning_goal_detail_controller.dart';
@@ -28,21 +27,15 @@ class LearningGoalDetailScreen extends ConsumerWidget {
         .hasPermission(FamilyPermission.manageLearningGoals);
 
     return Scaffold(
-      backgroundColor: AppColors.background,
       appBar: AppBar(
-        title: Text(
-          async.valueOrNull?.title ?? '',
-          style: const TextStyle(
-            color: AppColors.navy,
-            fontWeight: FontWeight.bold,
-          ),
-        ),
+        title: Text(async.valueOrNull?.title ?? ''),
         actions: [
           if (canManage &&
               async.hasValue &&
               !async.requireValue.isArchived) ...[
             IconButton(
-              icon: const Icon(Icons.edit_outlined, color: AppColors.navy),
+              tooltip: context.l10n.commonEdit,
+              icon: const Icon(Icons.edit_outlined),
               onPressed: () => Navigator.of(context).push(
                 MaterialPageRoute(
                   builder: (_) =>
@@ -51,14 +44,15 @@ class LearningGoalDetailScreen extends ConsumerWidget {
               ),
             ),
             IconButton(
-              icon: const Icon(Icons.archive_outlined, color: AppColors.coral),
+              tooltip: context.l10n.lgArchive,
+              icon: const Icon(Icons.archive_outlined),
               onPressed: () =>
                   _confirmArchive(context, ref, async.requireValue),
             ),
           ],
         ],
       ),
-      body: SafeArea(
+      body: AppContentFrame(
         child: async.when(
           loading: () => const LoadingView(),
           error: (e, _) => ErrorRetryView(
@@ -86,27 +80,14 @@ class LearningGoalDetailScreen extends ConsumerWidget {
     LearningGoal goal,
   ) async {
     final l = context.l10n;
-    final ok = await showDialog<bool>(
-      context: context,
-      builder: (_) => AlertDialog(
-        title: Text(l.lgArchiveConfirmTitle),
-        content: Text(l.lgArchiveConfirmBody(goal.title)),
-        actions: [
-          TextButton(
-            onPressed: () => Navigator.of(context).pop(false),
-            child: Text(l.commonCancel),
-          ),
-          TextButton(
-            onPressed: () => Navigator.of(context).pop(true),
-            child: Text(
-              l.lgArchive,
-              style: const TextStyle(color: AppColors.coral),
-            ),
-          ),
-        ],
-      ),
+    final ok = await confirmAction(
+      context,
+      title: l.lgArchiveConfirmTitle,
+      body: l.lgArchiveConfirmBody(goal.title),
+      confirmLabel: l.lgArchive,
+      destructive: true,
     );
-    if (ok != true) return;
+    if (!ok) return;
     try {
       await ref
           .read(learningGoalsControllerProvider.notifier)
@@ -136,7 +117,12 @@ class _Body extends ConsumerWidget {
     final progress = ref.watch(goalProgressControllerProvider(goal.id));
 
     return ListView(
-      padding: const EdgeInsets.fromLTRB(20, 16, 20, 32),
+      padding: const EdgeInsets.fromLTRB(
+        AppSpacing.lg,
+        AppSpacing.sm,
+        AppSpacing.lg,
+        AppSpacing.xxxl,
+      ),
       children: [
         _Card(
           child: Column(
@@ -145,63 +131,41 @@ class _Body extends ConsumerWidget {
               Row(
                 children: [
                   Expanded(
-                    child: Text(
-                      goal.title,
-                      style: const TextStyle(
-                        color: AppColors.navy,
-                        fontSize: 18,
-                        fontWeight: FontWeight.bold,
-                      ),
-                    ),
+                    child: Text(goal.title, style: context.type.titleMedium),
                   ),
                   GoalStatusChip(status: goal.status),
                 ],
               ),
               if ((goal.description ?? '').isNotEmpty) ...[
-                const SizedBox(height: 8),
+                const SizedBox(height: AppSpacing.sm),
                 Text(
                   goal.description!,
-                  style: const TextStyle(
-                    color: AppColors.textMuted,
-                    height: 1.5,
+                  style: context.type.bodyMedium?.copyWith(
+                    color: context.mamily.ink2,
                   ),
                 ),
               ],
-              const SizedBox(height: 6),
+              const SizedBox(height: AppSpacing.xs),
               Text(
                 goalMetricLabel(l, goal.metric),
-                style: const TextStyle(
-                  color: AppColors.textMuted,
-                  fontSize: 12,
+                style: context.type.bodySmall?.copyWith(
+                  color: context.mamily.ink2,
                 ),
               ),
             ],
           ),
         ),
-        const SizedBox(height: 14),
+        const SizedBox(height: AppSpacing.md),
         _Card(
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Text(
-                l.lgStanding,
-                style: const TextStyle(
-                  color: AppColors.navy,
-                  fontWeight: FontWeight.bold,
-                ),
-              ),
-              const SizedBox(height: 10),
-              Text(
-                goalStandingText(l, goal),
-                style: const TextStyle(
-                  color: AppColors.navy,
-                  fontSize: 22,
-                  fontWeight: FontWeight.bold,
-                ),
-              ),
-              const SizedBox(height: 12),
+              Text(l.lgStanding, style: context.type.titleSmall),
+              const SizedBox(height: AppSpacing.sm),
+              Text(goalStandingText(l, goal), style: context.type.titleLarge),
+              const SizedBox(height: AppSpacing.md),
               GoalProgressBar(goal: goal),
-              const SizedBox(height: 14),
+              const SizedBox(height: AppSpacing.md),
               if (goal.startDate != null)
                 _MetaRow(
                   icon: Icons.play_arrow_rounded,
@@ -218,39 +182,25 @@ class _Body extends ConsumerWidget {
                   text: l.lgAchievedOn(
                     formatGoalDate(context, goal.achievedAt!),
                   ),
-                  color: const Color(0xFF57C77A),
+                  color: context.mamily.success.foreground,
                 ),
             ],
           ),
         ),
         if (canManage && !goal.isArchived) ...[
-          const SizedBox(height: 14),
+          const SizedBox(height: AppSpacing.md),
           FilledButton.icon(
-            style: FilledButton.styleFrom(
-              backgroundColor: AppColors.coral,
-              minimumSize: const Size.fromHeight(50),
-            ),
             onPressed: () => showRecordProgressSheet(context, goal),
             icon: const Icon(Icons.add_chart_rounded),
             label: Text(l.lgRecord),
           ),
         ],
-        const SizedBox(height: 22),
-        Text(
-          l.lgHistoryTitle,
-          style: const TextStyle(
-            color: AppColors.navy,
-            fontSize: 16,
-            fontWeight: FontWeight.bold,
-          ),
-        ),
-        const SizedBox(height: 12),
+        const SizedBox(height: AppSpacing.xl),
+        SectionHeader(title: l.lgHistoryTitle),
         progress.when(
           loading: () => const Padding(
-            padding: EdgeInsets.all(20),
-            child: Center(
-              child: CircularProgressIndicator(color: AppColors.coral),
-            ),
+            padding: EdgeInsets.all(AppSpacing.xl),
+            child: Center(child: CircularProgressIndicator()),
           ),
           error: (e, _) => ErrorRetryView(
             error: e,
@@ -261,7 +211,9 @@ class _Body extends ConsumerWidget {
           data: (state) => state.isEmpty
               ? Text(
                   l.lgHistoryEmpty,
-                  style: const TextStyle(color: AppColors.textMuted),
+                  style: context.type.bodyMedium?.copyWith(
+                    color: context.mamily.ink2,
+                  ),
                 )
               : Column(
                   children: [
@@ -269,11 +221,9 @@ class _Body extends ConsumerWidget {
                       _ProgressTile(goal: goal, entry: entry),
                     if (state.hasMore)
                       Padding(
-                        padding: const EdgeInsets.only(top: 6),
+                        padding: const EdgeInsets.only(top: AppSpacing.xs),
                         child: state.loadingMore
-                            ? const CircularProgressIndicator(
-                                color: AppColors.coral,
-                              )
+                            ? const CircularProgressIndicator()
                             : OutlinedButton(
                                 onPressed: () => ref
                                     .read(
@@ -297,14 +247,9 @@ class _Card extends StatelessWidget {
   const _Card({required this.child});
   final Widget child;
   @override
-  Widget build(BuildContext context) => Container(
+  Widget build(BuildContext context) => SizedBox(
     width: double.infinity,
-    padding: const EdgeInsets.all(18),
-    decoration: BoxDecoration(
-      color: Colors.white,
-      borderRadius: BorderRadius.circular(22),
-    ),
-    child: child,
+    child: AppCard(padding: const EdgeInsets.all(AppSpacing.xl), child: child),
   );
 }
 
@@ -316,14 +261,18 @@ class _MetaRow extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) => Padding(
-    padding: const EdgeInsets.only(bottom: 4),
+    padding: const EdgeInsets.only(bottom: AppSpacing.xs),
     child: Row(
       children: [
-        Icon(icon, size: 16, color: color ?? AppColors.textMuted),
-        const SizedBox(width: 8),
-        Text(
-          text,
-          style: TextStyle(color: color ?? AppColors.textMuted, fontSize: 13),
+        Icon(icon, size: AppSizes.iconSm, color: color ?? context.mamily.ink2),
+        const SizedBox(width: AppSpacing.sm),
+        Expanded(
+          child: Text(
+            text,
+            style: context.type.bodyMedium?.copyWith(
+              color: color ?? context.mamily.ink2,
+            ),
+          ),
         ),
       ],
     ),
@@ -346,13 +295,8 @@ class _ProgressTile extends StatelessWidget {
             ? formatGoalNumber(entry.value)
             : '${formatGoalNumber(entry.value)} ${goal.unit!.trim()}',
     };
-    return Container(
-      margin: const EdgeInsets.only(bottom: 8),
-      padding: const EdgeInsets.all(14),
-      decoration: BoxDecoration(
-        color: Colors.white,
-        borderRadius: BorderRadius.circular(16),
-      ),
+    return AppCard(
+      margin: const EdgeInsets.only(bottom: AppSpacing.sm),
       child: Row(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
@@ -360,20 +304,13 @@ class _ProgressTile extends StatelessWidget {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Text(
-                  valueText,
-                  style: const TextStyle(
-                    color: AppColors.navy,
-                    fontWeight: FontWeight.bold,
-                  ),
-                ),
+                Text(valueText, style: context.type.titleSmall),
                 if ((entry.note ?? '').isNotEmpty) ...[
-                  const SizedBox(height: 4),
+                  const SizedBox(height: AppSpacing.xs),
                   Text(
                     entry.note!,
-                    style: const TextStyle(
-                      color: AppColors.textMuted,
-                      fontSize: 12,
+                    style: context.type.bodySmall?.copyWith(
+                      color: context.mamily.ink2,
                     ),
                   ),
                 ],
@@ -383,7 +320,9 @@ class _ProgressTile extends StatelessWidget {
           if (entry.recordedAt != null)
             Text(
               formatGoalDate(context, entry.recordedAt!),
-              style: const TextStyle(color: AppColors.textMuted, fontSize: 11),
+              style: context.type.bodySmall?.copyWith(
+                color: context.mamily.ink2,
+              ),
             ),
         ],
       ),

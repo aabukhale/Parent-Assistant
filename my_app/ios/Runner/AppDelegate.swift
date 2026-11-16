@@ -12,5 +12,11 @@ import UIKit
 
   func didInitializeImplicitFlutterEngine(_ engineBridge: FlutterImplicitEngineBridge) {
     GeneratedPluginRegistrant.register(with: engineBridge.pluginRegistry)
+    if let registrar = engineBridge.pluginRegistry.registrar(forPlugin: "MamilyLiveActivity") {
+      LiveActivityBridge.register(with: registrar.messenger())
+    }
+    if let registrar = engineBridge.pluginRegistry.registrar(forPlugin: "MamilyDeviceRules") {
+      DeviceRulesBridge.register(with: registrar.messenger())
+    }
   }
 }

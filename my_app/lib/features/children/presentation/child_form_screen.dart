@@ -3,7 +3,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import '../../../core/errors/api_exception.dart';
 import '../../../core/localization/l10n.dart';
-import '../../../core/theme/app_colors.dart';
+import '../../../core/design_system.dart';
 import '../../../widgets/app_text_field.dart';
 import '../../../widgets/primary_button.dart';
 import '../../auth/presentation/auth_form_widgets.dart';
@@ -156,13 +156,17 @@ class _ChildFormScreenState extends ConsumerState<ChildFormScreen> {
     final interestsAsync = ref.watch(interestsProvider);
 
     return Scaffold(
-      backgroundColor: AppColors.background,
       appBar: AppBar(
         title: Text(widget.isEdit ? l.childEditTitle : l.childAddTitle),
       ),
-      body: SafeArea(
+      body: AppContentFrame(
         child: SingleChildScrollView(
-          padding: const EdgeInsets.all(22),
+          padding: const EdgeInsets.fromLTRB(
+            AppSpacing.xl,
+            AppSpacing.sm,
+            AppSpacing.xl,
+            AppSpacing.xxxl,
+          ),
           child: Form(
             key: _formKey,
             child: Column(
@@ -180,20 +184,20 @@ class _ChildFormScreenState extends ConsumerState<ChildFormScreen> {
                       : null,
                 ),
                 AuthFieldError(messages: _fieldErrors['name']),
-                const SizedBox(height: 18),
-                _Label(l.childFieldBirthDate),
-                const SizedBox(height: 8),
-                _DateField(
-                  date: _birthDate,
-                  agePreview: _agePreview,
-                  placeholder: l.childFieldBirthDatePick,
-                  ageLabel: (age) => l.childAgeYears(age),
+                FormSectionLabel(l.childFieldBirthDate),
+                PickerField(
+                  icon: Icons.cake_outlined,
+                  label: l.childFieldBirthDatePick,
+                  value: _birthDate == null
+                      ? null
+                      : ChildInput.formatDate(_birthDate!),
+                  trailing: _agePreview == null
+                      ? null
+                      : l.childAgeYears(_agePreview!),
                   onTap: _pickDate,
                 ),
                 AuthFieldError(messages: _fieldErrors['birth_date']),
-                const SizedBox(height: 18),
-                _Label(l.childFieldGender),
-                const SizedBox(height: 8),
+                FormSectionLabel(l.childFieldGender),
                 Wrap(
                   spacing: 8,
                   children: [
@@ -203,32 +207,28 @@ class _ChildFormScreenState extends ConsumerState<ChildFormScreen> {
                         selected: _gender == g,
                         onSelected: (sel) =>
                             setState(() => _gender = sel ? g : null),
-                        selectedColor: AppColors.teal,
                       ),
                   ],
                 ),
                 AuthFieldError(messages: _fieldErrors['gender']),
-                const SizedBox(height: 18),
-                _Label(l.childFieldAvatarColor),
-                const SizedBox(height: 8),
-                Row(
+                FormSectionLabel(l.childFieldAvatarColor),
+                Wrap(
                   children: [
-                    for (final hex in _palette) ...[
+                    for (var i = 0; i < _palette.length; i++)
                       _ColorDot(
-                        hex: hex,
-                        selected: _avatarColor == hex,
+                        hex: _palette[i],
+                        label: '${l.childFieldAvatarColor} ${i + 1}',
+                        selected: _avatarColor == _palette[i],
                         onTap: () => setState(
-                          () => _avatarColor = _avatarColor == hex ? null : hex,
+                          () => _avatarColor = _avatarColor == _palette[i]
+                              ? null
+                              : _palette[i],
                         ),
                       ),
-                      const SizedBox(width: 10),
-                    ],
                   ],
                 ),
                 AuthFieldError(messages: _fieldErrors['avatar_color']),
-                const SizedBox(height: 18),
-                _Label(l.childFieldInterests),
-                const SizedBox(height: 8),
+                FormSectionLabel(l.childFieldInterests),
                 InterestSelector(
                   interests: interestsAsync,
                   selected: _interestIds,
@@ -250,9 +250,7 @@ class _ChildFormScreenState extends ConsumerState<ChildFormScreen> {
                 if (_submitting)
                   const Padding(
                     padding: EdgeInsets.only(top: 16),
-                    child: Center(
-                      child: CircularProgressIndicator(color: AppColors.coral),
-                    ),
+                    child: Center(child: CircularProgressIndicator()),
                   ),
               ],
             ),
@@ -269,106 +267,49 @@ class _ChildFormScreenState extends ConsumerState<ChildFormScreen> {
   };
 }
 
-class _Label extends StatelessWidget {
-  const _Label(this.text);
-  final String text;
-  @override
-  Widget build(BuildContext context) => Align(
-    alignment: AlignmentDirectional.centerStart,
-    child: Text(
-      text,
-      style: const TextStyle(
-        color: AppColors.navy,
-        fontSize: 15,
-        fontWeight: FontWeight.bold,
-      ),
-    ),
-  );
-}
-
-class _DateField extends StatelessWidget {
-  const _DateField({
-    required this.date,
-    required this.agePreview,
-    required this.placeholder,
-    required this.ageLabel,
-    required this.onTap,
-  });
-
-  final DateTime? date;
-  final int? agePreview;
-  final String placeholder;
-  final String Function(int age) ageLabel;
-  final VoidCallback onTap;
-
-  @override
-  Widget build(BuildContext context) {
-    return InkWell(
-      onTap: onTap,
-      borderRadius: BorderRadius.circular(18),
-      child: Container(
-        padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 16),
-        decoration: BoxDecoration(
-          color: Colors.white,
-          borderRadius: BorderRadius.circular(18),
-          border: Border.all(color: AppColors.border),
-        ),
-        child: Row(
-          children: [
-            const Icon(Icons.cake_outlined, color: Color(0xFF8E98AC)),
-            const SizedBox(width: 12),
-            Text(
-              date == null ? placeholder : ChildInput.formatDate(date!),
-              style: TextStyle(
-                color: date == null ? const Color(0xFF9AA3B5) : AppColors.navy,
-                fontSize: 15,
-              ),
-            ),
-            const Spacer(),
-            if (agePreview != null)
-              Text(
-                ageLabel(agePreview!),
-                style: const TextStyle(
-                  color: AppColors.textMuted,
-                  fontSize: 13,
-                ),
-              ),
-          ],
-        ),
-      ),
-    );
-  }
-}
-
 class _ColorDot extends StatelessWidget {
   const _ColorDot({
     required this.hex,
+    required this.label,
     required this.selected,
     required this.onTap,
   });
   final String hex;
+  final String label;
   final bool selected;
   final VoidCallback onTap;
 
   @override
   Widget build(BuildContext context) {
-    final color = _parseHex(hex);
-    return GestureDetector(
-      onTap: onTap,
-      child: Container(
-        width: 34,
-        height: 34,
-        decoration: BoxDecoration(
-          color: color,
-          shape: BoxShape.circle,
-          border: Border.all(
-            color: selected ? AppColors.navy : AppColors.border,
-            width: selected ? 2.5 : 1,
+    final c = context.mamily;
+    return Semantics(
+      button: true,
+      selected: selected,
+      label: label,
+      excludeSemantics: true,
+      child: InkResponse(
+        onTap: onTap,
+        radius: 24,
+        child: SizedBox.square(
+          dimension: AppSizes.minTouchTarget,
+          child: Center(
+            child: Container(
+              width: 36,
+              height: 36,
+              decoration: BoxDecoration(
+                color: _parseHex(hex),
+                shape: BoxShape.circle,
+                border: Border.all(
+                  color: selected ? c.ink : c.borderStrong,
+                  width: selected ? 3 : 1,
+                ),
+              ),
+              child: selected
+                  ? Icon(Icons.check_rounded, size: 20, color: c.ink)
+                  : null,
+            ),
           ),
         ),
-        child: selected
-            ? const Icon(Icons.check_rounded, size: 18, color: AppColors.navy)
-            : null,
       ),
     );
   }
@@ -377,6 +318,6 @@ class _ColorDot extends StatelessWidget {
 Color _parseHex(String hex) {
   final cleaned = hex.replaceAll('#', '');
   final value = int.tryParse(cleaned, radix: 16);
-  if (value == null) return AppColors.teal;
+  if (value == null) return MamilyPalette.decorTeal;
   return Color(cleaned.length <= 6 ? 0xFF000000 | value : value);
 }

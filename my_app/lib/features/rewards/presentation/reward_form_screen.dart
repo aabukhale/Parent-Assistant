@@ -3,7 +3,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import '../../../core/errors/api_exception.dart';
 import '../../../core/localization/l10n.dart';
-import '../../../core/theme/app_colors.dart';
+import '../../../core/design_system.dart';
 import '../../../widgets/app_text_field.dart';
 import '../../../widgets/primary_button.dart';
 import '../../auth/presentation/auth_form_widgets.dart';
@@ -153,13 +153,17 @@ class _RewardFormScreenState extends ConsumerState<RewardFormScreen> {
   Widget build(BuildContext context) {
     final l = context.l10n;
     return Scaffold(
-      backgroundColor: AppColors.background,
       appBar: AppBar(
         title: Text(widget.isEdit ? l.rewardsEditTitle : l.rewardsNewTitle),
       ),
-      body: SafeArea(
+      body: AppContentFrame(
         child: SingleChildScrollView(
-          padding: const EdgeInsets.all(22),
+          padding: const EdgeInsets.fromLTRB(
+            AppSpacing.xl,
+            AppSpacing.sm,
+            AppSpacing.xl,
+            AppSpacing.xxxl,
+          ),
           child: Form(
             key: _formKey,
             child: Column(
@@ -177,16 +181,14 @@ class _RewardFormScreenState extends ConsumerState<RewardFormScreen> {
                       : null,
                 ),
                 AuthFieldError(messages: _fieldErrors['title']),
-                const SizedBox(height: 16),
+                const SizedBox(height: AppSpacing.lg),
                 AppTextField(
                   label: l.rewardFieldDescription,
                   controller: _description,
                   prefixIcon: Icons.notes_rounded,
                 ),
                 AuthFieldError(messages: _fieldErrors['description']),
-                const SizedBox(height: 18),
-                _label(l.rewardFieldType),
-                const SizedBox(height: 8),
+                FormSectionLabel(l.rewardFieldType),
                 if (widget.isEdit)
                   _ReadOnlyType(type: _type)
                 else
@@ -196,7 +198,7 @@ class _RewardFormScreenState extends ConsumerState<RewardFormScreen> {
                   ),
                 AuthFieldError(messages: _fieldErrors['type']),
                 if (_type == RewardType.screenTime) ...[
-                  const SizedBox(height: 16),
+                  const SizedBox(height: AppSpacing.lg),
                   AppTextField(
                     label: l.rewardFieldMinutes,
                     controller: _minutes,
@@ -205,7 +207,7 @@ class _RewardFormScreenState extends ConsumerState<RewardFormScreen> {
                   ),
                   AuthFieldError(messages: _fieldErrors['metadata.minutes']),
                 ],
-                const SizedBox(height: 16),
+                const SizedBox(height: AppSpacing.lg),
                 AppTextField(
                   label: l.rewardFieldCost,
                   controller: _cost,
@@ -216,16 +218,15 @@ class _RewardFormScreenState extends ConsumerState<RewardFormScreen> {
                       : null,
                 ),
                 AuthFieldError(messages: _fieldErrors['points_cost']),
-                const SizedBox(height: 8),
+                const SizedBox(height: AppSpacing.sm),
                 SwitchListTile(
                   contentPadding: EdgeInsets.zero,
                   title: Text(l.rewardFieldActive),
                   value: _isActive,
-                  activeThumbColor: AppColors.coral,
                   onChanged: (v) => setState(() => _isActive = v),
                 ),
                 AuthFieldError(messages: _fieldErrors['is_active']),
-                const SizedBox(height: 22),
+                const SizedBox(height: AppSpacing.xl),
                 PrimaryButton(
                   text: l.rewardSave,
                   onPressed: _submitting ? null : _submit,
@@ -233,9 +234,7 @@ class _RewardFormScreenState extends ConsumerState<RewardFormScreen> {
                 if (_submitting)
                   const Padding(
                     padding: EdgeInsets.only(top: 16),
-                    child: Center(
-                      child: CircularProgressIndicator(color: AppColors.coral),
-                    ),
+                    child: Center(child: CircularProgressIndicator()),
                   ),
               ],
             ),
@@ -244,18 +243,6 @@ class _RewardFormScreenState extends ConsumerState<RewardFormScreen> {
       ),
     );
   }
-
-  Widget _label(String text) => Align(
-    alignment: AlignmentDirectional.centerStart,
-    child: Text(
-      text,
-      style: const TextStyle(
-        color: AppColors.navy,
-        fontSize: 15,
-        fontWeight: FontWeight.bold,
-      ),
-    ),
-  );
 }
 
 class _TypePicker extends StatelessWidget {
@@ -269,41 +256,16 @@ class _TypePicker extends StatelessWidget {
     return Column(
       children: [
         for (final t in RewardType.values)
-          GestureDetector(
-            onTap: () => onChanged(t),
-            child: Container(
-              margin: const EdgeInsets.only(bottom: 8),
-              padding: const EdgeInsets.all(14),
-              decoration: BoxDecoration(
-                color: Colors.white,
-                borderRadius: BorderRadius.circular(16),
-                border: Border.all(
-                  color: value == t ? AppColors.coral : AppColors.border,
-                  width: value == t ? 2 : 1,
-                ),
-              ),
-              child: Row(
-                children: [
-                  Icon(
-                    value == t
-                        ? Icons.radio_button_checked_rounded
-                        : Icons.radio_button_unchecked_rounded,
-                    color: value == t ? AppColors.coral : AppColors.textMuted,
-                    size: 20,
-                  ),
-                  const SizedBox(width: 12),
-                  Icon(rewardTypeIcon(t), size: 18, color: AppColors.textMuted),
-                  const SizedBox(width: 10),
-                  Text(
-                    rewardTypeLabel(l, t),
-                    style: const TextStyle(
-                      color: AppColors.navy,
-                      fontWeight: FontWeight.bold,
-                    ),
-                  ),
-                ],
-              ),
+          RadioOptionCard<RewardType>(
+            value: t,
+            groupValue: value,
+            title: rewardTypeLabel(l, t),
+            leading: IconBadge(
+              icon: rewardTypeIcon(t),
+              tone: AppTone.warning,
+              size: 36,
             ),
+            onChanged: onChanged,
           ),
       ],
     );
@@ -317,30 +279,8 @@ class _ReadOnlyType extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final l = context.l10n;
-    return Container(
-      padding: const EdgeInsets.all(14),
-      decoration: BoxDecoration(
-        color: const Color(0xFFF0F1F6),
-        borderRadius: BorderRadius.circular(16),
-      ),
-      child: Row(
-        children: [
-          const Icon(
-            Icons.lock_outline_rounded,
-            size: 18,
-            color: AppColors.textMuted,
-          ),
-          const SizedBox(width: 10),
-          Icon(rewardTypeIcon(type), size: 18, color: AppColors.textMuted),
-          const SizedBox(width: 8),
-          Expanded(
-            child: Text(
-              '${rewardTypeLabel(l, type)} · ${l.rewardTypeLocked}',
-              style: const TextStyle(color: AppColors.navy, fontSize: 12),
-            ),
-          ),
-        ],
-      ),
+    return ReadOnlyField(
+      text: '${rewardTypeLabel(l, type)} · ${l.rewardTypeLocked}',
     );
   }
 }
