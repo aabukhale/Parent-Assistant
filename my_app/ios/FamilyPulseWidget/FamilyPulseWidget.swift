@@ -2,7 +2,7 @@ import SwiftUI
 import WidgetKit
 
 /// The Family Pulse payload written by the app (`HomeWidget.saveWidgetData`,
-/// key `mamily_surface`, App Group `group.com.mamily.app`). The server
+/// key `mamily_surface`, App Group `group.com.moazrazem.mamily`). The server
 /// already dropped what the parent chose not to show, so every field but the
 /// index is optional.
 struct PulseSurface: Decodable {
@@ -24,7 +24,7 @@ struct PulseSurface: Decodable {
   let pendingTotal: Int?
   let children: [Child]
 
-  static let appGroup = "group.com.mamily.app"
+  static let appGroup = "group.com.moazrazem.mamily"
   static let dataKey = "mamily_surface"
 
   static func load() -> PulseSurface? {

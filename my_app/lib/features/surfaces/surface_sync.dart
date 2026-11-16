@@ -21,7 +21,7 @@ class SurfaceSync {
 
   final Ref _ref;
 
-  static const appGroupId = 'group.com.mamily.app';
+  static const appGroupId = 'group.com.moazrazem.mamily';
   static const androidWidget = 'FamilyPulseWidgetProvider';
   static const iosWidget = 'FamilyPulseWidget';
   static const _overlay = MethodChannel('mamily/overlay');

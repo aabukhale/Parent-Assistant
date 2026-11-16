@@ -13,9 +13,9 @@ APNs (iOS) / FCM transport (Android) → app (`PushService`).
 
 | What | Value | Source |
 |------|-------|--------|
-| iOS bundle id (Runner) | `com.example.myApp` | `ios/Runner.xcodeproj/project.pbxproj` |
-| Extensions | `com.example.myApp.FamilyPulseWidget`, `com.example.myApp.ActivityMonitor` | same |
-| App Group | `group.com.mamily.app` | `Runner.entitlements`, `FamilyPulseWidget.entitlements` |
+| iOS bundle id (Runner) | `com.moazrazem.mamily` (was `com.example.myApp`, which Apple refused for team 9826A535WG as "not available") | `ios/Runner.xcodeproj/project.pbxproj` |
+| Extensions | `com.moazrazem.mamily.FamilyPulseWidget`, `com.moazrazem.mamily.ActivityMonitor` | same |
+| App Group | `group.com.moazrazem.mamily` (was `group.com.mamily.app`, owned by another team) | `Runner.entitlements`, `FamilyPulseWidget.entitlements` |
 | Android package | `com.example.my_app` | `android/app/build.gradle.kts` |
 | Firebase project | `mamily-68729` (sender 504806449277) | `GoogleService-Info.plist`, `google-services.json` (added by Anwar, 2da756e) |
 | Firebase iOS app | `1:504806449277:ios:dfbddb5c6bde3360195114`, registered for `com.example.myApp` | `GoogleService-Info.plist` |
@@ -68,7 +68,7 @@ working backend is Anwar's (this Mac's local backend has no FCM credentials).
 
 Do these in order. Nothing secret goes in git.
 
-**A. Decide the final bundle id.** `com.example.myApp` matches the Firebase iOS
+**A. Bundle id — done 2026-11-16: `com.moazrazem.mamily`, registered to team 9826A535WG by Xcode (push, App Group, Family Controls). Still needed: a Firebase iOS app for it (below); the committed `GoogleService-Info.plist` is still the one for `com.example.myApp`.** Original note: `com.example.myApp` matches the Firebase iOS
 app today, but `com.example.*` ids are commonly already taken and App Store
 Connect rejects them. If Xcode (step B) says the id "is not available", pick
 an id you own (e.g. reverse domain) and then:

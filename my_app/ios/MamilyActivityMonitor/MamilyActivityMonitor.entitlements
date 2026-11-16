@@ -6,7 +6,7 @@
 	<true/>
 	<key>com.apple.security.application-groups</key>
 	<array>
-		<string>group.com.mamily.app</string>
+		<string>group.com.moazrazem.mamily</string>
 	</array>
 </dict>
 </plist>

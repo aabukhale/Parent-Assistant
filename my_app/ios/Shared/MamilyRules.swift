@@ -20,7 +20,7 @@ import ManagedSettings
 ///  - schedule intervals must be ≥ 15 minutes (Device Activity rule)
 @available(iOS 16.0, *)
 enum MamilyRules {
-    static let appGroup = "group.com.mamily.app"
+    static let appGroup = "group.com.moazrazem.mamily"
     static let storeName = ManagedSettingsStore.Name("mamily")
     private static let policyKey = "mamily.rules.policy"
     private static let appliedKey = "mamily.rules.applied_version"
