@@ -24,6 +24,17 @@ class PairingTrace {
     return '${'*' * (code.length - 2)}${code.substring(code.length - 2)}';
   }
 
+  /// The structure of [value] without its content: letters → `a`, digits →
+  /// `9`, everything else kept, capped at 120 characters. Enough to see what
+  /// was glued onto a code without revealing the code.
+  static String shape(String? value) {
+    if (value == null) return '-';
+    final out = value
+        .replaceAll(RegExp(r'[A-Za-z]'), 'a')
+        .replaceAll(RegExp(r'[0-9]'), '9');
+    return out.length > 120 ? '${out.substring(0, 120)}…' : out;
+  }
+
   static void log(String step) {
     final line = '${DateTime.now().toIso8601String()} $step';
     debugPrint('[pairing] $step');

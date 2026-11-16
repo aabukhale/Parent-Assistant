@@ -27,9 +27,14 @@ old simulator install with a token from the previous Firebase app failed once
 with `THIRD_PARTY_AUTH_ERROR`, recorded as permanent, not retried).
 
 Not yet run: production APNs (TestFlight/App Store build), Android with the
-same backend. One-scan pairing from the iPhone Camera still fails on a real
-phone (the `code` value arrives 50 characters long; the app now says so and
-the typed code works) — being fixed separately.
+same backend.
+
+One-scan pairing from the iPhone Camera (closed app → Sara's home, no typing)
+passed on the phone on 2026-11-16 22:00. The earlier "code value 50 characters
+long" failures were caused by the test QR images, not iOS: the script that made
+them (zsh, no word splitting) encoded the whole line "link code expiry". The
+QR the parent app draws contains only the link. The app now tolerates text
+after a valid code anyway.
 
 Push path: Laravel `NotificationService` → `push_deliveries` row →
 queued `SendPushNotification` → `FcmPushGateway` (FCM HTTP v1) → Firebase →

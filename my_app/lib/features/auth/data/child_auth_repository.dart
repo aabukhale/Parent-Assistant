@@ -22,9 +22,21 @@ String? pairingCodeFromLink(String raw) {
   if (uri == null) return normalizePairingCode(raw);
   if (uri.scheme == 'mamily' && uri.host == 'pair') {
     final code = uri.queryParameters['code'];
-    return code == null ? null : normalizePairingCode(code);
+    if (code == null) return null;
+    return normalizePairingCode(code) ?? _leadingPairingCode(code);
   }
   return normalizePairingCode(raw);
+}
+
+/// A code value with other text after it (e.g. a QR or pasted message that
+/// carries the code followed by its formatted copy or expiry). Accepts only a
+/// valid code followed by a separator, never a code fished out of the middle
+/// of other text.
+String? _leadingPairingCode(String value) {
+  final match = RegExp(
+    r'^\s*([A-Za-z0-9]{4}[-_ ]?[A-Za-z0-9]{4})(?=[?&/#\s;,.]|$)',
+  ).firstMatch(value);
+  return match == null ? null : normalizePairingCode(match.group(1)!);
 }
 
 /// Child-device session endpoints (`/child-auth/pair`, `/child/*`).

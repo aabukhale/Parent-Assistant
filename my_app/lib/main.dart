@@ -127,6 +127,8 @@ class _MamilyAppState extends ConsumerState<MamilyApp> {
         'pair link received: path "${uri.path}", query keys '
         '${uri.queryParameters.keys.toList()}, query length '
         '${uri.query.length}, fragment ${uri.hasFragment ? uri.fragment.length : 0}'
+        ', code value shape '
+        '"${PairingTrace.shape(uri.queryParameters['code'])}"'
         ', code ${PairingTrace.mask(code)}${code == null ? ' (unreadable)' : ''}',
       );
       if (code == null) {

@@ -29,6 +29,27 @@ void main() {
       expect(pairingCodeFromLink('mamily://pair'), isNull);
       expect(pairingCodeFromLink('https://evil.example/?code=DZQN9N6K'), null);
     });
+
+    test('a code with something glued on after it still pairs', () {
+      // E.g. a QR that encoded the link followed by the formatted code and
+      // expiry ("…?code=689RDY9T 689R-DY9T 2026-11-16T20:08:15Z").
+      for (final link in [
+        'mamily://pair?code=4VPBY39C?source=camera&x=1',
+        'mamily://pair?code=4VPB-Y39C/extra',
+        'mamily://pair?code=4vpby39c%20trailing',
+        'mamily://pair?code=4VPBY39C 4VPB-Y39C 2026-11-16T20:08:15.000000Z',
+      ]) {
+        expect(pairingCodeFromLink(link), '4VPBY39C', reason: link);
+      }
+      // Never a code fished out of other text, or a longer token.
+      for (final link in [
+        'mamily://pair?code=xx4VPBY39C',
+        'mamily://pair?code=4VPBY39CZZ',
+        'mamily://pair?code=hello%204VPBY39C',
+      ]) {
+        expect(pairingCodeFromLink(link), isNull, reason: link);
+      }
+    });
   });
 
   group('ChildAuthRepository.pair', () {
