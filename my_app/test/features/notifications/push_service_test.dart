@@ -117,7 +117,11 @@ void main() {
       greaterThan(fake.calls.lastIndexOf('apns')),
     );
     expect(_sentTokens(api), ['fcm-token-1']);
-    expect(api.container.read(pushServiceProvider).delivering.value, isTrue);
+    final push = api.container.read(pushServiceProvider);
+    expect(push.tokenRegistered.value, isTrue);
+    // A stored token doesn't prove pushes arrive (APNs key / provider
+    // credentials can be missing): the polled banners stay on until one does.
+    expect(push.delivering.value, isFalse);
   });
 
   test('without an APNs token (no push entitlement) nothing is sent', () async {
@@ -131,7 +135,10 @@ void main() {
 
     expect(fake.calls, isNot(contains('token')));
     expect(_sentTokens(api), isEmpty);
-    expect(api.container.read(pushServiceProvider).delivering.value, isFalse);
+    expect(
+      api.container.read(pushServiceProvider).tokenRegistered.value,
+      isFalse,
+    );
   });
 
   test(
@@ -215,11 +222,12 @@ void main() {
       addTearDown(api.dispose);
       final push = api.container.read(pushServiceProvider);
       await push.registerCurrentSession();
-      expect(push.delivering.value, isTrue);
+      expect(push.tokenRegistered.value, isTrue);
 
       await push.onSessionEnded();
 
       expect(fake.calls.last, 'delete');
+      expect(push.tokenRegistered.value, isFalse);
       expect(push.delivering.value, isFalse);
     },
   );

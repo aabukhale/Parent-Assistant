@@ -128,10 +128,17 @@ class PushService {
   );
 
   /// True once this install's token was accepted by the backend for the
-  /// current session, i.e. the server can reach this phone by push. While
-  /// false, the parent shell's inbox polling shows new items as local
-  /// banners instead (foreground only).
+  /// current session. That alone doesn't prove pushes arrive (the APNs key
+  /// or the provider credentials can still be missing).
+  final tokenRegistered = ValueNotifier<bool>(false);
+
+  /// True once a real push has reached this phone in the current session.
+  /// Until then the parent shell's inbox polling shows new items as local
+  /// banners (foreground only), so a phone with a token but no working push
+  /// path still sees them.
   final delivering = ValueNotifier<bool>(false);
+
+  void _markPushArrived() => delivering.value = true;
 
   bool get isConfigured => _firebaseReady;
 
@@ -161,11 +168,15 @@ class PushService {
         );
 
     FirebaseMessaging.onMessage.listen(_onForegroundMessage);
-    FirebaseMessaging.onMessageOpenedApp.listen(
-      (m) => _openRoute(m.data['route'] as String?),
-    );
+    FirebaseMessaging.onMessageOpenedApp.listen((m) {
+      _markPushArrived();
+      _openRoute(m.data['route'] as String?);
+    });
     final initial = await FirebaseMessaging.instance.getInitialMessage();
-    if (initial != null) _stashRoute(initial.data['route'] as String?);
+    if (initial != null) {
+      _markPushArrived();
+      _stashRoute(initial.data['route'] as String?);
+    }
 
     listenForTokenRefresh();
   }
@@ -328,7 +339,7 @@ class PushService {
     try {
       if (auth.isChild) {
         await _ref.read(childAuthRepositoryProvider).updatePushToken(token);
-        delivering.value = true;
+        tokenRegistered.value = true;
       } else if (auth.isAuthenticated && auth.activeMembership != null) {
         final installId = await _ref
             .read(secureStorageProvider)
@@ -347,7 +358,7 @@ class PushService {
                 pushToken: token,
               ),
             );
-        delivering.value = true;
+        tokenRegistered.value = true;
       }
     } catch (e) {
       debugPrint('Push token registration failed: ${e.runtimeType}');
@@ -361,6 +372,7 @@ class PushService {
   /// another device row claims it).
   Future<void> onSessionEnded() async {
     delivering.value = false;
+    tokenRegistered.value = false;
     try {
       await _local.cancelAll();
     } catch (_) {}
@@ -370,6 +382,7 @@ class PushService {
   }
 
   Future<void> _onForegroundMessage(RemoteMessage m) async {
+    _markPushArrived();
     // Data-only "something changed" signals: re-read state from the API.
     // A push is only a hint — nothing is assumed applied until the phone
     // reports it.
@@ -452,6 +465,7 @@ class PushService {
     _tokenSub?.cancel();
     availability.dispose();
     delivering.dispose();
+    tokenRegistered.dispose();
   }
 }
 
