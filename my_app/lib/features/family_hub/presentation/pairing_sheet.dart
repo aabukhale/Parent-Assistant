@@ -74,7 +74,10 @@ class _PairingSheetState extends ConsumerState<_PairingSheet> {
       setState(() => _code = code.withStatus(status));
       if (status.isUsed) {
         _poll?.cancel();
-        ref.invalidate(childDevicesProvider(widget.childId));
+        // The children list / Today badges read the family overview.
+        ref
+          ..invalidate(childDevicesProvider(widget.childId))
+          ..invalidate(pulseProvider);
       }
     } catch (_) {
       // Offline for a moment: the next tick tries again.

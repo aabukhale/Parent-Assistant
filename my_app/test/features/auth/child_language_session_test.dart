@@ -179,6 +179,41 @@ void main() {
       expect(await api.storage.readToken(), isNull);
     });
 
+    test(
+      'a cold start in the child language goes back to the device language',
+      () async {
+        // Regression: main() opens in the cached child language; a session
+        // found revoked during restore never passed through "child", so the
+        // child's language stayed for whoever used the phone next.
+        final api = TestApi.create(token: 'child-tok', locale: 'en');
+        addTearDown(api.dispose);
+        await api.storage.writeSessionKind('child');
+        await api.storage.writeChildDeviceId('device-1');
+        api.container
+            .read(localeControllerProvider.notifier)
+            .applyChildLanguage('he');
+        api.adapter
+          ..onGet(
+            '/child/me',
+            (s) =>
+                s.reply(401, {'success': false, 'message': 'Unauthenticated.'}),
+          )
+          ..onPost(
+            '/child-auth/device-status',
+            (s) => s.reply(200, {
+              'success': true,
+              'data': {'state': 'revoked'},
+            }),
+            data: Matchers.any,
+          );
+        api.container.read(authControllerProvider);
+        await _settle(api, (s) => s.phase == AuthPhase.unauthenticated);
+        await Future<void>.delayed(Duration.zero);
+
+        expect(_locale(api), 'en');
+      },
+    );
+
     test('expired (still paired): not reported as an unpair', () async {
       final api = await restoreWith('active');
       addTearDown(api.dispose);

@@ -37,8 +37,16 @@ class AuthController extends Notifier<AuthState> {
     );
     // Leaving a child session (logout, unpair, expiry, parent stepping in):
     // the UI goes back to the device's own language, not the child's.
+    // A cold start opens in the cached child language before the session is
+    // checked, so a session found revoked/expired during restore (restoring
+    // → unauthenticated, never "child") must reset it too.
     listenSelf((prev, next) {
-      if ((prev?.isChild ?? false) && !next.isChild) {
+      final leftChild = (prev?.isChild ?? false) && !next.isChild;
+      final endedDuringRestore =
+          prev?.phase == AuthPhase.restoring &&
+          next.phase == AuthPhase.unauthenticated &&
+          next.childSessionEnd != null;
+      if (leftChild || endedDuringRestore) {
         ref.read(localeControllerProvider.notifier).restoreDeviceLocale();
       }
     });

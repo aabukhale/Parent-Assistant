@@ -318,3 +318,27 @@ theirs). Child notifications already use the child's language server-side.
 - NOT verified: real APNs delivery to a phone (needs APNs key in Firebase,
   the FCM service account on the sending backend, and an explicit App ID —
   `docs/ios-push.md` §3).
+
+## 2026-11-16 — Test pass of `feature/push-pairing-child-language`
+
+Isolated backend (throwaway SQLite, :8101, `mamily:demo-seed`, own queue
+worker); parent on the iPhone 17 Pro simulator, child on the iPad simulator.
+
+Found and fixed:
+- A child session found revoked/expired during a cold start left the phone in
+  the child's language (the app opens in the cached child language, and the
+  reset only ran on child → not-child, which a restore never passes through).
+  Now also reset when restore ends a child session. Regression test added.
+- After "Paired!", the children list / Today still said "No paired device"
+  (pairing refreshed the device list but not the family overview).
+
+Results: `flutter test` 622 passed; backend 310 passed; QR decoded to
+`mamily://pair?code=…` only; cold-start link → child home, no in-app tap
+(iPad and iPhone); parent sheet flipped to "Paired!"; restart and offline cold
+start keep session + language; typed code pairs; used and expired codes
+rejected (requests seen in the server log); unpair → notice; per-child
+languages and RTL/LTR, sibling and parent unchanged; child notification text
+in the child's language; a re-paired phone no longer targeted by the previous
+child's notifications. Not verified: real APNs/FCM delivery (no Apple account
+signed in to Xcode on this Mac, no FCM service account here), notification
+tap routing on screen, Android on a device (emulator ran out of memory).
