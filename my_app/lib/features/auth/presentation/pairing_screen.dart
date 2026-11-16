@@ -8,12 +8,33 @@ import '../../../core/design_system.dart';
 import '../../../core/errors/api_exception.dart';
 import '../../../core/localization/l10n.dart';
 import '../application/auth_controller.dart';
+import '../application/pairing_trace.dart';
 import '../data/child_auth_repository.dart';
+
+/// Waits between automatic retries when a pairing request can't reach the
+/// server (about half a minute in all).
+@visibleForTesting
+List<Duration> pairingRetryDelays = const [
+  Duration(seconds: 2),
+  Duration(seconds: 3),
+  Duration(seconds: 5),
+  Duration(seconds: 8),
+  Duration(seconds: 12),
+];
 
 /// Child joins the family: type the parent's code, scan their QR, or arrive
 /// here from a `mamily://pair?code=…` link (prefilled).
 class PairingScreen extends ConsumerStatefulWidget {
-  const PairingScreen({super.key, this.initialCode, this.autoSubmit = false});
+  const PairingScreen({
+    super.key,
+    this.initialCode,
+    this.autoSubmit = false,
+    this.linkHadNoCode = false,
+  });
+
+  /// Opened from a `mamily://pair` link that carried no readable code: the
+  /// screen says so instead of looking like nothing happened.
+  final bool linkHadNoCode;
 
   final String? initialCode;
 
@@ -34,6 +55,11 @@ class _PairingScreenState extends ConsumerState<PairingScreen> {
   @override
   void initState() {
     super.initState();
+    if (widget.linkHadNoCode) {
+      WidgetsBinding.instance.addPostFrameCallback((_) {
+        if (mounted) setState(() => _error = context.l10n.pairLinkNoCode);
+      });
+    }
     final code = widget.initialCode;
     if (widget.autoSubmit &&
         code != null &&
@@ -63,22 +89,44 @@ class _PairingScreenState extends ConsumerState<PairingScreen> {
       _busy = true;
       _error = null;
     });
-    try {
-      await ref
-          .read(authControllerProvider.notifier)
-          .pairChild(normalized, deviceName: childDeviceLabel());
-      if (mounted) Navigator.of(context).popUntil((r) => r.isFirst);
-    } on ApiException catch (e) {
-      if (!mounted) return;
-      setState(() {
-        _error = switch (e.kind) {
-          ApiErrorKind.validation => l.pairInvalid,
-          ApiErrorKind.rateLimited => l.pairTooMany,
-          _ => e.localizedMessage(l),
-        };
-      });
-    } finally {
-      if (mounted) setState(() => _busy = false);
+    // A connection failure (no signal yet, or iOS holding the very first
+    // local-network request behind its permission prompt) is retried here
+    // with the same code, so the child never has to scan again.
+    for (var attempt = 0; ; attempt++) {
+      PairingTrace.log(
+        'redeem ${PairingTrace.mask(normalized)}, attempt ${attempt + 1}',
+      );
+      try {
+        await ref
+            .read(authControllerProvider.notifier)
+            .pairChild(normalized, deviceName: childDeviceLabel());
+        PairingTrace.log('paired, opening child home');
+        if (!mounted) return;
+        setState(() => _busy = false);
+        Navigator.of(context).popUntil((r) => r.isFirst);
+        return;
+      } on ApiException catch (e) {
+        PairingTrace.log('redeem failed: ${e.kind.name} ${e.statusCode ?? ''}');
+        if (!mounted) return;
+        final offline =
+            e.kind == ApiErrorKind.network || e.kind == ApiErrorKind.timeout;
+        if (offline && attempt < pairingRetryDelays.length) {
+          setState(() => _error = l.pairRetrying);
+          await Future<void>.delayed(pairingRetryDelays[attempt]);
+          if (!mounted) return;
+          continue;
+        }
+        setState(() {
+          _busy = false;
+          _error = switch (e.kind) {
+            ApiErrorKind.validation => l.pairInvalid,
+            ApiErrorKind.rateLimited => l.pairTooMany,
+            _ when offline => l.pairNetworkFailed,
+            _ => e.localizedMessage(l),
+          };
+        });
+        return;
+      }
     }
   }
 

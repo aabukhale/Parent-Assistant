@@ -19,6 +19,7 @@ import 'features/auth/application/auth_state.dart';
 import 'features/auth/data/child_auth_repository.dart';
 import 'features/auth/data/models/child_session.dart';
 import 'features/auth/presentation/auth_gate.dart';
+import 'features/auth/application/pairing_trace.dart';
 import 'features/auth/presentation/pairing_screen.dart';
 import 'features/notifications/push/push_service.dart';
 import 'features/remote/presentation/kid_remote_layer.dart';
@@ -105,8 +106,12 @@ class _MamilyAppState extends ConsumerState<MamilyApp> {
       _links = appLinks.uriLinkStream.listen(_handleLink, onError: (_) {});
       // Also ask for the launch link explicitly; duplicates are ignored.
       final initial = await appLinks.getInitialLink();
+      PairingTrace.log(
+        'initial link: ${initial == null ? 'none' : '${initial.scheme}://${initial.host}'}',
+      );
       if (initial != null && mounted) _handleLink(initial);
-    } catch (_) {
+    } catch (e) {
+      PairingTrace.log('link handling unavailable: ${e.runtimeType}');
       // Link handling unavailable on this platform (e.g. tests).
     }
   }
@@ -118,7 +123,22 @@ class _MamilyAppState extends ConsumerState<MamilyApp> {
     if (uri.scheme != 'mamily') return;
     if (uri.host == 'pair') {
       final code = pairingCodeFromLink(uri.toString());
-      if (code == null || !_handledPairCodes.add(code)) return;
+      PairingTrace.log(
+        'pair link received: path "${uri.path}", query keys '
+        '${uri.queryParameters.keys.toList()}, query length '
+        '${uri.query.length}, fragment ${uri.hasFragment ? uri.fragment.length : 0}'
+        ', code ${PairingTrace.mask(code)}${code == null ? ' (unreadable)' : ''}',
+      );
+      if (code == null) {
+        // Never just show the app as if nothing happened: say the link had
+        // no usable code and offer typing it (only when signed out).
+        _openPairingWithoutCode();
+        return;
+      }
+      if (!_handledPairCodes.add(code)) {
+        PairingTrace.log('same code already handled, ignored');
+        return;
+      }
       _pendingPairCode = code;
       _openPendingPairing();
       return;
@@ -132,24 +152,17 @@ class _MamilyAppState extends ConsumerState<MamilyApp> {
     final code = _pendingPairCode;
     if (code == null) return;
     final auth = ref.read(authControllerProvider);
+    PairingTrace.log('pending code, auth ${auth.phase.name}');
     switch (auth.phase) {
       case AuthPhase.restoring || AuthPhase.restoreFailed:
-        return; // Wait: the auth listener calls back when it settles.
+        // Wait: the auth listener calls back when it settles. (A stored
+        // session being retried is never replaced by a scanned code.)
+        return;
       case AuthPhase.unauthenticated:
-        _pendingPairCode = null;
-        WidgetsBinding.instance.addPostFrameCallback((_) {
-          final nav = rootNavigatorKey.currentState;
-          if (nav == null) return;
-          nav.popUntil((r) => r.isFirst);
-          nav.push(
-            MaterialPageRoute<void>(
-              builder: (_) =>
-                  PairingScreen(initialCode: code, autoSubmit: true),
-            ),
-          );
-        });
+        _showPairingScreen(code);
       case AuthPhase.authenticated:
         _pendingPairCode = null;
+        PairingTrace.log('already signed in, code not used');
         // Never swap a live session for a scanned code. A child phone says
         // why nothing happened; a parent phone ignores it.
         if (auth.isChild) {
@@ -157,6 +170,49 @@ class _MamilyAppState extends ConsumerState<MamilyApp> {
           if (ctx != null) showResultSnack(ctx, ctx.l10n.pairAlreadySignedIn);
         }
     }
+  }
+
+  void _openPairingWithoutCode() {
+    final auth = ref.read(authControllerProvider);
+    if (auth.phase == AuthPhase.authenticated) return;
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      final nav = rootNavigatorKey.currentState;
+      if (!mounted || nav == null) return;
+      nav.popUntil((r) => r.isFirst);
+      nav.push(
+        MaterialPageRoute<void>(
+          builder: (_) => const PairingScreen(linkHadNoCode: true),
+        ),
+      );
+      PairingTrace.log('pairing screen opened: link had no code');
+    });
+  }
+
+  /// Opens the pairing screen for [code], keeping the code pending until the
+  /// screen is actually pushed (the navigator can be missing for a frame
+  /// during start-up; dropping the code then meant scanning again).
+  void _showPairingScreen(String code, [int attempt = 0]) {
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      if (!mounted || _pendingPairCode != code) return;
+      final nav = rootNavigatorKey.currentState;
+      if (nav == null) {
+        if (attempt < 20) {
+          _showPairingScreen(code, attempt + 1);
+          WidgetsBinding.instance.scheduleFrame();
+        } else {
+          PairingTrace.log('no navigator, pairing screen not opened');
+        }
+        return;
+      }
+      _pendingPairCode = null;
+      nav.popUntil((r) => r.isFirst);
+      nav.push(
+        MaterialPageRoute<void>(
+          builder: (_) => PairingScreen(initialCode: code, autoSubmit: true),
+        ),
+      );
+      PairingTrace.log('pairing screen opened');
+    });
   }
 
   @override

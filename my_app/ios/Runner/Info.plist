@@ -45,6 +45,8 @@
 	<true/>
 	<key>NSCameraUsageDescription</key>
 	<string>Mamily uses the camera to scan a pairing QR code, and for video calls you choose to answer.</string>
+	<key>NSLocalNetworkUsageDescription</key>
+	<string>Mamily connects to your family’s Mamily server on this network, for example to finish joining after you scan a pairing code.</string>
 	<key>NSLocationAlwaysAndWhenInUseUsageDescription</key>
 	<string>During a trip you start, Mamily keeps sharing this phone's location with your family until you arrive. iPhone shows a blue location indicator while it does.</string>
 	<key>NSLocationWhenInUseUsageDescription</key>

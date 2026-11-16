@@ -114,9 +114,63 @@ void main() {
       );
     });
 
+    testWidgets(
+      'a first request that cannot connect is retried on its own — no tap',
+      (tester) async {
+        // iOS holds the very first local-network request behind its
+        // permission prompt; the scanned code must still go through.
+        pairingRetryDelays = const [Duration(milliseconds: 50)];
+        addTearDown(() => pairingRetryDelays = const [Duration(seconds: 2)]);
+        api.adapter.onPost(
+          '/child-auth/pair',
+          (s) => s.throws(
+            0,
+            DioException.connectionError(
+              requestOptions: RequestOptions(path: '/child-auth/pair'),
+              reason: 'local network not allowed yet',
+            ),
+          ),
+          data: Matchers.any,
+        );
+
+        await tester.pumpWidget(
+          _host(
+            api,
+            const PairingScreen(initialCode: 'DZQN9N6K', autoSubmit: true),
+          ),
+        );
+        for (
+          var i = 0;
+          i < 50 && find.text(l.pairRetrying).evaluate().isEmpty;
+          i++
+        ) {
+          await tester.pump(const Duration(milliseconds: 1));
+        }
+        expect(find.text(l.pairRetrying), findsOneWidget);
+
+        api.adapter.onPost(
+          '/child-auth/pair',
+          (s) => s.reply(201, _pairResponse()),
+          data: Matchers.any,
+        );
+        for (
+          var i = 0;
+          i < 50 && !api.container.read(authControllerProvider).isChild;
+          i++
+        ) {
+          await tester.pump(const Duration(milliseconds: 20));
+        }
+
+        expect(pairCalls(), 2);
+        expect(api.container.read(authControllerProvider).isChild, isTrue);
+      },
+    );
+
     testWidgets('a network failure can be retried without scanning again', (
       tester,
     ) async {
+      pairingRetryDelays = const [];
+      addTearDown(() => pairingRetryDelays = const [Duration(seconds: 2)]);
       api.adapter.onPost(
         '/child-auth/pair',
         (s) => s.throws(
@@ -136,7 +190,7 @@ void main() {
         ),
       );
       await tester.pumpAndSettle();
-      expect(find.text(l.errorNetwork), findsOneWidget);
+      expect(find.text(l.pairNetworkFailed), findsOneWidget);
 
       api.adapter.onPost(
         '/child-auth/pair',
@@ -147,6 +201,17 @@ void main() {
       await tester.pumpAndSettle();
 
       expect(api.container.read(authControllerProvider).isChild, isTrue);
+    });
+
+    testWidgets('a link without a code says so instead of looking idle', (
+      tester,
+    ) async {
+      await tester.pumpWidget(
+        _host(api, const PairingScreen(linkHadNoCode: true)),
+      );
+      await tester.pumpAndSettle();
+      expect(find.text(l.pairLinkNoCode), findsOneWidget);
+      expect(pairCalls(), 0);
     });
 
     testWidgets('pairing screen is right-to-left in Arabic and Hebrew', (

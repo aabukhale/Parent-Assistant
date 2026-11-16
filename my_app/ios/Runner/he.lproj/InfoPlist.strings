@@ -3,3 +3,4 @@
 "NSMicrophoneUsageDescription" = "‏Mamily משתמשת במיקרופון רק במהלך שיחה שבחרת לענות לה.";
 "NSLocationWhenInUseUsageDescription" = "המשפחה שלך יכולה לראות איפה הטלפון הזה, כדי לדעת שהגעת בשלום. תמיד אפשר לראות מתי המיקום משותף.";
 "NSLocationAlwaysAndWhenInUseUsageDescription" = "במהלך נסיעה שהתחלת, ‏Mamily ממשיכה לשתף את מיקום הטלפון עם המשפחה עד ההגעה ליעד. ה-iPhone מציג סימון מיקום כחול בזמן הזה.";
+"NSLocalNetworkUsageDescription" = "‏Mamily מתחברת לשרת ה-Mamily של המשפחה ברשת הזאת, למשל כדי להשלים את ההצטרפות אחרי סריקת קוד חיבור.";
