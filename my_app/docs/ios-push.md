@@ -1,9 +1,19 @@
 # iOS push notifications — diagnosis, fixes, remaining setup
 
-Status (2026-11-15): code and project configuration fixed on branch
-`feature/push-pairing-child-language` (both repos). **Not verified by real APNs
-delivery on a physical iPhone** — that needs the Apple/Firebase steps in §3,
-which can't be done from this machine.
+Status (2026-11-16): **real APNs delivery verified on a physical iPhone 16**
+(bundle `com.moazrazem.mamily`, team 9826A535WG, development APNs key
+uploaded to Firebase `mamily-68729`, backend sending with the project's
+service account). Parent notification sent through the normal
+`SendPushNotification` → FCM path; FCM returned a message id every time:
+
+| App state | FCM | On the phone |
+|---|---|---|
+| Open (foreground) | sent | one banner, no duplicate |
+| Backgrounded (home screen) | sent | banner shown |
+| Fully closed (swiped away) | sent | banner shown; tap cold-started the app and opened the notification inbox (`/parent/inbox`) |
+
+Not yet run on the phone: a child-side push in the child's language,
+production APNs (TestFlight/App Store build), Android with the same backend.
 
 Push path: Laravel `NotificationService` → `push_deliveries` row →
 queued `SendPushNotification` → `FcmPushGateway` (FCM HTTP v1) → Firebase →
