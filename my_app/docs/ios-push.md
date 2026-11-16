@@ -34,7 +34,9 @@ passed on the phone on 2026-11-16 22:00. The earlier "code value 50 characters
 long" failures were caused by the test QR images, not iOS: the script that made
 them (zsh, no word splitting) encoded the whole line "link code expiry". The
 QR the parent app draws contains only the link. The app now tolerates text
-after a valid code anyway.
+after a valid code anyway. Re-checked at 22:04 with a link-only QR identical to
+the parent app's (`mamily://pair?code=…`, 27 characters): one scan, one
+redemption, Sara's home, push token registered.
 
 Push path: Laravel `NotificationService` → `push_deliveries` row →
 queued `SendPushNotification` → `FcmPushGateway` (FCM HTTP v1) → Firebase →
