@@ -12,8 +12,24 @@ service account). Parent notification sent through the normal
 | Backgrounded (home screen) | sent | banner shown |
 | Fully closed (swiped away) | sent | banner shown; tap cold-started the app and opened the notification inbox (`/parent/inbox`) |
 
-Not yet run on the phone: a child-side push in the child's language,
-production APNs (TestFlight/App Store build), Android with the same backend.
+Child side, same phone paired as Sara (language set to Arabic), parent
+encouragement → `SendPushNotification` → FCM:
+
+| App state | FCM | On the phone |
+|---|---|---|
+| Open | sent | Arabic banner ("لديك رسالة جديدة.") |
+| Backgrounded | sent | Arabic banner |
+| Fully closed | sent | Arabic banner; tap cold-started the app on Sara's messages (`/child/messages`) |
+
+Session switch: signing the parent out cleared that install's token before the
+phone paired as Sara; Sara's notifications went only to Sara's installs (an
+old simulator install with a token from the previous Firebase app failed once
+with `THIRD_PARTY_AUTH_ERROR`, recorded as permanent, not retried).
+
+Not yet run: production APNs (TestFlight/App Store build), Android with the
+same backend. One-scan pairing from the iPhone Camera still fails on a real
+phone (the `code` value arrives 50 characters long; the app now says so and
+the typed code works) — being fixed separately.
 
 Push path: Laravel `NotificationService` → `push_deliveries` row →
 queued `SendPushNotification` → `FcmPushGateway` (FCM HTTP v1) → Firebase →
